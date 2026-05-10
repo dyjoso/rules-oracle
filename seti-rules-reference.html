@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Rules — Rules Reference</title>
+<style>
+:root {
+  --bg:            #f2ede6;
+  --text:          #1a1a1a;
+  --header-bg:     #1a2a3a;
+  --section-bg:    #1a2a3a;
+  --subsection-bg: #c8873a;
+  --rule:          #b0a898;
+  --accent:        #c8873a;
+  --table-head:    #2a3f55;
+  --note-bg:       #e8e0d4;
+  --body-bg:       #ffffff;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 15px;
+  line-height: 1.55;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* ── STICKY HEADER ───────────────────────────────────────── */
+.sticky-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--header-bg);
+  padding: 10px 14px 12px;
+  padding-top: max(10px, env(safe-area-inset-top));
+  padding-left: max(14px, env(safe-area-inset-left));
+  padding-right: max(14px, env(safe-area-inset-right));
+  box-shadow: 0 2px 12px rgba(0,0,0,0.4);
+}
+
+.masthead-row {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 9px;
+}
+
+.masthead-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  line-height: 1.1;
+  flex-shrink: 0;
+}
+
+.masthead-subtitle {
+  font-size: 11px;
+  color: rgba(255,255,255,0.45);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.search-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-icon {
+  position: absolute;
+  left: 10px;
+  width: 15px;
+  height: 15px;
+  color: rgba(255,255,255,0.4);
+  pointer-events: none;
+  flex-shrink: 0;
+}
+
+#search {
+  width: 100%;
+  padding: 8px 36px 8px 32px;
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 8px;
+  font-size: 15px;
+  background: rgba(255,255,255,0.12);
+  color: #fff;
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+#search::placeholder { color: rgba(255,255,255,0.38); }
+
+#search:focus {
+  background: rgba(255,255,255,0.2);
+  border-color: rgba(255,255,255,0.3);
+}
+
+.search-clear {
+  position: absolute;
+  right: 6px;
+  background: rgba(255,255,255,0.18);
+  border: none;
+  border-radius: 50%;
+  color: rgba(255,255,255,0.8);
+  font-size: 14px;
+  line-height: 1;
+  width: 22px;
+  height: 22px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  flex-shrink: 0;
+}
+
+.search-clear.visible { display: flex; }
+
+/* ── MAIN ────────────────────────────────────────────────── */
+main {
+  padding: 10px 12px 48px;
+  padding-left: max(12px, env(safe-area-inset-left));
+  padding-right: max(12px, env(safe-area-inset-right));
+  padding-bottom: max(48px, env(safe-area-inset-bottom));
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+/* ── NO RESULTS ──────────────────────────────────────────── */
+#no-results {
+  display: none;
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--text);
+  opacity: 0.5;
+  font-size: 14px;
+}
+
+/* ── COLLAPSIBLE SECTIONS ────────────────────────────────── */
+details.section {
+  margin-bottom: 6px;
+  border-radius: 6px;
+  overflow: hidden;
+  scroll-margin-top: 130px;
+}
+
+details.section > summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  min-height: 44px;
+  background: var(--section-bg);
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  list-style: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+details.section > summary::-webkit-details-marker { display: none; }
+
+.chevron {
+  width: 12px;
+  height: 12px;
+  opacity: 0.65;
+  flex-shrink: 0;
+  margin-left: 8px;
+  transition: transform 0.18s ease;
+}
+
+details.section[open] > summary .chevron {
+  transform: rotate(90deg);
+}
+
+.section-body {
+  background: var(--body-bg);
+  padding: 10px 12px 12px;
+  border: 1px solid var(--rule);
+  border-top: none;
+  border-radius: 0 0 6px 6px;
+}
+
+/* ── HEADINGS WITHIN SECTIONS ────────────────────────────── */
+.subsection-title {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: #fff;
+  background: var(--subsection-bg);
+  padding: 4px 12px;
+  margin: 10px -12px 7px;
+}
+
+.label-title {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--section-bg);
+  border-bottom: 1.5px solid var(--rule);
+  padding-bottom: 3px;
+  margin: 10px 0 5px;
+}
+
+.inline-title {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 8px 0 3px;
+}
+
+/* ── BODY TEXT ───────────────────────────────────────────── */
+p { margin-bottom: 7px; }
+b, strong { font-weight: 600; }
+em, i { font-style: italic; }
+
+/* ── LISTS ───────────────────────────────────────────────── */
+ul, ol { padding-left: 20px; margin-bottom: 6px; }
+ul { list-style-type: disc; }
+ol { list-style-type: decimal; }
+ul ul { list-style-type: circle; }
+li { margin-bottom: 3px; }
+li > ul, li > ol { margin-top: 2px; margin-bottom: 0; }
+
+/* ── TABLES ──────────────────────────────────────────────── */
+.table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin-bottom: 6px;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  min-width: 260px;
+}
+thead tr { background: var(--table-head); color: white; }
+thead th {
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  padding: 5px 8px;
+  text-align: left;
+  white-space: nowrap;
+}
+tbody tr:nth-child(even) { background: var(--note-bg); }
+tbody td { padding: 5px 8px; vertical-align: top; }
+
+/* ── BLOCKQUOTE ──────────────────────────────────────────── */
+blockquote {
+  background: var(--note-bg);
+  border-left: 3px solid var(--accent);
+  padding: 6px 10px;
+  margin: 5px 0 7px;
+  font-size: 14px;
+  border-radius: 0 4px 4px 0;
+}
+blockquote p { margin-bottom: 2px; }
+
+/* ── INLINE CODE ─────────────────────────────────────────── */
+code {
+  background: var(--note-bg);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  padding: 1px 4px;
+  font-size: 13px;
+  font-family: inherit;
+  font-weight: 600;
+}
+
+/* ── HR ──────────────────────────────────────────────────── */
+hr { border: none; border-top: 1px solid var(--rule); margin: 8px 0; }
+
+/* ── SEARCH HIGHLIGHT ────────────────────────────────────── */
+mark {
+  background: #ffe566;
+  color: inherit;
+  border-radius: 2px;
+  padding: 0 1px;
+}
+
+/* ── HIDDEN SECTIONS ─────────────────────────────────────── */
+details.section.search-hidden { display: none; }
+
+/* ── PRINT ───────────────────────────────────────────────── */
+@media print {
+  .sticky-header { position: static; }
+  details.section[open], details.section { display: block; }
+  .section-body { display: block !important; }
+  .search-wrap, .search-clear { display: none; }
+}
+</style>
+</head>
+<body>
+<header class="sticky-header">
+  <div class="masthead-row">
+    <span class="masthead-title">Rules</span>
+    <span class="masthead-subtitle">Rules Reference</span>
+  </div>
+  <div class="search-wrap">
+    <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+         stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+         aria-hidden="true">
+      <circle cx="11" cy="11" r="8"/>
+      <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+    </svg>
+    <input type="text" id="search" placeholder="Search rules…"
+           autocomplete="off" spellcheck="false" autocorrect="off">
+    <button class="search-clear" id="search-clear" aria-label="Clear search">&#x2715;</button>
+  </div>
+</header>
+<main>
+<details class="section" open>
+  <summary><span>🌌 AT A GLANCE</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Game Flow Sequence</span>
+<span class="label-title">Step 1: Start Round</span>
+<p>The player with the <strong>starting player marker</strong> takes the first turn. Players take turns in clockwise order, skipping any players who have already passed for the current round.</p>
+<span class="inline-title">Turn Execution</span>
+<p>Each player takes exactly one <strong>main action</strong>. You may perform <strong>free actions</strong> before, during, or after your main action. Free actions cannot be performed between turns or on another player's turn.</p>
+<span class="label-title">Step 2: Pass</span>
+<p>A player may take the <strong>Pass</strong> action to end their participation in the round. Passing triggers specific end-of-turn steps including card discarding, solar system rotation, and end-of-round card selection.</p>
+<span class="inline-title">Round Conclusion</span>
+<p>Once all players have passed, the round concludes. The last player chooses one of the two remaining end-of-round cards and discards the leftover card.</p>
+<span class="label-title">Step 3: Between Rounds</span>
+<p>Players collect <strong>income</strong> based on their starting income card and all tucked cards. The starting player marker moves one space to the left. The rotation reminder token moves to the next round's card stack.</p>
+<span class="inline-title">Game End</span>
+<p>After five rounds, final scoring is calculated. Players score points for end-of-game scoring cards, gold scoring tiles, and certain alien species. The player with the most points wins. Ties are shared.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>📦 SETUP CHECKLIST</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Board &amp; Component Setup</span>
+<span class="label-title">Main Board Assembly</span>
+<p>Assemble the main board from the planetary board, solar system board, and tech board, and place it in the center of the table. Mix the five alien species boards face down and place two at random in the slots on the edge of the planetary board. Return the others to the box. Leave all alien cards and other alien components in the box.</p>
+<span class="inline-title">Solar System Randomization</span>
+<p>Randomize the three discs in the center of the board and the four sector boards surrounding them so they form eight well-defined sectors with one nearby star in each sector. The discs will rotate and planets will orbit during play.</p>
+<span class="label-title">Component Placement</span>
+<span class="inline-title">Cards &amp; Tokens</span>
+<p>Shuffle the main deck of cards and deal three face up to form the <strong>card row</strong>. Keep the energy and credit tokens close to the board. Place enough data tokens in each nearby star's data slot to fill it, keeping the remaining data nearby.</p>
+<span class="inline-title">Scoring &amp; Milestones</span>
+<p>Place the four double-sided gold scoring tiles beside the board with a random side up. Place neutral markers above the twenty- and thirty-point spaces on the scoring track using an unused color. For two-player games, place two markers above each space. For three-player games, place one marker above each space. In four-player games, ignore these milestones.</p>
+<span class="inline-title">Tech &amp; Rotation Setup</span>
+<p>For each of the twelve technologies on the tech board, shuffle the four matching tech tiles and place them face down on the matching space. Place a two-point tile on top of each stack. Prepare four stacks of end-of-round cards. Each stack contains one more card than there are players. Place one rotation token on the marked space on the tech board. Place the second token on the first pile of end-of-round cards as a reminder to rotate the solar system the first time a player passes in a round.</p>
+<span class="subsection-title">Player Setup</span>
+<span class="label-title">Initial Placement</span>
+<p>Each player selects a color and takes the corresponding pieces, keeping them near their player board. The player who last saw a UFO takes the starting player marker. Starting scores are one point for first player, two for second, three for third, and four for fourth.</p>
+<span class="inline-title">Starting Resources</span>
+<p>Take the starting income card in your color. Your starting resources are four publicity, four credits, three energy, and five cards. Place your publicity counter on the marked space of the publicity track. Take the appropriate number of credit and energy tokens. Draw five cards from the deck. Turn one of your cards into income by tucking it underneath your starting income card. Immediately gain the bonus printed in the bottom-right corner of the tucked card.</p>
+<span class="subsection-title">Solo Variant Setup</span>
+<span class="label-title">Rival Preparation</span>
+<p>Set up the game as you normally would for two players. Give the rival all pieces of one color and place one of the rival's markers on the starting space of the progress track. Determine a starting player at random. The starting player marker will move between you and the rival after each round. Set both publicity markers to four. Choose a difficulty level and give the rival the corresponding player board.</p>
+<span class="inline-title">Action &amp; Objective Decks</span>
+<p>Take the four basic action cards and shuffle them face down to form the rival action deck. For three-star difficulty or higher, randomly select one advanced action card and shuffle it into the deck. Keep the rest of the advanced action cards nearby. Set aside the special action cards for each alien species. Shuffle the level one, two, and three objectives separately. Assemble the objectives stack according to the rival's player board, with level three at the bottom, level two in the middle, and level one on top. Reveal the top three tiles as your first objectives.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>🔄 TURN SEQUENCE</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Step 1: Main Action</span>
+<span class="label-title">Action Selection</span>
+<p>On your turn, you take exactly one main action. You may perform free actions before, during, or after your main action. Free actions cannot be performed between turns or on another player's turn.</p>
+<span class="inline-title">Timing Boundaries</span>
+<p>All actions must be resolved completely before your turn ends. You may interleave free actions with your main action as needed, but you cannot take actions after your turn has ended.</p>
+<span class="subsection-title">Step 2: Free Actions</span>
+<span class="label-title">Resolution Order</span>
+<p>Resolve any free actions you wish to take. These include movement, resource exchange, buying cards, placing data, activating techs, and completing missions. You may perform these at any point during your turn.</p>
+<span class="inline-title">Action Limits</span>
+<p>You may take as many free actions as you wish, provided you have the resources and meet the requirements. Free actions do not count toward your main action limit.</p>
+<span class="subsection-title">Step 3: End Turn</span>
+<span class="label-title">Turn Conclusion</span>
+<p>Once you have finished your main action and free actions, your turn ends. Resolve any milestones or discovered species immediately between turns. The next player in clockwise order takes their turn, skipping any players who have already passed.</p>
+<span class="inline-title">Milestone Resolution</span>
+<p>Milestones are resolved between turns, not immediately when crossed. If multiple players have reached milestones, they resolve in clockwise order starting with the player whose turn just ended.</p>
+<span class="subsection-title">Passing</span>
+<span class="label-title">Pass Action Steps</span>
+<p>Taking the <strong>Pass</strong> action is a main action. You may still perform free actions on the turn you pass. After passing, resolve these steps in order without taking further free actions.</p>
+<span class="inline-title">Pass Sequence</span>
+<p>Discard down to four cards if you hold more than four. Check whether you rotate the solar system. If you are the first player to pass this round, take the rotation reminder token, set it beside the stack, and rotate the solar system. In round five, you still rotate but discard the token. Choose one card from this round's end-of-round cards and return the rest. You may hold onto the cards and delay your final choice until another player passes if necessary. Once everyone has passed, the round ends as soon as the last player chooses one of the two remaining cards and discards the leftover card.</p>
+<span class="subsection-title">Between Rounds</span>
+<span class="label-title">Income Collection</span>
+<p>Three steps occur between rounds. Everyone collects income based on their starting income card and all tucked cards. Pass the starting player marker one space to the left. Move the rotation reminder token onto the stack of cards for the next round.</p>
+<span class="inline-title">Timing Flexibility</span>
+<p>Players may resolve income anytime after passing, even before the current round ends. This speeds up gameplay without changing outcomes.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>🎯 MAIN ACTIONS</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Launch a Probe</span>
+<span class="label-title">Cost</span>
+<p>Two credits.</p>
+<span class="inline-title">Requirement</span>
+<p>You must be at your probe limit of one probe in space.</p>
+<span class="label-title">Effect</span>
+<p>Take one of your probe figures and place it on the Earth space of the solar system board.</p>
+<span class="inline-title">Key Restrictions</span>
+<p>You cannot take this action if you already have a probe in space. Probes in space are figures anywhere in the rings of the solar system board. Figures on the planetary board do not count against this limit.</p>
+<span class="subsection-title">Movement</span>
+<span class="label-title">Cost</span>
+<p>One movement icon per adjacent space. Asteroid spaces require one additional movement icon to leave.</p>
+<span class="inline-title">Requirement</span>
+<p>You must have a probe on the solar system board.</p>
+<span class="label-title">Effect</span>
+<p>Move one of your probes into an adjacent space. The sun is not a space and cannot be moved through. Moving into a space with a publicity icon grants one publicity. Visiting Earth grants no publicity.</p>
+<span class="inline-title">Key Restrictions</span>
+<p>Movement is a free action that can be taken anytime during your turn. You may spend one energy to gain one movement icon. Some cards allow discarding for movement. Rotation of the solar system may push probes into adjacent spaces for free, granting publicity if applicable.</p>
+<span class="subsection-title">Orbit a Planet</span>
+<span class="label-title">Cost</span>
+<p>One credit and one energy.</p>
+<span class="inline-title">Requirement</span>
+<p>Your probe must be on a space with a planet other than Earth.</p>
+<span class="label-title">Effect</span>
+<p>Remove your figure from the solar system board and place it in the orbit of that planet on the planetary board. Gain the bonuses shown above the planet. The first player to enter orbit scores three points. Cover the space with your figure to indicate later orbiters do not score these points.</p>
+<span class="inline-title">Key Restrictions</span>
+<p>There is no limit to the number of orbiters a planet can have. Once on the planetary board, the figure no longer counts against your probe limit.</p>
+<span class="subsection-title">Land on a Planet or Moon</span>
+<span class="label-title">Cost</span>
+<p>Three energy, or two energy if an orbiter is already at that planet.</p>
+<span class="inline-title">Requirement</span>
+<p>Your probe must be on a space with a planet other than Earth.</p>
+<span class="label-title">Effect</span>
+<p>Remove your figure from the solar system board and place it on that planet on the planetary board. Gain the bonuses shown in the middle of the planet, which always include one data token and some points. The first player to land gains additional data. Cover the space with your figure. Mars has two landing spaces; the first two landers choose one to cover.</p>
+<span class="inline-title">Key Restrictions</span>
+<p>You cannot land on moons unless an effect or tech allows it. Each moon has space for only one lander. Landing on a moon grants the depicted rewards. There is no limit to landers on a planet.</p>
+<span class="subsection-title">Scan Nearby Stars</span>
+<span class="label-title">Cost</span>
+<p>One credit and two energy.</p>
+<span class="inline-title">Requirement</span>
+<p>None.</p>
+<span class="label-title">Effect</span>
+<p>Mark one signal in Earth's sector. Discard one card from the card row and mark one signal in a matching sector based on the card's upper right corner. You always mark at least two signals. Activate any telescope techs in any order, paying additional costs if required.</p>
+<span class="inline-title">Key Restrictions</span>
+<p>Scanning is the primary way to earn data tokens. You may mark up to four signals with the right techs.</p>
+<span class="subsection-title">Analyze Data</span>
+<span class="label-title">Cost</span>
+<p>One energy.</p>
+<span class="inline-title">Requirement</span>
+<p>The top row of your computer must be filled with data tokens.</p>
+<span class="label-title">Effect</span>
+<p>Discard every data token in your computer. Mark one life trace icon for one of the two alien species. Your computer is now empty and can be filled again.</p>
+<span class="inline-title">Key Restrictions</span>
+<p>Data in your data pool is not discarded. Computer techs expand the computer but do not affect the requirement to fill the top row.</p>
+<span class="subsection-title">Research a Tech</span>
+<span class="label-title">Cost</span>
+<p>Six publicity.</p>
+<span class="inline-title">Requirement</span>
+<p>You must be on space six or higher on the publicity track.</p>
+<span class="label-title">Effect</span>
+<p>Rotate the solar system. Choose one tech stack you do not have yet. Take the top tech tile. If you are the first to take from that stack, discard the two-point tile and score two points. Gain the immediate bonus printed on the tile. Flip the tile over and place it on your board.</p>
+<span class="inline-title">Key Restrictions</span>
+<p>Probe and telescope techs have specific slots. Computer techs can go in any computer tech slot, even under existing data tokens, but do not trigger data placement effects. Cards that grant techs limit your choice to a specific type and do not require publicity payment. If you already have all four of a type, ignore that part of the effect but still rotate the solar system.</p>
+<span class="subsection-title">Play a Card</span>
+<span class="label-title">Cost</span>
+<p>Printed on the card.</p>
+<span class="inline-title">Requirement</span>
+<p>You must hold the card in your hand.</p>
+<span class="label-title">Effect</span>
+<p>Resolve the white effect section of the card. If the effect includes other actions, perform them without paying standard costs. Place the card face up in the discard pile.</p>
+<span class="inline-title">Key Restrictions</span>
+<p>A card is used for only one benefit. If played as a main action, you cannot discard it for its free action on the same turn.</p>
+<span class="subsection-title">Pass</span>
+<span class="label-title">Cost</span>
+<p>None.</p>
+<span class="inline-title">Requirement</span>
+<p>None.</p>
+<span class="label-title">Effect</span>
+<p>End your participation in the current round. Resolve passing steps: discard down to four cards, rotate solar system if first to pass, choose an end-of-round card.</p>
+<span class="inline-title">Key Restrictions</span>
+<p>You may take free actions before passing. You cannot take further actions after passing.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>✋ FREE ACTIONS & TIMING</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Movement &amp; Positioning</span>
+<span class="label-title">Probe Movement</span>
+<p>You may spend one energy to gain one movement icon. You may discard a card with a movement icon to move a probe. You may move your probe figures around the solar system board using movement icons. These actions can be taken anytime during your turn.</p>
+<span class="inline-title">Timing Rules</span>
+<p>Movement free actions do not count toward your main action limit. You may move before, during, or after your main action.</p>
+<span class="subsection-title">Data &amp; Tech</span>
+<span class="label-title">Data Placement</span>
+<p>You may take a data token from your data pool and place it in your computer from left to right. Resolve any effects immediately when covering a space. You may activate telescope techs during a scan action in any order, paying additional costs if required. These actions can be taken anytime during your turn.</p>
+<span class="inline-title">Tech Activation</span>
+<p>Telescope techs require payment of additional costs if specified. Activation order is flexible. Computer techs do not require activation but expand placement options.</p>
+<span class="subsection-title">Economy &amp; Cards</span>
+<span class="label-title">Resource Management</span>
+<p>You may exchange two cards, two credits, or two energy for one card, one credit, or one energy. When exchanging for a card, draw from the card row or top of the deck. You may buy a card by spending three publicity, drawing from the card row or top of the deck. You may tuck a card from your hand underneath your starting income card whenever you gain the corresponding resource icon. Immediately gain the bonus printed in the bottom-right corner. These actions can be taken anytime during your turn.</p>
+<span class="inline-title">Income Tucking</span>
+<p>Tucking a card permanently increases your income. The immediate bonus is gained upon tucking. Subsequent income is collected between rounds.</p>
+<span class="subsection-title">Missions &amp; Objectives</span>
+<span class="label-title">Mission Completion</span>
+<p>You may complete conditional missions at any time during your turn if the condition is met. Gain the reward and turn the card face down. You may trigger triggerable missions when you perform the depicted action. Cover the circle with a marker and gain the bonus. Only actions performed after playing the mission count. You may complete objectives by marking tasks. Move completed objectives to a completed pile and replace them with new ones. These actions can be taken anytime during your turn.</p>
+<span class="inline-title">Objective Tracking</span>
+<p>Objectives require marking tasks. Completed objectives move to a pile and are replaced. At the end of rounds one through four, spend completed objectives equal to the round number. For each unspent objective, the rival advances three progress spaces. At the end of round five, the rival scores five points per uncompleted objective. One-star difficulty has no objectives.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>🃏 CARD & RESOURCE RULES</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Income &amp; Card Types</span>
+<span class="label-title">Income Generation</span>
+<p>Whenever you gain a resource icon, you may tuck a card from your hand underneath your starting income card. The tucked card permanently bolsters your income. Immediately gain the bonus printed in the bottom-right corner. You receive this bonus again at the start of each round from round two onwards.</p>
+<span class="inline-title">Card Structure</span>
+<p>Cards contain several sections. The free action allows discarding the card anytime during your turn to gain the depicted benefit. The main action cost is paid only if played as a main action. The effect resolves when played as a main action. The mission section grants additional bonuses if conditions are met. The sector color is important during scan actions. The income icon indicates the resource type gained when tucked.</p>
+<span class="subsection-title">Deck &amp; Row Management</span>
+<span class="label-title">Card Row Refill</span>
+<p>When you draw a card from the card row, replace it immediately with a card from the top of the deck. If the deck is empty, shuffle the discard pile to make a new deck. Effects that let you draw a card allow drawing from the card row or top of the deck. Effects that specify drawing a random card mean drawing from the top of the deck only.</p>
+<span class="inline-title">Draw Sources</span>
+<p>Distinguish between row draws and deck draws based on effect wording. Row draws allow choice. Deck draws are random.</p>
+<span class="subsection-title">Data Capacity</span>
+<span class="label-title">Pool Limits</span>
+<p>Your data pool can never hold more than six data tokens at a time. If you would gain data when your pool is full, discard the excess immediately.</p>
+<span class="inline-title">Placement Rules</span>
+<p>Data is placed from left to right in the computer. Effects resolve immediately upon covering a space. Lower computer spaces require upper spaces to be filled first.</p>
+<span class="subsection-title">Conditional Missions</span>
+<span class="label-title">Condition Tracking</span>
+<p>These cards state a condition and a reward. Keep the card face up in front of you after playing it. At any time during your turn, if the condition is met, complete the mission as a free action by gaining the reward and turning the card face down. You may complete it immediately if the condition is already met, or delay completion until any future turn as long as the condition remains met. Keep completed missions face down.</p>
+<span class="inline-title">Completion Timing</span>
+<p>Completion is optional and can be delayed. The condition must be met at the time of completion.</p>
+<span class="subsection-title">Triggerable Missions</span>
+<span class="label-title">Trigger Resolution</span>
+<p>These missions are triggered by actions you perform. When you trigger the mission, you may cover the circle with a marker and gain the bonus. Only actions performed after playing the mission count. Each circle can only be covered once. If one effect triggers multiple rewards, you may cover only a single space at a time. Trigger the mission again to cover another space. Once all spaces are covered, the mission is automatically completed. Keep it face down.</p>
+<span class="inline-title">Multi-Trigger Limits</span>
+<p>One trigger event covers only one space. Multiple triggers are required for multiple spaces.</p>
+<span class="subsection-title">End-of-Game Scoring Cards</span>
+<span class="label-title">Scoring Preparation</span>
+<p>Cards with gold boxes offer points at the end of the game. After resolving the card's effect, keep it face up in front of you for the rest of the game.</p>
+<span class="inline-title">Final Tally</span>
+<p>Score points for these cards during the final scoring phase. They do not provide immediate points.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>⚙️ KEY MECHANICS & REMINDERS</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Sector Resolution</span>
+<span class="label-title">Marking Signals</span>
+<p>Marking a signal involves taking the leftmost data token from a sector's data slot, putting it in your data pool, and replacing it with a marker in your color. Data is replaced from left to right. Placing a marker in the second position immediately scores two points. You may place more markers than a sector can hold; excess markers do not grant data but count toward winning.</p>
+<span class="inline-title">Signal Placement Order</span>
+<p>Always replace data from left to right. Excess markers are allowed and track contribution.</p>
+<span class="label-title">Completing a Sector</span>
+<p>Completing a sector occurs when you replace the last data token. Resolve completed sectors after your main action in any order. The player with the most markers wins the sector, places a marker beside the nearby star, and takes the reward. Ties are broken in favor of the player whose marker was placed later. Excess markers count toward winning. Each player with at least one marker gains one publicity.</p>
+<span class="inline-title">Winner Determination</span>
+<p>Most markers wins. Tiebreaker favors later placement. All contributors gain publicity.</p>
+<span class="label-title">Resetting the Sector</span>
+<p>Resetting the sector involves determining the winner and second place using the same tiebreaker. The second-place player leaves a marker on the first space of the sector. Return all other markers to players and refill emptied spaces with data tokens. The sector can be completed and won again. Winners always leave a marker beside the star, which is ignored when determining future winners.</p>
+<span class="inline-title">Sector Refresh</span>
+<p>Second place keeps one marker. Others return markers. Data refills. Sector resets for future play.</p>
+<span class="subsection-title">Milestones &amp; Scoring</span>
+<span class="label-title">Milestone Reference Table</span>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Milestone Type</th>
+<th>Trigger Points</th>
+<th>Player Count Rules</th>
+<th>Resolution Order</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Gold</td>
+<td>25, 50, 70</td>
+<td>All players</td>
+<td>Clockwise from current player</td>
+</tr>
+<tr>
+<td>Neutral</td>
+<td>20, 30</td>
+<td>2-3 players only</td>
+<td>Always resolved last</td>
+</tr>
+</tbody>
+</table></div>
+<span class="inline-title">Gold Milestone Rules</span>
+<p>At the end of a turn when you reach or pass twenty-five, fifty, or seventy points, choose one gold scoring tile and mark it. The first player to choose a tile places a marker on the highest value, the second player on the second-highest, and so on. You cannot mark the same tile twice. Scoring over one hundred points has no effect on the second trip around the track.</p>
+<span class="inline-title">Neutral Milestone Rules</span>
+<p>In games with fewer than four players, move a nonplayer marker from the milestone to the leftmost empty discovery space for an alien species. If all six spaces are full, the milestones have no effect. In four-player games, ignore neutral milestones completely.</p>
+<span class="subsection-title">Solo Variant &amp; Edge Cases</span>
+<span class="label-title">Rival Turn Structure</span>
+<p>The rival takes turns as a second player. Reveal the top action card. The rival performs one action from top to bottom, skipping impossible actions. After completing an action, the rival's turn ends.</p>
+<span class="inline-title">Rival Action Execution</span>
+<p>Actions are attempted in order. Impossible actions are skipped. The rival always completes one action per turn.</p>
+<span class="label-title">Rival Tech &amp; Resources</span>
+<p>Rival tech actions require six publicity. If the rival has less, skip the action. The rival chooses techs based on the progress track, prioritizing stacks with two-point tiles. The rival gains immediate bonuses but never gains data or life trace bonuses from techs. The rival uses tech tiles as resources, discarding them to enhance actions: probe tech prioritizes moon landing, telescope tech marks an extra signal, computer tech gains three points and one progress.</p>
+<span class="inline-title">Rival Progression</span>
+<p>The rival advances on the progress track when using actions with progress effects, gaining resources, or failing objectives. The rival's computer has no data pool limit. Data goes directly to the computer, then to the pool if full. Publicity advances the counter. Victory points move the score counter. The rival claims only the first spot on gold tiles, choosing leftmost or rightmost based on the decision arrow.</p>
+<span class="label-title">Rival Movement &amp; Scanning</span>
+<p>Rival launch places a probe on Earth. If a probe is already there, skip. Rival orbit/lander moves a probe from Earth to a reachable planet, paying extra for asteroids. The rival prioritizes moon landing by discarding a probe tech, then first orbiter or lander space. The rival gains all points, resources, and life traces. Rival life traces mark the lowest available space in the column, ignoring overflow unless full. Ties favor leftmost or rightmost based on the decision arrow. Rival telescope actions mark signals as shown, using the decision arrow for card row choices. The rival discards a telescope tech to mark an extra signal. Sector choice prioritizes winning, then scoring two points, then most markers, with ties favoring bigger sectors.</p>
+<span class="inline-title">Rival Analysis &amp; Discovery</span>
+<p>Rival analyze requires a full computer. Remove all data, gain the action benefit, and gain a life trace. Place data from the pool into the computer, resolving effects. Discard a computer tech for three points and one progress. Species discovery checks replace the action card with a special alien card if discovered. If not discovered, skip. Rival passing occurs if the action deck is empty. Remove a top end-of-round card, advance progress track, and rotate solar system if first to pass.</p>
+<span class="label-title">Edge Case Clarifications</span>
+<p>Rotate the solar system before choosing a tech. Pay one extra movement to leave asteroids. Tucking a card for income grants the resource immediately. The first player to pass rotates the solar system at the end of their turn, including round five. Ignore effects granting publicity if you already have ten. Discard excess data if your pool is full. Resolve milestones between turns, not immediately. Free actions cannot be played between turns or on another player's turn. The second-place player in a closed sector keeps one marker when refreshed, unless all markers belong to one player. Ignoring probe limits only applies to the specific action granting it. Resource exchange requires two of the same type. Alien cards count as cards for exchange, except Exertian cards. Markers left after winning a sector do not help win it again. Probes grant publicity when pushed onto comet spaces. There is no limit to markers; use replacements if needed.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>📖 TERMINOLOGY & LEGEND</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Icon Definitions</span>
+<span class="label-title">Symbol Reference Table</span>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Icon / Term</th>
+<th>Definition</th>
+<th>Usage Context</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Figure at a planet</td>
+<td>A lander, orbiter, or moon figure on the planetary board</td>
+<td>Does not include probes on the solar system board</td>
+</tr>
+<tr>
+<td>Mark a signal</td>
+<td>Place a marker in a sector data slot</td>
+<td>Card specifies location</td>
+</tr>
+<tr>
+<td>Discard card for signal</td>
+<td>Discard a card from the card row and mark a signal in a matching sector</td>
+<td>Scan actions and card effects</td>
+</tr>
+<tr>
+<td>Color match</td>
+<td>Mark a signal in a sector matching this color</td>
+<td>Sector targeting</td>
+</tr>
+<tr>
+<td>Sector win</td>
+<td>A victory in a sector of this color</td>
+<td>Scoring and mission conditions</td>
+</tr>
+<tr>
+<td>Any sector win</td>
+<td>A victory in any sector</td>
+<td>General scoring conditions</td>
+</tr>
+<tr>
+<td>Move within same ring</td>
+<td>A movement that does not change distance from the sun</td>
+<td>Movement restrictions</td>
+</tr>
+<tr>
+<td>Life trace marked</td>
+<td>A pink, yellow, or blue life trace you have marked</td>
+<td>Alien discovery tracking</td>
+</tr>
+<tr>
+<td>Discard for signal</td>
+<td>Discard a card from your hand and mark a signal in a matching sector based on the upper-right corner</td>
+<td>Hand management</td>
+</tr>
+<tr>
+<td>Visit a planet</td>
+<td>Move a probe onto a planet space</td>
+<td>Triggers only on arrival, not if already present</td>
+</tr>
+</tbody>
+</table></div>
+<span class="inline-title">Legend Notes</span>
+<p>All icons correspond to player board and card layouts. Definitions are concise for quick reference. Overlapping terminology has been consolidated into this section.</p>
+  </div>
+</details>
+  <p id="no-results">No sections match your search.</p>
+</main>
+<script>
+(function () {
+  var searchEl  = document.getElementById('search');
+  var clearBtn  = document.getElementById('search-clear');
+  var noResults = document.getElementById('no-results');
+  var sections  = Array.from(document.querySelectorAll('details.section'));
+
+  // Snapshot each section body's original HTML so we can restore it
+  // before applying a new round of highlights.
+  sections.forEach(function (s) {
+    var body = s.querySelector('.section-body');
+    if (body) body.dataset.original = body.innerHTML;
+  });
+
+  var timer;
+
+  searchEl.addEventListener('input', function () {
+    var term = this.value.trim();
+    clearBtn.classList.toggle('visible', term.length > 0);
+    clearTimeout(timer);
+    timer = setTimeout(function () { applySearch(term); }, 180);
+  });
+
+  clearBtn.addEventListener('click', function () {
+    searchEl.value = '';
+    clearBtn.classList.remove('visible');
+    applySearch('');
+    searchEl.focus();
+  });
+
+  function escapeRe(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlightTextNodes(container, re) {
+    var walker = document.createTreeWalker(
+      container, NodeFilter.SHOW_TEXT, null, false
+    );
+    var nodes = [];
+    var n;
+    while ((n = walker.nextNode())) {
+      if (n.nodeValue.trim()) nodes.push(n);
+    }
+    nodes.forEach(function (textNode) {
+      re.lastIndex = 0;
+      if (!re.test(textNode.nodeValue)) return;
+      re.lastIndex = 0;
+      var span = document.createElement('span');
+      span.innerHTML = textNode.nodeValue.replace(
+        re, function (m) { return '<mark>' + m + '</mark>'; }
+      );
+      textNode.parentNode.replaceChild(span, textNode);
+    });
+  }
+
+  function applySearch(term) {
+    var re = term ? new RegExp(escapeRe(term), 'gi') : null;
+    var visibleCount = 0;
+
+    sections.forEach(function (section) {
+      var body    = section.querySelector('.section-body');
+      var summary = section.querySelector('summary');
+
+      // Restore original HTML before each search pass
+      if (body) body.innerHTML = body.dataset.original;
+
+      if (!re) {
+        section.classList.remove('search-hidden');
+        section.open = false;
+        return;
+      }
+
+      var titleText = summary ? summary.textContent : '';
+      var bodyText  = body    ? body.textContent    : '';
+
+      re.lastIndex = 0;
+      var inTitle = re.test(titleText);
+      re.lastIndex = 0;
+      var inBody  = re.test(bodyText);
+      re.lastIndex = 0;
+
+      if (inTitle || inBody) {
+        section.classList.remove('search-hidden');
+        section.open = true;
+        if (body) highlightTextNodes(body, new RegExp(escapeRe(term), 'gi'));
+        visibleCount++;
+      } else {
+        section.classList.add('search-hidden');
+      }
+    });
+
+    noResults.style.display = (re && visibleCount === 0) ? 'block' : 'none';
+  }
+})();
+</script>
+</body>
+</html>

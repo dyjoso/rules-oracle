@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Rules — Rules Reference</title>
+<style>
+:root {
+  --bg:            #f2ede6;
+  --text:          #1a1a1a;
+  --header-bg:     #1a2a3a;
+  --section-bg:    #1a2a3a;
+  --subsection-bg: #c8873a;
+  --rule:          #b0a898;
+  --accent:        #c8873a;
+  --table-head:    #2a3f55;
+  --note-bg:       #e8e0d4;
+  --body-bg:       #ffffff;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 15px;
+  line-height: 1.55;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* ── STICKY HEADER ───────────────────────────────────────── */
+.sticky-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--header-bg);
+  padding: 10px 14px 12px;
+  padding-top: max(10px, env(safe-area-inset-top));
+  padding-left: max(14px, env(safe-area-inset-left));
+  padding-right: max(14px, env(safe-area-inset-right));
+  box-shadow: 0 2px 12px rgba(0,0,0,0.4);
+}
+
+.masthead-row {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 9px;
+}
+
+.masthead-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  line-height: 1.1;
+  flex-shrink: 0;
+}
+
+.masthead-subtitle {
+  font-size: 11px;
+  color: rgba(255,255,255,0.45);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.search-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-icon {
+  position: absolute;
+  left: 10px;
+  width: 15px;
+  height: 15px;
+  color: rgba(255,255,255,0.4);
+  pointer-events: none;
+  flex-shrink: 0;
+}
+
+#search {
+  width: 100%;
+  padding: 8px 36px 8px 32px;
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 8px;
+  font-size: 15px;
+  background: rgba(255,255,255,0.12);
+  color: #fff;
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+#search::placeholder { color: rgba(255,255,255,0.38); }
+
+#search:focus {
+  background: rgba(255,255,255,0.2);
+  border-color: rgba(255,255,255,0.3);
+}
+
+.search-clear {
+  position: absolute;
+  right: 6px;
+  background: rgba(255,255,255,0.18);
+  border: none;
+  border-radius: 50%;
+  color: rgba(255,255,255,0.8);
+  font-size: 14px;
+  line-height: 1;
+  width: 22px;
+  height: 22px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  flex-shrink: 0;
+}
+
+.search-clear.visible { display: flex; }
+
+/* ── MAIN ────────────────────────────────────────────────── */
+main {
+  padding: 10px 12px 48px;
+  padding-left: max(12px, env(safe-area-inset-left));
+  padding-right: max(12px, env(safe-area-inset-right));
+  padding-bottom: max(48px, env(safe-area-inset-bottom));
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+/* ── NO RESULTS ──────────────────────────────────────────── */
+#no-results {
+  display: none;
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--text);
+  opacity: 0.5;
+  font-size: 14px;
+}
+
+/* ── COLLAPSIBLE SECTIONS ────────────────────────────────── */
+details.section {
+  margin-bottom: 6px;
+  border-radius: 6px;
+  overflow: hidden;
+  scroll-margin-top: 130px;
+}
+
+details.section > summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  min-height: 44px;
+  background: var(--section-bg);
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  list-style: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+details.section > summary::-webkit-details-marker { display: none; }
+
+.chevron {
+  width: 12px;
+  height: 12px;
+  opacity: 0.65;
+  flex-shrink: 0;
+  margin-left: 8px;
+  transition: transform 0.18s ease;
+}
+
+details.section[open] > summary .chevron {
+  transform: rotate(90deg);
+}
+
+.section-body {
+  background: var(--body-bg);
+  padding: 10px 12px 12px;
+  border: 1px solid var(--rule);
+  border-top: none;
+  border-radius: 0 0 6px 6px;
+}
+
+/* ── HEADINGS WITHIN SECTIONS ────────────────────────────── */
+.subsection-title {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: #fff;
+  background: var(--subsection-bg);
+  padding: 4px 12px;
+  margin: 10px -12px 7px;
+}
+
+.label-title {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--section-bg);
+  border-bottom: 1.5px solid var(--rule);
+  padding-bottom: 3px;
+  margin: 10px 0 5px;
+}
+
+.inline-title {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 8px 0 3px;
+}
+
+/* ── BODY TEXT ───────────────────────────────────────────── */
+p { margin-bottom: 7px; }
+b, strong { font-weight: 600; }
+em, i { font-style: italic; }
+
+/* ── LISTS ───────────────────────────────────────────────── */
+ul, ol { padding-left: 20px; margin-bottom: 6px; }
+ul { list-style-type: disc; }
+ol { list-style-type: decimal; }
+ul ul { list-style-type: circle; }
+li { margin-bottom: 3px; }
+li > ul, li > ol { margin-top: 2px; margin-bottom: 0; }
+
+/* ── TABLES ──────────────────────────────────────────────── */
+.table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin-bottom: 6px;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  min-width: 260px;
+}
+thead tr { background: var(--table-head); color: white; }
+thead th {
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  padding: 5px 8px;
+  text-align: left;
+  white-space: nowrap;
+}
+tbody tr:nth-child(even) { background: var(--note-bg); }
+tbody td { padding: 5px 8px; vertical-align: top; }
+
+/* ── BLOCKQUOTE ──────────────────────────────────────────── */
+blockquote {
+  background: var(--note-bg);
+  border-left: 3px solid var(--accent);
+  padding: 6px 10px;
+  margin: 5px 0 7px;
+  font-size: 14px;
+  border-radius: 0 4px 4px 0;
+}
+blockquote p { margin-bottom: 2px; }
+
+/* ── INLINE CODE ─────────────────────────────────────────── */
+code {
+  background: var(--note-bg);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  padding: 1px 4px;
+  font-size: 13px;
+  font-family: inherit;
+  font-weight: 600;
+}
+
+/* ── HR ──────────────────────────────────────────────────── */
+hr { border: none; border-top: 1px solid var(--rule); margin: 8px 0; }
+
+/* ── SEARCH HIGHLIGHT ────────────────────────────────────── */
+mark {
+  background: #ffe566;
+  color: inherit;
+  border-radius: 2px;
+  padding: 0 1px;
+}
+
+/* ── HIDDEN SECTIONS ─────────────────────────────────────── */
+details.section.search-hidden { display: none; }
+
+/* ── PRINT ───────────────────────────────────────────────── */
+@media print {
+  .sticky-header { position: static; }
+  details.section[open], details.section { display: block; }
+  .section-body { display: block !important; }
+  .search-wrap, .search-clear { display: none; }
+}
+</style>
+</head>
+<body>
+<header class="sticky-header">
+  <div class="masthead-row">
+    <span class="masthead-title">Rules</span>
+    <span class="masthead-subtitle">Rules Reference</span>
+  </div>
+  <div class="search-wrap">
+    <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+         stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+         aria-hidden="true">
+      <circle cx="11" cy="11" r="8"/>
+      <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+    </svg>
+    <input type="text" id="search" placeholder="Search rules…"
+           autocomplete="off" spellcheck="false" autocorrect="off">
+    <button class="search-clear" id="search-clear" aria-label="Clear search">&#x2715;</button>
+  </div>
+</header>
+<main>
+<details class="section" open>
+  <summary><span>Setting up</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Build the Track</span>
+<p>Pick a stage card, and lay out the track tiles as depicted on it.</p>
+<p>For your first game: Use the Avenue Corso Paseo stage card. For all the tiles, use the sides marked with lower case letters (abc...) as shown on the card and in the picture below.</p>
+<span class="subsection-title">Pick a Colour</span>
+<p>Take a sprinteur and a rouleur model, their matching energy cards, and a player board of your colour.</p>
+<span class="subsection-title">Form Rider Decks</span>
+<p>Shuffle your sprinteur's energy cards to form a deck, and place it on your player board face down on its indicated space. Then, do the same for your rouleur's energy cards.</p>
+<span class="subsection-title">Form Exhaustion Decks</span>
+<p>Place all sprinteur exhaustion cards face up within easy reach of all players. Then, do the same for rouleur exhaustion cards.</p>
+<span class="subsection-title">Building the Track</span>
+<p>The track tiles are identified with lower case and capital letters in the lower left corner, e.g. a on one side and A on the other.</p>
+<p>The start and finish tiles are highlighted with yellow.</p>
+<p>The start tile is also marked with ►. At the bottom of the stage card, there is a string of letters that shows you the correct order of the tiles.</p>
+<span class="subsection-title">Starting Positions</span>
+<p>The player who most recently rode a bike (youngest if tied) freely places their two riders one at a time in any square with a free lane, behind the Start line. Continue clockwise around the table until all riders have been placed.</p>
+<p>Red player places their riders first. Black player goes second. Blue player then joins black in the 3rd square and takes the top position, which had been left free.</p>
+<span class="subsection-title">Square vs. Lane</span>
+<p>Squares are divided from each other with thick white lines.</p>
+<p>Each square has two lanes: left &amp; right.</p>
+<p>One rider occupies one lane.</p>
+<p>If a square is empty, riders are always placed in the right lane (which is marked with a double line).</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>The 3 Phases</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>The race is played over several rounds. Each round has three phases:</p>
+<p>• In the Energy Phase players (simultaneously) draw 4 and play 1 card face down for one of their riders first, then the other.</p>
+<p>• In the Movement Phase all played cards are revealed and riders move according to their card.</p>
+<p>• In the End Phase the played cards are removed, then slipstreaming and exhaustion is applied.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>1. Energy Phase</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>all players simultaneously</p>
+<span class="subsection-title">1. Choose Rider, Draw Cards</span>
+<p>Choose one of your riders (sprinter or rouleur) and draw four cards from his energy deck.</p>
+<span class="subsection-title">2. Play and Recycle</span>
+<p>Select one of the cards and play it face down next to the matching rider's energy deck. This card indicates the rider's movement value for this round. Recycle the unplayed cards.</p>
+<span class="subsection-title">3. Repeat</span>
+<p>After this, repeat steps 1. and 2. for your other rider. When all players have played a card for both their riders, proceed to the Movement Phase.</p>
+<span class="inline-title"><strong>Recycle:</strong></span>
+<p>place the card(s) face up at the bottom of the matching rider's energy deck.</p>
+<p>You may look at the recycled cards at any time, but not the face down cards.</p>
+<span class="subsection-title">When Drawing Cards</span>
+<ul>
+<li>You cannot draw cards for your second rider before playing the card for your first one. You can look at your played card(s) whenever you like.</li>
+<li>If your energy deck runs out of face down cards, shuffle the recycled cards and place them back on your player board face down. Keep drawing until you have four cards in hand.</li>
+<li>If there are fewer than four cards total in your energy deck (recycled &amp; face down), simply draw all cards.</li>
+</ul>
+  </div>
+</details>
+<details class="section">
+  <summary><span>2. Movement Phase</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>Turn all played cards face up. Starting with the frontmost rider, move each rider forward the exact number of squares on his matching card.</p>
+<p>The frontmost rider is the rider closest to the Finish line in the right-hand lane.</p>
+<p>You can change lanes at no additional costs.</p>
+<p>A rider landing in an empty square must always be placed in the right-hand lane.</p>
+<p>A rider can move through other riders, but cannot end their movement on them. If a rider would end his movement on a fully occupied square, he must stop behind it, in the first square with a free lane.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>3. End Phase</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">1. Remove Played Cards</span>
+<p>Remove all played cards from the game.</p>
+<p>Cards can be used only once per game.</p>
+<span class="subsection-title">2. Apply Slipstreaming</span>
+<p>Starting with the backmost pack of riders, move every pack that gains slipstreaming one square forward.</p>
+<span class="inline-title"><strong>Pack:</strong></span>
+<p>consists of one or more riders that have no empty squares between them.</p>
+<span class="inline-title"><strong>Slipstreaming:</strong></span>
+<ul>
+<li>Check if there is exactly one empty square between two packs. The rear pack is moved forward one square so that the two packs merge. Then, check if slipstreaming applies to this new pack. Keep going through the rest of the packs.</li>
+<li>Riders may gain slipstreaming several times in one round.</li>
+</ul>
+<span class="subsection-title">3. Assign Exhaustion Cards</span>
+<p>If your rider is exhausted, take an exhaustion card matching your rider (sprinter or rouleur) and recycle it.</p>
+<span class="inline-title"><strong>Exhaustion:</strong></span>
+<p>A rider is exhausted if he has an empty square in front of him.</p>
+<span class="inline-title"><strong>Exhaustion Cards:</strong></span>
+<ul>
+<li>Are used exactly like any other energy cards with a value of 2.</li>
+</ul>
+<p>Give a matching exhaustion card to every rider that has an empty square in front of him. An empty lane in front of a rider does not cause exhaustion—in a real life race the pack is driving in the middle of the road, not in lanes.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Additional Rules</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Alternative Stages</span>
+<p>The track tiles are double-sided, which allow for very varied setups. There are 6 suggested stages you can try, each with their own Stage card. Feel free to also create your own tracks!</p>
+<span class="subsection-title">Handicap</span>
+<p>If you are introducing this game to new players, consider adding a handicap:</p>
+<ul>
+<li>All players that have already played the game can add 1 exhaustion card to both of their energy decks during setup.</li>
+<li>Really experienced players can add an additional exhaustion card to both of their energy decks.</li>
+</ul>
+<span class="subsection-title">Mountains</span>
+<p>Mountains can help or hinder you, depending on how you handle them. There are two new road types that portray mountains: Ascents (all squares with red arrow road edges) and Descents (all squares with blue arrow road edges).</p>
+<p>The Ascents add two new rules:</p>
+<ol>
+<li>First, in the Movement Phase: a rider starting on, moving onto or going across any red Ascent square can never move more than 5 squares. A higher value card can be played, but its value is capped at 5 and excess moves are wasted.<ul>
+<li>If the 6th or above move would allow the rider to enter the first square of an Ascent, simply stop him on the last free lane before the Ascent starts.</li>
+</ul>
+</li>
+<li>Second, in the End Phase: a rider on an Ascent can never give nor receive slipstreaming to or from other riders.</li>
+</ol>
+<p>The Descents add only one rule:</p>
+<ol>
+<li>If a rider starts a turn on a blue Descent square, his card always counts as a minimum of 5. A lower value card can be played, but its value is always minimum 5. Slipstreaming is awarded as normal.</li>
+</ol>
+<p>The road signs on the track tiles are a reminder of these rules.</p>
+<p>Exhaustion cards are given as per normal rules.</p>
+  </div>
+</details>
+  <p id="no-results">No sections match your search.</p>
+</main>
+<script>
+(function () {
+  var searchEl  = document.getElementById('search');
+  var clearBtn  = document.getElementById('search-clear');
+  var noResults = document.getElementById('no-results');
+  var sections  = Array.from(document.querySelectorAll('details.section'));
+
+  // Snapshot each section body's original HTML so we can restore it
+  // before applying a new round of highlights.
+  sections.forEach(function (s) {
+    var body = s.querySelector('.section-body');
+    if (body) body.dataset.original = body.innerHTML;
+  });
+
+  var timer;
+
+  searchEl.addEventListener('input', function () {
+    var term = this.value.trim();
+    clearBtn.classList.toggle('visible', term.length > 0);
+    clearTimeout(timer);
+    timer = setTimeout(function () { applySearch(term); }, 180);
+  });
+
+  clearBtn.addEventListener('click', function () {
+    searchEl.value = '';
+    clearBtn.classList.remove('visible');
+    applySearch('');
+    searchEl.focus();
+  });
+
+  function escapeRe(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlightTextNodes(container, re) {
+    var walker = document.createTreeWalker(
+      container, NodeFilter.SHOW_TEXT, null, false
+    );
+    var nodes = [];
+    var n;
+    while ((n = walker.nextNode())) {
+      if (n.nodeValue.trim()) nodes.push(n);
+    }
+    nodes.forEach(function (textNode) {
+      re.lastIndex = 0;
+      if (!re.test(textNode.nodeValue)) return;
+      re.lastIndex = 0;
+      var span = document.createElement('span');
+      span.innerHTML = textNode.nodeValue.replace(
+        re, function (m) { return '<mark>' + m + '</mark>'; }
+      );
+      textNode.parentNode.replaceChild(span, textNode);
+    });
+  }
+
+  function applySearch(term) {
+    var re = term ? new RegExp(escapeRe(term), 'gi') : null;
+    var visibleCount = 0;
+
+    sections.forEach(function (section) {
+      var body    = section.querySelector('.section-body');
+      var summary = section.querySelector('summary');
+
+      // Restore original HTML before each search pass
+      if (body) body.innerHTML = body.dataset.original;
+
+      if (!re) {
+        section.classList.remove('search-hidden');
+        section.open = false;
+        return;
+      }
+
+      var titleText = summary ? summary.textContent : '';
+      var bodyText  = body    ? body.textContent    : '';
+
+      re.lastIndex = 0;
+      var inTitle = re.test(titleText);
+      re.lastIndex = 0;
+      var inBody  = re.test(bodyText);
+      re.lastIndex = 0;
+
+      if (inTitle || inBody) {
+        section.classList.remove('search-hidden');
+        section.open = true;
+        if (body) highlightTextNodes(body, new RegExp(escapeRe(term), 'gi'));
+        visibleCount++;
+      } else {
+        section.classList.add('search-hidden');
+      }
+    });
+
+    noResults.style.display = (re && visibleCount === 0) ? 'block' : 'none';
+  }
+})();
+</script>
+</body>
+</html>

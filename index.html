@@ -199,6 +199,25 @@
       from { opacity: 0; transform: scale(0.97); }
       to   { opacity: 1; transform: scale(1); }
     }
+
+    @media (max-width: 600px) {
+      .mosaic {
+        grid-template-columns: 1fr;
+        grid-auto-rows: 240px;
+      }
+
+      .tile-wide,
+      .tile-tall,
+      .tile-medium {
+        grid-column: span 1;
+        grid-row: span 1;
+      }
+
+      /* Always show overlay on touch devices (no hover) */
+      .tile-overlay { opacity: 1; }
+      .tile-label   { transform: translateY(0); }
+      .tile-sub     { opacity: 1; transform: translateY(0); }
+    }
   </style>
 </head>
 <body>
@@ -211,7 +230,7 @@
   <main class="mosaic">
 
     <!-- Ark Nova -->
-    <a href="ark-nova-rules_reference.html" class="tile tile-tall">
+    <a href="ark-nova-rules-reference.html" class="tile tile-tall">
       <img class="tile-img" src="images/ark-nova.png" alt="Ark Nova" />
       <div class="tile-badge">Engine · 1–4 Players</div>
       <div class="tile-overlay">
@@ -221,7 +240,7 @@
     </a>
 
     <!-- Flamme Rouge -->
-    <a href="flamme-rouge-rules_reference.html" class="tile tile-tall">
+    <a href="flamme-rouge-rules-reference.html" class="tile tile-tall">
       <img class="tile-img" src="images/flamme-rouge.png" alt="Flamme Rouge" />
       <div class="tile-badge">Racing · 2–4 Players</div>
       <div class="tile-overlay">
@@ -231,7 +250,7 @@
     </a>
 
     <!-- SETI -->
-    <a href="seti-rules_reference.html" class="tile tile-tall">
+    <a href="seti-rules-reference.html" class="tile tile-tall">
       <img class="tile-img" src="images/seti.png" alt="SETI" />
       <div class="tile-badge">Science · 1–4 Players</div>
       <div class="tile-overlay">
@@ -241,11 +260,6 @@
     </a>
 
   </main>
-
-  <footer>
-    <p>Add games by adding a tile above and dropping an <code>.html</code> file alongside <code>index.html</code></p>
-    <p><a href="#">↑ top</a></p>
-  </footer>
 
 </body>
 </html>

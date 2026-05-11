@@ -1,0 +1,1078 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>FIRST MARTIANS: ADVENTURES ON THE RED PLANET RULEBOOK — Rules Reference</title>
+<style>
+:root {
+  --bg:            #f2ede6;
+  --text:          #1a1a1a;
+  --header-bg:     #1a2a3a;
+  --section-bg:    #1a2a3a;
+  --subsection-bg: #c8873a;
+  --rule:          #b0a898;
+  --accent:        #c8873a;
+  --table-head:    #2a3f55;
+  --note-bg:       #e8e0d4;
+  --body-bg:       #ffffff;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 15px;
+  line-height: 1.55;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* ── STICKY HEADER ───────────────────────────────────────── */
+.sticky-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--header-bg);
+  padding: 10px 14px 12px;
+  padding-top: max(10px, env(safe-area-inset-top));
+  padding-left: max(14px, env(safe-area-inset-left));
+  padding-right: max(14px, env(safe-area-inset-right));
+  box-shadow: 0 2px 12px rgba(0,0,0,0.4);
+}
+
+.masthead-row {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 9px;
+}
+
+.masthead-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  line-height: 1.1;
+  flex-shrink: 0;
+}
+
+.masthead-subtitle {
+  font-size: 11px;
+  color: rgba(255,255,255,0.45);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.search-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-icon {
+  position: absolute;
+  left: 10px;
+  width: 15px;
+  height: 15px;
+  color: rgba(255,255,255,0.4);
+  pointer-events: none;
+  flex-shrink: 0;
+}
+
+#search {
+  width: 100%;
+  padding: 8px 36px 8px 32px;
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 8px;
+  font-size: 15px;
+  background: rgba(255,255,255,0.12);
+  color: #fff;
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+#search::placeholder { color: rgba(255,255,255,0.38); }
+
+#search:focus {
+  background: rgba(255,255,255,0.2);
+  border-color: rgba(255,255,255,0.3);
+}
+
+.search-clear {
+  position: absolute;
+  right: 6px;
+  background: rgba(255,255,255,0.18);
+  border: none;
+  border-radius: 50%;
+  color: rgba(255,255,255,0.8);
+  font-size: 14px;
+  line-height: 1;
+  width: 22px;
+  height: 22px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  flex-shrink: 0;
+}
+
+.search-clear.visible { display: flex; }
+
+/* ── MAIN ────────────────────────────────────────────────── */
+main {
+  padding: 10px 12px 48px;
+  padding-left: max(12px, env(safe-area-inset-left));
+  padding-right: max(12px, env(safe-area-inset-right));
+  padding-bottom: max(48px, env(safe-area-inset-bottom));
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+/* ── NO RESULTS ──────────────────────────────────────────── */
+#no-results {
+  display: none;
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--text);
+  opacity: 0.5;
+  font-size: 14px;
+}
+
+/* ── COLLAPSIBLE SECTIONS ────────────────────────────────── */
+details.section {
+  margin-bottom: 6px;
+  border-radius: 6px;
+  overflow: hidden;
+  scroll-margin-top: 130px;
+}
+
+details.section > summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  min-height: 44px;
+  background: var(--section-bg);
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  list-style: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+details.section > summary::-webkit-details-marker { display: none; }
+
+.chevron {
+  width: 12px;
+  height: 12px;
+  opacity: 0.65;
+  flex-shrink: 0;
+  margin-left: 8px;
+  transition: transform 0.18s ease;
+}
+
+details.section[open] > summary .chevron {
+  transform: rotate(90deg);
+}
+
+.section-body {
+  background: var(--body-bg);
+  padding: 10px 12px 12px;
+  border: 1px solid var(--rule);
+  border-top: none;
+  border-radius: 0 0 6px 6px;
+}
+
+/* ── HEADINGS WITHIN SECTIONS ────────────────────────────── */
+.subsection-title {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: #fff;
+  background: var(--subsection-bg);
+  padding: 4px 12px;
+  margin: 10px -12px 7px;
+}
+
+.label-title {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--section-bg);
+  border-bottom: 1.5px solid var(--rule);
+  padding-bottom: 3px;
+  margin: 10px 0 5px;
+}
+
+.inline-title {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 8px 0 3px;
+}
+
+/* ── BODY TEXT ───────────────────────────────────────────── */
+p { margin-bottom: 7px; }
+b, strong { font-weight: 600; }
+em, i { font-style: italic; }
+
+/* ── LISTS ───────────────────────────────────────────────── */
+ul, ol { padding-left: 20px; margin-bottom: 6px; }
+ul { list-style-type: disc; }
+ol { list-style-type: decimal; }
+ul ul { list-style-type: circle; }
+li { margin-bottom: 3px; }
+li > ul, li > ol { margin-top: 2px; margin-bottom: 0; }
+
+/* ── TABLES ──────────────────────────────────────────────── */
+.table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin-bottom: 6px;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  min-width: 260px;
+}
+thead tr { background: var(--table-head); color: white; }
+thead th {
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  padding: 5px 8px;
+  text-align: left;
+  white-space: nowrap;
+}
+tbody tr:nth-child(even) { background: var(--note-bg); }
+tbody td { padding: 5px 8px; vertical-align: top; }
+
+/* ── BLOCKQUOTE ──────────────────────────────────────────── */
+blockquote {
+  background: var(--note-bg);
+  border-left: 3px solid var(--accent);
+  padding: 6px 10px;
+  margin: 5px 0 7px;
+  font-size: 14px;
+  border-radius: 0 4px 4px 0;
+}
+blockquote p { margin-bottom: 2px; }
+
+/* ── INLINE CODE ─────────────────────────────────────────── */
+code {
+  background: var(--note-bg);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  padding: 1px 4px;
+  font-size: 13px;
+  font-family: inherit;
+  font-weight: 600;
+}
+
+/* ── HR ──────────────────────────────────────────────────── */
+hr { border: none; border-top: 1px solid var(--rule); margin: 8px 0; }
+
+/* ── SEARCH HIGHLIGHT ────────────────────────────────────── */
+mark {
+  background: #ffe566;
+  color: inherit;
+  border-radius: 2px;
+  padding: 0 1px;
+}
+
+/* ── HIDDEN SECTIONS ─────────────────────────────────────── */
+details.section.search-hidden { display: none; }
+
+/* ── VERSION TOGGLE ──────────────────────────────────────── */
+.toggle-bar {
+  display: flex;
+  margin-top: 8px;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.2);
+}
+.toggle-current,
+.toggle-other {
+  flex: 1;
+  text-align: center;
+  padding: 6px 10px;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  line-height: 1;
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.toggle-current {
+  background: rgba(255,255,255,0.18);
+  color: #ffffff;
+  font-weight: 600;
+  cursor: default;
+}
+.toggle-other {
+  color: rgba(255,255,255,0.5);
+}
+.toggle-other:hover {
+  background: rgba(255,255,255,0.08);
+  color: rgba(255,255,255,0.8);
+}
+
+/* ── PRINT ───────────────────────────────────────────────── */
+@media print {
+  .sticky-header { position: static; }
+  details.section[open], details.section { display: block; }
+  .section-body { display: block !important; }
+  .search-wrap, .search-clear, .toggle-bar { display: none; }
+}
+</style>
+</head>
+<body>
+<header class="sticky-header">
+  <div class="masthead-row">
+    <span class="masthead-title">FIRST MARTIANS: ADVENTURES ON THE RED PLANET RULEBOOK</span>
+    <span class="masthead-subtitle">Rules Reference</span>
+  </div>
+  <div class="toggle-bar"><span class="toggle-current">Full Rules</span><a class="toggle-other" href="first-martians-rules-reference.html">Quick Reference</a></div>
+  <div class="search-wrap">
+    <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+         stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+         aria-hidden="true">
+      <circle cx="11" cy="11" r="8"/>
+      <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+    </svg>
+    <input type="text" id="search" placeholder="Search rules…"
+           autocomplete="off" spellcheck="false" autocorrect="off">
+    <button class="search-clear" id="search-clear" aria-label="Clear search">&#x2715;</button>
+  </div>
+</header>
+<main>
+<details class="section" open>
+  <summary><span>Introduction</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Modes of Play</span>
+<p>As you begin your adventure with the game, you can choose either a standalone mission or a campaign. Standalone missions are single, unique experiences with a high amount of replayability. Choose a mission depending on which skills you want to focus on: exploration, research, or building. In the box you will find three double-sided mission sheets — they provide details about each mission.</p>
+<p>A campaign is a chain of missions that tell a riveting story — you will unravel it as you go along, making decisions and completing various tasks. Thanks to the accompanying app, you will save your game after each mission so you can easily go back to where you stopped playing last time. This way you can set up the next mission while retaining the continuity of your actions from the previous missions.</p>
+<p>One of the campaigns has elements of a legacy game (see The Campaign Mode section on p. 20 for details).</p>
+<p>In both modes of play, First Martians: Adventures on the Red Planet uses the same core mechanics, which are explained in this rulebook. Gameplay changes, if any, are described on particular mission sheets.</p>
+<span class="subsection-title">The App</span>
+<p>The accompanying app is free for you to download. We support Android and Apple devices as well as PCs. Get your version from Google Play, App Store, or www.portalgames.pl.</p>
+<p>The app has a in-built manual, and on our website you can find the PDF version along with a video tutorial on how to use this app.</p>
+<span class="subsection-title">Goal of the Game</span>
+<p>Whether it is a standalone mission or part of a longer campaign, your goal is always to meet the victory conditions for a given mission within the specified number of rounds (sols) and all of your astronauts must remain alive. Each mission sheet provides you with the information on how to win the game (in the Mission Objectives section of the sheet). During a mission, the app keeps track of your progress. Throughout each round, the app displays a menu, from which you can access your Quest Log.</p>
+<p>There are two types of goals you can achieve: mandatory goals and optional goals — and they are all listed in the Log. Whenever you achieve any goal, click its checkbox to mark it complete. In order to win, you need to achieve all the mandatory goals before time runs out. The app informs you when your mission ends (no later than the last round of a given mission) — at that point, your mandatory objectives must be completed. In a standalone mission, optional objectives are there to bring you closer to your goal or improve your current situation (for example, by giving you spare parts or more food). This works differently in a campaign and is described in The Campaign Mode section.</p>
+<p>Some missions also have a Threshold value. If it is provided on the mission sheet, meeting that Threshold is always mandatory. It may refer to things like a number of broken parts in the HUB. When the mission ends, you must be at or below that Threshold in order to win.</p>
+<span class="subsection-title">Astronauts' Health</span>
+<p>Your astronaut can sustain 5 wounds before they die. If any astronaut dies, the mission is immediately lost.</p>
+<span class="subsection-title">Astronauts</span>
+<p>In the game, your astronaut is represented by a player ID board and the 2 action pawns of your color. Your ID board provides information about your astronaut's profession, base skill, and health.</p>
+<p>Action pawns represent the time you take to perform your actions. To use them, place them on an action you want to take. For how this works, see the Action Pawns box on p.11.</p>
+<span class="subsection-title">Skills</span>
+<p>Skills allow you to spend your Morale tokens in order to perform a unique feat, such as rerolling a die or gaining a sample. Each skill can only be used once per round. Your astronaut's base skill is printed on your player ID board and is available to you in every game. Additionally, each astronaut has a set of three Skill cards. In a standalone mission, these are available from the beginning of the game; during a campaign, you need to unlock them first.</p>
+<span class="subsection-title">Health</span>
+<p>Your ID board has a health track — use it to mark your astronaut's current number of wounds.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Setup</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>Standalone missions fall into one of three categories: Explore, Research, and Build. When you begin your game, choose a mission you want to play based on what actions and skills you want to focus on.</p>
+<p>For each mission (including those that are part of a campaign), you can choose your preferred difficulty level. This affects how damaging (or rewarding) the consequences of various Events are.</p>
+<p>Enter your preferences into the app to adjust the gameplay experience to your expectations and needs.</p>
+<p>We suggest you begin your adventure with the Make Yourself at Home introductory mission.</p>
+<p>The instructions below provide a general overview of how to prepare your game (if there are fewer than 4 players, see p. 19). Details vary from mission to mission (especially during a campaign, where the setup of the next mission is affected by what happened earlier). Check that you are making any necessary adjustments and preparations to these setup instructions as required and always follow any specific instructions given by the app. Mission-specific rules override the general setup instructions.</p>
+<ol>
+<li>
+<p>Prepare the Board
+a. Place the board in the middle of the gameplay area.
+b. Place 1 white marker on the 0 space of the Morale track.
+c. Place 1 white marker on the 00 space of the Stress track.
+d. Place 1 white marker on the  icon of the Round Order track.</p>
+</li>
+<li>
+<p>Place the Miniatures
+Place the HUB miniature at the center of the map. Place the 2 rover miniatures in the Depot.</p>
+</li>
+<li>
+<p>Choose Your Astronauts
+Each player chooses an astronaut to play with (Scientist, Geologist, Engineer, or Medic). Take the accompanying ID board and 2 action pawns in the color of your choice. Insert 1 red marker in the slot on your astronaut's portrait.
+b. Input into the app whether you are playing a standalone mission or starting/continuing a campaign. Choose the mission type (for standalone missions) and your preferred difficulty level.
+c. Unless you're continuing a campaign, add your chosen astronauts to the Flight Crew Debriefing panel. The names are given randomly, but you can customize them.</p>
+</li>
+<li>
+<p>Prepare the App &amp; Mission
+a. Launch the app on your device. You can place the device you're using on the AUX DEVICE space on the board.
+d. Click Next and select a mission from the list.
+e. Find the chosen mission sheet and place it near the board. Put 1 white marker on the leftmost space of the sol counter.</p>
+</li>
+<li>
+<p>Prepare the Facilities &amp; Supplies
+a. Place all 13 Facility tiles on their respective spaces on the board. The top row (left to right): Oxygenator 01, Oxygenator 02, Solar Panel 01, Solar Panel 02, Farm. The middle row (left to right): A Quiet Place, Crew Quarters, Med Lab, Control Center. The bottom row (left to right): Garage Hall, Probe Bay, Lab, Working Bay.
+b. Insert white markers in the top slots of the Oxygenators and Solar Panels productivity tracks. Insert 1 black marker in the Farm's Greenhouses column for each astronaut in the game – you have that many Greenhouses currently built. Then, add 1 white marker next to each built Greenhouse. Insert 1 green marker in each slot of the status markers column (for each Facility).
+c. Place 1 red marker on the 0 space of each Block's Malfunction track.
+d. Separate the Malfunction cards by their backs into three Malfunction decks. Shuffle each deck separately and place it face down to the right of the respective Malfunction track.
+e. Place the oxygen, energy, and food trackers on the appropriate spaces of the general supply track. The app tells you the exact starting amount of oxygen, energy, and food reserves for that mission.</p>
+</li>
+<li>
+<p>Prepare Tokens, Tiles, and Dice
+a. Separate the ROI tiles by their size into three face-down stacks. Shuffle each stack and place it near the board.
+b. Separate the Shutdown tiles by their backs into two face-down stacks. Shuffle each stack and place it near the board.
+c. Shuffle all condition tokens into one face-down stack. Place it near the board.
+d. Place the other tiles, tokens, markers, and dice within easy reach – this is the pool.</p>
+</li>
+<li>
+<p>Choose the First Player
+Decide who the First Player will be during the game's first round. If you cannot decide, select the First Player randomly.</p>
+</li>
+<li>
+<p>Almost ready!
+Check that you've made any necessary adjustments and preparations to these setup instructions as required by the app.
+Read the background story (from the mission sheet or the app).
+Proceed to round 1, phase 1 (the Event phase), and... good luck!</p>
+</li>
+</ol>
+<span class="subsection-title">Other Components</span>
+<p>You'll notice that after setting up the game, some components are still left in the box. Don't worry - the app will tell you when to use them.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Gameplay</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Round Overview</span>
+<p>A game of First Martians is played over a series of rounds.
+Each mission sheet has a sol counter to indicate how many rounds there are (1 sol = 1 round).</p>
+<p>Each round consists of 6 phases, resolved in the following order:</p>
+<p>I. EVENTS. The First Player reads aloud the Event presented by the app and resolves its effect. Sometimes Events have one-off effects, sometimes they affect the entire round, some will even stay with you longer.</p>
+<p>II. MORALE. The First Player (only) resolves the effects of the current Morale level.</p>
+<p>III. PRODUCTION. Resources (oxygen, energy, food) are produced and used. The effects of Stress and broken [gear icon] in the Working Block are resolved.</p>
+<p>IV. ACTIONS. The players act together to create and execute the best plan of action for this round.</p>
+<p>V. MALFUNCTION. The First Player rolls the Malfunction dice and resolves the results.</p>
+<p>VI. CLEAN-UP. Update the tokens and markers on the board.</p>
+<p>When the Clean-Up phase is over, the First Player token is passed clockwise to the next player. Advance the marker on the sol counter to the next space and move the white marker back to the top of the Round Order track. A new round begins. The following sections describe each phase in detail.</p>
+<span class="subsection-title">I. Events</span>
+<p>First, you need to advance Malfunction (see below).
+Then the app displays an Event. How you resolve it depends on the Event's type.</p>
+<span class="label-title">Advancing Malfunction</span>
+<p>As time goes on, the HUB's condition deteriorates. Before the Event for the round, the app tells you to advance one of the Malfunction tracks by 1. Move the corresponding marker up 1 space and resolve any consequences (see p. 18).</p>
+<span class="label-title">Mission Events</span>
+<p>Mission Events are crucial to the gameplay and push the story forward. Read the story text and the Event description; resolve its effects immediately. The Event action follows – if you don't take it this round, you open yourself up to a possibility of negative consequences (more on that in the Actions section on p.14).</p>
+<p>After you've read all the new information provided by the app, this phase ends; move the white marker on the Round Order track down 1 space and proceed to the Morale phase.</p>
+<span class="label-title">Adventure Events and Follow-Up Events</span>
+<p>The app will only show one Mission Event per round, but some additional Events may occur as a result of what happened in the past or what action you did or did not take in previous rounds. These extra Events are either Adventure Events or Follow-Up Events. Why they occur is explained on pp. 13-14. When the app presents you with such an Event, follow the instructions on the screen.</p>
+<p>The story text provided by an Adventure or an Event might be a clue for you as to its possible consequences. Adventure and Follow-Up Events, if any, always happen before a regular Mission Event in a given round.</p>
+<span class="subsection-title">II. Morale</span>
+<p>Although the Morale level reflects the mood of the entire crew, only the First Player resolves its effects in each round. The Morale track ranges from -2 (you are feeling in despair) to +3 (you have the power and vigor to go on). Morale can never go beyond these limits.</p>
+<p>When resolving the effects of the group's Morale, the First Player gains or discards Morale tokens as indicated by the current Morale value (for example, they gain 2 Morale tokens if Morale is at +2 or they discard 1 Morale token if Morale is at -1).
+Whenever the First Player has to discard more Morale tokens than they have, they discard as many as they have, then suffer 1 wound for each token they lack. No one can ever choose to suffer wounds instead of discarding Morale tokens.
+If the group's Morale is at 0, nothing happens.
+After resolving the consequences of the Morale level, move the white marker on the Round Order track down 1 space and proceed to the Production phase.</p>
+<span class="label-title">The First Player</span>
+<p>The First Player token indicates who the First Player is in this round.
+The First Player is the one who:</p>
+<ul>
+<li>Resolves and experiences the effects of the Morale phase.</li>
+<li>Resolves any disputes among the players.
+Also, some in-game effects refer specifically to the First Player.</li>
+</ul>
+<span class="subsection-title">III. Production</span>
+<p>In this phase, calculate and adjust the amount of oxygen, energy, and food, as well as your Stress level and broken parts in the Working Block.</p>
+<span class="label-title">Oxygen, Energy &amp; Food</span>
+<p>Oxygen, energy, and food are your essential resources. Food is produced by the Farm (Greenhouses 01-05), oxygen by Oxygenators 01 and 02, and energy by Solar Panels 01 and 02. These resources are produced every round; additionally, you may have some reserves at your disposal when you start the mission (when you set up a mission, the app always provides details on what and how much you have in the general supply).
+The resources are then spent: Oxygen refills the HUB, energy is used to power the Facilities, and food is consumed.</p>
+<span class="label-title">Oxygenators</span>
+<p>There are two Oxygenators in the HUB. A white marker indicates the current productivity of each of them (min = 1, max = 4). Add up the values from both Oxygenators – the sum tells you how much oxygen you produce this round, and therefore how many Facilities you can refill with breathable air. The Facilities which need a constant oxygen supply are the ones that have the icon to the left of the status markers column. These are: The Farm, Crew Quarters, Med Lab, Control Center, Garage Hall, Probe Bay, Lab, and Working Bay. Green/red status markers in these Facilities do not indicate that oxygen should or shouldn't be supplied (only that what's been supplied can or cannot be used - for example, a red status marker may mean that oxygen is supplied but there is a leak inside a given Facility).
+If you produce more oxygen than you spend, add half of that surplus (rounded up) to the general supply (move the oxygen tracker accordingly). Should you not produce enough air, some Facilities will become unavailable. See the Not Enough Oxygen/Energy box on how this is handled (see p.10).</p>
+<span class="label-title">Solar Panels</span>
+<p>There are two sets of Solar Panels in the HUB. A white marker indicates the current productivity of each of them (min = 1, max = 5). Add up the values from both Solar Panels – the sum tells you how much energy you produce this round and how many Facilities you can power. The Facilities which need a constant energy supply are the ones that have the icon to the left of the status markers column: both Oxygenators, the Farm, Crew Quarters, Med Lab, Control Center, Garage Hall, Probe Bay, Lab, and Working Bay. Green/red status markers in these Facilities do not indicate that energy should or shouldn't be supplied (only that what's been supplied can or cannot be used - for example, a red status marker may mean that energy was supplied to a Facility but a short circuit occurred).
+If you produce more energy than you spend, add half of that surplus (rounded up) to the general supply (move the energy tracker accordingly). If you cannot power all Facilities, some Facilities will become unavailable. See the Not Enough Oxygen/Energy box on how this is handled (see p. 10).</p>
+<span class="label-title">Not Enough Oxygen/Energy</span>
+<p>If you produce less oxygen/energy than you need, you will have to make some Facilities unavailable. Sometimes, an in-game effect tells you exactly which Facilities to shut down. At other times, you will decide for yourself – but you can never have more operational Facilities than your current oxygen/energy production allows for. For example, 10 Facilities need a constant energy supply. If the total Solar Panels productivity is 8, there must be 2 Energy Shutdown tiles lying on 2 of those 10 HUB Facilities. No Facility can have more than 1 energy Shutdown tile and 1 oxygen Shutdown tile lying on it at any given time. Such Facilities cannot be used for anything else other than removing Shutdown tiles.</p>
+<p>When you shut down a Facility, place a random oxygen/energy Shutdown tile face down on that Facility. And as long as this tile remains on the board, resolve its +2 Stress effect every round in the Production phase. If you want to make that Facility functional again, you must place 1 pawn on that tile in the Action phase and then flip the tile over at the end of that Action phase. Resolve the effect on the front of the tile immediately. Each Shutdown tile provides an instruction on what to do to discard it. Shuffle a discarded Shutdown tile back into its stack.</p>
+<p><strong>IMPORTANT:</strong> When an oxygen Shutdown token is lying on a Facility, that Facility may still consume energy. When a power Shutdown token is lying on a Facility, that Facility may still consume oxygen.</p>
+<p><strong>REMEMBER:</strong> This is a different effect than a red ⚡ / 🧬 status marker which, for example, forces you to spend energy/oxygen from the general supply as an additional cost of your action!</p>
+<p>Note: You can never choose to shut down a Facility in order to gain more oxygen/energy in your general supply, to prevent the negative effects of a malfunctioning Facility, etc.</p>
+<p>Note: Facilities that are shut down are immune to other effects targeting them – directly or indirectly (for example, if a Malfunction card has the Probe Bay keyword but the Probe Bay Facility is shut down, discard this card without resolving it.)</p>
+<span class="label-title">Farm</span>
+<p>First, if you have a new seed planted (see Planting New Seeds on p.17), growth occurs – move its marker up 1 space on the Growth track. If it was already on the top space (#6) on this track, move it to an empty Greenhouse.</p>
+<p>Then, you produce as many food portions as you have plants in your Greenhouses. Finally, each astronaut must eat 1 food portion. If there is not enough food produced, you must use food reserves, if you have any in the general supply. If there is not enough food for everyone, you must decide who will not eat. Each astronaut that does not eat suffers 1 wound for each food portion they should have eaten.</p>
+<p>In rare cases, if you produce more food than you eat, add half of that surplus (rounded up) to the general supply (move the food tracker accordingly).</p>
+<span class="label-title">Wilting</span>
+<p>When Energy Connectors or Oxygen Filters on the Farm are not working (there is a red status marker next to their icon), your plants and seeds will wilt. When this happens, no growth occurs. Instead, move all markers on the Growth track down 1 space (discard a marker if you cannot move it down any further) and move 1 previous fully grown plant marker back to Growth track slot #6.</p>
+<p>This can be deadly, so to counter this effect in the Production phase, you can spend 1 energy and/or oxygen from the general supply (whatever your Farm lacks) to halt the process of wilting for this round.</p>
+<span class="label-title">Stress</span>
+<p>The more people are crammed into the confined space of the HUB, the more stressful conditions become.</p>
+<p>To track the growing tension, use the Stress track. In the Production phase, move the white marker on this track 1 space for each astronaut in the game (additional effects may increase Stress, too). Whenever that marker reaches space #18 (or would move beyond it), the tension becomes unbearable and a fight takes places. These consequences must be resolved:</p>
+<ul>
+<li>Each astronaut suffers 1 wound.</li>
+<li>The group's Morale goes down by 1.</li>
+</ul>
+<p>Then reset the track to #00.</p>
+<span class="label-title">Working Block: Red ⚙</span>
+<p>Resolve the effects of <strong>active penalties</strong> indicated by red ⚙ status markers in the Working Block (if a Facility is shut down, the penalty is not active):</p>
+<ul>
+<li>Roll the green Wound die. If you roll a [dice icon], Froggy is damaged – put a Blocked Modifier token on the Froggy x space. Froggy cannot be used this round or in any subsequent rounds until it has been repaired. You must take the Build action on that rover to discard that token (see Repairing Rovers on p. 17).</li>
+<li>Remove 1 chosen sample from any ROI.</li>
+<li>Increase the Stress level by 1.</li>
+<li>Put the [icon] token on the Working Bay ! space.</li>
+</ul>
+<p>After the Production phase has been fully resolved, move the white marker on the Round Order track down 1 space and proceed to the Action phase.</p>
+<span class="label-title">General Supply</span>
+<p>Your general supply is where you keep track of your reserves of oxygen, energy, and food. Place the trackers on the appropriate spots to indicate how much you have in your reserves. Adjust the trackers accordingly as you gain and spend the resources.</p>
+<span class="subsection-title">IV. Actions</span>
+<p>Performing actions inside the HUB and outside it (during what is called an EVA – extravehicular activity) is the main part of the game. Players discuss together which actions to take, then assign their action pawns to their chosen actions. A given Event action can be taken only once; all other actions can be taken multiple times in the same round. Finally, the players resolve those chosen actions in the order below.</p>
+<p>Your action pawns can be assigned to one or more actions. You must use both of your action pawns (unless an in-game effect tells you otherwise). You may use additional pawns, if you have any. You assign the pawns to the chosen actions by placing them in the appropriate places on the board or the mission sheet.</p>
+<p>You can assign your pawns to:</p>
+<ol>
+<li>EVENTS – to prevent negative consequences of an Event; unless stated otherwise by the Event itself, its action cannot be taken more than once.</li>
+<li>A QUIET PLACE – to gain Morale tokens.</li>
+<li>CREW QUARTERS – to increase Morale or reduce Stress.</li>
+<li>MED LAB – to heal wounds or conditions.</li>
+<li>CONTROL CENTER – to decrease the Malfunction level.</li>
+<li>GARAGE HALL – to explore new ROI tiles.</li>
+<li>PROBE BAY – to gather samples.</li>
+<li>LAB – to take the Research action and to plant new seeds on the Farm.</li>
+<li>WORKING BAY – to repair equipment, build upgrades, etc.</li>
+</ol>
+<p>After all pawns are assigned, they will be resolved in the order above and once all the chosen actions have been resolved, move the white marker on the Round Order track down 1 space and proceed to the Malfunction phase.</p>
+<p>Note: The order of resolving actions depends on the action types (for example, all Research actions are resolved in the same step). Actions that do not belong to one of the types above are resolved at the end of the Action phase (in any order).</p>
+<span class="label-title">Action Pawns</span>
+<p>Action pawns represent the way the astronauts perform actions.</p>
+<p>When you perform an action, you can dedicate all of your time to it by using both of your pawns. This means you will be automatically successful (unless no other modifiers apply) when resolving this action. Alternatively, you could assign only one pawn to an action, meaning you can potentially get more actions done. However, this means you need to roll the dice to determine whether the action is successful or not.</p>
+<span class="label-title">Action Types, Costs &amp; Penalties</span>
+<p>In addition to basic requirements described in the following sections, actions will often have a modified cost or a penalty – for example, because of red status markers in a Facility.</p>
+<p>The cost of an action is what you need to have in order to declare an action (for example, having to spend oxygen from the general supply). A penalty is the consequence of resolving this action (for example, suffering a wound). If you cannot pay the action cost (for example, you have no oxygen in the general supply) or cannot deal with its penalty (for example, your astronaut will die if they suffer that wound), you cannot take that action.</p>
+<p>Sometimes an action will be referred to by a certain type – for example, when you’re instructed to “take the Research action”. Then, you must apply the costs and penalties of that given action and, additionally, the costs and penalties of that action type. For example, planting a new seed on the Farm is a Research action (it is identified by the Research icon: 🧪). Therefore, when you take that action, you must apply all costs and penalties from the Lab – the Facility for Research actions.</p>
+<p><strong>FOR TOKENS LYING ON FACILITY TILES:</strong> If you use a Facility or its action type, add the costs/penalties only for the tokens on the ! space of that Facility.</p>
+<p><strong>FOR TOKENS LYING IN THE ROVER AREAS:</strong> If you use a rover, add all the costs/penalties for the tokens on the x space of that rover.</p>
+<span class="label-title">Mission Actions</span>
+<p>Mission sheets may offer special actions that can be taken during that mission. A mission sheet will tell you where, when, and which action to perform in order to get a particular result; apply all the modifiers affecting that type of action (for example, if you’re asked to take a special Build action, take into account all effects that currently influence the Working Bay or Build actions directly).</p>
+<span class="label-title">How Many Pawns Do I Need? Additional Requirements</span>
+<p>Actions can either be automatically successful or resolved through rolling dice.</p>
+<p>You need only 1 pawn to be automatically successful in resolving this action.</p>
+<p>OR</p>
+<p>You may use 1 pawn and roll the action dice to determine the result or use 2 pawns for the action to be automatically successful.</p>
+<p>The numbers of pawns shown in the picture are the base requirements for a given action. They are often modified by many in-game effects. For example, you need 1 extra pawn on a given action for each ⚠️ token affecting that action.</p>
+<span class="label-title">AOMs</span>
+<p>AOMs (Automated Operating Machines) give you additional pawns you can use in your actions. These pawns are color-coded and can only be used for their specific actions.
+They can be used to assist other pawns or to take an action on their own. Whenever an AOM is used, the player who uses it takes its card to indicate they are the operator. If necessary, the operator rolls the dice for their AOM and resolves the results.
+You can combine an AOM and a rover to assist you in one action.
+IMPORTANT: If an action has no type (for example, has the icon only), you can use AOMs for that action, too.</p>
+<span class="label-title">Rovers</span>
+<p>You have two rovers at your disposal to aid you in your actions. They do not perform any actions on their own — at least one pawn is needed to operate each of them (whether it's an AOM pawn or an astronaut pawn). When a rover assists you in action, take its miniature and place it together with the pawns declared for that action. You cannot combine both rovers when performing a single action.
+You may use a rover with multiple pawns. There is no limit to how many pawns you can send with a rover, but only the pawn on the top of the stack resolves the consequences of the action; the other ones are only assisting.
+FROGGY. You can treat Froggy as 2 additional pawns during an Explore action. These two pawns cannot be split up between different explorations.
+SCORPIO. Scorpio gives you 1 additional pawn for an Explore/Gather/Research/Build action of your choice, as long as this action is taken outside the HUB (you can't drive your rover inside the Facilities!).
+After resolving an action in which a rover was assisting, place its miniature back in the Depot.
+When a rover has a Blocked token on it, it cannot be used until repaired (p.17).
+A rover can have more than 1 Blocked token in its area — you need separate Build actions to discard each of them.</p>
+<p>If your action requires anything else, you must have that extra item available when you declare that action:
+• If you need a spare part, place it together with the pawns. If the action is successful, discard that spare part. If the action is unsuccessful, put that part back where it came from.
+• If you need to use reserves from the general supply, adjust the trackers when you declare that action. These supplies are spent whether the action is successful or not.</p>
+<span class="label-title">Placing the Pawns</span>
+<p>Action pawns of one or more players may be used when planning an action, in which case these pawns are stacked. The pawn on the top of the stack indicates who is taking the action (gaining the benefits, suffering the consequences, etc.); the others are only assisting.</p>
+<p>In First Martians: Adventures on the Red Planet, you will declare many different actions and sometimes it may be difficult to remember which pawns were assigned to which actions. Therefore, place your pawns where it reminds you what action you are taking.
+For example:
+• When you take a mission-specific special Research action, place your pawns and any additional resources on the mission sheet (instead of on the Lab – the normal place for Research actions).
+• When you take the Gather action to pick up a sample outside the HUB, place your pawns on the ROI you want to gather from (instead of the Probe Bay – the normal place for Gather actions) and put the sample you want to gather on top of your pawns.
+• When you repair a broken part of a Facility, place your pawns next to the status marker you wish to replace (instead of on the Working Bay – the normal place for Build actions).</p>
+<p>REMEMBER: No matter where the pawns are, always remember that the actions are resolved in a fixed order (1-9 on p. 11): If you placed your pawns on the Med Lab to repair one of its broken parts through the Build action, you do not resolve this action in the "Med Lab" step, but in the "Working Bay" step.</p>
+<span class="label-title">Rolling Dice</span>
+<p>If an action is not automatically successful, you have to determine its outcome by rolling the matching action dice. Action dice come in sets of three. The sets are color-coded and correspond to one of the following actions: Explore (green), Gather (gray; also for the Unwind action), Research (blue; also for the Heal action), and Build (brown; also for the Manage action). Each set contains:</p>
+<p>A SUCCESS DIE (CHECK DIE):
+Success! Apply the action's effect;
+No success — gain 2 Morale tokens instead.</p>
+<p>A WOUND DIE (CROSSHAIR DIE):
+Suffer 1 wound;
+Nothing happens.</p>
+<p>AN ADVENTURE DIE (QUESTION MARK DIE):
+Resolve an Adventure;
+Nothing happens.</p>
+<p>If you roll more than one die, the results are independent (for example, if you rolled a success, your action was successful even if you need to resolve an Adventure; if you rolled a wound, you must suffer it even if you were successful in your action, etc.). Resolve the effects of your roll in any order before you carry on with your action.</p>
+<span class="label-title">Adventures</span>
+<p>Adventures are triggered by some in-game effects, such as rolling a [?] on an action die. Adventures are similar to Events (they must be resolved when they happen and they may have negative consequences.) However, they differ in that more than one Adventure can take place in a round, and they often only affect one player.
+Adventures are action-specific and color-coded: Things that may happen to you when you explore new areas are obviously different from what may occur when you install a Facility Upgrade. Adventures are always represented by the [?] icon. When you must resolve an Adventure, click the corresponding color-coded button in the app, depending on the action you were taking. Resolve the Adventure by following the instruction presented by the app.
+Adventures either have one-time consequences that you resolve when the Adventure occurs, or they have delayed effects that will or will not take place later in the mission (this happens randomly). When that delayed effect occurs, follow the instruction provided by the app.</p>
+<span class="label-title">Resolving Actions</span>
+<p>If your action was successful, take back your pawns and discard any additional resources that were spent during that action. Apply the action's effect.
+If your action was unsuccessful, take back your pawns and return any unspent additional resources that were required for the action back to where you took them from. Do not apply the action's effect.
+REMEMBER: Supplies from the general supply paid as the action cost are spent even if your action was unsuccessful.</p>
+<span class="label-title">Actions in Detail</span>
+<p>The following sections describe the actions you can take. Remember that there are no player turns in this game. You all cooperate to decide which actions to perform.</p>
+<p>Here you can also find a detailed description of the specific requirements you need to fulfill, when DECLARING the action. After all actions have been declared, RESOLVE the actions you chose in the following order, as indicated by their Resolve description:</p>
+<span class="inline-title">1. Events</span>
+<p>To take an Event action, do what the Event description in the app tells you to do. It always specifies how many pawns you need and if you have to fulfill any additional requirements (such as spending spare parts). Event actions may reward you with Morale tokens, improve Morale, etc. Also, they prevent an Event’s delayed consequences from happening.</p>
+<span class="inline-title">Delayed Event Consequences</span>
+<p>When you decide whether to take an Event action or to skip it, bear in mind that each Event may have future consequences if it is left unattended. The game retains each Event for three consecutive rounds — as long as it’s in the Mission log and you choose not to take its action, you may face the consequences. An Event disappears from the Mission Log after three rounds or after its consequences occurred (whichever happens first); when the app discards an Event, you can no longer take its action, but you are also protected from its consequences (unless they’ve already occurred).</p>
+<span class="inline-title">The Follow-Up Mechanism</span>
+<p>In addition to regular delayed consequences, some Events have Follow-Ups. A Follow-Up is a unique, player-specific Event that may occur in the future as a result of one of the Events that happened in the past. Players’ actions don’t influence whether it occurs or not. A Follow-Up is not explicitly given by the app when the original Event is presented, but it is always a related part of that history (can be positive or negative) to immerse you more in the story.</p>
+<span class="inline-title">DECLARING.</span>
+<p>Take the necessary pawns and any other resources, and place them on the Current Event Action space of the board (in the AUX DEVICE box). If you decided not to take this action during this round, click Skip. You’ll have two more chances to complete it later in the game.</p>
+<span class="inline-title">RESOLVING.</span>
+<p>When you successfully resolve this action, do whatever the app instructs you to do in the Event description, then click Completed.</p>
+<p>Event actions that were neither completed nor discarded by the app can be viewed in the Mission Log. Each entry on this list reminds you what to do and how many rounds are left before this Event becomes unavailable. When you decide to take a past Event action, place the pawns and any additional resources on the Past Event Action space (there is only one such space on the board but you may take more than one past Event action). When you resolve such an action successfully, click Completed.</p>
+<span class="inline-title">2. A Quiet Place (REST)</span>
+<p>This action is used to gain Morale tokens, which are needed to pay for skills. Also, the First Player may have to discard them during the Morale phase.</p>
+<span class="inline-title">DECLARING.</span>
+<p>The Rest action requires 1 pawn. Place it on A Quiet Place.</p>
+<span class="inline-title">RESOLVING.</span>
+<p>When you successfully resolve this action, gain 1 Morale token. Place it near your ID board.</p>
+<p>Note: No in-game effect can force you to roll dice or resolve Adventures in this Facility.</p>
+<span class="inline-title">3. Crew Quarters (UNWIND)</span>
+<p>Unwind in your Crew Quarters to improve Morale or lower your Stress.</p>
+<span class="inline-title">DECLARING.</span>
+<p>The Unwind action requires 1 pawn. Place it on the Crew Quarters.</p>
+<span class="inline-title">RESOLVING.</span>
+<p>When you successfully resolve this action, choose whether to increase Morale by 1 or reduce Stress by 6.</p>
+<span class="inline-title">4. Med Lab (HEAL)</span>
+<p>In the Med Lab you will heal wounds and conditions. Unless you have the Auto-scanner Upgrade installed, the Medic pawn must assist in the Heal action.</p>
+<span class="inline-title">DECLARING.</span>
+<p>Place 1 of your pawns on the Med Lab assisted by 1 Medic pawn. If you have the Auto-scanner Upgrade, you do not need to be assisted. The Medic herself needs only 1 of her pawns to take this action.</p>
+<span class="inline-title">RESOLVING.</span>
+<p>When you successfully resolve this action, choose whether to heal your wound or condition. If your wound is healed, move the red marker on your health track 1 space to the left (ignore the icon when you skip it). When your condition is healed, shuffle its token back into the stack.</p>
+<span class="inline-title">5. Control Center (MANAGE)</span>
+<p>This action allows you to keep the danger of Malfunction at bay (to some degree, at least...).</p>
+<span class="inline-title">DECLARING.</span>
+<p>The Manage action requires 1 pawn. Place it on the Control Center.</p>
+<span class="inline-title">RESOLVING.</span>
+<p>When you successfully resolve this action, move a red marker on a chosen Malfunction track down 1 space.</p>
+<span class="inline-title">6. Garage Hall (EXPLORE)</span>
+<p>The Garage Hall allows you to take the Explore action and uncover new ROIs (Regions of Interests) on the map. You can only explore accessible spaces: All spaces around the HUB and all spaces adjacent to already explored tiles are accessible. Spaces/tiles are considered adjacent when they share an edge.</p>
+<p>Whenever you wish to explore a new space, you need to establish a route of accessible tiles leading to that space. If there is more than one route, you can choose which one you'll take. Every time you attempt an action outside the HUB you are affected by all the tiles, spaces, and effects on your way, including the place you're starting from and the place you want to explore (see the Distances &amp; Movement sidebar).</p>
+<span class="inline-title">DECLARING.</span>
+<p>The Explore action requires 1 pawn (if you want to roll the green dice to determine the outcome) or 2 pawns (if you want your action to be automatically successful). Add any additional pawns for distance (see the Distances &amp; Movement box on the right). Place these pawns on the space you want to explore.</p>
+<span class="inline-title">RESOLVING.</span>
+<p>When a space is successfully explored, draw a random ROI tile from the corresponding stack (ring 1, 2, or 3) and place it face up on that space. Each tile may provide new opportunities (e.g., samples to be gathered) and threats (e.g., difficult terrain which hinders movement). Place as many samples on that ROI as there are icons. If there is a POI icon, draw 1 POI token and put it in the Available area of the Cargo Bay. The ROI's terrain's effect (if any) does not affect you when that ROI is explored and the tile is placed, but it applies in all future rounds.</p>
+<p>The icon found on some ROI tiles is only used for some mission-specific effects.</p>
+<span class="inline-title">POI Tokens</span>
+<p>POI (Point of Interest) tokens are special finds that you can discover on newly explored ROIs (the icon). Each POI token has its effect written on it or there is one of these icons: /-/✖. These icons refer to mission-specific finds; consult the mission sheet to see what effect a given POI token has.</p>
+<p>When you gain a POI token, put it in the Available area of the Cargo Bay – they are immediately ready to use.</p>
+<p>Unless stated otherwise, each POI token can be used only once – discard it when used. When a POI token gives you something – a sample or a spare part, for example – you can replace it for that thing at any time.</p>
+<span class="inline-title">7. Probe Bay (GATHER)</span>
+<p>The Probe Bay allows you to take the Gather action, collecting samples by moving them from an ROI to the Cargo Bay. Also, some missions may instruct you to perform the Gather action to obtain resources, spare parts, and other useful materials. You cannot gather from unexplored ROIs.</p>
+<span class="inline-title">DECLARING.</span>
+<p>The Gather action requires 1 pawn (if you want to roll the gray dice to determine the outcome) or 2 pawns (if you want your action to be automatically successful). Add any additional pawns for distance if this is done outside the HUB. Place your pawns next to what you want to gather.</p>
+<span class="inline-title">RESOLVING.</span>
+<p>When you successfully resolve this action, take whatever you gathered and place it in the Pending area of the Cargo Bay. It becomes available to you at the end of the round.</p>
+<span class="inline-title">8. Lab (RESEARCH &amp; PLANTING)</span>
+<p>The Lab allows you to take the Research action — you can examine the samples you previously gathered. A Research action also allows you to plant a new seed.</p>
+<span class="inline-title">Research Cards</span>
+<p>A deck of 6 Research cards is used to generate random numbers: percentages from 15% to 50% and numbers from 01 to 06. They may be used, for example, to generate the number of an Objective token or the amount of what you extract. Whenever you're asked to draw a Research card, draw it and consult the number or percentage — the effect that instructed you to draw that card will tell you which value you're after. Then, shuffle the card back into its deck. Unless otherwise instructed, whenever you're asked to draw multiple cards, draw one, look at it, shuffle it back into the deck, and only then draw another one.</p>
+<span class="inline-title">Research Actions</span>
+<p>When you take a Research action using a sample, you examine it or make discoveries.</p>
+<span class="inline-title">DECLARING.</span>
+<p>The Research action requires 1 pawn (if you want to roll the blue dice to determine the outcome) or 2 pawns (if you want your action to be automatically successful). Add any additional pawns for distance if this is done outside the HUB. When you declare this action to examine a sample, use the Research box on the board:
+If you want to examine a sample for the first time: Take 1 sample from the Cargo Bay and place it on the left space of the topmost empty Research track together with your pawns.
+If you want to examine a sample for the second time: Place your pawns on the research track where that sample is.</p>
+<span class="inline-title">RESOLVING.</span>
+<p>When you successfully resolve the Research action, move the examined sample to the Examined space (if it was examined for the first time) or to the Discovery space (if it was examined for the second time).
+In the campaign mode, you need Discoveries to gain new skills for your astronauts.
+Note: The number of Research tracks is unlimited. If you need more than 3 tracks, place your next samples below the Research box.</p>
+<span class="inline-title">Direction Cards</span>
+<p>A deck of 8 Direction cards is used to generate random directions. They may be used, for example, to determine where a signal came from. Whenever you're asked to draw a Direction card, draw it and check the direction. Then, shuffle the card back into its deck. Unless otherwise instructed, whenever you're asked to draw multiple cards, draw one, look at it, shuffle it back into the deck, and only then draw another one.
+Don't worry about the "Easy", "Medium", and "Heavy" words on these cards. They will be used for some rare in-game effects, and you'll be told exactly when and how to use them.</p>
+<span class="inline-title">Planting New Seeds</span>
+<p>Your Farm consists of up to 5 Greenhouses — a black marker in a Greenhouse slot indicates that Greenhouse is built. Both seeds and plants are represented in the game by white markers. A white marker in a Greenhouse (the 1-5 track on the left) is a fully grown plant (each Greenhouse can have 1 plant). A white marker on the 1-6 Growth track on the right is a growing seed; it does not provide any food until it is fully grown and moved to an empty Greenhouse.</p>
+<p>If the Farm is not full already (there are less white markers than black markers), you can plant a new seed. Eventually, it will grow into a plant and provide an additional food portion.</p>
+<span class="inline-title">DECLARING.</span>
+<p>This action requires <strong>1 pawn</strong> (if you want to roll the blue dice to determine the outcome) or <strong>2 pawns</strong> (if you want your action to be automatically successful). When you declare this action, take 1 seed from the Cargo Bay and place it with your pawns on the Research action space of the Farm. You can take only one such action per round.</p>
+<span class="inline-title">RESOLVING.</span>
+<p>When you successfully resolve this Action, insert 1 white marker into slot #1 of the Growth track. There can only be one seed in any one slot of the Growth track, but more than one seed may grow on this track at the same time, as long as you have enough Greenhouses built to accommodate them.</p>
+<p>In 6 rounds, the seed you planted will be fully grown and will provide an additional food portion.</p>
+<span class="inline-title">9. Working Bay (BUILD)</span>
+<p>The Working Bay allows you to take the Build action. You may use this action to repair broken equipment, install upgrades, or to create mission-specific items.</p>
+<span class="inline-title">Repairing Broken Equipment</span>
+<p>If you want to repair broken equipment (replace a red status marker with a green one), you can do this in two ways: you can either use a spare part or switch matching parts between Facilities. The repaired equipment becomes fully operational at the end of the Action phase during which it was repaired.</p>
+<span class="inline-title">DECLARING.</span>
+<p>This action requires <strong>1 pawn</strong> (if you want to roll the brown dice to determine the outcome) or <strong>2 pawns</strong> (if you want your action to be automatically successful). Add any additional pawns for distance if this is done outside the HUB. Together with the pawns, place any additional resources required for that Build action:</p>
+<p>If you use a spare part: Take a corresponding spare part from the Cargo Bay and place it together with your pawns where you want to make the repair.</p>
+<p>If you switch parts between Facilities: Take the green marker from where the working part is being removed and place it with your pawns where you want to make the repair. Note: The part you took the marker from is immediately considered broken (its cost/penalty applies), but the part you repaired becomes operational only at the end of this Action phase.</p>
+<span class="inline-title">RESOLVING.</span>
+<p>When you successfully resolve this action:
+If you used a spare part: Replace the red marker with a green one where you did your repairs. Discard the spare part token.
+If you switched a part between Facilities: Move the red marker from what you repaired to where you took the corresponding working part from. Put the green marker (the one you had with your pawns) in place of that red one.</p>
+<span class="inline-title">Disassembling</span>
+<p>Each Upgrade card (see p. 18) has two of the following symbols on it: ⚡, ⚙, 👁, ⚙, or 🛡.
+If a given Upgrade card is available to you but you don't intend to install it, you can return it to the box and take the two indicated spare parts instead. Place them in the Available area of the Cargo Bay — you can use them right away. This can be done at any time during a round and is not considered an action.</p>
+<p>You can also replace a green status marker in any of the Facilities for a red one — take the corresponding spare part and place it in the Available area of the Cargo Bay — you can use it right away. This is not an action but can only be done at the beginning of the Action phase.</p>
+<span class="inline-title">Repairing Rovers</span>
+<p>You can use the Build action to discard any one token from the Depot.</p>
+<span class="inline-title">DECLARING.</span>
+<p>This action requires <strong>1 pawn</strong> (if you want to roll the brown dice to determine the outcome) or <strong>2 pawns</strong> (if you want your action to be automatically successful). Place your pawns in the Depot, next to the rover you want to repair.</p>
+<span class="inline-title">RESOLVING.</span>
+<p>When you successfully resolve this action, discard 1 chosen token from the x space of that rover.</p>
+<span class="inline-title">Upgrades</span>
+<p>Facilities can be upgraded. The game comes with many Upgrade cards, but not all of them may be available in a given mission. When you set up a mission, the app specifies how many and which upgrades are available during that mission.</p>
+<p>Each upgrade is compatible with only 1 Facility (as indicated by the icon in the bottom right corner of each card). The effect of installing a given upgrade is always printed on that Upgrade card.</p>
+<span class="inline-title">DECLARING.</span>
+<p>This action requires 1 pawn (if you want to roll the brown dice to determine the outcome) or 2 pawns (if you want your action to be automatically successful). Place the pawns on the Upgrade card you wish to install.</p>
+<span class="inline-title">RESOLVING.</span>
+<p>When you successfully resolve this action, remove the Upgrade card from the game. Place the corresponding Upgrade tile in the Pending area of the Cargo Bay. It becomes operational during the Clean-Up phase.</p>
+<span class="subsection-title">V. Malfunction</span>
+<p>In the Malfunction phase, you roll the Malfunction dice and resolve their effects, adding them to the current Malfunctions.</p>
+<p>There's a Malfunction track on the right of each Facility Block. Each track has 6 spaces numbered 0-5. The Malfunction box in the bottom right corner of the main board tells you which Facilities are in danger of malfunction.</p>
+<span class="label-title">To Resolve the Malfunction Phase:</span>
+<p>First, assemble your pool of Malfunction dice for this round. Consult the mission sheet to see which Malfunction dice (if any) must be rolled. Then, check the Malfunction box to see which dice to add to the pool — unless they are already in that pool (a red marker = add that die; a green marker = don't add that die).</p>
+<p>Roll all dice from this pool.</p>
+<p>Then, for each Block: add +1 for each active penalty in that Block to what you rolled on the corresponding die. If you didn't roll a given die, the base result for that Block is 0, but you must still add all active penalties from that Block.</p>
+<p>Next, accordingly - move the markers up their tracks by the number rolled on the corresponding dice.</p>
+<span class="label-title">Finally, resolve the effects of the Malfunction tracks, if any were triggered.</span>
+<p>Whenever Malfunction reaches or should pass 5, draw 1 Malfunction card from the corresponding Malfunction deck, resolve its effect, put the card on a face-up discard pile next to its deck, and reset the track to 0. Additionally, if the next Block in sequence has a green marker in the Malfunction box, change it to red: Working Block -&gt; Living Block -&gt; System Block -&gt; Working Block. For example, if Malfunction lands at 5 on the Living Block Malfunction track and the System Block has a green status marker in the Malfunction box, change that status marker to red.</p>
+<p>If you ever run out of Malfunction cards in any deck, shuffle the corresponding discard pile to form a new deck.</p>
+<span class="label-title">Resolving Keywords</span>
+<p>Each Malfunction card has a pair of keywords on it (for example: Complication. Lab). When you're asked to resolve a card with a certain keyword, draw cards one by one until you encounter the one you need. For example, if you need to resolve 1 Living Block Obstacle card, draw successive Living Block Malfunction cards until you encounter one with the Obstacle keyword on it. Resolve that card, discard all the others.</p>
+<p>After resolving the consequences of the Malfunction phase, move the white marker on the Round Order track down 1 space and proceed to the Clean-Up phase.</p>
+<span class="label-title">Malfunction Dice Colors</span>
+<p>Malfunction dice, just like action dice, are color-coded. This helps you quickly identify which die corresponds to which Facility Block.</p>
+<p>But there is more to it than that. Yellow, orange, and red indicate increasingly more deadly consequences of the respective Block's Malfunction. If you can, attend to the System Block first — if these Facilities remain broken, the dangers can quickly become too much to handle.</p>
+<span class="subsection-title">VI. Clean-Up</span>
+<p>In the Clean-Up phase:</p>
+<ul>
+<li>In each Facility: Discard the tokens (if any) from the ! space and move the topmost token (if any) from the &gt;&gt; space to the ! space.</li>
+<li>Move everything from the Pending area of the Cargo Bay to the Available area of the Cargo Bay. If there are any Upgrade tiles here, move them to their respective Facilities.</li>
+<li>Move the white marker on the Round Order track back to the top space.</li>
+<li>Discard all black markers from the skills used this round; any Skill cards used are flipped back face up.</li>
+<li>Pass the First Player token clockwise to the next person.</li>
+<li>Move the white marker to the next space of the Sol Counter on the mission sheet.</li>
+</ul>
+<p>The First Player clicks the Next Round button in the app and it will tell you if the mission has ended. If it didn't, a new round now begins.</p>
+<span class="label-title">Modifier Tokens</span>
+<p>Modifier tokens trigger a number of in-game effects. They can, for example, force you to use an additional pawn, or to reroll a success die. All the icons on the Modifier tokens are explained in the table at the end of the rulebook.
+Whenever an effect introduces a new Modifier token into play, you will be instructed where to put this token. Modifier tokens do not act retroactively — they cannot influence an action that was already declared even if it hasn't been resolved yet. They do apply, however, to all future actions until the end of the phase in which they've been discarded.</p>
+<span class="label-title">Ending the Game</span>
+<p>Players win and lose together. There are several possibilities:</p>
+<span class="inline-title">Victory</span>
+<p>You succeed in your mission if you complete all the mandatory mission objectives before the end of the game. If the mission has a Threshold value, you must be at or below that Threshold. The app then declares you winners.</p>
+<span class="inline-title">Defeat</span>
+<p>You all lose when:</p>
+<ul>
+<li>At least one of the astronauts dies.</li>
+<li>You run out of time: You failed to complete all of the mandatory mission objectives by the end of the mission.</li>
+<li>You do not meet the Threshold value at the end of the mission (if a mission requires a Threshold).</li>
+</ul>
+<span class="label-title">Objective Tokens</span>
+<p>Objective tokens are mission-specific. They are used to track your progress in the mission. Generally, red tokens indicate mandatory objectives, the orange ones are optional objectives, and the black ones are used in other cases.
+When you gain an Objective token, place it where the mission sheet tells you to. If no place is specified, put it in the Pending area of the Cargo Bay and treat it as anything else you gather.
+When an Objective token gives you something — for example, a sample or a spare part — you can replace it for that thing at any time after gaining that token, unless instructed otherwise.
+Note: The numbers on the tokens do not reflect the hierarchy of goals.</p>
+<span class="label-title">1-3 Players</span>
+<p>The following changes are introduced when there are fewer than four astronauts in play:</p>
+<ul>
+<li>Begin the game with the Auto-scanner Upgrade tile already in play. Discard the Auto-scanner Upgrade card (so that you don't draw it during setup).</li>
+<li>If there are 3 astronauts in play, for each mission you can choose 1 AOM to help you. Take its card and its pawn.</li>
+<li>If there are 2 astronauts in play, for each mission you can choose 2 AOMs to help you. Take their cards and pawns.</li>
+<li>If you play solo, use 2 chosen astronauts. All AOMs are available to help you, but in each round you can use no more than 2 of them. You may choose them during each round, as you see fit.</li>
+</ul>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Campaign Mode</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">The Campaign Mode</span>
+<p>In addition to standalone missions, First Martians: Adventures on the Red Planet offers you a thrilling campaign mode. A campaign is a series of five missions with a captivating overarching story for you to discover. There are two campaigns in the box. We suggest you play <em>The Labyrinth of the Night</em> first. The other one — <em>Welcome to Mars</em> — is a legacy-style one: There are some special components you will use only once. Each mission in a campaign takes about 60-90 minutes to play. The campaigns are independent of each other — they tell different stories.</p>
+<p>When you are ready to begin a campaign, set up its first mission. Choose your astronauts wisely, because you won’t be able to change them later in the campaign. Each mission in a campaign follows normal rules for a standalone mission. If there are any gameplay changes, they are provided by the mission sheet or through the app.</p>
+<span class="subsection-title">Winning and Losing in a Campaign</span>
+<p>When you lose a mission during <em>The Labyrinth of the Night</em> campaign, the app will give you an option to replay that failed mission or restart the entire campaign. The <em>Welcome to Mars</em> campaign is a legacy one and none of its missions can be replayed.</p>
+<p>When you win a campaign mission, the app will reward you with some bonuses, according to how many objectives you managed to complete within the time limit. It is strategically wise to try to complete as many objectives as you can. Otherwise, your future missions may be more challenging.</p>
+<span class="subsection-title">Saving the Game</span>
+<p>The consequences of your actions from the previous missions are carried over to the next, so in order to continue with the campaign, you must record the current situation. When the app asks you to save the game status after a successful mission, click <em>Begin</em> and closely follow the instructions on the screen.</p>
+<p>Once you’ve recorded all the necessary information, you can proceed to the next mission — either right away or later, whenever you’re ready. The saved game allows you to recreate the campaign’s status at any time.</p>
+<span class="subsection-title">Resuming the Game</span>
+<p>When you click the <em>Continue Campaign</em> button in the app’s main menu, you will see a list of previously saved gameplays. Select the one you wish to continue with. As you click through subsequent screens, you will recreate the state of things as they were at the end of the chosen mission. When this has been done, start the next mission.</p>
+<p>Setting up the next mission in a campaign is different from setting up a standalone mission; the setup relies on the state from the end of the previous mission. If the app does not specifically tell you to change a game element, that element remains in its place (don’t discard your conditions; don’t repair the Facilities; whatever you explored remains explored; the skills you unlocked remain available; the supplies you used are not replenished, etc.). Adventures whose consequences have not yet been resolved may still surface in this mission.</p>
+<span class="subsection-title">About the Campaigns</span>
+<p>First Martians: Adventures on the Red Planet offers two campaigns which are distinctly different from standalone missions. We cannot give you too many details at this stage, but we want you to remember a couple of things.</p>
+<ol>
+<li>First and foremost, the campaigns are designed to provide you with an opportunity of immersive, emotionally engaging experiences. The basic mechanics you used in standalone missions are now expanding to accommodate for a story they need to tell. The plotline and your choices are the most important elements of the campaigns.</li>
+<li>You will need to make more decisions than during standalone missions. For example, it now becomes much more important to care for your astronauts. It’s not enough to scrape through one mission, leaving your astronauts barely alive, because there are more tasks ahead of you! If you don’t attend to your astronauts now, they will likely die in the missions to come.</li>
+<li>The supplies you have, your spare parts and reserves, are not to be used immediately. Remember, you might need them later on. What you have is given to you for the entire campaign, so decide carefully whether to spend a resource or not.</li>
+<li>Plan ahead. Growing a plant from a seed takes time. Unlocking skills requires making Discoveries (see the Skills box on p. 5). You will often find yourself having less time than you need, but there are some important actions you should take early on. The further you are in the campaign, the more devastating the consequences of your past delays may become.</li>
+<li>All the missions within one campaign are best played with the same gaming group. This is to ensure the feeling of owning the choices from the previous missions.</li>
+</ol>
+  </div>
+</details>
+<details class="section">
+  <summary><span>FAQ</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p><strong>Q:</strong> When Objectives tokens are referred to by a range (e.g. #1-3), do you mean "#1, #2, and #3" or "#1, #2, or #3"?
+<strong>A:</strong> Whether a particular statement refers to one Objective token or many, depends on how it's worded. "Objective tokens #1-3" means three Objective tokens (#1, #2, and #3) whereas "an Objective token #1-3" means one Objective token (#1, #2, or #3).</p>
+<p><strong>Q:</strong> When multiple effects copy the same result, do I have to resolve that result multiple times?
+<strong>A:</strong> Only tokens add up. Apart from that, other tokens, cards, costs, and penalties cannot multiply a single effect (for example, you never resolve more than 1 Adventure per action and you never need to reroll a success die more than once).
+Some examples: If you're asked to put the token on an ROI with the Chasm on it, ignore that instruction – the Chasm already has the token effect. If you're asked to put a token on a given space and there already is a token there, ignore that instruction. However, if you're asked to place a token on a given &gt;&gt; space, you must always do so – this is because none of these tokens is active; when you move the top token to the corresponding ! space, only one such token will be active at a given time.</p>
+<p><strong>Q:</strong> When an effect allows me to redraw a particular type of card, what exactly am I supposed to do?
+<strong>A:</strong> If you're unhappy with what you drew, you can discard this card and draw another one. You must resolve the new card.</p>
+<p><strong>Q:</strong> When I shut down a Facility, can I still use that Facility Upgrade?
+<strong>A:</strong> No. As long as a Shutdown tile is on that Facility, you cannot use its actions and upgrades (for example: if the Lab is shut down, you cannot plant new seeds; if the Crew Quarters are shut down, you do not gain an additional Morale token in the Production phase).</p>
+<p><strong>Q:</strong> Concentration Difficulties. If there are multiple pawns assigned to one action and among those pawns there are two astronauts with Concentration Difficulties, do I have to resolve that condition's effect twice?
+<strong>A:</strong> No, because only the effects of tokens add up.</p>
+<p><strong>Q:</strong> I flipped a Shutdown tile and it tells me to add +1 to my production of energy/oxygen, but my current production is already at its peak. What do I do?
+<strong>A:</strong> Nothing. Shutdown tiles cannot boost production beyond your maximum production capacity.</p>
+<p><strong>Q:</strong> Can each action taken in the Control Center during the same round target a different Malfunction track?
+<strong>A:</strong> Yes.</p>
+<p><strong>Q:</strong> If I have the Power Generator Upgrade installed, can I use it to ignore one red status marker at the end of the mission when I count the broken parts in the HUB?
+<strong>A:</strong> No. The Power Generator Upgrade only affects the penalty – that part remains broken and counts towards the Threshold value.</p>
+<p><strong>Q:</strong> If the game tells me to place a token but there are none left, what do I do?
+<strong>A:</strong> Markers and tokens (save for Condition tokens) are not limited to the components in the box. For example, if you need to place a token on the board but there are none left, use a multiplication tile. If you need to use a red marker to indicate a broken part but there are no red markers left, use anything else as a substitute. Running out of markers or tokens does not mean you cannot or should not apply their effects.</p>
+<p><strong>Q:</strong> When I get a condition token for passing the icon on my health track, then I get healed and then suffer another wound, do I get another condition for skipping that same icon again?
+<strong>A:</strong> Yes. The rules say, "Every time that icon is passed...", not "The first time that icon is passed...".</p>
+<p><strong>Q:</strong> If an action has a penalty, why would I ever use more than the minimum number of pawns necessary to perform that action?
+<strong>A:</strong> Let's assume there are no other modifiers currently active, and 1 pawn on a given action means rolling dice and 2 pawns mean a sure success. The penalty in question only refers to the die, so if you use 2 pawns, you roll only that one die; but if you use 1 pawn, you still need to roll all three dice (risking a wound and/or an Adventure) – of course, you don't roll the die twice.</p>
+<p><strong>Q:</strong> When I want to flip over a Shutdown tile, do I have to take into account the costs/penalties of the Facility that tile is on?
+<strong>A:</strong> No. You always need only 1 pawn to flip a Shutdown tile over.</p>
+<p><strong>Q:</strong> How do Complication cards work exactly?
+<strong>A:</strong> When you draw a Complication card, check the other keyword to identify the Facility it refers to. The icon shown on the card tells you which part is now broken. In that Facility, change the corresponding green status marker to a red one. If that part is already broken, discard this card.</p>
+<p><strong>Q:</strong> When I have the red marker in the last slot of the health track, is my astronaut dead or alive?
+<strong>A:</strong> Alive. The astronaut will die if you have to move the marker beyond your ID board.</p>
+<p><strong>Q:</strong> If I produce less energy/oxygen than I need but I have reserves in the general supply, can I use them to make up for the difference?
+<strong>A:</strong> No. If you produce less than you need, to must use Shutdown tokens to switch off Facilities you can't supply with energy/oxygen - these Facilities become unavailable. Reserves from the general supply are used to pay for the cost of broken parts of available Facilities: If there is a red marker next to that cost and you want to take that Facility's action, you must then pay that cost by spending reserves from the general supply.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Player Aid</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+
+  </div>
+</details>
+<details class="section">
+  <summary><span>Round Summary</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">I. EVENTS</span>
+<ol>
+<li>The First Player advances Malfunction.</li>
+<li>Players resolve their Adventures (if any).</li>
+<li>The First Player reads aloud the story and resolves the Mission Event.</li>
+</ol>
+<span class="subsection-title">II. MORALE</span>
+<p>The First Player discards/gains Morale tokens according to the current Morale level. If they don't have enough to discard, they suffer 1 wound for each lacking token.</p>
+<span class="subsection-title">III. PRODUCTION</span>
+<ol>
+<li>Check your oxygen and energy production. If you produce less than you use, place Shutdown tiles to level out the difference. If you produce more than you use, add half of the surplus (rounded up) to the general supply.</li>
+<li>Move any seeds you have up 1 space. Produce as many food portions as you have fully grown plants. Consume as many food portions as there are astronauts. If there is not enough food, players decide who will not eat and suffer 1 wound for each lacking food portion.</li>
+<li>Increase Stress by the number of astronauts (and other effects).</li>
+<li>Resolve penalties of broken in the Working Block.</li>
+</ol>
+<span class="subsection-title">IV. ACTIONS</span>
+<p>Players decide together which actions to take. The chosen actions are always resolved in this order:</p>
+<ol>
+<li>Events: Event action requirements are provided by the app. Take the current Event action or one of the past Event actions if it's still in the Mission log. Each Event action can be taken only once.</li>
+<li>A Quiet Place: -&gt; +1 .</li>
+<li>Crew Quarters: -&gt; +1 Morale or -6 Stress.</li>
+<li>Med Lab: + Medic/Auto-scanner -&gt; heal 1 wound or 1 condition. The Medic heals herself.</li>
+<li>
+<p>Control Center: -&gt; -1 Malfunction on a chosen Malfunction track.
+6 Garage Hall: and green dice or -&gt; place a new ROI tile. Add samples and POI tokens (if any). That ROI's terrain effect does not apply this round.</p>
+</li>
+<li>
+<p>Probe Bay: and gray dice or -&gt; take 1 sample from where you gathered and move it to the Pending area of the Cargo Bay. It becomes available at the end of the round.</p>
+</li>
+<li>Lab: and blue dice or -&gt; examine/discover samples using the Research box. Discoveries unlock Skills in the campaign mode.</li>
+<li>Working Bay: and brown dice or -&gt; repair equipment (replace red status markers with green ones), repair rovers (discard tokens from the rover area), or install upgrades (place the Upgrade tile on the board and discard its card).
+The minimum requirements given above are modified by relevant tokens, distance, etc. You can only take an action if you can pay the cost and handle its penalties.</li>
+</ol>
+<span class="subsection-title">V. MALFUNCTION</span>
+<p>The First Player:</p>
+<ol>
+<li>Assembles the pool of Malfunction dice for this round.</li>
+<li>Rolls the pool of Malfunction dice. Adds all red from a corresponding Block to what they rolled.</li>
+<li>Moves the markers up the corresponding Malfunction tracks.</li>
+<li>Resolves Malfunction effects.</li>
+</ol>
+<span class="subsection-title">VI. CLEAN-UP</span>
+<ol>
+<li>In each Facility: Discard tokens from the ! space, move the topmost token from the &gt;&gt; space to the ! space.</li>
+<li>Move everything from the Pending area to the Available area of the Cargo Bay.</li>
+<li>Move the white marker back to the top of the Round Order track.</li>
+<li>Discard black markers from used Skills. Flip over used Skill cards.</li>
+<li>Move the white marker to the next space of the Sol Counter.</li>
+<li>Pass the First Player token clockwise.</li>
+</ol>
+  </div>
+</details>
+<details class="section">
+  <summary><span>List of Icons</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Action Costs &amp; Penalties</span>
+<ul>
+<li>In the Malfunction phase: move the marker on the corresponding Malfunction track up 1 space.</li>
+<li>Your plants are dying – resolve the effects of wilting (p. 10).</li>
+<li>No rover can assist in Explore actions.</li>
+<li>To take this action, you must spend 1 . You don't get it back if the action was unsuccessful.</li>
+<li>To take this action, you must spend 1 . You don't get it back if the action was unsuccessful.</li>
+<li>Even if you used enough pawns for the action to be automatically successful, you must roll the corresponding . If you don't roll a , that action is unsuccessful. Green: Explore; gray: Gather, Unwind; blue: Research, Heal; brown: Build, Manage.</li>
+<li>Put the token on the Working Bay ! space.</li>
+</ul>
+<span class="subsection-title">ROI Effects</span>
+<ul>
+<li>Whenever a rover drives to or through this ROI, roll the green Wound die at the end of the Action phase. If you rolled a , that rover is damaged – add 1 Blocked token to the x space of that rover. You must take the Build action on that rover to repair it.</li>
+<li>The outer edge of this ROI is impassable – you can go left or right, but you cannot go directly to the more external ring from this ROI.</li>
+<li>Whenever you go to or through this ROI, resolve an Adventure (does not affect assisting players).</li>
+<li>Whenever you go to or through this ROI, decrease Morale by 1.</li>
+<li>Whenever you go to or through this ROI, suffer 1 wound (does not affect assisting players).</li>
+<li>You need 1 pawn more for any action involving this ROI.</li>
+<li>this action (does not affect assisting players). Green: Explore; gray: Gather, Unwind; blue: Research, Heal; brown: Build, Manage.</li>
+<li>If you needed to roll a Success die for this action and rolled a , you must reroll it once. Only the result of this second roll applies.</li>
+<li>You must suffer 1 wound to take this action (does not affect assisting players).</li>
+<li>Whenever you use a rover, roll the green Wound die at the end of the Action phase. If you rolled a , that rover is damaged – add 1 Blocked token to the x space of that rover. You must take the Build action on that rover to repair it.</li>
+</ul>
+<span class="subsection-title">Facility Parts</span>
+<ul>
+<li>Energy Connectors</li>
+<li>Oxygen Filters</li>
+<li>Hardware</li>
+<li>CPU</li>
+</ul>
+<span class="subsection-title">Other Icons</span>
+<ul>
+<li>condition</li>
+<li>Morale</li>
+<li>Stress</li>
+<li>Sample</li>
+<li>Malfunction</li>
+<li>Morale token</li>
+<li>wound</li>
+<li>Energy/oxygen/food from the general supply</li>
+</ul>
+<span class="subsection-title">Tokens</span>
+<ul>
+<li>Blocked. This Facility or rover cannot be used this round.</li>
+<li>1 token of this kind counters 1 pawn on this action.</li>
+<li>Resolve a corresponding Adventure when you take</li>
+<li>spare parts tokens (Energy Connectors / Oxygen Filters / Hardware / CPU)</li>
+<li>Used for various mission-specific purposes</li>
+</ul>
+<span class="subsection-title">Conditions</span>
+<span class="label-title">ANEMIA</span>
+<p>In each round's Production phase that astronaut must eat 2 food portions instead of 1. As usual, they get 1 wound for each portion they cannot eat.</p>
+<span class="label-title">ANXIETY ATTACK</span>
+<p>Decrease the group's Morale by 1. Resolve this effect immediately, then shuffle this token back into the stack.</p>
+<span class="label-title">CARDIAC DISORDER</span>
+<p>One pawn of that astronaut can only be used to take the Heal action in order to heal that condition. The other pawn of that astronaut can be used to take any action.</p>
+<span class="label-title">CONCENTRATION DIFFICULTIES</span>
+<p>If the astronaut with this condition token takes an action, they must resolve an Adventure. If they only assist in that action, the astronaut whose pawn is on top of the stack for this action must resolve an Adventure.</p>
+<span class="label-title">MIGRAINE</span>
+<p>That astronaut cannot use skills, but can spend Morale tokens for other purposes.</p>
+<span class="label-title">POISONING</span>
+<p>Whenever that astronaut should suffer any number of wounds, they suffer twice as many.</p>
+  </div>
+</details>
+  <p id="no-results">No sections match your search.</p>
+</main>
+<script>
+(function () {
+  var searchEl  = document.getElementById('search');
+  var clearBtn  = document.getElementById('search-clear');
+  var noResults = document.getElementById('no-results');
+  var sections  = Array.from(document.querySelectorAll('details.section'));
+
+  // Snapshot each section body's original HTML so we can restore it
+  // before applying a new round of highlights.
+  sections.forEach(function (s) {
+    var body = s.querySelector('.section-body');
+    if (body) body.dataset.original = body.innerHTML;
+  });
+
+  var timer;
+
+  searchEl.addEventListener('input', function () {
+    var term = this.value.trim();
+    clearBtn.classList.toggle('visible', term.length > 0);
+    clearTimeout(timer);
+    timer = setTimeout(function () { applySearch(term); }, 180);
+  });
+
+  clearBtn.addEventListener('click', function () {
+    searchEl.value = '';
+    clearBtn.classList.remove('visible');
+    applySearch('');
+    searchEl.focus();
+  });
+
+  function escapeRe(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlightTextNodes(container, re) {
+    var walker = document.createTreeWalker(
+      container, NodeFilter.SHOW_TEXT, null, false
+    );
+    var nodes = [];
+    var n;
+    while ((n = walker.nextNode())) {
+      if (n.nodeValue.trim()) nodes.push(n);
+    }
+    nodes.forEach(function (textNode) {
+      re.lastIndex = 0;
+      if (!re.test(textNode.nodeValue)) return;
+      re.lastIndex = 0;
+      var span = document.createElement('span');
+      span.innerHTML = textNode.nodeValue.replace(
+        re, function (m) { return '<mark>' + m + '</mark>'; }
+      );
+      textNode.parentNode.replaceChild(span, textNode);
+    });
+  }
+
+  function applySearch(term) {
+    var re = term ? new RegExp(escapeRe(term), 'gi') : null;
+    var visibleCount = 0;
+
+    sections.forEach(function (section) {
+      var body    = section.querySelector('.section-body');
+      var summary = section.querySelector('summary');
+
+      // Restore original HTML before each search pass
+      if (body) body.innerHTML = body.dataset.original;
+
+      if (!re) {
+        section.classList.remove('search-hidden');
+        section.open = false;
+        return;
+      }
+
+      var titleText = summary ? summary.textContent : '';
+      var bodyText  = body    ? body.textContent    : '';
+
+      re.lastIndex = 0;
+      var inTitle = re.test(titleText);
+      re.lastIndex = 0;
+      var inBody  = re.test(bodyText);
+      re.lastIndex = 0;
+
+      if (inTitle || inBody) {
+        section.classList.remove('search-hidden');
+        section.open = true;
+        if (body) highlightTextNodes(body, new RegExp(escapeRe(term), 'gi'));
+        visibleCount++;
+      } else {
+        section.classList.add('search-hidden');
+      }
+    });
+
+    noResults.style.display = (re && visibleCount === 0) ? 'block' : 'none';
+  }
+})();
+</script>
+</body>
+</html>

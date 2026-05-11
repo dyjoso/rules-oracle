@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Earthborne Rangers — Rules Reference</title>
+<style>
+:root {
+  --bg:            #f2ede6;
+  --text:          #1a1a1a;
+  --header-bg:     #324b4f;
+  --section-bg:    #324b4f;
+  --subsection-bg: #926e54;
+  --rule:          #b0a898;
+  --accent:        #926e54;
+  --table-head:    #324b4f;
+  --note-bg:       #e8e0d4;
+  --body-bg:       #ffffff;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 15px;
+  line-height: 1.55;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* ── STICKY HEADER ───────────────────────────────────────── */
+.sticky-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--header-bg);
+  padding: 10px 14px 12px;
+  padding-top: max(10px, env(safe-area-inset-top));
+  padding-left: max(14px, env(safe-area-inset-left));
+  padding-right: max(14px, env(safe-area-inset-right));
+  box-shadow: 0 2px 12px rgba(0,0,0,0.4);
+}
+
+.masthead-row {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 9px;
+}
+
+.masthead-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  line-height: 1.1;
+  flex-shrink: 0;
+}
+
+.masthead-subtitle {
+  font-size: 11px;
+  color: rgba(255,255,255,0.45);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.back-link {
+  margin-left: auto;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+  text-decoration: none;
+  flex-shrink: 0;
+  padding-left: 12px;
+  white-space: nowrap;
+}
+.back-link:hover {
+  color: rgba(255,255,255,0.85);
+}
+
+.search-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-icon {
+  position: absolute;
+  left: 10px;
+  width: 15px;
+  height: 15px;
+  color: rgba(255,255,255,0.4);
+  pointer-events: none;
+  flex-shrink: 0;
+}
+
+#search {
+  width: 100%;
+  padding: 8px 36px 8px 32px;
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 8px;
+  font-size: 15px;
+  background: rgba(255,255,255,0.12);
+  color: #fff;
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+#search::placeholder { color: rgba(255,255,255,0.38); }
+
+#search:focus {
+  background: rgba(255,255,255,0.2);
+  border-color: rgba(255,255,255,0.3);
+}
+
+.search-clear {
+  position: absolute;
+  right: 6px;
+  background: rgba(255,255,255,0.18);
+  border: none;
+  border-radius: 50%;
+  color: rgba(255,255,255,0.8);
+  font-size: 14px;
+  line-height: 1;
+  width: 22px;
+  height: 22px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  flex-shrink: 0;
+}
+
+.search-clear.visible { display: flex; }
+
+/* ── MAIN ────────────────────────────────────────────────── */
+main {
+  padding: 10px 12px 48px;
+  padding-left: max(12px, env(safe-area-inset-left));
+  padding-right: max(12px, env(safe-area-inset-right));
+  padding-bottom: max(48px, env(safe-area-inset-bottom));
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+/* ── NO RESULTS ──────────────────────────────────────────── */
+#no-results {
+  display: none;
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--text);
+  opacity: 0.5;
+  font-size: 14px;
+}
+
+/* ── COLLAPSIBLE SECTIONS ────────────────────────────────── */
+details.section {
+  margin-bottom: 6px;
+  border-radius: 6px;
+  overflow: hidden;
+  scroll-margin-top: 130px;
+}
+
+details.section > summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  min-height: 44px;
+  background: var(--section-bg);
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  list-style: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+details.section > summary::-webkit-details-marker { display: none; }
+
+.chevron {
+  width: 12px;
+  height: 12px;
+  opacity: 0.65;
+  flex-shrink: 0;
+  margin-left: 8px;
+  transition: transform 0.18s ease;
+}
+
+details.section[open] > summary .chevron {
+  transform: rotate(90deg);
+}
+
+.section-body {
+  background: var(--body-bg);
+  padding: 10px 12px 12px;
+  border: 1px solid var(--rule);
+  border-top: none;
+  border-radius: 0 0 6px 6px;
+}
+
+/* ── HEADINGS WITHIN SECTIONS ────────────────────────────── */
+.subsection-title {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: #fff;
+  background: var(--subsection-bg);
+  padding: 4px 12px;
+  margin: 10px -12px 7px;
+}
+
+.label-title {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--section-bg);
+  border-bottom: 1.5px solid var(--rule);
+  padding-bottom: 3px;
+  margin: 10px 0 5px;
+}
+
+.inline-title {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 8px 0 3px;
+}
+
+/* ── BODY TEXT ───────────────────────────────────────────── */
+p { margin-bottom: 7px; }
+b, strong { font-weight: 600; }
+em, i { font-style: italic; }
+
+/* ── LISTS ───────────────────────────────────────────────── */
+ul, ol { padding-left: 20px; margin-bottom: 6px; }
+ul { list-style-type: disc; }
+ol { list-style-type: decimal; }
+ul ul { list-style-type: circle; }
+li { margin-bottom: 3px; }
+li > ul, li > ol { margin-top: 2px; margin-bottom: 0; }
+
+/* ── TABLES ──────────────────────────────────────────────── */
+.table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin-bottom: 6px;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  min-width: 260px;
+}
+thead tr { background: var(--table-head); color: white; }
+thead th {
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  padding: 5px 8px;
+  text-align: left;
+  white-space: nowrap;
+}
+tbody tr:nth-child(even) { background: var(--note-bg); }
+tbody td { padding: 5px 8px; vertical-align: top; }
+
+/* ── BLOCKQUOTE ──────────────────────────────────────────── */
+blockquote {
+  background: var(--note-bg);
+  border-left: 3px solid var(--accent);
+  padding: 6px 10px;
+  margin: 5px 0 7px;
+  font-size: 14px;
+  border-radius: 0 4px 4px 0;
+}
+blockquote p { margin-bottom: 2px; }
+
+/* ── INLINE CODE ─────────────────────────────────────────── */
+code {
+  background: var(--note-bg);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  padding: 1px 4px;
+  font-size: 13px;
+  font-family: inherit;
+  font-weight: 600;
+}
+
+/* ── HR ──────────────────────────────────────────────────── */
+hr { border: none; border-top: 1px solid var(--rule); margin: 8px 0; }
+
+/* ── SEARCH HIGHLIGHT ────────────────────────────────────── */
+mark {
+  background: #ffe566;
+  color: inherit;
+  border-radius: 2px;
+  padding: 0 1px;
+}
+
+/* ── HIDDEN SECTIONS ─────────────────────────────────────── */
+details.section.search-hidden { display: none; }
+
+/* ── VERSION TOGGLE ──────────────────────────────────────── */
+.toggle-bar {
+  display: flex;
+  margin-top: 8px;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.2);
+}
+.toggle-current,
+.toggle-other {
+  flex: 1;
+  text-align: center;
+  padding: 6px 10px;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  line-height: 1;
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.toggle-current {
+  background: rgba(255,255,255,0.18);
+  color: #ffffff;
+  font-weight: 600;
+  cursor: default;
+}
+.toggle-other {
+  color: rgba(255,255,255,0.5);
+}
+.toggle-other:hover {
+  background: rgba(255,255,255,0.08);
+  color: rgba(255,255,255,0.8);
+}
+
+/* ── PRINT ───────────────────────────────────────────────── */
+@media print {
+  .sticky-header { position: static; }
+  details.section[open], details.section { display: block; }
+  .section-body { display: block !important; }
+  .search-wrap, .search-clear, .toggle-bar { display: none; }
+}
+</style>
+</head>
+<body>
+<header class="sticky-header">
+  <div class="masthead-row">
+    <span class="masthead-title">Earthborne Rangers</span>
+    <span class="masthead-subtitle">Rules Reference</span>
+    <a class="back-link" href="index.html">&#8592; All Games</a>
+  </div>
+  <div class="toggle-bar"><span class="toggle-current">Full Rules</span><a class="toggle-other" href="earthborne-rangers-rules-reference.html">Quick Reference</a></div>
+  <div class="search-wrap">
+    <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+         stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+         aria-hidden="true">
+      <circle cx="11" cy="11" r="8"/>
+      <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+    </svg>
+    <input type="text" id="search" placeholder="Search rules…"
+           autocomplete="off" spellcheck="false" autocorrect="off">
+    <button class="search-clear" id="search-clear" aria-label="Clear search">&#x2715;</button>
+  </div>
+</header>
+<main>
+<details class="section" open>
+  <summary><span>GETTING STARTED</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>We first recommend that at least one member of your group fully reads through this rulebook or watches the Learn to Play video found at earthborngames.com. Then your group has a choice on how they want to play the first session of your campaign:</p>
+<ul>
+<li>Experienced groups can dive right into the game by creating Ranger decks following the rules on page 32 of this rulebook, then go to entry 1 in the campaign guide to begin your first session.</li>
+<li>Alternatively, we recommend that groups with members new to <strong>Earthborne Rangers</strong> or card games in general play through the Prologue. This is a guided game session that will gradually introduce concepts of the game and walk everyone through building their Ranger decks as they play. You can play through the Prologue by going to page 2 of the campaign guide and following the instructions there. You will not need to do any prep ahead of playing the Prologue (other than reading these rules).</li>
+</ul>
+  </div>
+</details>
+<details class="section">
+  <summary><span>GAME SETUP</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>To set up the game, perform the following steps in order.</p>
+<p>If you are starting a brand new campaign, go to the Getting Started section on page 9 and choose one of the options listed there.</p>
+<span class="subsection-title">1. SET UP PLAYER AREAS</span>
+<p>Place your aspect card, role card, and common test reference card in your player area. Shuffle your Ranger deck and place it in your player area. Place a number of energy tokens equal to their corresponding aspect values onto your aspect card.</p>
+<span class="subsection-title">2. DRAW STARTING HAND</span>
+<p>Draw six cards from your Ranger deck.</p>
+<p>Mulligan: If you don't like your starting hand, you can set aside any number of cards from your hand and draw an equivalent number of new cards. Then shuffle the set-aside cards back into your Ranger deck.</p>
+<span class="subsection-title">3. ELECT THE LEAD RANGER</span>
+<p>Together, choose a Ranger to be the lead Ranger. The lead Ranger always draws the first path card at the start of each round and makes decisions for the group if a consensus cannot be reached.</p>
+<span class="subsection-title">4. SHUFFLE THE CHALLENGE DECK</span>
+<p>Shuffle the challenge deck and place it above the surroundings.</p>
+<span class="subsection-title">5. SET UP THE STARTING LOCATION</span>
+<p>Place your current location in the surroundings. If continuing a campaign, check the "current location" line of your campaign tracker.</p>
+<span class="subsection-title">6. SET UP THE WEATHER CARD</span>
+<p>Find the weather card (or cards) noted below the current day on your campaign tracker, and place it in the surroundings to the left of the location with the side named on the campaign tracker faceup. Read any campaign guide entries listed above the current day.</p>
+<span class="subsection-title">7. SET UP MISSION CARDS</span>
+<p>Find the corresponding cards for each uncompleted mission on your campaign tracker and place them in the surroundings to the right of the location.</p>
+<span class="subsection-title">8. BUILD AND SHUFFLE THE PATH DECK</span>
+<p>First add all path cards from the set matching the terrain you were traveling on at the end of the previous day as noted on your campaign tracker. Then, if you are at a pivotal location, add all path cards from the set matching that location. If you are not at a pivotal location, instead add three random cards from the Valley set. Finally, add any other cards added by missions in play. Shuffle those cards together and place them above the surroundings.</p>
+<p>Note: See Build the Path Deck on page 15 for a more detailed explanation of these card and location types.</p>
+<span class="subsection-title">9. RESOLVE ARRIVAL SETUP</span>
+<p>Read the campaign entry marked on the back of the location card. Then perform all setup instructions on the back of the location card. If the card calls for the "next Ranger" to resolve an effect but each Ranger has already resolved one, that effect is ignored.</p>
+<span class="subsection-title">10. FINISHING TOUCHES</span>
+<p>Place any tokens as dictated by the cards in play, and resolve any instructions on weather or missions labeled "Start of Day."</p>
+<p>Each session of Earthborne Rangers represents one day of your campaign and is played in rounds. There is no limit to the number of rounds in a day. Each round is divided into four phases:</p>
+<ul>
+<li>Phase 1: Path Cards</li>
+<li>Phase 2: Ranger Turns</li>
+<li>Phase 3: Travel</li>
+<li>Phase 4: Refresh</li>
+</ul>
+  </div>
+</details>
+<details class="section">
+  <summary><span>PHASE 1: PATH CARDS</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>Each round, the Rangers spend more time exploring the area around their current location, discovering new beings and features as they do.</p>
+<p>Starting with the lead Ranger, draw one path card per Ranger. If the card is marked with a number underneath a book icon to the right of its name, find the corresponding entry in the campaign guide, and read it aloud. Then resolve any effects that resolve when the card "enters play." Fully resolve the effects of each card before drawing and resolving the next.</p>
+<p>If you need to draw a path card but the deck is empty, shuffle the path discard to create a new path deck from which to draw.</p>
+<p>Each path card is marked with an arrow to the left of its name that indicates the area in which it should be placed. A card with an upward-pointing arrow is placed along the way. A card with a downward-pointing arrow is placed within reach of the Ranger who drew it.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>PHASE 2: RANGER TURNS</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>Ranger turns are the bulk of the game. This is where you'll be equipping your gear, interacting with the environment around you, and using your abilities to accomplish your goals for the day.</p>
+<p>During this phase, each Ranger takes separate turns. There is no limit to the number of turns a Ranger can take each round. You decide as a group which Ranger takes the first turn, and following that, Rangers can take their turns in any order. Unless you are the only Ranger still taking turns, a different Ranger must go after you finish your turn. You can take a second turn in a row by exhausting your role card.</p>
+<p>On your turn, you can either perform a test, play a card, or rest.</p>
+<span class="subsection-title">PERFORM A TEST</span>
+<p>Tests represent your Ranger's interactions with their environment. They appear on cards as an aspect, plus an approach icon, followed by both a thematic and mechanical description of what your Ranger does if the test is successful.</p>
+<p>FIT + : Traverse [X] the nearby terrain to add to a location or feature equal to your effort. If you fail, suffer 1 injury.</p>
+<p>You always have access to four common tests which you can reference on the common test reference card. Additionally, cards in play will provide other tests from which you can choose. On your turn, you can choose one test to perform on any card in play except for cards in other Rangers' player areas (such as their equipped gear). The detailed instructions for performing a test are described on page 16.</p>
+<p>Most tests require that you interact with a card in play. When you perform a test on a card within reach, along the way, or in the surroundings, you count as interacting with that card. When you perform a test on a card in your player area or played from your hand, if that test directly affects a card in play, you count as interacting with the affected card or cards.</p>
+<p>When you interact with a card in play, other cards between you and the card with which you're interacting can cause you to suffer fatigue. This is described later in the Fatigue section on page 20.</p>
+<span class="subsection-title">PLAY A CARD</span>
+<p>To play a card from your hand, spend an amount of energy matching the card’s cost: the number and type of energy shown in the upper left-hand corner of the card.</p>
+<p>The card then has an effect based on its card type:</p>
+<p><strong>Moments:</strong> Moments cards describe the specific circumstances under which they can be played in their rules text. When you play a moment, resolve all instructions on the card and discard it.</p>
+<p><strong>Attachments:</strong> Attachment cards are placed in play attached to a card specified in the attachment card’s text. Place that card under or to the side of the card to which it is attached and apply its effects. If the card it is attached to leaves play for any reason, discard the attachment card.</p>
+<p><strong>Gear:</strong> Gear cards have ongoing effects or abilities that you can trigger during your turn (or at other times specified on the card). Gear cards are equipped by being played into your player area and stay there until you choose to discard them.</p>
+<p>Each gear has an equip value, ranging from 0 to 5, displayed as a series of filled-in squares at the lower right of its title bar. If you ever have more than five squares worth of cards in your player area, you must discard cards from your player area until five or fewer squares remain.</p>
+<p><strong>Features or Beings:</strong> Features or beings are Ranger cards that function like a path card. When you play these cards, place them within reach of you and treat them like a path card for as long as they remain in play.</p>
+<p><strong>Attributes:</strong> Attribute cards have no energy cost. They cannot be played and can only be used for tests (as explained on page 16).</p>
+<span class="subsection-title">RESPONSES</span>
+<p>Some rules begin with “Response:” These effects resolve at the time specified by their rules text. If this is on a moment, you can play that card at the specified time. This might be during your turn, during other Rangers’ turns, or even during other phases of the game.</p>
+<span class="subsection-title">TOKENS</span>
+<p>Many cards make use of unique tokens to track the number of times they can be used. These cards are marked with a number and name for the tokens in a box on the right side of the card. When one of these cards comes into play, place a number of general use tokens on this card equal to that number.</p>
+<p>When the card instructs you to “use” one of the tokens, discard that token. If you no longer have tokens to discard, you cannot resolve effects that require you to use a token. If a rule affects “tokens” on a card, it is referring to one of these named tokens.</p>
+<p>Cards are not discarded when they run out of tokens. On your turn, however, you can choose to discard any number of equipped cards that you no longer want.</p>
+<span class="subsection-title">REST</span>
+<p>If you are finished taking turns for the round, you can choose to rest. You can resolve any effects that resolve “when you rest,” then your turn ends and you suffer one fatigue for each injury you have (see Injury on page 23). You cannot take another turn this round.</p>
+<p>Once all Rangers have rested, Ranger turns are over, and play proceeds to the travel phase.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>PHASE 3: TRAVEL</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>After all Rangers have rested, you may decide as a group if you’d like to travel. Traveling is how you move around the Valley, visit new locations, discover people and places unique to certain areas.</p>
+<p>Each location card has a progress threshold on the right-hand side of the card. If the card has a number of progress tokens equal to or greater than that threshold, you can choose to travel.</p>
+<p>Note: Ready cards with the obstacle keyword prevent you from traveling. You must either clear these cards, exhaust them, or deal with them some other way before you can travel. See Obstacle on page 27.</p>
+<p>If you decide to travel, perform the following steps:</p>
+<span class="subsection-title">1. CLEAR PLAY AREA</span>
+<p>Discard all path cards in play and all Ranger cards within reach, along the way, or in the surroundings (but not in your player area). Then sort all cards from the path deck and path discard into their sets, and return them to your collection.</p>
+<p>Note: Cards with the persistent keyword are not discarded. See Persistent on page 27.</p>
+<p>Missions that instruct you to “travel away” from a location resolve at this time.</p>
+<span class="subsection-title">2. TRAVEL TO A NEW LOCATION</span>
+<p>As a group, choose a new location to travel to by consulting the campaign map. You must choose a location that is connected directly to your current location by one of the paths marked on the map. The chosen destination must be the next location on the chosen path (you cannot “skip” over a location).</p>
+<p>Once the group has chosen a destination, find its location card, and place it into the surroundings, replacing the current location.</p>
+<p>Note: You cannot travel along river paths until a certain game component allows you to do so.</p>
+<span class="subsection-title">3. DECIDE TO CAMP</span>
+<p>After choosing your new location, as a group, you can decide to end the day and set up camp for the night before venturing into the new landscape. Ending the day in this way is safer than ending it in the middle of navigating through a location and allows you an opportunity to prepare yourselves for the next day.</p>
+<p>If you end the day in this way, you are allowed to swap reward cards into your Ranger decks between sessions (see Customizing Decks on page 31). If you chose not to end the day, continue to step 4.</p>
+<span class="subsection-title">4. BUILD THE PATH DECK</span>
+<p>To build the path deck for your new location, combine several sets of path cards:</p>
+<p><strong>Terrain Set:</strong> The locations in the Valley can be vast areas, and the path you take can dramatically change your experience of them. The terrain you travel across determines what kinds of features and wildlife you will encounter. Each path on the Valley map has an associated type of terrain based on its color and an icon that appears along the line.</p>
+<p>To form the base of the path deck, find all path cards from the set matching the type of terrain of the path you took to the new location.</p>
+<p><strong>Location Set:</strong> Certain locations have notable people and places to seek out or discover on your journey. These locations are pivotal. This is listed on their card and is marked on the Valley map with a gold and brown eight-pointed star. These locations have sets of path cards unique to them. Add each of these cards to the path deck.</p>
+<p>If your new location is not pivotal, you are never quite sure who or what you’ll encounter. You might find one of the Valley’s other wanderers, other features of the Valley, or an exceptionally dangerous predator. Shuffle all the path cards in The Valley set, and add three random cards from this set to the path deck.</p>
+<p><strong>Other Path Cards:</strong> Other game effects may add additional cards to the path deck.</p>
+<p>Check the weather, location, and missions for any instructions labeled “Path Deck Assembly.” When you finish building the path deck, shuffle it.</p>
+<span class="subsection-title">5. ARRIVAL SETUP</span>
+<p>Read the campaign guide entry noted on the back of the location card.</p>
+<p>Missions to “arrive at” a location resolve now. These may override reading the normal campaign guide entry.</p>
+<p>To finish setting up your destination, resolve each instruction under the “Arrival Setup” header. Most cards instruct the lead Ranger to resolve an effect then have some number of “next Rangers” resolve effects. If an effect calls for the “next Ranger,” but each Ranger has already resolved an effect, ignore those additional effects.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>PHASE 4: REFRESH</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>At the end of the round, the Rangers refresh themselves and prepare for the next round. Each Ranger performs the following steps simultaneously:</p>
+<ul>
+<li><strong>Draw one Ranger card:</strong> Draw one card from your Ranger deck. There is no limit to the number of cards you can have in your hand. If you cannot draw a card, you are too tired to continue and your group must end the day (see Ending the Day on page 21).</li>
+<li><strong>Refill energy pools:</strong> Add energy tokens to your energy pool until you have a number of each energy type equal to the corresponding aspect value. If you have energy in excess of one of your aspect values, you must discard tokens until you are down to that value.</li>
+<li><strong>Ready all cards in play:</strong> Ready all exhausted cards in all areas. Then a new round begins!</li>
+</ul>
+<p>Your Ranger can only accomplish so much in one day before they become too tired to go on. Your deck represents your Ranger's stamina, and if it runs out, you will have to camp for the night (see Ending the Day on page 21). Navigating the Valley can be taxing, and no matter how in tune a Ranger becomes with nature, there are still challenges that can put strain on them. This is represented by fatigue.</p>
+<p>When your Ranger suffers fatigue, remove cards equal to the amount of fatigue suffered from the top of your Ranger deck and—without looking at them—place those cards facedown near your Ranger discard, creating the fatigue stack.</p>
+<p>If you are ever instructed to suffer fatigue, but you do not have enough cards remaining in your Ranger deck to suffer that fatigue, you must end the day.</p>
+<span class="subsection-title">“FATIGUES YOU”</span>
+<p>Each card in the path deck has a presence value in the upper right-hand corner. Some game effects will cause cards to fatigue you. When this happens, if the card is ready, you suffer fatigue equal to the presence of that card. If it is exhausted, the card does not fatigue you.</p>
+<span class="subsection-title">SOOTHING FATIGUE</span>
+<p>Some game effects will allow you to soothe fatigue. When this happens, draw that many cards from the top of your fatigue stack and place them in your hand.</p>
+<span class="subsection-title">FATIGUE FROM INTERACTING</span>
+<p>When you interact with the environment, things between you and the thing with which you’re interacting may cause you to suffer fatigue. This might be a feisty Lutral harrying you as you try to accomplish your task, or some difficult terrain slowing you down.</p>
+<p>Before you perform a test, each ready card between you and the farthest card with which you are interacting fatigues you. Which ready cards are between you and that card depends on the area in which it sits:</p>
+<ul>
+<li>Card is within reach: nothing is between you.</li>
+<li>Card is within reach of another Ranger: all cards within reach of you are between you.</li>
+<li>Card is along the way: all cards within reach of you are between you.</li>
+<li>Card is in the surroundings: all cards within reach of you and along the way are between you.</li>
+</ul>
+<p>Some Ranger cards and game effects will act upon a card and manipulate it in some way without performing a test. These effects are not considered interactions, so cards between you and the affected card do not fatigue you.</p>
+<p>If a test on a card in your player area or played from your hand interacts with multiple cards, only resolve this step once for the card with which you’re interacting that is furthest from you.</p>
+<p>The day can end in several ways:</p>
+<ul>
+<li><strong>Choose to Camp:</strong> When you successfully travel, the group can decide to camp for the night.</li>
+<li><strong>Ranger too Fatigued:</strong> If a Ranger needs to draw a card or suffer fatigue but cannot, the day ends immediately.</li>
+<li><strong>Ranger too Injured:</strong> If a Ranger suffers their third injury, the day ends at the end of the current turn. That Ranger must add one “Lingering Injury” card to their deck (see Injury on page 23).</li>
+<li><strong>Ally in Peril:</strong> It is your duty to protect the people of the Valley. For most human beings, if they are ever cleared due to harm, the campaign guide will instruct you to end the day.</li>
+<li><strong>Mission Complete:</strong> Sometimes, when the final stage of a mission is complete, you will reach a stopping point important enough to end the day. The campaign guide will instruct you to do so.</li>
+</ul>
+<p>When the day ends, your current play session is over, and one day of campaign time passes. Check off the next day on the campaign tracker. Save your current location by either storing it with your Ranger deck or writing it down on the campaign tracker along with the terrain type you were traveling on. The rest of the game materials can be packed up and returned to their normal storage locations.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>KEYWORDS</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>Keywords stand in for longer rules statements that would otherwise commonly appear on cards.</p>
+<span class="subsection-title">AMBUSH</span>
+<p>When a card with the ambush keyword enters play within reach or moves within reach of a Ranger, it fatigues that Ranger.
+<em>Note: Only ready cards can fatigue you. If the card is exhausted, you do not suffer fatigue from ambush.</em></p>
+<span class="subsection-title">CONDUIT</span>
+<p>When you have a card with the conduit keyword equipped, you can play manifestation cards from your hand by spending one token from the conduit.</p>
+<span class="subsection-title">DISCONNECTED</span>
+<p>You cannot add progress to this card using the <strong>Connect</strong> common test.</p>
+<span class="subsection-title">FATIGUING</span>
+<p>When you rest, if this card is ready and is equipped, within reach, or along the way, you suffer fatigue equal to its presence. If this keyword is followed by a number, suffer that much fatigue instead.</p>
+<span class="subsection-title">FRIENDLY</span>
+<p>When a card with the friendly keyword is between you and the card with which you're interacting, it does not fatigue you.
+You cannot affect a card that has the friendly keyword with a card that has the weapon trait.</p>
+<span class="subsection-title">MANIFESTATION</span>
+<p>You cannot play a manifestation card from your hand without discarding a token from one of your equipped cards that has the conduit keyword.</p>
+<span class="subsection-title">OBSTACLE</span>
+<p>You cannot interact with a card if a ready card with the obstacle keyword is between you and that card.
+<em>For example, an obstacle within reach prevents you from interacting with cards along the way or in the surroundings. An obstacle along the way prevents you from interacting with cards in the surroundings.</em>
+You cannot travel if there are any ready cards with the obstacle keyword in play.</p>
+<span class="subsection-title">PERSISTENT</span>
+<p>Persistent cards (ready or exhausted) and all cards attached to them remain in play when you travel.</p>
+<span class="subsection-title">SETUP</span>
+<p>At the start of the day after step 1 of setup, you can search your deck for one card with the setup keyword and put it into play.</p>
+<span class="subsection-title">UNIQUE</span>
+<p>A Ranger cannot have two unique cards with the same name from their deck in play at the same time. If you play a second copy of the same unique card, the first one is immediately discarded.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>PLAYING A CAMPAIGN</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>The story of Earthborne Rangers unfolds over a campaign across multiple play sessions, with each session representing one day. What you do each day is up to you. You can complete missions to progress the story, or you can head out and explore to uncover emergent moments and objectives hidden throughout the world. As you accomplish different tasks, you will be granted new cards that permanently change your deck, and your choices may have long-lasting effects on the Valley.</p>
+<p>To start a new campaign, read the Getting Started section on page 9. Then each time you return to play a new day, set up that day following the Game Setup instructions on page 10. The game scales to the number of Rangers in it, so you do not have to have the same group every time you play. Rangers can drop in and out or miss a day if needed.</p>
+<span class="subsection-title">CAMPAIGN GUIDE</span>
+<p>The campaign guide contains numerically ordered entries that you read as you play the game. These contain story text that can be read out to the group, as well as mechanical instructions on how the events change the game.</p>
+<p>When a [icon] icon appears in card text followed by a number, read the entry matching that number when that text is resolved. Some entries have different variants based on the conditions under which you read them. Go to the entry matching the condition that caused you to read the entry (for example, “Enters Play” for when the path card enters play).</p>
+<p>The entry may check to see if different conditions have been met. Read down these “if” statements in order. Follow the instructions of the first one you meet.</p>
+<p>Sometimes, a choice will have to be made in an entry. The group should make these choices together, but if there is an impasse, the lead Ranger decides. We recommend making the choice only based on the information listed in each red header, and only reading the consequences after you decide.</p>
+<p>The options and their consequences are indented. After resolving your chosen option, make sure to check if the entry instructs you to “▶▶ Continue reading” as there might be more.</p>
+<span class="subsection-title">STORING YOUR COLLECTION</span>
+<p>All of your cards that aren’t currently being used in the game or in Ranger decks are referred to as your collection. The game box contains a number of dividers that allow you to keep your collection organized by card set to make it easy to build new path decks when traveling or fetch individual cards when a game effect calls for it. We recommend storing cards with their left edge facing up, allowing you to quickly look for the gray set labels on Ranger cards or the set icon on path cards.</p>
+<span class="subsection-title">STORING RANGER DECKS</span>
+<p>As you play through the campaign, rewards, wounds, and other decisions will modify your Ranger deck, evolving and changing it as you grow as a Ranger. If you are playing a single campaign out of your box, the easiest way to keep track of all the changes to the Ranger decks is to store them as-is using the included dividers.</p>
+<p>However, if you are unable to keep the Ranger decks in one piece for storage, or if you’re playing multiple campaigns with one set of cards, you can download the Ranger deck list PDF from earthborngames.com. With this, you can record all the cards in your Ranger decks so that they can be reassembled at a later date.</p>
+<p>Mission cards provide you with objectives you must complete in order to advance the story.</p>
+<p>You will gain new missions when instructed by the campaign guide. When this happens, record its name on the campaign tracker and the current day in the box to its left. Then find the corresponding mission card, and put it into play in the surroundings. On the campaign tracker, each line of the mission has three boxes to the right that some missions use to track progress.</p>
+<p>During setup, for each mission on your campaign tracker that hasn’t yet been completed, put that mission’s card into play in the mission area of the surroundings.</p>
+<p>Missions work much the same way as path cards, except they typically do not have harm or progress thresholds. If a missions card would be cleared or discarded by other game effects, it is instead returned to the surroundings. Missions can only be removed from play by completing them (or other special instructions on the mission itself). When a mission is complete, cross it off on the campaign tracker and return its card to the collection.</p>
+<p>Each mission has an objective listed inside a green box. When this condition is met, read the next entry in the mission’s story.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>WEATHER CARDS</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>Weather cards represent the weather or other strange atmospheric conditions that may affect you on your travels. Much like mission cards, weather cards are placed in the surroundings and work like path cards, except they typically do not have harm or progress thresholds. If a weather card would be cleared or discarded by other game effects, it is instead returned to the surroundings.</p>
+<p>Weather cards are two-sided and often flip to their other side. When they do, they maintain any tokens that were on the card.</p>
+<span class="subsection-title">CUSTOMIZING DIFFICULTY WITH WEATHER</span>
+<p>When you set up a new day, the campaign tracker recommends which weather card to use. However, groups who are looking to adjust the challenge of their game can choose to swap in a different weather card during setup based on the difficulty they prefer:</p>
+<ul>
+<li>Easy - A Perfect Day</li>
+<li>Normal - Downpour</li>
+<li>Hard - Howling Winds</li>
+<li>Expert - Electric Fog</li>
+</ul>
+<p>Note: Electric Fog is not included in the “recommended weather” on the campaign tracker and should only be used by groups looking for an intense challenge.</p>
+<p>As you progress through the campaign, your Ranger's deck will change as you unlock new cards and replace the cards with which you began the campaign. This represents your Ranger learning from experience and gaining access to new and better gear.
+There are three ways you can alter your deck during a campaign:</p>
+<span class="subsection-title">PERMANENT ALTERATIONS</span>
+<p>Some effects during gameplay may make permanent changes to your deck. These effects usually allow you to trade one card from your deck for one other card from the starting Ranger card list. You can never go over two copies of the same card with these changes. These alterations to your deck are permanent and cannot be reversed except by other similar effects found during play.</p>
+<span class="subsection-title">SWAPPING REWARDS IN AND OUT</span>
+<p>If you end the day by camping (see Travel on page 14), you can use the downtime to reorganize your gear and think on your experiences.</p>
+<p>If you ended the day by camping, before you start the next day, you may choose up to two copies of each reward card that you've unlocked and add them to your deck. For each reward card you add, you must choose a non-malady card to remove from your deck.
+If the removed card is another reward, return it to the collection. But if the removed card is a starting Ranger card, set it aside. These <strong>displaced</strong> cards can be swapped back into your deck any time you camp in the same way as rewards, and are not part of the collection.</p>
+<span class="subsection-title">MALADIES</span>
+<p>Maladies represent the lingering negative effects of the trials your Ranger has endured. The primary malady that can be added to your deck is Lingering Injury, which is added to your deck if you are forced to end the day after suffering three injuries.
+Maladies are always in addition to the thirty cards normally in your Ranger deck and cannot be swapped out for reward cards, traded away to merchants, or removed by any other method apart from what is described on the malady card itself.</p>
+<p>To start a campaign of Earthborne Rangers, you build your own custom Ranger character. You'll bring all the cards you need together in a way that tells the story of who your Ranger is, how they spent their formative years, and what specialized training they've received before they completed the trials, rites, and ceremonies that welcomed them into the service of the Rangers.</p>
+<p>If you are starting with the Prologue (see page 9), you will create a character as part of that process, but if you are jumping right into the game, you can follow these steps to create your Ranger.</p>
+<span class="subsection-title">RANGER CARDS</span>
+<p>Ranger cards are broken into five categories: personality, background, specialty, malady, and reward. You can set aside all reward and malady cards for now. Those are obtained during the campaign and not used in Ranger creation. Both backgrounds and specialties are broken into different sets that you will be choosing between during character creation. To make Ranger creation easier, we recommend placing each of these sets in their own pile to keep them organized.</p>
+<p>Once you become familiar with the deck customization process, you can build your deck in any order you like, but for your first time, we recommend performing the following steps in order:</p>
+<span class="subsection-title">CHOOSE YOUR ASPECTS</span>
+<p>Awareness (AWA):
+Your Ranger's skills of observation. Awareness is a measure of how well they process the world around them.</p>
+<p>Spirit (SPI): Your Ranger's inner strength and sense of self. Spirit is a measure of how well your Ranger knows themself.</p>
+<p>Fitness (FIT): Your Ranger's strength, agility, and endurance. Fitness is a measure of how well they respond to physical demands.</p>
+<p>Focus (FOC): Your Ranger's concentration and ability to recall knowledge. Focus is a measure of how well they can stay on task.</p>
+<span class="subsection-title">DETERMINE YOUR PERSONALITY</span>
+<p>Personality cards represent the type of person your Ranger is and how they engage with the world around them.</p>
+<p>Select four unique cards from the personality set: choose one personality card from each of the four different aspects (Awareness, Fitness, Focus, and Spirit), and add two copies of each chosen card to your Ranger deck.</p>
+<p>Aspects are four values that represent where your inherent strengths lie. All of them are listed on a single card. There are a total of twelve different aspect cards to choose from, each of which features a different spread of values across the four aspects, ranging from 3 to 1. On each aspect card, there is a high stat (3), and a low stat (1). Choose one of these cards for your Ranger.</p>
+<p>Your high and low aspect will define the types of tests that your Ranger is inherently good at performing. It will also determine which cards you are able to include in your Ranger deck.</p>
+<p>Each Ranger card has an aspect requirement on the left-hand side of the card. If your corresponding aspect is not equal to or higher than that requirement, you cannot include that card in your deck.</p>
+<span class="subsection-title">CHOOSE YOUR BACKGROUND</span>
+<p>Your Ranger's background represents their experience from early life and young adulthood. It contains the skills and equipment you bring with you into the Rangers. Choose one of the four background sets:</p>
+<ul>
+<li>Artisan: See page 34.</li>
+<li>Forager: See page 35.</li>
+<li>Shepherd: See page 36.</li>
+<li>Traveler: See page 37.</li>
+</ul>
+<p>The background sets contain nine unique cards each. Select five of those cards from your chosen background, and add two copies of each of the selected cards to your Ranger deck.</p>
+<span class="subsection-title">CHOOSE YOUR SPECIALTY</span>
+<p>Your Ranger's specialty represents the training and experience of your Ranger's adulthood and the specialized training they bring to the Rangers. Choose one of the four specialty sets:</p>
+<ul>
+<li>Artificer: See page 38.</li>
+<li>Conciliator: See page 40.</li>
+<li>Explorer: See page 42.</li>
+<li>Shaper: See page 44.</li>
+</ul>
+<p>The specialty sets contain fourteen unique cards each. Select five cards from your chosen specialty, and add two copies of each of the selected cards to your Ranger deck.</p>
+<p>Additionally, each specialty includes two role cards. These roles do not go in your deck, but start the game in play and offer you a special, repeatable ability you can use and rely on. Select one of those roles for your Ranger.</p>
+<span class="subsection-title">ROLE</span>
+<p>Your role represents what you specialize in and what function you serve in your group of Rangers. Your role gives you a card that starts every game in play and grants you a consistent, repeatable ability.</p>
+<span class="subsection-title">CHOOSE YOUR OUTSIDE INTEREST</span>
+<p>The last step to creating your Ranger is to select your outside interest—a card that represents your hobbies and passions outside of your day-to-day life. This is a single card chosen from any specialty or background set. The chosen card cannot be a role or have the expert trait. Add two copies of this card to your Ranger deck.</p>
+<p>The first time you create a Ranger, this choice can be a daunting one, as nearly the entire card pool is at your disposal. If you prefer to choose from a shorter, curated list, please see the list of suggestions below:</p>
+<ul>
+<li>Ferinodex - Artificer Specialty</li>
+<li>Boundary Sensor - Explorer Specialty</li>
+<li>Intention Translator - Conciliator Specialty</li>
+<li>Ironwool Boots - Traveler Background</li>
+<li>Favorite Gear - Artisan Background</li>
+<li>Paratrepsis Whistle - Shepherd Background</li>
+<li>Familiar Ground - Forager Background</li>
+<li>Infusion Canteen - Artificer Specialty</li>
+</ul>
+<p>Once you're done with this step, you'll have a total of thirty cards in your deck (fifteen unique cards, two copies of each), plus your role and aspect card. Your Ranger is now ready to begin their adventure!</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>ICONS</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+
+  </div>
+</details>
+<details class="section">
+  <summary><span>RULES</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+
+  </div>
+</details>
+<details class="section">
+  <summary><span>CHALLENGE EFFECTS</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+
+  </div>
+</details>
+<details class="section">
+  <summary><span>TOKENS</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+
+  </div>
+</details>
+<details class="section">
+  <summary><span>REMINDERS</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<ul>
+<li>When a card refers to "within reach," it is referring to within reach of the Ranger resolving the effect unless otherwise specified.</li>
+<li>When you suffer an injury, discard all cards in your fatigue stack.</li>
+<li>When you rest, suffer one fatigue for each injury you have.</li>
+<li>If there is more than one Ranger who hasn't rested this round, you must exhaust your role if you want to take a second turn in a row.</li>
+<li>Each other Ranger token (apart from your own) on a card you are interacting with commits one additional effort to your test.</li>
+<li>Exhausted cards cannot fatigue you.</li>
+<li>When part of an ability cannot be resolved, resolve as much of the ability as you can (unless it follows a &gt;&gt; icon).</li>
+</ul>
+  </div>
+</details>
+<details class="section">
+  <summary><span>ROUND STRUCTURE</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+
+  </div>
+</details>
+<details class="section">
+  <summary><span>TESTS</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+
+  </div>
+</details>
+  <p id="no-results">No sections match your search.</p>
+</main>
+<script>
+(function () {
+  var searchEl  = document.getElementById('search');
+  var clearBtn  = document.getElementById('search-clear');
+  var noResults = document.getElementById('no-results');
+  var sections  = Array.from(document.querySelectorAll('details.section'));
+
+  // Snapshot each section body's original HTML so we can restore it
+  // before applying a new round of highlights.
+  sections.forEach(function (s) {
+    var body = s.querySelector('.section-body');
+    if (body) body.dataset.original = body.innerHTML;
+  });
+
+  var timer;
+
+  searchEl.addEventListener('input', function () {
+    var term = this.value.trim();
+    clearBtn.classList.toggle('visible', term.length > 0);
+    clearTimeout(timer);
+    timer = setTimeout(function () { applySearch(term); }, 180);
+  });
+
+  clearBtn.addEventListener('click', function () {
+    searchEl.value = '';
+    clearBtn.classList.remove('visible');
+    applySearch('');
+    searchEl.focus();
+  });
+
+  function escapeRe(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlightTextNodes(container, re) {
+    var walker = document.createTreeWalker(
+      container, NodeFilter.SHOW_TEXT, null, false
+    );
+    var nodes = [];
+    var n;
+    while ((n = walker.nextNode())) {
+      if (n.nodeValue.trim()) nodes.push(n);
+    }
+    nodes.forEach(function (textNode) {
+      re.lastIndex = 0;
+      if (!re.test(textNode.nodeValue)) return;
+      re.lastIndex = 0;
+      var span = document.createElement('span');
+      span.innerHTML = textNode.nodeValue.replace(
+        re, function (m) { return '<mark>' + m + '</mark>'; }
+      );
+      textNode.parentNode.replaceChild(span, textNode);
+    });
+  }
+
+  function applySearch(term) {
+    var re = term ? new RegExp(escapeRe(term), 'gi') : null;
+    var visibleCount = 0;
+
+    sections.forEach(function (section) {
+      var body    = section.querySelector('.section-body');
+      var summary = section.querySelector('summary');
+
+      // Restore original HTML before each search pass
+      if (body) body.innerHTML = body.dataset.original;
+
+      if (!re) {
+        section.classList.remove('search-hidden');
+        section.open = false;
+        return;
+      }
+
+      var titleText = summary ? summary.textContent : '';
+      var bodyText  = body    ? body.textContent    : '';
+
+      re.lastIndex = 0;
+      var inTitle = re.test(titleText);
+      re.lastIndex = 0;
+      var inBody  = re.test(bodyText);
+      re.lastIndex = 0;
+
+      if (inTitle || inBody) {
+        section.classList.remove('search-hidden');
+        section.open = true;
+        if (body) highlightTextNodes(body, new RegExp(escapeRe(term), 'gi'));
+        visibleCount++;
+      } else {
+        section.classList.add('search-hidden');
+      }
+    });
+
+    noResults.style.display = (re && visibleCount === 0) ? 'block' : 'none';
+  }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>A Gest of Robin Hood — Rules Reference</title>
+<style>
+:root {
+  --bg:            #f2ede6;
+  --text:          #1a1a1a;
+  --header-bg:     #919b58;
+  --section-bg:    #919b58;
+  --subsection-bg: #69bf5c;
+  --rule:          #b0a898;
+  --accent:        #69bf5c;
+  --table-head:    #919b58;
+  --note-bg:       #e8e0d4;
+  --body-bg:       #ffffff;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 15px;
+  line-height: 1.55;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* ── STICKY HEADER ───────────────────────────────────────── */
+.sticky-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--header-bg);
+  padding: 10px 14px 12px;
+  padding-top: max(10px, env(safe-area-inset-top));
+  padding-left: max(14px, env(safe-area-inset-left));
+  padding-right: max(14px, env(safe-area-inset-right));
+  box-shadow: 0 2px 12px rgba(0,0,0,0.4);
+}
+
+.masthead-row {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 9px;
+}
+
+.masthead-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  line-height: 1.1;
+  flex-shrink: 0;
+}
+
+.masthead-subtitle {
+  font-size: 11px;
+  color: rgba(255,255,255,0.45);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.back-link {
+  margin-left: auto;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+  text-decoration: none;
+  flex-shrink: 0;
+  padding-left: 14px;
+  white-space: nowrap;
+}
+.back-link:hover {
+  color: rgba(255,255,255,0.85);
+}
+
+/* ── TOGGLE + BACK ROW ───────────────────────────────────── */
+.toggle-back-row {
+  display: flex;
+  align-items: center;
+  margin-top: 7px;
+}
+
+.search-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-icon {
+  position: absolute;
+  left: 10px;
+  width: 15px;
+  height: 15px;
+  color: rgba(255,255,255,0.4);
+  pointer-events: none;
+  flex-shrink: 0;
+}
+
+#search {
+  width: 100%;
+  padding: 8px 36px 8px 32px;
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 8px;
+  font-size: 15px;
+  background: rgba(255,255,255,0.12);
+  color: #fff;
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+#search::placeholder { color: rgba(255,255,255,0.38); }
+
+#search:focus {
+  background: rgba(255,255,255,0.2);
+  border-color: rgba(255,255,255,0.3);
+}
+
+.search-clear {
+  position: absolute;
+  right: 6px;
+  background: rgba(255,255,255,0.18);
+  border: none;
+  border-radius: 50%;
+  color: rgba(255,255,255,0.8);
+  font-size: 14px;
+  line-height: 1;
+  width: 22px;
+  height: 22px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  flex-shrink: 0;
+}
+
+.search-clear.visible { display: flex; }
+
+/* ── MAIN ────────────────────────────────────────────────── */
+main {
+  padding: 10px 12px 48px;
+  padding-left: max(12px, env(safe-area-inset-left));
+  padding-right: max(12px, env(safe-area-inset-right));
+  padding-bottom: max(48px, env(safe-area-inset-bottom));
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+/* ── NO RESULTS ──────────────────────────────────────────── */
+#no-results {
+  display: none;
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--text);
+  opacity: 0.5;
+  font-size: 14px;
+}
+
+/* ── COLLAPSIBLE SECTIONS ────────────────────────────────── */
+details.section {
+  margin-bottom: 6px;
+  border-radius: 6px;
+  overflow: hidden;
+  scroll-margin-top: 130px;
+}
+
+details.section > summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  min-height: 44px;
+  background: var(--section-bg);
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  list-style: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+details.section > summary::-webkit-details-marker { display: none; }
+
+.chevron {
+  width: 12px;
+  height: 12px;
+  opacity: 0.65;
+  flex-shrink: 0;
+  margin-left: 8px;
+  transition: transform 0.18s ease;
+}
+
+details.section[open] > summary .chevron {
+  transform: rotate(90deg);
+}
+
+.section-body {
+  background: var(--body-bg);
+  padding: 10px 12px 12px;
+  border: 1px solid var(--rule);
+  border-top: none;
+  border-radius: 0 0 6px 6px;
+}
+
+/* ── HEADINGS WITHIN SECTIONS ────────────────────────────── */
+.subsection-title {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: #fff;
+  background: var(--subsection-bg);
+  padding: 4px 12px;
+  margin: 10px -12px 7px;
+}
+
+.label-title {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--section-bg);
+  border-bottom: 1.5px solid var(--rule);
+  padding-bottom: 3px;
+  margin: 10px 0 5px;
+}
+
+.inline-title {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 8px 0 3px;
+}
+
+/* ── BODY TEXT ───────────────────────────────────────────── */
+p { margin-bottom: 7px; }
+b, strong { font-weight: 600; }
+em, i { font-style: italic; }
+
+/* ── LISTS ───────────────────────────────────────────────── */
+ul, ol { padding-left: 20px; margin-bottom: 6px; }
+ul { list-style-type: disc; }
+ol { list-style-type: decimal; }
+ul ul { list-style-type: circle; }
+li { margin-bottom: 3px; }
+li > ul, li > ol { margin-top: 2px; margin-bottom: 0; }
+
+/* ── TABLES ──────────────────────────────────────────────── */
+.table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin-bottom: 6px;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  min-width: 260px;
+}
+thead tr { background: var(--table-head); color: white; }
+thead th {
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  padding: 5px 8px;
+  text-align: left;
+  white-space: nowrap;
+}
+tbody tr:nth-child(even) { background: var(--note-bg); }
+tbody td { padding: 5px 8px; vertical-align: top; }
+
+/* ── BLOCKQUOTE ──────────────────────────────────────────── */
+blockquote {
+  background: var(--note-bg);
+  border-left: 3px solid var(--accent);
+  padding: 6px 10px;
+  margin: 5px 0 7px;
+  font-size: 14px;
+  border-radius: 0 4px 4px 0;
+}
+blockquote p { margin-bottom: 2px; }
+
+/* ── INLINE CODE ─────────────────────────────────────────── */
+code {
+  background: var(--note-bg);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  padding: 1px 4px;
+  font-size: 13px;
+  font-family: inherit;
+  font-weight: 600;
+}
+
+/* ── HR ──────────────────────────────────────────────────── */
+hr { border: none; border-top: 1px solid var(--rule); margin: 8px 0; }
+
+/* ── SEARCH HIGHLIGHT ────────────────────────────────────── */
+mark {
+  background: #ffe566;
+  color: inherit;
+  border-radius: 2px;
+  padding: 0 1px;
+}
+
+/* ── HIDDEN SECTIONS ─────────────────────────────────────── */
+details.section.search-hidden { display: none; }
+
+/* ── VERSION TOGGLE ──────────────────────────────────────── */
+.toggle-bar {
+  display: inline-flex;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.2);
+}
+.toggle-current,
+.toggle-other {
+  padding: 6px 14px;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  line-height: 1;
+  text-decoration: none;
+  white-space: nowrap;
+  -webkit-tap-highlight-color: transparent;
+}
+.toggle-current {
+  background: rgba(255,255,255,0.18);
+  color: #ffffff;
+  font-weight: 600;
+  cursor: default;
+}
+.toggle-other {
+  color: rgba(255,255,255,0.5);
+}
+.toggle-other:hover {
+  background: rgba(255,255,255,0.08);
+  color: rgba(255,255,255,0.8);
+}
+
+/* ── PRINT ───────────────────────────────────────────────── */
+@media print {
+  .sticky-header { position: static; }
+  details.section[open], details.section { display: block; }
+  .section-body { display: block !important; }
+  .search-wrap, .search-clear, .toggle-bar { display: none; }
+}
+</style>
+</head>
+<body>
+<header class="sticky-header">
+  <div class="masthead-row">
+    <span class="masthead-title">A Gest of Robin Hood</span>
+    <span class="masthead-subtitle">Rules Reference</span>
+  </div>
+  <div class="toggle-back-row"><div class="toggle-bar"><span class="toggle-current">Quick Reference</span><a class="toggle-other" href="a-gest-of-robin-hood-rules-refined.html">Full Rules</a></div><a class="back-link" href="index.html">&#8592; All Games</a></div>
+  <div class="search-wrap">
+    <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+         stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+         aria-hidden="true">
+      <circle cx="11" cy="11" r="8"/>
+      <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+    </svg>
+    <input type="text" id="search" placeholder="Search rules…"
+           autocomplete="off" spellcheck="false" autocorrect="off">
+    <button class="search-clear" id="search-clear" aria-label="Clear search">&#x2715;</button>
+  </div>
+</header>
+<main>
+<details class="section" open>
+  <summary><span>Game Flow & Turn Structure</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Turn Sequence &amp; Initiative</span>
+<span class="label-title">Core Turn Loop</span>
+<p>Play follows a strict loop each turn. Follow this sequence to resolve actions and track eligibility:</p>
+<ol>
+<li>Draw an <strong>Event</strong> card from the shared deck and place it face up.</li>
+<li>Move <strong>Carriages</strong> along roads toward <strong>Nottingham</strong> as indicated by the carriage symbol on the card.</li>
+<li>The <strong>First Eligible</strong> player chooses an action option, places their eligibility cylinder on the <strong>Initiative</strong> track, and resolves it.</li>
+<li>The <strong>Second Eligible</strong> player chooses from the remaining options, places their cylinder, and resolves it.</li>
+<li>Update initiative by moving the leftmost cylinder to <strong>First Eligible</strong> and the other to <strong>Second Eligible</strong>.</li>
+<li>Repeat from step 1 until a <strong>Royal Inspection</strong> or <strong>King Richard’s Return</strong> card is drawn.</li>
+</ol>
+<span class="label-title">Action Selection</span>
+<span class="inline-title">Initiative Options</span>
+<p>Players may choose from three primary options on the <strong>Initiative</strong> track:</p>
+<ol>
+<li><strong>Single Plot</strong>: Perform one <strong>Plot</strong> in a single map space.</li>
+<li><strong>Event</strong>: Execute either the unshaded or shaded effect on the current <strong>Event</strong> card.</li>
+<li><strong>Plots &amp; Deeds</strong>: Perform one <strong>Plot</strong> in up to three spaces (paying per space), then optionally perform one <strong>Deed</strong>.</li>
+</ol>
+<span class="inline-title">Passing Mechanics</span>
+<p>Either player may instead choose to <strong>Pass</strong>. Placing their cylinder in any available box on the <strong>Initiative</strong> track grants <strong>Robin Hood</strong> 1 <strong>Shilling</strong>, or grants the <strong>Sheriff</strong> between 1 and 3 <strong>Shillings</strong> as indicated on the track boxes.</p>
+<span class="subsection-title">Fortune Event Handling</span>
+<span class="label-title">Immediate Resolution</span>
+<p>When a <strong>Fortune Event</strong> is drawn, resolve it immediately without changing the <strong>Initiative</strong> order. Execute the text on the card, then draw the next card and continue the standard turn sequence.</p>
+<span class="inline-title">Carriage Movement Exception</span>
+<p>No <strong>Carriages</strong> are moved on most <strong>Fortune Events</strong>, as indicated by the 0 numeral. The <strong>Day of Market</strong> <strong>Fortune Event</strong> is the sole exception: move two <strong>Carriages</strong> when this card is drawn.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Setup Checklist</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Board, Pieces &amp; Decks</span>
+<span class="label-title">Map Placement</span>
+<p>Prepare the game board using this sequence:</p>
+<ol>
+<li>Place 2 <strong>Henchmen</strong> in <strong>Nottingham</strong>.</li>
+<li>Place 1 <strong>Henchman</strong> and set <strong>Submissive</strong> markers in <strong>Blyth</strong>, <strong>Mansfield</strong>, and <strong>Bingham</strong>.</li>
+<li>Set <strong>Submissive</strong> markers in <strong>Retford</strong>, <strong>Tuxford</strong>, and <strong>Newark</strong>.</li>
+<li>Set a <strong>Revolting</strong> marker in <strong>Remston</strong>.</li>
+<li>Place 1 <strong>Camp</strong> in <strong>Shire Wood</strong>.</li>
+<li><strong>Robin Hood</strong> places the <strong>Robin Hood</strong> piece and 3 additional <strong>Merry Men</strong> in any of the two <strong>Forest</strong> spaces or <strong>Remston</strong>, distributed as desired. All placed <strong>Merry Men</strong> must be <strong>Hidden</strong>.</li>
+</ol>
+<span class="label-title">Component Distribution</span>
+<span class="inline-title">Deck Construction</span>
+<ol>
+<li>Place remaining wooden pieces in each player’s <strong>Available Forces</strong> box. Place <strong>Carriages</strong> on the <strong>Sheriff</strong>’s mat.</li>
+<li>Give the <strong>Sheriff</strong> 9 <strong>Shillings</strong> and <strong>Robin Hood</strong> 5 <strong>Shillings</strong>.</li>
+<li>Place the red <strong>Royal Favour</strong> cylinder on the silver 1 space on the <strong>Royal Favour</strong> track.</li>
+<li>Place the green eligibility cylinder on <strong>First Eligible</strong> and the silver cylinder on <strong>Second Eligible</strong> on the <strong>Initiative</strong> track.</li>
+<li>Separate the two <strong>Royal Inspection</strong> cards, the <strong>King Richard’s Return</strong> card, and the five <strong>Fortune Events</strong>. Shuffle the remaining 24 <strong>Event</strong> cards.</li>
+<li>Deal three piles of four regular <strong>Events</strong>, shuffle a random <strong>Fortune Event</strong> into each pile, then deal two more regular <strong>Events</strong> onto the top of each pile.</li>
+<li>Place <strong>King Richard’s Return</strong> on the bottom of one pile and a <strong>Royal Inspection</strong> on the bottom of the other two. Stack the piles with <strong>King Richard’s Return</strong> at the bottom to form the <strong>Event</strong> deck.</li>
+<li>Set aside the <strong>Bishop of Hereford</strong> and <strong>Guy of Gisborne</strong> <strong>Traveller</strong> cards. Shuffle the remaining <strong>Traveller</strong> cards to form the <strong>Travellers</strong> deck.</li>
+</ol>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Board & Component Reference</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Map Spaces &amp; Terrain Rules</span>
+<span class="label-title">Space Classification</span>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Space Type</th>
+<th>Key Rules</th>
+<th>Modifiers</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Parish</strong></td>
+<td>Rural spaces with peasant populations. Can hold 1 <strong>Camp</strong>, any number of <strong>Henchmen</strong>, <strong>Merry Men</strong>, and <strong>Carriages</strong>. Status is either <strong>Submissive</strong> or <strong>Revolting</strong>.</td>
+<td><strong>Submissive</strong>: Easier for <strong>Sheriff</strong> to reveal/capture <strong>Merry Men</strong>. Enables <strong>Confiscate</strong> and <strong>Hire</strong>. <strong>Revolting</strong>: Harder for <strong>Sheriff</strong> to capture. Enables <strong>Turncoat</strong> and <strong>Donate</strong>. <strong>Passive</strong>: Treated as neither state except for <strong>Rob</strong> and <strong>Capture</strong>, where it counts as <strong>Submissive</strong>.</td>
+</tr>
+<tr>
+<td><strong>Forest</strong></td>
+<td>Uninhabited green-shaded spaces adjacent to <strong>Nottingham</strong>. Never <strong>Submissive</strong> or <strong>Revolting</strong>. Can hold 1 <strong>Camp</strong> (2 allowed by <strong>Will Scarlet</strong> <strong>Event</strong>), plus any <strong>Henchmen</strong>, <strong>Merry Men</strong>, and <strong>Carriages</strong>.</td>
+<td>Harder for <strong>Sheriff</strong> to reveal <strong>Merry Men</strong> with <strong>Patrol</strong>. Easier to capture once revealed. <strong>Camps</strong> here grant extra <strong>Shillings</strong> during <strong>Mischief Phase</strong>.</td>
+</tr>
+<tr>
+<td><strong>Nottingham</strong></td>
+<td>Urban space loyal to the <strong>Sheriff</strong>. Always treated as <strong>Submissive</strong>. Cannot hold a <strong>Camp</strong>.</td>
+<td>Easiest for <strong>Sheriff</strong> to reveal and capture <strong>Merry Men</strong>. <strong>Carriages</strong> reaching here are immediately resolved and removed. Can be targeted by <strong>Rob</strong> for the <strong>Treasury</strong>.</td>
+</tr>
+<tr>
+<td><strong>Ollerton Hill</strong></td>
+<td>Intersection space between <strong>Forests</strong> and <strong>Parishes</strong>. Inaccessible until <strong>Major Oak</strong> <strong>Event</strong> places a <strong>Camp</strong> there.</td>
+<td>Treated as a <strong>Forest</strong> for income. Grants adjacency between <strong>Shire Wood/Tuxford</strong> and <strong>Southwell Forest/Blyth</strong> for <strong>Robin Hood</strong> only. No other pieces may enter or be placed here.</td>
+</tr>
+</tbody>
+</table></div>
+<span class="inline-title">Adjacency &amp; Rivers</span>
+<p>Adjacency is determined by gray land borders. Blue river borders only provide adjacency where a bridge is marked. The <strong>Boats and Bridges</strong> <strong>Event</strong> may place a bridge marker to add adjacency across a river border.</p>
+<span class="subsection-title">Pieces, Markers &amp; States</span>
+<span class="label-title">Force Pieces</span>
+<p><strong>Merry Men</strong> are green octagonal cylinders marked with a feather symbol. One special piece is marked <strong>RH</strong> for <strong>Robin Hood</strong>. <strong>Merry Men</strong> may be <strong>Hidden</strong> (symbol end down) or <strong>Revealed</strong> (symbol end up). Always set up and place new <strong>Merry Men</strong> as <strong>Hidden</strong>. <strong>Robin Hood</strong> behaves identically to other <strong>Merry Men</strong> while <strong>Hidden</strong> and is indistinguishable from them. The <strong>Robin Hood</strong> player may ask the <strong>Sheriff</strong> to look away when moving or placing <strong>Robin Hood</strong> while <strong>Hidden</strong>. Once <strong>Revealed</strong>, <strong>Robin Hood</strong> may always participate in <strong>Rob</strong> attempts.</p>
+<p><strong>Camps</strong> are green discs marked with a deer symbol. They are always <strong>Revealed</strong> and may usually only be removed once no <strong>Merry Men</strong> remain in the same space. <strong>Henchmen</strong> are silver wedges.</p>
+<p><strong>Shillings</strong> are round coin markers. Silver coins are worth 1 <strong>Shilling</strong>, gold coins are worth 3 <strong>Shillings</strong>. Players may exchange them as desired. <strong>Shilling</strong> counts are public information. Draw from the shared pool when instructed; substitute other components if the pool is exhausted.</p>
+<p>The red <strong>Royal Favour</strong> cylinder tracks <strong>Justice</strong> and <strong>Order</strong> on a track from 7 <strong>Justice</strong> to 7 <strong>Order</strong>. Shift the cylinder when instructed. There is no zero value; one side is always ahead. Shifting beyond either end has no further effect.</p>
+<p><strong>Available Forces</strong> boxes on player mats hold inventory limits. Keep pieces in these boxes when not on the map or in <strong>Prison</strong>. Replace pieces using those in the <strong>Available Forces</strong> boxes. Remove pieces to their respective boxes unless otherwise indicated.</p>
+<span class="inline-title">State Management</span>
+<p>Spaces selected for <strong>Plots</strong> and other actions may be marked with white and red pawns as a memory aid. Remove any pawns at the end of each player’s turn.</p>
+<span class="inline-title">Prison Rules</span>
+<p>The <strong>Prison</strong> box holds <strong>Merry Men</strong> removed by the <strong>Sheriff</strong>’s <strong>Capture</strong> <strong>Plot</strong> or certain <strong>Event</strong> effects. <strong>Merry Men</strong> may only leave <strong>Prison</strong> during the <strong>Mischief Phase</strong> of the <strong>Royal Inspection Round</strong>, by specific <strong>Event</strong> effects, or by using the <strong>Swashbuckle</strong> <strong>Deed</strong> to remove the special <strong>Robin Hood</strong> piece.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Actions: Plots & Deeds</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Robin Hood Actions</span>
+<span class="label-title">Plot Procedures</span>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Action</th>
+<th>Cost</th>
+<th>Target Requirements</th>
+<th>Procedure</th>
+<th>Key Exceptions</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Recruit</strong></td>
+<td>1 <strong>Shilling</strong> per space</td>
+<td>Up to 3 spaces that are not <strong>Submissive</strong></td>
+<td>Place 1 <strong>Merry Man</strong>, or replace 1 <strong>Merry Man</strong> (not <strong>Robin Hood</strong>) with an <strong>Available Camp</strong> and shift <strong>Royal Favour</strong> one step toward <strong>Justice</strong>. If a <strong>Camp</strong> already exists, place up to 2 <strong>Merry Men</strong> or flip all <strong>Merry Men</strong> there to <strong>Hidden</strong>.</td>
+<td><strong>Single Plot</strong> limits to 1 space.</td>
+</tr>
+<tr>
+<td><strong>Sneak</strong></td>
+<td>1 <strong>Shilling</strong> per origin space</td>
+<td>Up to 3 origin spaces containing <strong>Merry Men</strong></td>
+<td>Move any number of <strong>Merry Men</strong> to adjacent spaces. If entering a <strong>Submissive</strong> space and (entering <strong>Merry Men</strong> + <strong>Henchmen</strong> there) &gt; 3, <strong>Reveal</strong> those <strong>Merry Men</strong>. Set all other moved <strong>Merry Men</strong> to <strong>Hidden</strong>. Each piece moves only once.</td>
+<td>Pieces remaining in origin spaces retain orientation. Cannot flip <strong>Hidden</strong> without moving.</td>
+</tr>
+<tr>
+<td><strong>Rob</strong></td>
+<td>0 <strong>Shillings</strong></td>
+<td>Up to 3 spaces with <strong>Hidden Merry Men</strong> and/or <strong>Robin Hood</strong></td>
+<td>Select target: random <strong>Traveller</strong>, <strong>Carriage</strong>, or <strong>Sheriff</strong>’s <strong>Treasury</strong> (in <strong>Nottingham</strong>). <strong>Reveal</strong> at least 1 <strong>Hidden Merry Man</strong> unless <strong>Robin Hood</strong> is already <strong>Revealed</strong>. Roll die based on terrain. Compare (Revealed <strong>Merry Men</strong> + die roll) vs (<strong>Henchmen</strong> + target <strong>Defense Value</strong>).</td>
+<td><strong>Robin Hood</strong> always counts toward <strong>Rob</strong> even if already <strong>Revealed</strong>. Must choose to use <strong>Robin Hood</strong> before drawing <strong>Traveller</strong> or revealing <strong>Carriage</strong>.</td>
+</tr>
+</tbody>
+</table></div>
+<span class="inline-title">Deed Procedures</span>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Action</th>
+<th>Cost</th>
+<th>Target Requirements</th>
+<th>Procedure</th>
+<th>Key Exceptions</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Turncoat</strong></td>
+<td>1 <strong>Shilling</strong></td>
+<td>1 <strong>Revolting Parish</strong> with at least 1 <strong>Merry Man</strong></td>
+<td>Replace 1 <strong>Henchman</strong> with a <strong>Merry Man</strong>.</td>
+<td>Requires accompanying <strong>Plot</strong>.</td>
+</tr>
+<tr>
+<td><strong>Donate</strong></td>
+<td>2 <strong>Shillings</strong> per <strong>Parish</strong></td>
+<td>Up to 2 <strong>Submissive Parishes</strong> with ≥1 <strong>Merry Man</strong> and ≥ as many <strong>Merry Men</strong> as <strong>Henchmen</strong></td>
+<td>Set each selected <strong>Parish</strong> to <strong>Revolting</strong>.</td>
+<td>Requires accompanying <strong>Plot</strong>.</td>
+</tr>
+<tr>
+<td><strong>Swashbuckle</strong></td>
+<td>0 <strong>Shillings</strong></td>
+<td><strong>Robin Hood</strong> on map or in <strong>Prison</strong></td>
+<td>Set <strong>Robin Hood</strong> and up to 1 other <strong>Merry Man</strong> in same space to <strong>Hidden</strong>, then move both to any adjacent spaces. Alternatively, if in <strong>Prison</strong>, place <strong>Robin Hood</strong> <strong>Revealed</strong> in <strong>Nottingham</strong> or adjacent space.</td>
+<td>Requires accompanying <strong>Plot</strong>. Useful for entering guarded spaces or disguising location.</td>
+</tr>
+<tr>
+<td><strong>Inspire</strong></td>
+<td>0 <strong>Shillings</strong></td>
+<td><strong>Robin Hood</strong> must be <strong>Hidden</strong> in a <strong>Parish</strong></td>
+<td><strong>Reveal Robin Hood</strong> in a <strong>Submissive Parish</strong> to set it to <strong>Revolting</strong>, or <strong>Reveal</strong> him in a <strong>Revolting Parish</strong> to shift <strong>Royal Favour</strong> one step toward <strong>Justice</strong>.</td>
+<td>Requires accompanying <strong>Plot</strong>.</td>
+</tr>
+</tbody>
+</table></div>
+<span class="subsection-title">Sheriff Actions</span>
+<span class="label-title">Plot Procedures</span>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Action</th>
+<th>Cost</th>
+<th>Target Requirements</th>
+<th>Procedure</th>
+<th>Key Exceptions</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Hire</strong></td>
+<td>2 <strong>Shillings</strong> per space</td>
+<td>Up to 3 spaces: <strong>Submissive Parishes</strong>, <strong>Revolting Parishes</strong> with more <strong>Henchmen</strong> than <strong>Merry Men</strong>, or <strong>Nottingham</strong></td>
+<td>Place 4 <strong>Henchmen</strong> in <strong>Nottingham</strong>, 2 <strong>Henchmen</strong> in <strong>Submissive Parishes</strong>, or set selected <strong>Revolting Parishes</strong> to <strong>Submissive</strong> (without placing <strong>Henchmen</strong>).</td>
+<td><strong>Single Plot</strong> limits to 1 space.</td>
+</tr>
+<tr>
+<td><strong>Patrol</strong></td>
+<td>2 <strong>Shillings</strong> per destination space</td>
+<td>Up to 3 destination spaces</td>
+<td>Move any number of <strong>Henchmen</strong> from adjacent spaces. <strong>Reveal</strong> 1 <strong>Merry Man</strong> per <strong>Henchman</strong> now there, or 1 per 2 <strong>Henchmen</strong> in <strong>Forests</strong>. Each <strong>Henchman</strong> moves only once.</td>
+<td><strong>Sheriff</strong> chooses which pieces are <strong>Revealed</strong>. May <strong>Reveal</strong> without moving new <strong>Henchmen</strong> if paid for.</td>
+</tr>
+<tr>
+<td><strong>Capture</strong></td>
+<td>0 <strong>Shillings</strong></td>
+<td>Up to 3 spaces with <strong>Henchmen</strong> and <strong>Revealed Merry Men</strong> or <strong>Camps</strong></td>
+<td>Remove 1 <strong>Revealed</strong> enemy piece per <strong>Henchman</strong> there, or per 2 <strong>Henchmen</strong> in <strong>Revolting Parishes</strong>. <strong>Merry Men</strong> go to <strong>Prison</strong>. <strong>Camps</strong> go to <strong>Available Forces</strong>. Shift <strong>Royal Favour</strong> one step toward <strong>Order</strong> per <strong>Camp</strong> removed and if <strong>Robin Hood</strong> is removed.</td>
+<td><strong>Robin Hood</strong> removed only after other <strong>Revealed Merry Men</strong>. <strong>Camps</strong> removed only when no <strong>Merry Men</strong> remain.</td>
+</tr>
+</tbody>
+</table></div>
+<span class="inline-title">Deed Procedures</span>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Action</th>
+<th>Cost</th>
+<th>Target Requirements</th>
+<th>Procedure</th>
+<th>Key Exceptions</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Ride</strong></td>
+<td>0 <strong>Shillings</strong></td>
+<td><strong>Nottingham</strong></td>
+<td>Move up to 4 <strong>Henchmen</strong> from <strong>Nottingham</strong> to any one <strong>Parish</strong>.</td>
+<td>Requires accompanying <strong>Plot</strong>. Target <strong>Parish</strong> need not be adjacent to <strong>Nottingham</strong>.</td>
+</tr>
+<tr>
+<td><strong>Confiscate</strong></td>
+<td>0 <strong>Shillings</strong></td>
+<td>Up to 2 <strong>Submissive Parishes</strong> with any <strong>Henchmen</strong></td>
+<td>Place an <strong>Available Carriage</strong> in each selected <strong>Parish</strong>, then set each to <strong>Revolting</strong>. Place <strong>Carriages</strong> face-down.</td>
+<td>Requires accompanying <strong>Plot</strong>. <strong>Sheriff</strong> chooses <strong>Carriage</strong> type secretly.</td>
+</tr>
+<tr>
+<td><strong>Disperse</strong></td>
+<td>3 <strong>Shillings</strong></td>
+<td>1 <strong>Parish</strong> with any <strong>Henchmen</strong></td>
+<td>Remove up to 2 pieces to <strong>Available Forces</strong>. <strong>Merry Men</strong> may be removed even if <strong>Hidden</strong>. <strong>Camps</strong> only removed when no <strong>Merry Men</strong> remain. Shift <strong>Royal Favour</strong> one step toward <strong>Order</strong> if a <strong>Camp</strong> is removed. Set <strong>Parish</strong> to <strong>Revolting</strong>.</td>
+<td>Requires accompanying <strong>Plot</strong>. Removed <strong>Merry Men</strong> go to <strong>Available Forces</strong>, not <strong>Prison</strong>.</td>
+</tr>
+</tbody>
+</table></div>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Carriage & Rob Mechanics</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Carriage Types &amp; Movement</span>
+<span class="label-title">Carriage Classification</span>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Carriage Type</th>
+<th>Sheriff Reward</th>
+<th>Justice/Order Shift</th>
+<th>Rob Defense &amp; Failure Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Tallage</strong></td>
+<td>5 <strong>Shillings</strong></td>
+<td>1 step toward <strong>Order</strong></td>
+<td><strong>Defense Value</strong>: 0. Failure: No additional effect.</td>
+</tr>
+<tr>
+<td><strong>Tribute</strong></td>
+<td>2 <strong>Shillings</strong></td>
+<td>2 steps toward <strong>Order</strong></td>
+<td><strong>Defense Value</strong>: 0. Failure: No additional effect. Success shifts <strong>Royal Favour</strong> 1 step toward <strong>Justice</strong>.</td>
+</tr>
+<tr>
+<td><strong>Trap</strong></td>
+<td>2 <strong>Shillings</strong></td>
+<td>1 step toward <strong>Order</strong></td>
+<td><strong>Defense Value</strong>: 2. Failure: Automatically <strong>Capture</strong> all participating <strong>Merry Men</strong>.</td>
+</tr>
+</tbody>
+</table></div>
+<span class="inline-title">Road Movement Rules</span>
+<p><strong>Carriages</strong> are placed face-down by the <strong>Confiscate</strong> <strong>Deed</strong>. When an <strong>Event</strong> card is drawn, move 1 or 2 <strong>Carriages</strong> one space each along roads toward <strong>Nottingham</strong>. The <strong>Sheriff</strong> may move 1 <strong>Henchman</strong> with each moving <strong>Carriage</strong>. The <strong>Sheriff</strong> must move as many <strong>Carriages</strong> as possible up to the indicated number. <strong>Carriages</strong> may only move to the adjacent space closer to <strong>Nottingham</strong> along the road, or into <strong>Nottingham</strong> once in an adjacent <strong>Forest</strong>. <strong>Carriages</strong> reaching <strong>Nottingham</strong> are immediately resolved and removed to the <strong>Used Carriages</strong> box. If revealed by a <strong>Rob</strong> attempt but unsuccessful, the <strong>Carriage</strong> remains revealed and continues moving. Removed <strong>Carriages</strong> stay in the <strong>Used Carriages</strong> box until the <strong>Redeployment Phase</strong>.</p>
+<span class="subsection-title">Rob Plot Resolution Flow</span>
+<span class="label-title">Target Selection</span>
+<ol>
+<li>Select up to three target spaces containing <strong>Hidden Merry Men</strong> and/or <strong>Robin Hood</strong>.</li>
+<li>In each space, choose a target: a random <strong>Traveller</strong>, a <strong>Carriage</strong>, or the <strong>Sheriff</strong>’s <strong>Treasury</strong> (if in <strong>Nottingham</strong>).</li>
+<li><strong>Reveal</strong> at least one <strong>Hidden Merry Man</strong> in the space, unless <strong>Robin Hood</strong> is already <strong>Revealed</strong>. You may <strong>Reveal</strong> additional <strong>Merry Men</strong> as desired.</li>
+<li>If targeting a <strong>Traveller</strong>, draw the top card of the <strong>Traveller</strong> deck and select one of the two options. If targeting a <strong>Carriage</strong>, flip it face-up if not already revealed.</li>
+</ol>
+<span class="inline-title">Success Calculation</span>
+<ol start="5">
+<li>Roll the appropriate die: white die in <strong>Submissive</strong> (and <strong>Passive</strong>) <strong>Parishes</strong> and <strong>Nottingham</strong>; green die in <strong>Revolting Parishes</strong> and <strong>Forests</strong>.</li>
+<li>Calculate success: (Total <strong>Revealed Merry Men</strong> participating + die roll) &gt; (<strong>Henchmen</strong> in space + target <strong>Defense Value</strong>). <strong>Merry Men</strong> already <strong>Revealed</strong> before the attempt do not count, except <strong>Robin Hood</strong> who always counts.</li>
+<li>Resolve outcome: On success, execute the selected <strong>Traveller</strong> option, take the <strong>Carriage</strong> reward, or take 2 <strong>Shillings</strong> and shift <strong>Royal Favour</strong> toward <strong>Justice</strong> if targeting the <strong>Treasury</strong>. On failure, execute the selected <strong>Traveller</strong> option, immediately <strong>Capture</strong> all involved <strong>Merry Men</strong> if a <strong>Trap Carriage</strong> was targeted, or do nothing for other targets.</li>
+</ol>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Events & Travellers</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Event Card Resolution</span>
+<span class="label-title">Regular Events</span>
+<p>Regular <strong>Events</strong> feature two options: one unshaded and one shaded. Both players may choose either effect when executing the <strong>Event</strong>. Some effects make permanent adjustments to the game state; keep these cards by the board for reference. <strong>Fortune Events</strong> have only one option and resolve immediately without changing <strong>Initiative</strong> order.</p>
+<span class="inline-title">Inspection Triggers</span>
+<p><strong>Royal Inspection</strong> cards mark the end of a <strong>Ballad</strong>. Move one <strong>Carriage</strong> if possible, then proceed immediately to the <strong>Royal Inspection Round</strong>. If <strong>King Richard’s Return</strong> is drawn, conduct only the <strong>Unrest Phase</strong>, then determine victory.</p>
+<span class="subsection-title">Traveller Deck &amp; Victims Pile</span>
+<span class="label-title">Drawing &amp; Routing</span>
+<p>Draw from the <strong>Traveller</strong> deck only when attempting a <strong>Rob</strong> <strong>Plot</strong> targeting a random <strong>Traveller</strong>. Each card shows a <strong>Defense Value</strong> (0–3) and typically two options for success or failure. After being <strong>Robbed</strong>, route <strong>Traveller</strong> cards to either the <strong>Traveller</strong> discard pile or the <strong>Victims Pile</strong> as instructed by the card text.</p>
+<span class="inline-title">Pile Management</span>
+<p>Keep these piles strictly separate from each other and from the <strong>Event</strong> discard pile. Shuffle the <strong>Traveller</strong> discard pile back into the main deck during the <strong>Reset Phase</strong> of the <strong>Royal Inspection Round</strong>. Do not shuffle the <strong>Victims Pile</strong> back into the deck. The <strong>Queen Eleanor</strong> <strong>Fortune Event</strong> effect depends on the number of cards in the <strong>Victims Pile</strong>.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Royal Inspection Round</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Phase Checklist</span>
+<span class="label-title">Unrest &amp; Mischief</span>
+<ol>
+<li><strong>Unrest Phase</strong>: Count <strong>Submissive Parishes</strong> (exclude <strong>Nottingham</strong>). Shift <strong>Royal Favour</strong>: 5–7 <strong>Submissive</strong> → 1 step toward <strong>Order</strong>; 3–4 <strong>Submissive</strong> → 1 step toward <strong>Justice</strong>; 1–2 <strong>Submissive</strong> → 2 steps toward <strong>Justice</strong>; 0 <strong>Submissive</strong> → 3 steps toward <strong>Justice</strong>. If <strong>Justice</strong> or <strong>Order</strong> reaches 5 or more, the game ends immediately. If this is the final inspection, the game ends regardless; <strong>Robin Hood</strong> wins if <strong>Justice</strong> is positive, <strong>Sheriff</strong> wins if <strong>Order</strong> is positive.</li>
+<li><strong>Mischief Phase</strong>: <strong>Robin Hood</strong> gains 1 <strong>Shilling</strong> per <strong>Camp</strong> in a <strong>Forest</strong> (including <strong>Ollerton Hill</strong>). <strong>Robin Hood</strong> may conduct a <strong>Single Rob Plot</strong> followed by a <strong>Donate Deed</strong> in up to two spaces. Return half (rounded down) of <strong>Merry Men</strong> in <strong>Prison</strong> to <strong>Available Forces</strong>.</li>
+</ol>
+<span class="inline-title">Governance &amp; Redeployment</span>
+<ol start="3">
+<li><strong>Governance Phase</strong>: <strong>Sheriff</strong> gains 1 <strong>Shilling</strong> per <strong>Submissive</strong> space (including <strong>Nottingham</strong>). Remove half (rounded down) of <strong>Henchmen</strong> in each <strong>Revolting</strong> space to <strong>Available Forces</strong>. Set any <strong>Revolting Parish</strong> where <strong>Henchmen</strong> outnumber <strong>Merry Men</strong> to <strong>Submissive</strong>.</li>
+<li><strong>Redeployment Phase</strong>: <strong>Sheriff</strong> moves all <strong>Henchmen</strong> in <strong>Revolting Parishes</strong> and <strong>Forests</strong> to <strong>Submissive</strong> spaces, and may move other <strong>Henchmen</strong> to <strong>Nottingham</strong>. Return all <strong>Used Carriages</strong> to <strong>Available Forces</strong>. Flip all <strong>Merry Men</strong> on the map to <strong>Hidden</strong>. Move all <strong>Merry Men</strong> in <strong>Submissive Parishes</strong> to any <strong>Forest</strong> or <strong>Parish</strong> with a <strong>Camp</strong>. Other <strong>Merry Men</strong> may stay or move to a <strong>Forest</strong> or <strong>Camp</strong> <strong>Parish</strong>. If <strong>Robin Hood</strong> is in <strong>Available Forces</strong>, place him in any <strong>Forest</strong>. Unless in <strong>Prison</strong>, <strong>Robin Hood</strong> may secretly swap with any other <strong>Merry Man</strong> on the map.</li>
+</ol>
+<span class="label-title">Reset Procedures</span>
+<ol start="5">
+<li><strong>Reset Phase</strong>: Shuffle <strong>Traveller</strong> discard pile into main deck. Place <strong>Robin Hood</strong>’s cylinder on <strong>First Eligible</strong> and <strong>Sheriff</strong>’s cylinder on <strong>Second Eligible</strong>. Draw the next <strong>Event</strong> card to begin a new <strong>Ballad</strong>.</li>
+</ol>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Victory Conditions</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Win Triggers &amp; Royal Favour Shifts</span>
+<span class="label-title">Immediate Victory</span>
+<p>Victory is determined by the position of the red <strong>Royal Favour</strong> cylinder. If the cylinder reaches 5 or more toward <strong>Justice</strong> or <strong>Order</strong> during the <strong>Unrest Phase</strong>, the game ends immediately with the corresponding winner. If the final <strong>Royal Inspection</strong> occurs without reaching 5, the player whose side the cylinder currently favors wins.</p>
+<span class="inline-title">Shift Summary</span>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Shifts Toward Justice</th>
+<th>Shifts Toward Order</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Specific <strong>Event</strong> and <strong>Traveller</strong> effects</td>
+<td>Specific <strong>Event</strong> and <strong>Traveller</strong> effects</td>
+</tr>
+<tr>
+<td>Placing <strong>Camps</strong> via <strong>Recruit</strong> or <strong>Events</strong></td>
+<td>Removing <strong>Camps</strong> via <strong>Capture</strong>, <strong>Disperse</strong>, or <strong>Events</strong></td>
+</tr>
+<tr>
+<td>Using <strong>Inspire</strong> in <strong>Revolting Parishes</strong></td>
+<td>Sending <strong>Robin Hood</strong> to <strong>Prison</strong> via <strong>Capture</strong> or <strong>Event</strong></td>
+</tr>
+<tr>
+<td><strong>Robbing Tribute Carriages</strong> or the <strong>Treasury</strong></td>
+<td>Bringing <strong>Carriages</strong> safely to <strong>Nottingham</strong></td>
+</tr>
+<tr>
+<td>Fewer than 5 <strong>Submissive Parishes</strong> during <strong>Unrest Phase</strong></td>
+<td>5 or more <strong>Submissive Parishes</strong> during <strong>Unrest Phase</strong></td>
+</tr>
+</tbody>
+</table></div>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Quick Reference Tables & Reminders</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Initiative Costs, Dice Modifiers &amp; Key Exceptions</span>
+<span class="label-title">Track &amp; Die Rules</span>
+<p><strong>Initiative Track Shilling Rewards</strong>: <strong>Robin Hood</strong> receives 1 <strong>Shilling</strong> for passing. The <strong>Sheriff</strong> receives 1, 2, or 3 <strong>Shillings</strong> depending on which available box on the track they place their cylinder.</p>
+<p><strong>Die Selection for Rob</strong>: Roll the white die in <strong>Submissive</strong> (and <strong>Passive</strong>) <strong>Parishes</strong> and <strong>Nottingham</strong>. Roll the green die in <strong>Revolting Parishes</strong> and <strong>Forests</strong>.</p>
+<span class="inline-title">Edge Cases &amp; Glossary</span>
+<p><strong>Prison Exceptions</strong>: <strong>Merry Men</strong> in <strong>Prison</strong> do not count toward <strong>Available Forces</strong> limits. They may only leave during the <strong>Mischief Phase</strong>, via specific <strong>Event</strong> effects, or via the <strong>Swashbuckle</strong> <strong>Deed</strong> (for <strong>Robin Hood</strong> only). The <strong>Robin Hood</strong> player may choose to leave <strong>Robin Hood</strong> in <strong>Prison</strong> during the <strong>Mischief Phase</strong>.</p>
+<p><strong>Ollerton Hill Adjacency</strong>: Only accessible after the <strong>Major Oak</strong> <strong>Event</strong> places a <strong>Camp</strong> there. Grants adjacency between <strong>Shire Wood/Tuxford</strong> and <strong>Southwell Forest/Blyth</strong> for <strong>Robin Hood</strong> only. Treated as a <strong>Forest</strong> for income. No other pieces may enter or be placed here.</p>
+<p><strong>Free Actions</strong>: <strong>Events</strong> granting free <strong>Plots</strong> or <strong>Deeds</strong> cost no <strong>Shillings</strong>, but all other requirements and procedures still apply unless explicitly modified by the <strong>Event</strong> text.</p>
+<p><strong>Mini-Glossary</strong>:
+<strong>Available</strong>: Forces and <strong>Carriages</strong> on a player mat ready for placement.
+<strong>Ballad</strong>: Sequence of 6 regular <strong>Events</strong> and 1 <strong>Fortune Event</strong> leading to a <strong>Royal Inspection</strong>.
+<strong>Passive Parish</strong>: A <strong>Parish</strong> permanently altered by the <strong>Weapons of the Weak</strong> <strong>Event</strong>, treated as neither <strong>Submissive</strong> nor <strong>Revolting</strong> except for <strong>Rob</strong> and <strong>Capture</strong> calculations.
+<strong>Treasury</strong>: The <strong>Sheriff</strong>’s funds in <strong>Nottingham</strong>, targetable by <strong>Rob</strong> for 2 <strong>Shillings</strong> and a <strong>Justice</strong> shift.</p>
+  </div>
+</details>
+  <p id="no-results">No sections match your search.</p>
+</main>
+<script>
+(function () {
+  var searchEl  = document.getElementById('search');
+  var clearBtn  = document.getElementById('search-clear');
+  var noResults = document.getElementById('no-results');
+  var sections  = Array.from(document.querySelectorAll('details.section'));
+
+  // Snapshot each section body's original HTML so we can restore it
+  // before applying a new round of highlights.
+  sections.forEach(function (s) {
+    var body = s.querySelector('.section-body');
+    if (body) body.dataset.original = body.innerHTML;
+  });
+
+  var timer;
+
+  searchEl.addEventListener('input', function () {
+    var term = this.value.trim();
+    clearBtn.classList.toggle('visible', term.length > 0);
+    clearTimeout(timer);
+    timer = setTimeout(function () { applySearch(term); }, 180);
+  });
+
+  clearBtn.addEventListener('click', function () {
+    searchEl.value = '';
+    clearBtn.classList.remove('visible');
+    applySearch('');
+    searchEl.focus();
+  });
+
+  function escapeRe(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlightTextNodes(container, re) {
+    var walker = document.createTreeWalker(
+      container, NodeFilter.SHOW_TEXT, null, false
+    );
+    var nodes = [];
+    var n;
+    while ((n = walker.nextNode())) {
+      if (n.nodeValue.trim()) nodes.push(n);
+    }
+    nodes.forEach(function (textNode) {
+      re.lastIndex = 0;
+      if (!re.test(textNode.nodeValue)) return;
+      re.lastIndex = 0;
+      var span = document.createElement('span');
+      span.innerHTML = textNode.nodeValue.replace(
+        re, function (m) { return '<mark>' + m + '</mark>'; }
+      );
+      textNode.parentNode.replaceChild(span, textNode);
+    });
+  }
+
+  function applySearch(term) {
+    var re = term ? new RegExp(escapeRe(term), 'gi') : null;
+    var visibleCount = 0;
+
+    sections.forEach(function (section) {
+      var body    = section.querySelector('.section-body');
+      var summary = section.querySelector('summary');
+
+      // Restore original HTML before each search pass
+      if (body) body.innerHTML = body.dataset.original;
+
+      if (!re) {
+        section.classList.remove('search-hidden');
+        section.open = false;
+        return;
+      }
+
+      var titleText = summary ? summary.textContent : '';
+      var bodyText  = body    ? body.textContent    : '';
+
+      re.lastIndex = 0;
+      var inTitle = re.test(titleText);
+      re.lastIndex = 0;
+      var inBody  = re.test(bodyText);
+      re.lastIndex = 0;
+
+      if (inTitle || inBody) {
+        section.classList.remove('search-hidden');
+        section.open = true;
+        if (body) highlightTextNodes(body, new RegExp(escapeRe(term), 'gi'));
+        visibleCount++;
+      } else {
+        section.classList.add('search-hidden');
+      }
+    });
+
+    noResults.style.display = (re && visibleCount === 0) ? 'block' : 'none';
+  }
+})();
+</script>
+</body>
+</html>

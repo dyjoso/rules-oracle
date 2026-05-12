@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Clank! in Space — Rules Reference</title>
+<style>
+:root {
+  --bg:            #f2ede6;
+  --text:          #1a1a1a;
+  --header-bg:     #7d2a22;
+  --section-bg:    #7d2a22;
+  --subsection-bg: #bc9d17;
+  --rule:          #b0a898;
+  --accent:        #bc9d17;
+  --table-head:    #7d2a22;
+  --note-bg:       #e8e0d4;
+  --body-bg:       #ffffff;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 15px;
+  line-height: 1.55;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* ── STICKY HEADER ───────────────────────────────────────── */
+.sticky-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--header-bg);
+  padding: 10px 14px 12px;
+  padding-top: max(10px, env(safe-area-inset-top));
+  padding-left: max(14px, env(safe-area-inset-left));
+  padding-right: max(14px, env(safe-area-inset-right));
+  box-shadow: 0 2px 12px rgba(0,0,0,0.4);
+}
+
+.masthead-row {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 9px;
+}
+
+.masthead-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  line-height: 1.1;
+  flex-shrink: 0;
+}
+
+.masthead-subtitle {
+  font-size: 11px;
+  color: rgba(255,255,255,0.45);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.back-link {
+  margin-left: auto;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+  text-decoration: none;
+  flex-shrink: 0;
+  padding-left: 14px;
+  white-space: nowrap;
+}
+.back-link:hover {
+  color: rgba(255,255,255,0.85);
+}
+
+/* ── TOGGLE + BACK ROW ───────────────────────────────────── */
+.toggle-back-row {
+  display: flex;
+  align-items: center;
+  margin-top: 7px;
+}
+
+.search-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-icon {
+  position: absolute;
+  left: 10px;
+  width: 15px;
+  height: 15px;
+  color: rgba(255,255,255,0.4);
+  pointer-events: none;
+  flex-shrink: 0;
+}
+
+#search {
+  width: 100%;
+  padding: 8px 36px 8px 32px;
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 8px;
+  font-size: 15px;
+  background: rgba(255,255,255,0.12);
+  color: #fff;
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+#search::placeholder { color: rgba(255,255,255,0.38); }
+
+#search:focus {
+  background: rgba(255,255,255,0.2);
+  border-color: rgba(255,255,255,0.3);
+}
+
+.search-clear {
+  position: absolute;
+  right: 6px;
+  background: rgba(255,255,255,0.18);
+  border: none;
+  border-radius: 50%;
+  color: rgba(255,255,255,0.8);
+  font-size: 14px;
+  line-height: 1;
+  width: 22px;
+  height: 22px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  flex-shrink: 0;
+}
+
+.search-clear.visible { display: flex; }
+
+/* ── MAIN ────────────────────────────────────────────────── */
+main {
+  padding: 10px 12px 48px;
+  padding-left: max(12px, env(safe-area-inset-left));
+  padding-right: max(12px, env(safe-area-inset-right));
+  padding-bottom: max(48px, env(safe-area-inset-bottom));
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+/* ── NO RESULTS ──────────────────────────────────────────── */
+#no-results {
+  display: none;
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--text);
+  opacity: 0.5;
+  font-size: 14px;
+}
+
+/* ── COLLAPSIBLE SECTIONS ────────────────────────────────── */
+details.section {
+  margin-bottom: 6px;
+  border-radius: 6px;
+  overflow: hidden;
+  scroll-margin-top: 130px;
+}
+
+details.section > summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  min-height: 44px;
+  background: var(--section-bg);
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  list-style: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+details.section > summary::-webkit-details-marker { display: none; }
+
+.chevron {
+  width: 12px;
+  height: 12px;
+  opacity: 0.65;
+  flex-shrink: 0;
+  margin-left: 8px;
+  transition: transform 0.18s ease;
+}
+
+details.section[open] > summary .chevron {
+  transform: rotate(90deg);
+}
+
+.section-body {
+  background: var(--body-bg);
+  padding: 10px 12px 12px;
+  border: 1px solid var(--rule);
+  border-top: none;
+  border-radius: 0 0 6px 6px;
+}
+
+/* ── HEADINGS WITHIN SECTIONS ────────────────────────────── */
+.subsection-title {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: #fff;
+  background: var(--subsection-bg);
+  padding: 4px 12px;
+  margin: 10px -12px 7px;
+}
+
+.label-title {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--section-bg);
+  border-bottom: 1.5px solid var(--rule);
+  padding-bottom: 3px;
+  margin: 10px 0 5px;
+}
+
+.inline-title {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 8px 0 3px;
+}
+
+/* ── BODY TEXT ───────────────────────────────────────────── */
+p { margin-bottom: 7px; }
+b, strong { font-weight: 600; }
+em, i { font-style: italic; }
+
+/* ── LISTS ───────────────────────────────────────────────── */
+ul, ol { padding-left: 20px; margin-bottom: 6px; }
+ul { list-style-type: disc; }
+ol { list-style-type: decimal; }
+ul ul { list-style-type: circle; }
+li { margin-bottom: 3px; }
+li > ul, li > ol { margin-top: 2px; margin-bottom: 0; }
+
+/* ── TABLES ──────────────────────────────────────────────── */
+.table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin-bottom: 6px;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  min-width: 260px;
+}
+thead tr { background: var(--table-head); color: white; }
+thead th {
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  padding: 5px 8px;
+  text-align: left;
+  white-space: nowrap;
+}
+tbody tr:nth-child(even) { background: var(--note-bg); }
+tbody td { padding: 5px 8px; vertical-align: top; }
+
+/* ── BLOCKQUOTE ──────────────────────────────────────────── */
+blockquote {
+  background: var(--note-bg);
+  border-left: 3px solid var(--accent);
+  padding: 6px 10px;
+  margin: 5px 0 7px;
+  font-size: 14px;
+  border-radius: 0 4px 4px 0;
+}
+blockquote p { margin-bottom: 2px; }
+
+/* ── INLINE CODE ─────────────────────────────────────────── */
+code {
+  background: var(--note-bg);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  padding: 1px 4px;
+  font-size: 13px;
+  font-family: inherit;
+  font-weight: 600;
+}
+
+/* ── HR ──────────────────────────────────────────────────── */
+hr { border: none; border-top: 1px solid var(--rule); margin: 8px 0; }
+
+/* ── SEARCH HIGHLIGHT ────────────────────────────────────── */
+mark {
+  background: #ffe566;
+  color: inherit;
+  border-radius: 2px;
+  padding: 0 1px;
+}
+
+/* ── HIDDEN SECTIONS ─────────────────────────────────────── */
+details.section.search-hidden { display: none; }
+
+/* ── VERSION TOGGLE ──────────────────────────────────────── */
+.toggle-bar {
+  display: inline-flex;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.2);
+}
+.toggle-current,
+.toggle-other {
+  padding: 6px 14px;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  line-height: 1;
+  text-decoration: none;
+  white-space: nowrap;
+  -webkit-tap-highlight-color: transparent;
+}
+.toggle-current {
+  background: rgba(255,255,255,0.18);
+  color: #ffffff;
+  font-weight: 600;
+  cursor: default;
+}
+.toggle-other {
+  color: rgba(255,255,255,0.5);
+}
+.toggle-other:hover {
+  background: rgba(255,255,255,0.08);
+  color: rgba(255,255,255,0.8);
+}
+
+/* ── PRINT ───────────────────────────────────────────────── */
+@media print {
+  .sticky-header { position: static; }
+  details.section[open], details.section { display: block; }
+  .section-body { display: block !important; }
+  .search-wrap, .search-clear, .toggle-bar { display: none; }
+}
+</style>
+</head>
+<body>
+<header class="sticky-header">
+  <div class="masthead-row">
+    <span class="masthead-title">Clank! in Space</span>
+    <span class="masthead-subtitle">Rules Reference</span>
+  </div>
+  <div class="toggle-back-row"><div class="toggle-bar"><span class="toggle-current">Full Rules</span><a class="toggle-other" href="clank-in-space-rules-reference.html">Quick Reference</a></div><a class="back-link" href="index.html">&#8592; All Games</a></div>
+  <div class="search-wrap">
+    <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+         stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+         aria-hidden="true">
+      <circle cx="11" cy="11" r="8"/>
+      <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+    </svg>
+    <input type="text" id="search" placeholder="Search rules…"
+           autocomplete="off" spellcheck="false" autocorrect="off">
+    <button class="search-clear" id="search-clear" aria-label="Clear search">&#x2715;</button>
+  </div>
+</header>
+<main>
+<details class="section" open>
+  <summary><span>Setup</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="label-title">A Assemble the spaceship board in the pattern shown. It is divided into modules, three of which are used in every game: Cargo Bay, Command, and Corridor. The other three identically shaped pieces can be placed in any of three possible positions, with either side face up.</span>
+<p>For your first game, it is recommended to place those three pieces as shown:</p>
+<ol>
+<li>Hydroponics</li>
+<li>Doomsday Cannon</li>
+<li>Med Lab</li>
+</ol>
+<span class="label-title">B Each player chooses a pawn, then takes 30 Clank! cubes and two Data cubes of the matching color and places them in a personal supply in front of them.</span>
+<p>They also take a 10-card starting deck containing the following:</p>
+<ul>
+<li>6 Hacks</li>
+<li>2 Stumbles</li>
+<li>1 Access</li>
+<li>1 Scramble</li>
+</ul>
+<p>Place these tokens around the game board as follows:</p>
+<span class="label-title">C Place the six Artifacts (valued from 5 to 30) face up on the spaces in the Command module marked with the corresponding numbers.</span>
+<p>If playing with fewer than 4 players, before placing the Artifacts, shuffle them face down and select some at random to exclude from the game.</p>
+<p>With 3 players, return one Artifact to the box. With 2 players, return two Artifacts.</p>
+<span class="label-title">D Shuffle the Major Secrets face down, then place one at random on each Major Secret space.</span>
+<span class="label-title">E Shuffle the Minor Secrets face down, then place two at random on each Minor Secret space.</span>
+<p>There may be extra Major and Minor Secrets, depending on the modules you're using. Return any extras to the box unseen.</p>
+<span class="label-title">F Place the Market Board next to the spaceship, then place the Market Items on it: two each of the Contraband, Master Key, Med Kit, and TelePass.</span>
+<p>If playing with only 2 players, place only one of each item.</p>
+<span class="label-title">G Place the four Escape Pod tokens in the Cargo Bay module.</span>
+<span class="label-title">H Create a Bank next to the game board, containing the five Power Crystals, one Command Code token for each player, and all Credit tokens (valued 1, 5, and 10).</span>
+<p>Prepare the Rage Track as follows:</p>
+<span class="label-title">I Place the four Bounty Hunter (red) cubes on three different spaces of the Rage Track: one on each of the first two spaces of the red zone, on two on the plaid space.</span>
+<span class="label-title">J Place the Blockade token on the last space of the red zone.</span>
+<span class="label-title">K Place the Boss Marker on the space corresponding to the number of players. (For example: on the first space for a 4-player game.)</span>
+<span class="label-title">L Place the 24 boss cubes (black) in the Boss Bag, and set the bag next to the game board.</span>
+<span class="label-title">M Place the GØB-L1N enemy card in Reserve, next to the game board, along with the piles of FAZR, Boldly Go, and Memory Core cards.</span>
+<span class="label-title">N Shuffle the Adventure Deck and deal six cards to form the Adventure Row, face up on the table.</span>
+<p>If any of those cards have the Boss Attack symbol along the right edge, replace them with other cards until none of them show the symbol, then shuffle any replaced cards back into the Adventure Deck.</p>
+<p>Leave room next to the Adventure Deck to form an Adventure discard pile during the game.</p>
+<span class="label-title">O Each player places their pawn on the starting space (in the Cargo Bay module), then shuffles their 10-card deck and draws five cards.</span>
+<span class="label-title">P The sneakiest player gets to go first (or you may choose randomly). Play will proceed clockwise from there. The first player places 3 Clank! cubes in the Clank! area. The second player places 2 Clank! The third and fourth players (if there are any) place 1 Clank! and 0 Clank!, respectively.</span>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Game Overview</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="label-title">So You Want to Be a Thief?</span>
+<p>CLANK! IN! SPACE! is a deck-building game. Each player starts with their own identical deck, but building up that deck is part of playing the game. Players will acquire different cards during their turns. Because cards can do many different things, each player’s deck (and strategy) will become more and more different as the game unfolds.</p>
+<p>Every time you acquire a new card, you put it face up in your discard pile. Whenever you need to draw a card and find your deck empty, shuffle your discard pile and turn it face down to form a new deck. With each shuffle, your newest cards become part of a bigger and better deck!</p>
+<span class="label-title">This Isn’t My First Heist</span>
+<p>If you’ve previously played CLANK! A Deck-Building Adventure (but this is your first trip into space), you might be thinking, “I’ve got this.” Maybe so. But before you dive in, you will want to know about a few differences between that game and CLANK! IN! SPACE! We recommend you review the following:</p>
+<ul>
+<li>The factions detailed on page 5.</li>
+<li>All the actions described on page 6. Some work a little differently than in CLANK!, and there are a few new ones as well.</li>
+<li>The new effects of the Rage Track, described on page 8.</li>
+<li>Your escape goal, described on page 9.</li>
+<li>How to handle a player who escapes or is knocked out, also described on page 9.</li>
+<li>The tokens listed on page 12. Some are different than in CLANK!</li>
+</ul>
+<span class="label-title">Step 1: The Mission</span>
+<p>The terms of this thieving challenge are clear: everyone must board Lord Eradikus’ ship and steal one of his Artifacts. Escaping with your life is technically optional, although vastly preferable.</p>
+<p>During the game, you have three goals:</p>
+<ul>
+<li>Hack the spaceship’s computer to obtain a two-part command code allowing you to enter the Command module.</li>
+<li>Steal an Artifact token from the Command module, then reach an escape pod in the Cargo Bay module and escape the ship.</li>
+<li>You can carry only one Artifact, and once you’ve picked one up, you’re stuck with it. Choose carefully!</li>
+<li>Accumulate enough points with your Artifact and other loot to beat out your opponents and earn the title of Greatest Thief in the Galaxy!</li>
+</ul>
+<p>This Artifact isn’t worth many points, but at least it’s easy to get to. Make sure to gather more loot to keep pace with your rivals!</p>
+<p>This Artifact is worth a lot more points, but the path to it is longer and more dangerous. Make sure you can get back to the Cargo Bay after you grab it!</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Game Structure & Actions</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="label-title">Step 2: The Plan</span>
+<p>Stealing from Lord Eradikus is far from a simple job. You’ll have to navigate his spaceship, deal with the enemies that stand in your way, and acquire valuable technology.</p>
+<p>You start each of your turns with five cards in your hand, and you’ll play them all in any order you choose.</p>
+<span class="subsection-title">Resources</span>
+<p>Most cards you play generate resources, of which there are three different kinds:</p>
+<p>SKILL — Used to acquire new cards for your deck.</p>
+<p>SWORDS — Laser Swords (of course), used to defeat the enemies who serve Lord Eradikus.</p>
+<p>BOOTS — Used to move around the ship.</p>
+<p>Princess Helia generates all three kinds of resources!</p>
+<span class="inline-title">Princess Helia</span>
+<p>Held still. She’s got a blaster, a first aid kit, and poor depth perception.</p>
+<p>ACQUIRE</p>
+<p>7</p>
+<span class="subsection-title">Factions</span>
+<p>Many cards have an icon in the upper left corner, marking them as a member of one of three factions:</p>
+<span class="inline-title">Outlaw</span>
+<p>(18 Cards)</p>
+<span class="inline-title">Resistance</span>
+<p>(26 Cards)</p>
+<span class="inline-title">Science</span>
+<p>(11 Cards)</p>
+<span class="inline-title">Phantom Agent</span>
+<p>-2 Clank!</p>
+<p>Draw a card.</p>
+<p>She’s like a ghostly Heptomaniac: invisible and sticky-fingered.</p>
+<p>4</p>
+<p>These icons can also appear in a card’s text. To use this text, you must play a different card of that faction during your turn (before or after the one with the text you want to use). You can only use the text once, no matter how many other cards of the faction you play.</p>
+<p>Princess Helia is part of the Resistance Faction. If you play her on the same turn as Phantom Agent, you draw a card.</p>
+<p>There’s a wide array of actions you can take during your turn. Many require Skill, Swords, or Boots. You may take each action as many times as you like, if you have the resources to do so. You can wait and take your actions after you’ve played all of your cards, or you can take actions between cards if you wish, but you must play all your cards before ending your turn. The actions are described through the rest of this section.</p>
+<span class="subsection-title">Acquire a New Card for Your Deck</span>
+<p>You can use Skill to acquire cards with blue banners from the Adventure Row (which change throughout the game) or cards with yellow banners from the Reserve (which are the same in every game).</p>
+<span class="inline-title">Space Skunk</span>
+<p>If there is a Prisoner in your play area or discard pile,</p>
+<p>Pacing as a captive, this undercover thief will give you a leg up on the competition.</p>
+<span class="inline-title">Boldly Go</span>
+<p>Where no one has skulked before...</p>
+<p>The Skill Cost of a card is found in its lower right corner. Once you pay the cost, place the card in your discard pile; it is now part of your deck.</p>
+<p>When you acquire a card from the Adventure Row, do not immediately replace it with a new card from the Adventure Deck.</p>
+<span class="subsection-title">Defeat an Enemy</span>
+<p>Enemies are the cards with red banners in the Adventure Row. Instead of acquiring enemies with Skill, you defeat them using Swords.</p>
+<p>The number of Swords required to defeat an enemy are found in its lower right corner.</p>
+<p>When you defeat an enemy in the Adventure Row, you gain the reward listed in its DEFEAT text. Then the card is placed in the Adventure discard pile (not your own discard pile). Do not immediately replace it with a new card from the Adventure Deck.</p>
+<p>You may also fight the G0B-L1N (“Goblin”) in the Reserve. It is not discarded when defeated; each player may fight it multiple times each turn, earning its reward each time. (The same is true of the Eradibot, if the G0B-L1N should be flipped over during the game.)</p>
+<span class="inline-title">Killbot</span>
+<p>Enemy</p>
+<p>DEFEAT: 3</p>
+<p>"Eradicate! Eradicate!"</p>
+<span class="subsection-title">Buy From the Market</span>
+<p>Throughout the spaceship, you’ll find a number of Market spaces. If you are in a Market space, you may make a purchase.</p>
+<p>All items at the Market cost 7 Credits. Place each item you buy in front of you, in your play area. You may buy only <em>one</em> item of each type. (For example: If you already have a Med Kit, you cannot buy another.)</p>
+<p>Items available at the Market are described on the back of this rulebook.</p>
+<span class="subsection-title">Move Through the Spaceship</span>
+<p>Boots are how you move around the spaceship. Each Boot lets you move along a marked path from one space to an adjacent space. Spaces in two different modules can still be adjacent.</p>
+<p>In this example, the center space is adjacent to three other spaces. Spending one Boot would allow you to move to any of them.</p>
+<p>Some paths have special rules:</p>
+<ul>
+<li>A path with Footprint icons requires two Boots to traverse instead of one.</li>
+<li>When you move along a path with any enemy icons, you take one damage for each icon. For each Sword you use, you may avoid one point of this damage (but you don’t have to use Swords to make such a move).</li>
+<li>You cannot use a path with a lock icon unless you have a Master Key token (purchased from the Market) in your possession.</li>
+<li>A path shaped like an arrow can only be used in the direction of the arrow—you normally can’t move through it in the opposite direction.</li>
+</ul>
+<p>When you first move into a space, you may take <em>one</em> of the Secret tokens there (Major or Minor) and put it in front of you. Choose it without looking first, then reveal it. The Secret tokens are described on the back of this rulebook.</p>
+<p>Whenever you enter a security checkpoint, you are forced to stop to avoid detection. You cannot use any more Boots this turn. You may still be able to move by Teleporting (described in Advanced Maneuvers), but you won’t be able to use Boots until your next turn.</p>
+<span class="subsection-title">Using a Hyperlift or Telepad</span>
+<p>Hyperlifts and Telepads are two different ways of moving quickly through the spaceship.</p>
+<p>The Hyperlift is a series of spaces running through the center of the ship. If you are on a Hyperlift space, you may move along its marked path to any other Hyperlift space. (Note that some Hyperlift spaces can be blocked to you, either by a lock you can’t pass without a Master Key, or by the increasing rage of Lord Eradikus, as described later in Step 3: The Mark.)</p>
+<p>The Telepads are not physically connected like the Hyperlifts; they work instead using matter streaming technology. They also require a TelePass (purchased from the Market). If you are on a Telepad space and have the necessary TelePass, you may move to any other Telepad space on the spaceship.</p>
+<p>You do not need Boots to use a Hyperlift or Telepad. However, you suffer dizziness after using either, and can’t use any Boots until your next turn. You can use Boots to move through a Hyperlift or Telepad space without using the Hyperlift or Telepad itself.</p>
+<span class="subsection-title">Hacking a Data Port</span>
+<p>The Command module of the spaceship is protected by a force field. To reach an Artifact, you will have to hack the ship’s computer in two different locations to grant yourself a two-part command code.</p>
+<p>Scattered throughout the spaceship are a number of data ports. When you’re in a space with a data port, you may place one of your two Data cubes on it. You immediately get the bonus or penalty shown. That port can’t be used again (by any player) for the rest of the game.</p>
+<p>Security will respond to your intrusion, so you have to stay on the move. Because of this, you can’t place your second Data cube in the same module of the spaceship as your first.</p>
+<p>Once you’ve placed your two Data cubes in two different modules, you have completed your command code. Take a Command Code token from the Bank and move the Boss Marker up one space along the Rage Track. Until you possess this token, you can’t enter the Command module by any means—not by Boots, Hyperlift, Telepad, or the ability of a card in your deck.</p>
+<span class="subsection-title">Stealing an Artifact</span>
+<p>Once you have your command code and can enter the Command module, you can do what you came here to do: steal an Artifact from Lord Eradikus.</p>
+<p>If you’re in a space with an Artifact token, you may pick it up and place it in your play area. You can’t take an Artifact token if you already have one. (You might want to pass up one Artifact to go after a more valuable one elsewhere.)</p>
+<p>When you take an Artifact token, move the Boss Marker up one space along the Rage Track.</p>
+<p>There are two other common effects you will encounter:</p>
+<span class="subsection-title">Gaining Credits</span>
+<p>When you gain Credits (from a card or a space), take them from the Bank and put them in front of you. Each Credit is worth 1 point when the game ends, but you can also use Credits for other purposes during the game, such as buying items from the Market.</p>
+<span class="subsection-title">Clank!</span>
+<p>Some cards cause you to gain Clank! When this happens, add that many cubes from your personal supply to the Clank! area of the game board.</p>
+<p>Some very sneaky cards cause you to remove Clank! For each negative Clank! you get, remove one of your Clank! from the Clank! area. If you don't have enough Clank! there, you can instead avoid adding Clank! later in the turn if an effect would make you do so. Any leftover negative Clank! is lost when your turn ends.</p>
+<p>Once you've played <em>all</em> of your cards and used as many of your resources as you want to, your turn ends. Put all of the cards you played into your discard pile. Any Skill, Swords, or Boots you don't use are wasted, so make them count!</p>
+<p>Lastly, draw five new cards in preparation for your next turn. Then, if any of the six spaces for cards in the Adventure Row are empty, refill them with new cards from the Adventure Deck.</p>
+<span class="label-title">Step 3: The Mark</span>
+<p>Lord Eradikus didn't become ruler of the galaxy by looking foolish. When he discovers what you're doing aboard his ship, he's going to come after you with everything he's got.</p>
+<p>At the end of every player's turn, if any of the six spaces for cards in the Adventure Row are empty, refill them with new cards from the Adventure Deck. If any of the cards drawn have a Boss Attack symbol, Lord Eradikus attacks! (But only once, no matter how many Boss Attack symbols were revealed.)</p>
+<p>To execute an attack, take all of the cubes in the Clank! area and put them in the Boss Bag. Shake it up and draw a number of cubes from the bag equal to the number shown in the Boss Marker's current space of the Rage Track. Each black cube drawn is set aside (staying outside the bag), but each cube of a player's color represents damage dealt to that player. (Undrawn cubes remain in the bag—they might still be drawn out later.) The more Clank! you make, the more likely Lord Eradikus is to notice and attack you. Managing your noise level is key to survival!</p>
+<p>At the end of the orange player's turn, there are only three cards left in the Adventure Row. Three cards are dealt from the top of the Adventure Deck to fill the empty spaces. Two of them have the Boss Attack symbol, triggering an attack this turn.</p>
+<p>All the cubes in the Clank! Area are placed in the Boss Bag. The Boss Marker is currently on the seventh space of the Rage Track, so four cubes are drawn from the bag. One cube is black; it is set aside, affecting no one. The second is blue, so the blue player takes 1 damage. The last two cubes are both orange, so the orange player takes 2 damage.</p>
+<p>Lord Eradikus' rage increases throughout the game. Advance the Boss Marker one space along the Rage Track every time any of the following occurs:</p>
+<ul>
+<li>A command code is completed.</li>
+<li>An Artifact is picked up.</li>
+<li>An Archive (a type of Minor Secret) is discovered.</li>
+</ul>
+<p>Advancing the Boss Marker may cause more cubes to be drawn in the next attack. The more cubes being drawn, the deadlier the game becomes.</p>
+<p>The danger escalates in other ways as the Boss Marker reaches spaces near the top of the Rage Track.</p>
+<span class="label-title">Dispatch Bounty Hunters.</span>
+<p>Three spaces near the top of the Rage Track contain red (bounty hunter) cubes. When the Boss Marker reaches one of these spaces, take the red cube (or cubes) there and place them in the Clank! area. (They'll be added to the Boss Bag during the next attack.) Whenever a red cube is pulled during an attack, every player takes one damage. What's more, the red cube is then returned to the Clank! area; it will go into the Boss Bag again for the next attack.</p>
+<span class="label-title">Deploy Blockade.</span>
+<p>When the Boss Marker reaches the last space in the red zone of the Rage Track, take the Blockade token from this space and place it in the Cargo Bay module, severing the connection to the last space on the Hyperlift path. You can still use the Hyperlift during your turn; you just can't use it to move to or from the Hyperlift space in the Cargo Bay for the rest of the game.</p>
+<span class="label-title">Step 4: The Getaway</span>
+<p>Each player's health is tracked on a Health Meter on the corner of the game board. When you take damage during the game—and you will take damage—place your cubes on the Health Meter of your color, starting from the left.</p>
+<ul>
+<li>If the damage came from a boss attack, use the cubes that were pulled from the Boss Bag (or, when a red cube is pulled, a cube from your personal supply).</li>
+<li>If you chose to take damage by moving through an enemy on the board without a Sword, take the cubes from your personal supply. You can't choose to take damage this way if it would completely fill your Health Meter!</li>
+</ul>
+<p>❤️ Some effects can heal damage you've taken. When you heal, take back a cube of your color from your Health Meter and put it in your personal supply. You can use it again later for more <em>Clank!</em></p>
+<p>If your Health Meter is ever completely filled, you are knocked out. What happens next depends on how successful you've been so far:</p>
+<ul>
+<li>If you have retrieved an Artifact and have made it back to the Cargo Bay module, your allies will get you to safety by dragging you aboard their ship. You can count the points you've earned.</li>
+<li>If you haven't gotten an Artifact yet, or aren't in the Cargo Bay, then you can't be rescued. You lose the competition, which at this point is the least of your worries.</li>
+</ul>
+<p>Once you've picked up an Artifact, you can also make your way to an escape pod (at the back of the Cargo Bay). If you reach one, remove it from the board (along with your player pawn, and all your <em>Clank!</em> in the <em>Clank!</em> area). Your rivals will have to find their own escape pod, while you rest in safety with 20 additional points!</p>
+<p>Remember, if you don't have an Artifact yet, you can't leave the spaceship, or be rescued by your allies!</p>
+<span class="label-title">Step 5: The End of the Line</span>
+<p>Good timing is crucial in this heist—getting caught by Lord Eradikus would be far worse than being pinched by local authorities! But as in all heists, there's nothing wrong with throwing your rivals out the proverbial airlock once you've made your escape.</p>
+<p>Once a player leaves in an escape pod or is knocked out, they no longer take normal turns. They add no more <em>Clank!</em> to the <em>Clank!</em> area. Cards that affect all players <em>don't</em> affect them. They take no damage from cubes drawn from the Boss Bag.</p>
+<p>Instead, whenever that player would take a turn, they take all the cubes in the <em>Clank!</em> area and put them in the Boss Bag. They shake the bag up and draw four cubes. Ignore the Boss Marker's current space on the Rage Track and any additional Danger in the Adventure Row—draw exactly four cubes. Otherwise, damage is taken just like in a boss attack.</p>
+<blockquote>
+<p>In a 2-player game, if one player escapes or is knocked out, that player draws six cubes from the Boss Bag (instead of four).</p>
+</blockquote>
+<p>Once all players have escaped the spaceship or have been knocked out, the game ends. All players who reached an escape pod (or at least the Cargo Bay module) add up their score, counting the following:</p>
+<ul>
+<li>The value of their Artifact.</li>
+<li>Points equal to the amount of Credits they accumulated.</li>
+<li>Points from any other tokens they acquired.</li>
+<li>Points awarded by cards in their deck. (The top right corner of each card shows the amount it's worth.)</li>
+</ul>
+<p>The player with the most points is the winner and is declared the Greatest Thief in the Galaxy! In the case of a tie, the tied player with the most valuable Artifact is the winner.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Advanced Maneuvers</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="label-title">Acquire</span>
+<p>A card's Acquire text is carried out one time, when you acquire it from the Adventure Row (not when you play it later from your hand).</p>
+<span class="label-title">Arrive</span>
+<p>A card's Arrive text is carried out when the card is revealed (before any boss attack that may also have been triggered by refilling the Adventure Row at the end of a turn).</p>
+<span class="label-title">Danger</span>
+<p>For each Danger card in the Adventure Row, you pull an additional cube from the Boss Bag during each boss attack.</p>
+<span class="label-title">Discard</span>
+<p>Some cards ask you to discard a card. You can only discard cards in your hand that you haven't played yet. The card does not have its normal effect, which means discarding can be a useful way to get around cards that generate Clank! If you're asked to discard a card to get something, you must actually discard a card to get it.</p>
+<span class="label-title">Emptying the Adventure Deck</span>
+<p>In the event that you exhaust the Adventure Deck and can't fill all six slots in the Adventure Row at the end of a player's turn, all players still aboard the spaceship are knocked out immediately and the game ends.</p>
+<span class="label-title">Limited Components</span>
+<p>Most components in the game are limited and can run out if the players acquire enough of them. Most notably, this includes Power Crystals, Market items, and the cards in the Reserve (FAZR, Boldly Go, and Memory Core). The only unlimited components are the Credits. If you should run out of those, make any suitable substitution.</p>
+<span class="label-title">Order of Card Plays</span>
+<p>Some cards have effects that depend on things you have, or things you have done during your turn. You get these effects regardless of the order in which you play your cards.</p>
+<p>Space Skunk generates 2 Skill, and says "If there is a Prisoner in your play area or discard pile, [Skill Icon]". If you play the Space Skunk to help get the Skill you need to acquire a Prisoner from the Adventure Row (placing that Prisoner in your discard pile), you then get the 3 Credits too.</p>
+<span class="label-title">Play Area</span>
+<p>When you play cards during your turn, they go to a play area in front of you. This helps keep track of the cards you've used this turn. Note that if you have to reshuffle your discard pile during your turn, these cards are not included.</p>
+<span class="label-title">Power Crystal</span>
+<p>Some reward spaces on the board give you a Power Crystal. The Power Crystals are a limited component. Some of your cards may provide bonuses that work much like a faction bonus: if you have a Power Crystal, you may use those bonuses. You only get the bonus once, no matter how many Power Crystals you have.</p>
+<span class="label-title">Reward Spaces</span>
+<p>Some spaces on the board contain rewards like Credits, healing, or a Power Crystal. When you enter such a space, take whatever is shown.</p>
+<span class="label-title">Running Out of Clank!</span>
+<p>If you ever run out of cubes in your personal supply, then you can't choose to take damage while moving through enemies on the board. But you also can't be forced to add any more Clank!—you get off free! (At least until you get any cubes back from healing. Nothing's free forever.)</p>
+<p>If a red cube is pulled from the Boss Bag and you have no cubes in your personal supply to mark the damage, use a black cube that has been set aside instead.</p>
+<span class="label-title">Teleport</span>
+<p>Certain cards in the Adventure Deck allow you to teleport to an adjacent space. You do not need to use Boots or fight any enemies between the spaces. You can even bypass a lock, or move against one-way arrows. You can't teleport from one Hyperlift space to another; they aren't considered to be adjacent.</p>
+<p>Unlike when using the Telepad or Hyperlift, teleporting does not leave you dizzy—you can keep moving after a teleport. Remember, however, that on the turn you enter a security checkpoint (by any means), you can't use any Boots for the rest of the turn.</p>
+<span class="label-title">Trash</span>
+<p>Some cards and effects can cause you to trash a card. This removes the chosen card from the game entirely, which is a great thing to do to the relatively weak cards that make up your starting deck. When you trash a card, you choose one from the specified place (usually your discard pile or play area) and return it to the box at the end of the turn.</p>
+<p>If you get a benefit for trashing "any cards this turn," you receive it only once per turn, no matter how many cards you trash. You may even trash the card itself to receive the benefit.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Token Reference Guide</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="label-title">Major Secrets</span>
+<span class="inline-title">Mega Health Boost</span>
+<p>Use during your turn to heal 2 damage.</p>
+<p>(Keep until you use it, then return it to the box.)</p>
+<span class="inline-title">5 Credit Chip</span>
+<p>This token counts as 5 Credits. You may keep it until the end of the game or spend it normally.</p>
+<span class="inline-title">Flash of Brilliance</span>
+<p>Immediately draw three cards, then return the token to the box.</p>
+<span class="inline-title">Spaceship Plans</span>
+<p>Keep this token—it is worth 7 points at the end of the game.</p>
+<p>It is not an Artifact.</p>
+<span class="inline-title">The Sixth Crystal</span>
+<p>Keep this token. It counts as a Power Crystal. In addition, it is worth 3 points at the end of the game for every Power Crystal you have (including the token itself).</p>
+<span class="inline-title">Sonic Grenade</span>
+<p>Each of your opponents immediately makes +3 Clank!, then you return the token to the box.</p>
+<span class="label-title">Minor Secrets</span>
+<span class="inline-title">Health Boost</span>
+<p>Use during your turn to heal 1 damage.</p>
+<p>(Keep until you use it, then return it to the box.)</p>
+<span class="inline-title">Speed Boost</span>
+<p>Use during your turn to gain 1 Boot.</p>
+<p>(Keep until you use it, then return it to the box.)</p>
+<span class="inline-title">Combat Boost</span>
+<p>Use during your turn to gain 2 Swords.</p>
+<p>(Keep until you use it, then return it to the box.)</p>
+<span class="inline-title">2 Credit Chip</span>
+<p>This token counts as 2 Credits. You may keep it until the end of the game or spend it normally.</p>
+<span class="inline-title">MultiPass</span>
+<p>Use during your turn to use all faction-related text on your cards during that turn—Outlaw, Resistance, and Science. (This doesn’t work for text requiring a Power Crystal or Contraband.)</p>
+<p>(Keep until you use it, then return it to the box.)</p>
+<span class="inline-title">Vaporizer</span>
+<p>At the end of this turn, trash a card from your discard pile or play area. Return the card and this token to the box.</p>
+<span class="inline-title">Archive</span>
+<p>Keep this token—it is worth 3 points at the end of the game.</p>
+<p>Advance the Boss Marker one space along the Rage Track.</p>
+<p>(Lord Eradikus doesn’t like it when you read his diary.)</p>
+<span class="label-title">Market Items</span>
+<span class="inline-title">Master Key</span>
+<p>Allows you to move between spaces separated by a lock icon.</p>
+<p>(Also worth 5 points at the end of the game.)</p>
+<span class="inline-title">TelePass</span>
+<p>Allows you to use Telepads to move through the spaceship.</p>
+<p>(Also worth 5 points at the end of the game.)</p>
+<span class="inline-title">Med Kit</span>
+<p>When you buy this, immediately heal 2 damage.</p>
+<p>(Also worth 5 points at the end of the game.)</p>
+<span class="inline-title">Contraband</span>
+<p>Allows you to activate bonuses on your cards that require having contraband.</p>
+<p>(Also worth 10 points at the end of the game.)</p>
+  </div>
+</details>
+  <p id="no-results">No sections match your search.</p>
+</main>
+<script>
+(function () {
+  var searchEl  = document.getElementById('search');
+  var clearBtn  = document.getElementById('search-clear');
+  var noResults = document.getElementById('no-results');
+  var sections  = Array.from(document.querySelectorAll('details.section'));
+
+  // Snapshot each section body's original HTML so we can restore it
+  // before applying a new round of highlights.
+  sections.forEach(function (s) {
+    var body = s.querySelector('.section-body');
+    if (body) body.dataset.original = body.innerHTML;
+  });
+
+  var timer;
+
+  searchEl.addEventListener('input', function () {
+    var term = this.value.trim();
+    clearBtn.classList.toggle('visible', term.length > 0);
+    clearTimeout(timer);
+    timer = setTimeout(function () { applySearch(term); }, 180);
+  });
+
+  clearBtn.addEventListener('click', function () {
+    searchEl.value = '';
+    clearBtn.classList.remove('visible');
+    applySearch('');
+    searchEl.focus();
+  });
+
+  function escapeRe(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlightTextNodes(container, re) {
+    var walker = document.createTreeWalker(
+      container, NodeFilter.SHOW_TEXT, null, false
+    );
+    var nodes = [];
+    var n;
+    while ((n = walker.nextNode())) {
+      if (n.nodeValue.trim()) nodes.push(n);
+    }
+    nodes.forEach(function (textNode) {
+      re.lastIndex = 0;
+      if (!re.test(textNode.nodeValue)) return;
+      re.lastIndex = 0;
+      var span = document.createElement('span');
+      span.innerHTML = textNode.nodeValue.replace(
+        re, function (m) { return '<mark>' + m + '</mark>'; }
+      );
+      textNode.parentNode.replaceChild(span, textNode);
+    });
+  }
+
+  function applySearch(term) {
+    var re = term ? new RegExp(escapeRe(term), 'gi') : null;
+    var visibleCount = 0;
+
+    sections.forEach(function (section) {
+      var body    = section.querySelector('.section-body');
+      var summary = section.querySelector('summary');
+
+      // Restore original HTML before each search pass
+      if (body) body.innerHTML = body.dataset.original;
+
+      if (!re) {
+        section.classList.remove('search-hidden');
+        section.open = false;
+        return;
+      }
+
+      var titleText = summary ? summary.textContent : '';
+      var bodyText  = body    ? body.textContent    : '';
+
+      re.lastIndex = 0;
+      var inTitle = re.test(titleText);
+      re.lastIndex = 0;
+      var inBody  = re.test(bodyText);
+      re.lastIndex = 0;
+
+      if (inTitle || inBody) {
+        section.classList.remove('search-hidden');
+        section.open = true;
+        if (body) highlightTextNodes(body, new RegExp(escapeRe(term), 'gi'));
+        visibleCount++;
+      } else {
+        section.classList.add('search-hidden');
+      }
+    });
+
+    noResults.style.display = (re && visibleCount === 0) ? 'block' : 'none';
+  }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Res Arcana — Rules Reference</title>
+<style>
+:root {
+  --bg:            #f2ede6;
+  --text:          #1a1a1a;
+  --header-bg:     #084b67;
+  --section-bg:    #084b67;
+  --subsection-bg: #5f2310;
+  --rule:          #b0a898;
+  --accent:        #5f2310;
+  --table-head:    #084b67;
+  --note-bg:       #e8e0d4;
+  --body-bg:       #ffffff;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 15px;
+  line-height: 1.55;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* ── STICKY HEADER ───────────────────────────────────────── */
+.sticky-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--header-bg);
+  padding: 10px 14px 12px;
+  padding-top: max(10px, env(safe-area-inset-top));
+  padding-left: max(14px, env(safe-area-inset-left));
+  padding-right: max(14px, env(safe-area-inset-right));
+  box-shadow: 0 2px 12px rgba(0,0,0,0.4);
+}
+
+.masthead-row {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 9px;
+}
+
+.masthead-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  line-height: 1.1;
+  flex-shrink: 0;
+}
+
+.masthead-subtitle {
+  font-size: 11px;
+  color: rgba(255,255,255,0.45);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.back-link {
+  margin-left: auto;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+  text-decoration: none;
+  flex-shrink: 0;
+  padding-left: 14px;
+  white-space: nowrap;
+}
+.back-link:hover {
+  color: rgba(255,255,255,0.85);
+}
+
+/* ── TOGGLE + BACK ROW ───────────────────────────────────── */
+.toggle-back-row {
+  display: flex;
+  align-items: center;
+  margin-top: 7px;
+}
+
+.search-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-icon {
+  position: absolute;
+  left: 10px;
+  width: 15px;
+  height: 15px;
+  color: rgba(255,255,255,0.4);
+  pointer-events: none;
+  flex-shrink: 0;
+}
+
+#search {
+  width: 100%;
+  padding: 8px 36px 8px 32px;
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 8px;
+  font-size: 15px;
+  background: rgba(255,255,255,0.12);
+  color: #fff;
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+#search::placeholder { color: rgba(255,255,255,0.38); }
+
+#search:focus {
+  background: rgba(255,255,255,0.2);
+  border-color: rgba(255,255,255,0.3);
+}
+
+.search-clear {
+  position: absolute;
+  right: 6px;
+  background: rgba(255,255,255,0.18);
+  border: none;
+  border-radius: 50%;
+  color: rgba(255,255,255,0.8);
+  font-size: 14px;
+  line-height: 1;
+  width: 22px;
+  height: 22px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  flex-shrink: 0;
+}
+
+.search-clear.visible { display: flex; }
+
+/* ── MAIN ────────────────────────────────────────────────── */
+main {
+  padding: 10px 12px 48px;
+  padding-left: max(12px, env(safe-area-inset-left));
+  padding-right: max(12px, env(safe-area-inset-right));
+  padding-bottom: max(48px, env(safe-area-inset-bottom));
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+/* ── NO RESULTS ──────────────────────────────────────────── */
+#no-results {
+  display: none;
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--text);
+  opacity: 0.5;
+  font-size: 14px;
+}
+
+/* ── COLLAPSIBLE SECTIONS ────────────────────────────────── */
+details.section {
+  margin-bottom: 6px;
+  border-radius: 6px;
+  overflow: hidden;
+  scroll-margin-top: 130px;
+}
+
+details.section > summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  min-height: 44px;
+  background: var(--section-bg);
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  list-style: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+details.section > summary::-webkit-details-marker { display: none; }
+
+.chevron {
+  width: 12px;
+  height: 12px;
+  opacity: 0.65;
+  flex-shrink: 0;
+  margin-left: 8px;
+  transition: transform 0.18s ease;
+}
+
+details.section[open] > summary .chevron {
+  transform: rotate(90deg);
+}
+
+.section-body {
+  background: var(--body-bg);
+  padding: 10px 12px 12px;
+  border: 1px solid var(--rule);
+  border-top: none;
+  border-radius: 0 0 6px 6px;
+}
+
+/* ── HEADINGS WITHIN SECTIONS ────────────────────────────── */
+.subsection-title {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: #fff;
+  background: var(--subsection-bg);
+  padding: 4px 12px;
+  margin: 10px -12px 7px;
+}
+
+.label-title {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--section-bg);
+  border-bottom: 1.5px solid var(--rule);
+  padding-bottom: 3px;
+  margin: 10px 0 5px;
+}
+
+.inline-title {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 8px 0 3px;
+}
+
+/* ── BODY TEXT ───────────────────────────────────────────── */
+p { margin-bottom: 7px; }
+b, strong { font-weight: 600; }
+em, i { font-style: italic; }
+
+/* ── LISTS ───────────────────────────────────────────────── */
+ul, ol { padding-left: 20px; margin-bottom: 6px; }
+ul { list-style-type: disc; }
+ol { list-style-type: decimal; }
+ul ul { list-style-type: circle; }
+li { margin-bottom: 3px; }
+li > ul, li > ol { margin-top: 2px; margin-bottom: 0; }
+
+/* ── TABLES ──────────────────────────────────────────────── */
+.table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin-bottom: 6px;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  min-width: 260px;
+}
+thead tr { background: var(--table-head); color: white; }
+thead th {
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  padding: 5px 8px;
+  text-align: left;
+  white-space: nowrap;
+}
+tbody tr:nth-child(even) { background: var(--note-bg); }
+tbody td { padding: 5px 8px; vertical-align: top; }
+
+/* ── ICON TABLE ──────────────────────────────────────────── */
+.table-wrap img {
+  height: 28px;
+  width: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+/* ── BLOCKQUOTE ──────────────────────────────────────────── */
+blockquote {
+  background: var(--note-bg);
+  border-left: 3px solid var(--accent);
+  padding: 6px 10px;
+  margin: 5px 0 7px;
+  font-size: 14px;
+  border-radius: 0 4px 4px 0;
+}
+blockquote p { margin-bottom: 2px; }
+
+/* ── INLINE CODE ─────────────────────────────────────────── */
+code {
+  background: var(--note-bg);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  padding: 1px 4px;
+  font-size: 13px;
+  font-family: inherit;
+  font-weight: 600;
+}
+
+/* ── HR ──────────────────────────────────────────────────── */
+hr { border: none; border-top: 1px solid var(--rule); margin: 8px 0; }
+
+/* ── SEARCH HIGHLIGHT ────────────────────────────────────── */
+mark {
+  background: #ffe566;
+  color: inherit;
+  border-radius: 2px;
+  padding: 0 1px;
+}
+
+/* ── HIDDEN SECTIONS ─────────────────────────────────────── */
+details.section.search-hidden { display: none; }
+
+/* ── VERSION TOGGLE ──────────────────────────────────────── */
+.toggle-bar {
+  display: inline-flex;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.2);
+}
+.toggle-current,
+.toggle-other {
+  padding: 6px 14px;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  line-height: 1;
+  text-decoration: none;
+  white-space: nowrap;
+  -webkit-tap-highlight-color: transparent;
+}
+.toggle-current {
+  background: rgba(255,255,255,0.18);
+  color: #ffffff;
+  font-weight: 600;
+  cursor: default;
+}
+.toggle-other {
+  color: rgba(255,255,255,0.5);
+}
+.toggle-other:hover {
+  background: rgba(255,255,255,0.08);
+  color: rgba(255,255,255,0.8);
+}
+
+/* ── PRINT ───────────────────────────────────────────────── */
+@media print {
+  .sticky-header { position: static; }
+  details.section[open], details.section { display: block; }
+  .section-body { display: block !important; }
+  .search-wrap, .search-clear, .toggle-bar { display: none; }
+}
+</style>
+</head>
+<body>
+<header class="sticky-header">
+  <div class="masthead-row">
+    <span class="masthead-title">Res Arcana</span>
+    <span class="masthead-subtitle">Rules Reference</span>
+  </div>
+  <div class="toggle-back-row"><div class="toggle-bar"><span class="toggle-current">Full Rules</span><a class="toggle-other" href="res-arcana-rules-reference.html">Quick Reference</a></div><a class="back-link" href="index.html">&#8592; All Games</a></div>
+  <div class="search-wrap">
+    <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+         stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+         aria-hidden="true">
+      <circle cx="11" cy="11" r="8"/>
+      <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+    </svg>
+    <input type="text" id="search" placeholder="Search rules…"
+           autocomplete="off" spellcheck="false" autocorrect="off">
+    <button class="search-clear" id="search-clear" aria-label="Clear search">&#x2715;</button>
+  </div>
+</header>
+<main>
+<details class="section" open>
+  <summary><span>Overview</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>During a round, you’ll collect essences and then do 1 action each turn, until everyone passes. The goal is to have the most points, 10 or more, when victory is checked.</p>
+<p>Components with Collect abilities provide essences at the start of each round.</p>
+<p>Many components have 1 or more powers. Powers have both a cost and an effect. Many costs include turning that component; once a component is turned, its powers, except for certain “React” powers, cannot be used.</p>
+<p>At the end of each round, victory is checked. If no player has won, components are straightened and play continues with a new round.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Setup</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<ol>
+<li>
+<p>Put the 8 magic items, tray of essences, and 5x essence chips in the center to form the supply.</p>
+</li>
+<li>
+<p>Next to them, set out the 5 Places of Power.
+First Game: use their sides.
+Later games: for each Place of Power, randomly select which side to use.</p>
+</li>
+<li>
+<p>Shuffle the monuments. Set out 2 of them face up and form a draw pile with the rest.</p>
+</li>
+<li>
+<p>Give 1 of each essence (including Gold) to each player, to form their initial essence pools.</p>
+</li>
+<li>
+<p>Select a First Player, who takes the First Player token.</p>
+</li>
+<li>
+<p>Shuffle the mages and artifacts separately. Deal 2 mages and 8 artifacts to each player. Return the others to the box. Each player examines their cards.
+Tip: Do you have dragons, creatures, or ways to make gold? This may suggest Places of Power that will work well for you or if you can buy several monuments.
+After examining their cards, each player shuffles their artifacts to form their deck, offering it to an opponent to cut, and then draws 3 artifacts as their initial hand.
+Each player then selects 1 Mage. Reveal them. Return unused mages to the box.
+First Game: instead, give each player a preset 3-card hand, labeled 1 / 2 / 3 / 4 in their lower right corners, and the matching mage. Deal 5 artifacts face down (unseen) to form each player's deck.</p>
+</li>
+<li>
+<p>In counter-clockwise (reverse) order, starting with the player to the right of the First Player, each player chooses 1 magic item. Begin play with the First Player.</p>
+</li>
+</ol>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Play</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>A game typically lasts 4-6 rounds. In each round, do these steps:</p>
+<span class="subsection-title">1. Collect</span>
+<ul>
+<li>do any Collect abilities, and</li>
+<li>may take essences from components.</li>
+</ul>
+<span class="subsection-title">2. Actions</span>
+<ul>
+<li>place an artifact,</li>
+<li>claim a monument or Place of Power,</li>
+<li>discard a card for 1 Gold or any 2 other essences,</li>
+<li>use a power on a straightened component, or</li>
+<li>pass: exchange magic items and draw 1 card.
+Continue until all players have passed.</li>
+</ul>
+<span class="subsection-title">Pass Procedure</span>
+<p>a. if you are first to pass, take the First Player token,
+b. swap your magic item for a different magic item,
+c. draw 1 card.</p>
+<span class="subsection-title">3. Victory (10+ VPs)</span>
+<p>If no one has won:</p>
+<ul>
+<li>straighten all turned components, and</li>
+<li>begin the next round.</li>
+</ul>
+<span class="label-title">Fine Points</span>
+<p>The essences supplied are not a limit. As needed, put an essence on a "5x" essence chip to be 5 essences of that color. You may make change at any time.</p>
+<p>Some components (e.g. Cursed Forge) list a Collect cost and an effect which occurs if this cost is not paid. These may be resolved after taking other essences.</p>
+<p>Two artifacts, the Vault and Windup Man, produce effects if you choose to leave all their essences on them. See Component Fine Points for details.</p>
+<p>You may take all the essences from a Place of Power (but doing so will result in a loss of victory points).</p>
+<p>Players usually collect their essences simultaneously, but may request that this step be done in player order, clockwise, starting with the First Player.</p>
+<span class="label-title">Draft Variants</span>
+<span class="inline-title">For 2-4 Players</span>
+<p>This variant replaces setup step 6.</p>
+<p>After players receive their 2 mages, deal 4 artifacts to each player. Each player keeps 1 artifact and passes the other cards to the left (clockwise). Repeat this keep-1-and-pass-the-rest until there are no more artifacts to pass.</p>
+<p>Then, deal 4 more artifacts to each player. Each player keeps 1 of these artifacts and passes the others to the <em>right</em> (counter-clockwise). Repeat this keep-1-and-pass-the-rest until there are no more artifacts to pass.</p>
+<p>Each player should have 8 artifacts. After examining them, shuffle them to form your initial deck, offer it to an opponent to cut, and draw your initial hand of 3 artifacts.</p>
+<p>Then, choose mages and magic items normally. Begin play.</p>
+<span class="inline-title">Match Play for 2</span>
+<p>This adds a face up draft in the middle of a 3 game match.</p>
+<p>Play game 1 using the standard setup rules.</p>
+<p>After game 1, players retain their mages and place all 16 artifacts from game 1 face up between them. Do setup steps 1-4. The loser of game 1 chooses who will be First Player for game 2. The First Player chooses 1 from the face up artifacts. Players then alternate choosing 2 artifacts until only 1 artifact is left for the First Player, who takes it.</p>
+<p>Shuffle your deck for your opponent to cut. Draw your initial hand before choosing magic items. Begin game 2.</p>
+<p>After game 2, if you are tied with 1 win apiece, play game 3. Do setup steps 1-4 normally, with each player keeping their mage and the artifacts they drafted after game 1.</p>
+<p>The loser of game 2 chooses who is First Player for game 3. Shuffle your deck for your opponent to cut and draw your initial hand. Then, choose magic items and begin play.</p>
+<span class="subsection-title">1. Collect</span>
+<p>Each player does their Collect abilities and/or takes essences from their components (in any order).</p>
+<blockquote>
+<p>A component is an artifact, mage, magic item, monument, or Place of Power.</p>
+</blockquote>
+<p>For each Collect ability on your components, take from the supply the essences shown and add them to your essence pool:</p>
+<ul>
+<li>If an essence has a number, take that number of that essence from the supply; otherwise, take 1.</li>
+<li>If "+"s separate the essences, take all of them.</li>
+<li>If "/"s separate the essences, choose 1 of them.</li>
+<li>If a number of [grey pentagon] is listed, choose any mix of essences that equal that number, subject to any restrictions after this symbol, such as (icons): no Gold or Death.</li>
+</ul>
+<p>Players may also take any essences on their components during this step.</p>
+<p>You may take essences off some components and not others, but if you take any essences off a given component, you must take <em>all</em> of them.</p>
+<span class="label-title">Fine Points</span>
+<p>The essences supplied are not a limit. As needed, put an essence on a "5x" essence chip to be 5 essences of that color. You may make change at any time.</p>
+<p>Some components (e.g. Cursed Forge) list a Collect cost and an effect which occurs if this cost is not paid. These may be resolved after taking other essences.</p>
+<p>Two artifacts, the Vault and Windup Man, produce effects if you choose to leave all their essences on them. See Component Fine Points for details.</p>
+<p>You may take all the essences from a Place of Power (but doing so will result in a loss of victory points).</p>
+<p>Players usually collect their essences simultaneously, but may request that this step be done in player order, clockwise, starting with the First Player.</p>
+<span class="subsection-title">2. Actions</span>
+<p>Starting with the First Player and continuing clockwise, each player does 1 action until all players have passed. A player who passes cannot do an action later in this step.</p>
+<p>Actions:</p>
+<ul>
+<li>Place an artifact from your hand in front of you, paying its cost.</li>
+<li>Claim a monument or Place of Power from the center, placing it in front of you and paying its cost.</li>
+</ul>
+<p>As all monuments cost 4 Gold, you may claim either one of the two monuments on display or the top card of the monument deck. If you claim a monument on display, replace it with the top card from the monument deck (if possible).</p>
+<p>Once claimed, a monument or Place of Power can not be taken by another player. The supply of monuments and Places of Power is limited.</p>
+<ul>
+<li>Discard an artifact from your hand to gain 1 Gold or any 2 other essences (either the same or different).</li>
+</ul>
+<p>Tuck a discarded artifact sideways, face up, under your artifact deck (to distinguish your discards from your turned artifacts). Your discards may be inspected by other players at any time.</p>
+<p><em>Tip: Do not try to place all of your artifacts. Instead, discard some of them to gain the essences needed to place the others.</em></p>
+<ul>
+<li>Use a power on one of your straightened components. Powers on turned components cannot be used (except some React powers).</li>
+</ul>
+<p>A component is an artifact, mage, magic item, monument, or Place of Power.</p>
+<ul>
+<li>Pass, ending your actions for this round.</li>
+</ul>
+<span class="label-title">Cost</span>
+<p>A component's placement cost is shown in its upper left corner. Pay the essences shown to the supply.</p>
+<p>If an essence has a number, pay that number of that essence to the supply; otherwise, pay 1.</p>
+<p>If the essence is [pentagon icon], pay any essence. If it lists a number, such as [pentagon icon with 3], pay any mix of essences equal to that number.</p>
+<p>Some artifacts are also Dragons ([dragon icon]), Creatures ([creature icon]), or both (the Sea Serpent). Some discounts reduce the cost to place any artifacts, while others only reduce the cost to place Dragons.</p>
+<p>All placed or claimed components begin play straightened.</p>
+<span class="label-title">Fine Points</span>
+<p>Two artifacts (Magical Shard, Prism) have a cost of "0"; they may be placed for free (as an action).</p>
+<p><em>Tip: As artifacts can instead be discarded from hand for essences, there is still an implicit cost to place them.</em></p>
+<p>Discount abilities that reduce a placement cost (Artificer, Dragon Bridle, Dragon Lair) are cumulative with each other and possibly a power (Crypt, Dragon Egg, Sorcerer's Bestiary) being used to place a component. If a cost is reduced below 0, it becomes 0.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Powers</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>Many components list 1 or 2 powers. Powers have a cost and an effect, separated by a triangle.</p>
+<p>Turn this component + pay 1 Life &gt; Take 1 Elan + 1 Death</p>
+<p>To use a power, pay its cost (putting any essences spent in the supply) and apply its effect (taking any essences gained from the supply).</p>
+<p>A power's cost often consists of several parts, separated by "+"s. You must pay all of its cost to use a power.</p>
+<p>A power may require turning its component sideways as part (or all) of its cost. Once a component is turned, unlike abilities, you may not use its powers (except some React powers) until it is straightened.</p>
+<p>A power whose cost does not involve turning its component can be used multiple times in a round, but each use of that power is a separate action.</p>
+<p>Many effects direct you to put the gained essences on the component, instead of in your essence pool, to be collected on a future round or to become victory points on Places of Power.</p>
+<span class="subsection-title">React to Ignore</span>
+<p>A React power is used out of turn, in response to its condition occurring. Using one is not an action. A React power, unlike other powers, can be used if its component is turned sideways, unless its cost involves turning the component (as then the power's cost cannot be paid).</p>
+<span class="subsection-title">Life Loss</span>
+<p>Some effects inflict Life loss on rivals, except those who have passed. Each rival must lose the indicated number of Life essences from their pool. For each Life essence a rival does not have, they must instead, if possible, lose any 2 other essences in their pool (including Gold).</p>
+<p>Many React powers enable a player to ignore a given Life loss effect. Many powers that inflict Life loss (e.g. Dragons) provide each rival with an immediate React power which, if its cost is paid, enables that rival to ignore the Life loss.</p>
+<span class="label-title">Fine Points</span>
+<p>Some effects provide a number of essences. Choose any mix of essences equal to that number, subject to any restrictions, such as (...); no Gold or Life.</p>
+<p>Some powers involve discarding or destroying your artifacts. Discarding is from hand, whereas destroy is to discard from play. Put the card in your discard pile (tucked sideways under your deck). If there are essences on the destroyed card, return them to the supply. A turned artifact can be destroyed (by another component's power).</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Additional Power Rules</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>Some effects direct you to draw a card. If you have no cards in your deck and you need to draw, reshuffle your discards to form a new deck.</p>
+<p>Some effects (Divination, Hawk, Oracle) direct you to draw 3 cards from a deck. If there are fewer than 3 cards in that deck (after reshuffling, if it is your artifact deck), draw them all, and then replace/discard that number of cards.</p>
+<p>Some effects (e.g. Chalice of Fire, Reanimate, Witch) enable you to straighten a turned component, making its powers available again. The Druid can straighten only Creature artifacts.</p>
+<p>Some powers (e.g. Athanor, Philosopher's Stone, Prism) have costs that include some number of essences that must be the same. Their effects convert them all to the same number of a different essence, such as Gold.</p>
+<p>Some effects direct your rivals to gain essences from the supply. Rivals who have passed do gain these essences.</p>
+<p>Some effects (e.g. Hypnotic Basin, Treant) gain essences equal to the number of essences of a rival. You may choose any opponent – including one who has passed – for this effect. Count only the essences in that player's essence pool. Those essences are not removed.</p>
+<p>Some effects (e.g. Corrupt Altar, Fiery Whip, Sacrificial Dagger, Sacrificial Pit) produce a mix of essences based on an artifact's placement cost. Total the number of essences in the cost, adjust this by any modifier, and then take this number of essences from the supply, in any mix (subject to any listed restrictions). The essences you take need not include any essences listed in that artifact's cost.</p>
+<span class="subsection-title">Passing</span>
+<p>A player who cannot or does not wish to do an action must pass.</p>
+<p>If you are the first to pass in a round, take the First Player token – worth 1 point when checking victory – and flip it over to its Passed side.</p>
+<p>Swap your magic item for a different one in the supply, flipping the new magic item over to its Passed side.</p>
+<p>Then, draw 1 card (if possible). If you have no cards in your deck, reshuffle your discards to form a new deck.</p>
+<p>Once a player passes, that player cannot do more actions that round and ignores all Life loss, but can still gain essences from rivals' powers.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Component Fine Points</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>See also Powers, Fine Points.</p>
+<span class="subsection-title">Mages</span>
+<p>Artificer: this discount applies only to artifacts, not Places of Power or Monuments.</p>
+<p>Transmuter: some of the non-gold essences you take can be the same as those you turn in. If you have fewer than 2 essences in your pool, you may not use this power.</p>
+<span class="subsection-title">Artifacts</span>
+<p>Athanán: this artifact has two powers. The first is used to build Elan on it (which may be taken during the Collect step if desired). The second requires turning in 6 Elan from this artifact to convert any number of some essence, all the same, into that number of Gold.</p>
+<p>Corrupt Altar: its second power may be used to destroy the Corrupt Altar itself.</p>
+<p>Crypt: the artifact being placed by its second power must be in your discard pile. If the artifact's placement cost is Gold and 1 other essence, reduce its cost to the Gold.</p>
+<p>Fiery Whip: its second power can not be used on itself.</p>
+<p>Guard Dog: its first power (to straighten itself) can be used when the Guard Dog is turned (unlike most powers).</p>
+<p>Mermaid: its power is to place 1 Calm, Life, or Gold essence from its owner's pool on one of their components. (Typically, this is used to place an essence on a Place of Power that scores for it.)</p>
+<p>Sacrificial Dagger: its second power requires both destroying this artifact and discarding a card from hand.</p>
+<p>Windup Man: its Collect ability increases the number of essences on this artifact (for a future round), provided its owner takes no essences from it during the Collect step.</p>
+<p>Vault: its Collect ability gains its owner any 2 non-Gold essences ("interest"), if there is 1 or more Gold on the Vault that its owner does not take.</p>
+<span class="subsection-title">Magic Items</span>
+<p>Transmutation: some of the essences you take may be the same as those you turn in. You must have at last 3 essences in your essence pool to use this power.</p>
+<span class="subsection-title">Monuments</span>
+<p>Golden Statue: the points provided by this React power are temporary, lasting until the end of this victory check.</p>
+<span class="subsection-title">Places of Power</span>
+<p>Cursed Forge: during the Collect step, either pay 1 Death (the curse) or turn this Place of Power.</p>
+<p>Dragon's Lair: this power requires turning both this component and a Dragon.</p>
+<p>Sacred Grove: this power requires turning both this component and a Creature.</p>
+<p>Sorcerer's Bestiary: this Place of Power scores 3 points for the Sea Serpent (which is both a Dragon and Creature).</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Glossary</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p><strong>Ability:</strong> a Collect effect, placement discount, or victory formula on a component that automatically applies (when appropriate) whether or not that component is turned.</p>
+<p><strong>Component:</strong> an artifact, mage, magic item, monument, or Place of Power.</p>
+<p><strong>Creature:</strong> a type of artifact.</p>
+<p><strong>Destroy:</strong> to discard an artifact from play, not from hand. Destroyed artifacts are placed in your discard pile.</p>
+<p><strong>Discount:</strong> a reduction in the number of essences needed to place a given component. Placement discounts cannot reduce a cost below zero.</p>
+<p><strong>Dragon:</strong> a type of artifact.</p>
+<p><strong>Essence:</strong> Calm, Death, Elan, Gold, or Life.</p>
+<p><strong>Essence Pool:</strong> essences a player has, not on components, that they can spend to pay costs.</p>
+<p><strong>Life Loss:</strong> a rival's effect which requires you to either use a React power to ignore it or pay the indicated number of Life. For each Life you cannot pay, you must lose 2 other essences from your pool (if possible). Players who have passed ignore Life loss.</p>
+<p><strong>Mage:</strong> a component that begins in play. A mage is not an artifact and cannot be destroyed.</p>
+<p><strong>Magic item:</strong> a component type taken from the supply during setup and swapped when passing.</p>
+<p><strong>Monument:</strong> a component type claimed from the center. A monument is not an artifact and cannot be destroyed.</p>
+<p><strong>Passed:</strong> a player who has passed cannot do further actions that round and ignores all Life loss, but still gains any essences provided by rivals' powers.</p>
+<p><strong>Place of Power:</strong> a component type claimed from the center. A Place of Power is not an artifact and cannot be destroyed.</p>
+<p><strong>Placement Cost:</strong> the cost in essences to place an artifact or claim a monument or Place of Power.</p>
+<p><strong>Power:</strong> a cost and an effect on a component. Except for React powers, using a power requires its component be straightened (not yet turned sideways), takes an action, and involves paying its cost and applying its effect.</p>
+<p><strong>React Power:</strong> a power that may be used out of turn if its condition occurs. A React on a turned component may be used if its cost does not involve turning that component.</p>
+<p><strong>Rivals:</strong> your opponents (not you).</p>
+<p><strong>Straighten:</strong> to turn a sideways component straight, ready to be used again.</p>
+<p><strong>Turn:</strong> to turn a component sideways, usually as part of a power's cost.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Res Arcana Rules — Icon Reference</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Icon</th>
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img alt="Any Mix Of Essence" src="icons/any-mix-of-essence.jpg"/></td>
+<td><strong>Any Mix Of Essence</strong></td>
+<td>This symbol allows players to choose any combination of essences to satisfy a cost or gain a specified number. This icon refers to one essence, if it has a number it is referring to that number of essences.</td>
+</tr>
+<tr>
+<td><img alt="Collect" src="icons/collect.jpg"/></td>
+<td><strong>Collect</strong></td>
+<td>This phase begins each round, allowing players to gather essences from their components and the central supply.</td>
+</tr>
+<tr>
+<td><img alt="Creature" src="icons/creature.jpg"/></td>
+<td><strong>Creature</strong></td>
+<td>This icon represents a specific type of artifact component that can be placed or claimed during gameplay.</td>
+</tr>
+<tr>
+<td><img alt="Dragon" src="icons/dragon.jpg"/></td>
+<td><strong>Dragon</strong></td>
+<td>This icon represents a specific type of artifact component that often provides placement discounts or unique abilities.</td>
+</tr>
+<tr>
+<td><img alt="Identical Essences" src="icons/identical-essences.jpg"/></td>
+<td><strong>Identical Essences</strong></td>
+<td>This requirement forces players to spend multiple essences of the exact same type to activate a power.</td>
+</tr>
+<tr>
+<td><img alt="Life Loss" src="icons/life-loss.jpg"/></td>
+<td><strong>Life Loss</strong></td>
+<td>Each targetted rival (except those who have passed) must lose the indicated number of Life essences from their pool. For each Life essence they don't have, they lose any 2 other essences.</td>
+</tr>
+<tr>
+<td><img alt="On The Component" src="icons/on-the-component.jpg"/></td>
+<td><strong>On The Component</strong></td>
+<td>This action places essences directly onto a component for future collection or scoring instead of adding them to your pool. If preceded by 'Destroy' it means destroy this artifact.</td>
+</tr>
+<tr>
+<td><img alt="Straighten Any Component" src="icons/straighten-any-component.jpg"/></td>
+<td><strong>Straighten Any Component</strong></td>
+<td>This effect resets a turned component to its upright position, restoring its usable powers for future actions.</td>
+</tr>
+<tr>
+<td><img alt="Turning" src="icons/turning.jpg"/></td>
+<td><strong>Turning</strong></td>
+<td>This action rotates a component sideways as a cost, temporarily disabling its powers until it is straightened.</td>
+</tr>
+</tbody>
+</table></div>
+  </div>
+</details>
+  <p id="no-results">No sections match your search.</p>
+</main>
+<script>
+(function () {
+  var searchEl  = document.getElementById('search');
+  var clearBtn  = document.getElementById('search-clear');
+  var noResults = document.getElementById('no-results');
+  var sections  = Array.from(document.querySelectorAll('details.section'));
+
+  // Snapshot each section body's original HTML so we can restore it
+  // before applying a new round of highlights.
+  sections.forEach(function (s) {
+    var body = s.querySelector('.section-body');
+    if (body) body.dataset.original = body.innerHTML;
+  });
+
+  var timer;
+
+  searchEl.addEventListener('input', function () {
+    var term = this.value.trim();
+    clearBtn.classList.toggle('visible', term.length > 0);
+    clearTimeout(timer);
+    timer = setTimeout(function () { applySearch(term); }, 180);
+  });
+
+  clearBtn.addEventListener('click', function () {
+    searchEl.value = '';
+    clearBtn.classList.remove('visible');
+    applySearch('');
+    searchEl.focus();
+  });
+
+  function escapeRe(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlightTextNodes(container, re) {
+    var walker = document.createTreeWalker(
+      container, NodeFilter.SHOW_TEXT, null, false
+    );
+    var nodes = [];
+    var n;
+    while ((n = walker.nextNode())) {
+      if (n.nodeValue.trim()) nodes.push(n);
+    }
+    nodes.forEach(function (textNode) {
+      re.lastIndex = 0;
+      if (!re.test(textNode.nodeValue)) return;
+      re.lastIndex = 0;
+      var span = document.createElement('span');
+      span.innerHTML = textNode.nodeValue.replace(
+        re, function (m) { return '<mark>' + m + '</mark>'; }
+      );
+      textNode.parentNode.replaceChild(span, textNode);
+    });
+  }
+
+  function applySearch(term) {
+    var re = term ? new RegExp(escapeRe(term), 'gi') : null;
+    var visibleCount = 0;
+
+    sections.forEach(function (section) {
+      var body    = section.querySelector('.section-body');
+      var summary = section.querySelector('summary');
+
+      // Restore original HTML before each search pass
+      if (body) body.innerHTML = body.dataset.original;
+
+      if (!re) {
+        section.classList.remove('search-hidden');
+        section.open = false;
+        return;
+      }
+
+      var titleText = summary ? summary.textContent : '';
+      var bodyText  = body    ? body.textContent    : '';
+
+      re.lastIndex = 0;
+      var inTitle = re.test(titleText);
+      re.lastIndex = 0;
+      var inBody  = re.test(bodyText);
+      re.lastIndex = 0;
+
+      if (inTitle || inBody) {
+        section.classList.remove('search-hidden');
+        section.open = true;
+        if (body) highlightTextNodes(body, new RegExp(escapeRe(term), 'gi'));
+        visibleCount++;
+      } else {
+        section.classList.add('search-hidden');
+      }
+    });
+
+    noResults.style.display = (re && visibleCount === 0) ? 'block' : 'none';
+  }
+})();
+</script>
+</body>
+</html>

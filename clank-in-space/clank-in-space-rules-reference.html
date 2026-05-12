@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Clank! in Space — Rules Reference</title>
+<style>
+:root {
+  --bg:            #f2ede6;
+  --text:          #1a1a1a;
+  --header-bg:     #7d2a22;
+  --section-bg:    #7d2a22;
+  --subsection-bg: #bc9d17;
+  --rule:          #b0a898;
+  --accent:        #bc9d17;
+  --table-head:    #7d2a22;
+  --note-bg:       #e8e0d4;
+  --body-bg:       #ffffff;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 15px;
+  line-height: 1.55;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* ── STICKY HEADER ───────────────────────────────────────── */
+.sticky-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--header-bg);
+  padding: 10px 14px 12px;
+  padding-top: max(10px, env(safe-area-inset-top));
+  padding-left: max(14px, env(safe-area-inset-left));
+  padding-right: max(14px, env(safe-area-inset-right));
+  box-shadow: 0 2px 12px rgba(0,0,0,0.4);
+}
+
+.masthead-row {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 9px;
+}
+
+.masthead-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  line-height: 1.1;
+  flex-shrink: 0;
+}
+
+.masthead-subtitle {
+  font-size: 11px;
+  color: rgba(255,255,255,0.45);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.back-link {
+  margin-left: auto;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+  text-decoration: none;
+  flex-shrink: 0;
+  padding-left: 14px;
+  white-space: nowrap;
+}
+.back-link:hover {
+  color: rgba(255,255,255,0.85);
+}
+
+/* ── TOGGLE + BACK ROW ───────────────────────────────────── */
+.toggle-back-row {
+  display: flex;
+  align-items: center;
+  margin-top: 7px;
+}
+
+.search-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-icon {
+  position: absolute;
+  left: 10px;
+  width: 15px;
+  height: 15px;
+  color: rgba(255,255,255,0.4);
+  pointer-events: none;
+  flex-shrink: 0;
+}
+
+#search {
+  width: 100%;
+  padding: 8px 36px 8px 32px;
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 8px;
+  font-size: 15px;
+  background: rgba(255,255,255,0.12);
+  color: #fff;
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+#search::placeholder { color: rgba(255,255,255,0.38); }
+
+#search:focus {
+  background: rgba(255,255,255,0.2);
+  border-color: rgba(255,255,255,0.3);
+}
+
+.search-clear {
+  position: absolute;
+  right: 6px;
+  background: rgba(255,255,255,0.18);
+  border: none;
+  border-radius: 50%;
+  color: rgba(255,255,255,0.8);
+  font-size: 14px;
+  line-height: 1;
+  width: 22px;
+  height: 22px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  flex-shrink: 0;
+}
+
+.search-clear.visible { display: flex; }
+
+/* ── MAIN ────────────────────────────────────────────────── */
+main {
+  padding: 10px 12px 48px;
+  padding-left: max(12px, env(safe-area-inset-left));
+  padding-right: max(12px, env(safe-area-inset-right));
+  padding-bottom: max(48px, env(safe-area-inset-bottom));
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+/* ── NO RESULTS ──────────────────────────────────────────── */
+#no-results {
+  display: none;
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--text);
+  opacity: 0.5;
+  font-size: 14px;
+}
+
+/* ── COLLAPSIBLE SECTIONS ────────────────────────────────── */
+details.section {
+  margin-bottom: 6px;
+  border-radius: 6px;
+  overflow: hidden;
+  scroll-margin-top: 130px;
+}
+
+details.section > summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  min-height: 44px;
+  background: var(--section-bg);
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  list-style: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+details.section > summary::-webkit-details-marker { display: none; }
+
+.chevron {
+  width: 12px;
+  height: 12px;
+  opacity: 0.65;
+  flex-shrink: 0;
+  margin-left: 8px;
+  transition: transform 0.18s ease;
+}
+
+details.section[open] > summary .chevron {
+  transform: rotate(90deg);
+}
+
+.section-body {
+  background: var(--body-bg);
+  padding: 10px 12px 12px;
+  border: 1px solid var(--rule);
+  border-top: none;
+  border-radius: 0 0 6px 6px;
+}
+
+/* ── HEADINGS WITHIN SECTIONS ────────────────────────────── */
+.subsection-title {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: #fff;
+  background: var(--subsection-bg);
+  padding: 4px 12px;
+  margin: 10px -12px 7px;
+}
+
+.label-title {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--section-bg);
+  border-bottom: 1.5px solid var(--rule);
+  padding-bottom: 3px;
+  margin: 10px 0 5px;
+}
+
+.inline-title {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 8px 0 3px;
+}
+
+/* ── BODY TEXT ───────────────────────────────────────────── */
+p { margin-bottom: 7px; }
+b, strong { font-weight: 600; }
+em, i { font-style: italic; }
+
+/* ── LISTS ───────────────────────────────────────────────── */
+ul, ol { padding-left: 20px; margin-bottom: 6px; }
+ul { list-style-type: disc; }
+ol { list-style-type: decimal; }
+ul ul { list-style-type: circle; }
+li { margin-bottom: 3px; }
+li > ul, li > ol { margin-top: 2px; margin-bottom: 0; }
+
+/* ── TABLES ──────────────────────────────────────────────── */
+.table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin-bottom: 6px;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  min-width: 260px;
+}
+thead tr { background: var(--table-head); color: white; }
+thead th {
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  padding: 5px 8px;
+  text-align: left;
+  white-space: nowrap;
+}
+tbody tr:nth-child(even) { background: var(--note-bg); }
+tbody td { padding: 5px 8px; vertical-align: top; }
+
+/* ── BLOCKQUOTE ──────────────────────────────────────────── */
+blockquote {
+  background: var(--note-bg);
+  border-left: 3px solid var(--accent);
+  padding: 6px 10px;
+  margin: 5px 0 7px;
+  font-size: 14px;
+  border-radius: 0 4px 4px 0;
+}
+blockquote p { margin-bottom: 2px; }
+
+/* ── INLINE CODE ─────────────────────────────────────────── */
+code {
+  background: var(--note-bg);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  padding: 1px 4px;
+  font-size: 13px;
+  font-family: inherit;
+  font-weight: 600;
+}
+
+/* ── HR ──────────────────────────────────────────────────── */
+hr { border: none; border-top: 1px solid var(--rule); margin: 8px 0; }
+
+/* ── SEARCH HIGHLIGHT ────────────────────────────────────── */
+mark {
+  background: #ffe566;
+  color: inherit;
+  border-radius: 2px;
+  padding: 0 1px;
+}
+
+/* ── HIDDEN SECTIONS ─────────────────────────────────────── */
+details.section.search-hidden { display: none; }
+
+/* ── VERSION TOGGLE ──────────────────────────────────────── */
+.toggle-bar {
+  display: inline-flex;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.2);
+}
+.toggle-current,
+.toggle-other {
+  padding: 6px 14px;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  line-height: 1;
+  text-decoration: none;
+  white-space: nowrap;
+  -webkit-tap-highlight-color: transparent;
+}
+.toggle-current {
+  background: rgba(255,255,255,0.18);
+  color: #ffffff;
+  font-weight: 600;
+  cursor: default;
+}
+.toggle-other {
+  color: rgba(255,255,255,0.5);
+}
+.toggle-other:hover {
+  background: rgba(255,255,255,0.08);
+  color: rgba(255,255,255,0.8);
+}
+
+/* ── PRINT ───────────────────────────────────────────────── */
+@media print {
+  .sticky-header { position: static; }
+  details.section[open], details.section { display: block; }
+  .section-body { display: block !important; }
+  .search-wrap, .search-clear, .toggle-bar { display: none; }
+}
+</style>
+</head>
+<body>
+<header class="sticky-header">
+  <div class="masthead-row">
+    <span class="masthead-title">Clank! in Space</span>
+    <span class="masthead-subtitle">Rules Reference</span>
+  </div>
+  <div class="toggle-back-row"><div class="toggle-bar"><span class="toggle-current">Quick Reference</span><a class="toggle-other" href="clank-in-space-rules-refined.html">Full Rules</a></div><a class="back-link" href="../index.html">&#8592; All Games</a></div>
+  <div class="search-wrap">
+    <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+         stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+         aria-hidden="true">
+      <circle cx="11" cy="11" r="8"/>
+      <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+    </svg>
+    <input type="text" id="search" placeholder="Search rules…"
+           autocomplete="off" spellcheck="false" autocorrect="off">
+    <button class="search-clear" id="search-clear" aria-label="Clear search">&#x2715;</button>
+  </div>
+</header>
+<main>
+<details class="section" open>
+  <summary><span>Setup</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Board Assembly</span>
+<ol>
+<li>Assemble the spaceship board using the three fixed modules: <strong>Cargo Bay</strong>, <strong>Command</strong>, and <strong>Corridor</strong>.</li>
+<li>Place the three variable modules in any of the three remaining positions, with either side face up.</li>
+</ol>
+<span class="subsection-title">Component Placement</span>
+<ol start="3">
+<li>Place the six <strong>Artifacts</strong> (valued 5 to 30) face up on the corresponding spaces in the <strong>Command</strong> module. If playing with fewer than four players, shuffle the Artifacts face down and randomly exclude one for three players or two for two players before placing the rest.</li>
+<li>Shuffle the <strong>Major Secrets</strong> face down and place one at random on each Major Secret space.</li>
+<li>Shuffle the <strong>Minor Secrets</strong> face down and place two at random on each Minor Secret space. Return any extra Major or Minor Secrets to the box unseen.</li>
+<li>Place the <strong>Market Board</strong> next to the spaceship and arrange the <strong>Market Items</strong> on it: two each of <strong>Contraband</strong>, <strong>Master Key</strong>, <strong>Med Kit</strong>, and <strong>TelePass</strong>. If playing with two players, place only one of each item.</li>
+<li>Place the four <strong>Escape Pod</strong> tokens in the <strong>Cargo Bay</strong> module.</li>
+<li>Create a <strong>Bank</strong> containing the five <strong>Power Crystals</strong>, one <strong>Command Code</strong> token for each player, and all <strong>Credit</strong> tokens (valued 1, 5, and 10).</li>
+<li>Prepare the <strong>Rage Track</strong> by placing the four <strong>Bounty Hunter</strong> (red) cubes on three different spaces: one on each of the first two spaces of the red zone, and two on the plaid space.</li>
+<li>Place the <strong>Blockade</strong> token on the last space of the red zone.</li>
+<li>Place the <strong>Boss Marker</strong> on the space corresponding to the number of players.</li>
+<li>Place the 24 black boss cubes in the <strong>Boss Bag</strong> and set the bag next to the game board.</li>
+<li>Place the <strong>GØB-L1N</strong> enemy card in <strong>Reserve</strong>, along with the piles of <strong>FAZR</strong>, <strong>Boldly Go</strong>, and <strong>Memory Core</strong> cards.</li>
+<li>Shuffle the <strong>Adventure Deck</strong> and deal six cards face up to form the <strong>Adventure Row</strong>. If any dealt cards show the <strong>Boss Attack</strong> symbol along the right edge, replace them with other cards until none show the symbol, then shuffle the replaced cards back into the deck. Leave room next to the deck for an <strong>Adventure discard pile</strong>.</li>
+</ol>
+<span class="subsection-title">Player Setup</span>
+<ol start="15">
+<li>Each player chooses a pawn, takes 30 <strong>Clank!</strong> cubes and two <strong>Data</strong> cubes of their matching color, and places them in a personal supply.</li>
+<li>Each player takes a 10-card starting deck containing six <strong>Hacks</strong>, two <strong>Stumbles</strong>, one <strong>Access</strong>, and one <strong>Scramble</strong>.</li>
+<li>Each player places their pawn on the starting space in the <strong>Cargo Bay</strong> module, shuffles their deck, and draws five cards.</li>
+<li>Determine the first player (sneakiest player or randomly). Play proceeds clockwise. The first player places 3 <strong>Clank!</strong> cubes in the <strong>Clank!</strong> area, the second player places 2, the third player places 1, and the fourth player places 0.</li>
+</ol>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Game Goal & Win Condition</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<ul>
+<li><strong>Objectives:</strong> Hack the spaceship computer to obtain a two-part <strong>Command Code</strong> allowing entry to the <strong>Command</strong> module. Steal one <strong>Artifact</strong> from the <strong>Command</strong> module. Reach an <strong>Escape Pod</strong> in the <strong>Cargo Bay</strong> module to escape. You may carry only one <strong>Artifact</strong> at a time.</li>
+<li><strong>Scoring:</strong> At game end, tally points from your <strong>Artifact</strong> value, accumulated <strong>Credits</strong>, acquired tokens, and cards in your deck (point value shown in the top right corner of each card).</li>
+<li><strong>Tiebreaker:</strong> In the event of a tied score, the player with the most valuable <strong>Artifact</strong> wins.</li>
+</ul>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Turn Structure</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>You start each turn with five cards in hand. You must play all cards before ending your turn, though you may play them in any order. You may take actions between playing cards or after playing all of them. You may take each action as many times as you like during your turn, provided you have the required resources. Unused resources are wasted at turn end.</p>
+<p>When your turn ends, follow this sequence:</p>
+<ol>
+<li>Place all played cards into your discard pile.</li>
+<li>Draw five new cards.</li>
+<li>Refill any empty spaces in the <strong>Adventure Row</strong> with new cards from the <strong>Adventure Deck</strong>. Refilling the row may trigger a boss attack.</li>
+</ol>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Resources & Actions</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p><strong>Skill</strong> is used to acquire new cards. Pay the <strong>Skill</strong> cost shown in the lower right corner of a card with a blue banner from the <strong>Adventure Row</strong> or a yellow banner from <strong>Reserve</strong>. Place the acquired card in your discard pile to add it to your deck. Do not immediately replace acquired cards in the <strong>Adventure Row</strong>.</p>
+<p><strong>Swords</strong> are used to defeat enemies. Pay the <strong>Swords</strong> cost shown in the lower right corner of a card with a red banner in the <strong>Adventure Row</strong>. Gain the reward listed in its <strong>DEFEAT</strong> text, then place the card in the <strong>Adventure discard pile</strong>. Do not immediately replace defeated enemies. You may also fight the <strong>GØB-L1N</strong> or <strong>Eradibot</strong> in <strong>Reserve</strong> multiple times per turn; these cards are not discarded when defeated.</p>
+<p><strong>Boots</strong> are used to move through the spaceship. Each <strong>Boot</strong> allows movement along a marked path to an adjacent space.</p>
+<p><strong>Market Purchases</strong> may be made when you are in a <strong>Market</strong> space. All items cost 7 <strong>Credits</strong>. Place purchased items in your play area. You may buy only one of each item type.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Movement & Navigation</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Path Modifiers</span>
+<span class="label-title">Standard Paths</span>
+<p>Each <strong>Boot</strong> moves you along a marked path to an adjacent space. Spaces in different modules can be adjacent.</p>
+<span class="label-title">Special Path Icons</span>
+<span class="inline-title">Footprints</span>
+<p>Paths with footprint icons require two <strong>Boots</strong> to traverse instead of one.</p>
+<span class="inline-title">Enemy Icons</span>
+<p>Moving along a path with enemy icons causes you to take one damage per icon. You may use one <strong>Sword</strong> to avoid one point of this damage, but using <strong>Swords</strong> is optional.</p>
+<span class="inline-title">Lock Icons</span>
+<p>Paths with lock icons cannot be traversed unless you possess a <strong>Master Key</strong> token.</p>
+<span class="inline-title">Arrow Paths</span>
+<p>Arrow-shaped paths are one-way and cannot be used in the opposite direction.</p>
+<span class="subsection-title">Special Movement</span>
+<span class="label-title">Hyperlift</span>
+<p>The <strong>Hyperlift</strong> runs through the center of the ship. From a <strong>Hyperlift</strong> space, you may move to any other <strong>Hyperlift</strong> space without using <strong>Boots</strong>. Some spaces may be blocked by locks or <strong>Rage Track</strong> progression. Using a <strong>Hyperlift</strong> causes dizziness, preventing <strong>Boot</strong> use until your next turn. You may move through a <strong>Hyperlift</strong> space using <strong>Boots</strong> without triggering dizziness.</p>
+<span class="label-title">Telepad</span>
+<p><strong>Telepads</strong> are not physically connected. From a <strong>Telepad</strong> space, you may move to any other <strong>Telepad</strong> space if you possess a <strong>TelePass</strong>. Using a <strong>Telepad</strong> causes dizziness, preventing <strong>Boot</strong> use until your next turn.</p>
+<span class="label-title">Teleport</span>
+<p>Certain cards allow you to teleport to an adjacent space. Teleporting requires no <strong>Boots</strong>, bypasses enemies, locks, and one-way arrows, and does not cause dizziness. <strong>Hyperlift</strong> spaces are not considered adjacent for teleportation.</p>
+<span class="subsection-title">Space Effects</span>
+<span class="label-title">Secret Tokens</span>
+<p>When you first enter a space, you may take one <strong>Secret</strong> token (Major or Minor) face down, then reveal it.</p>
+<span class="label-title">Security Checkpoints</span>
+<p>Entering a security checkpoint forces you to stop. You cannot use any more <strong>Boots</strong> this turn. You may still teleport, but <strong>Boot</strong> use remains blocked until your next turn.</p>
+<span class="label-title">Reward Spaces</span>
+<p>Entering a reward space allows you to take the indicated <strong>Credits</strong>, healing, or <strong>Power Crystal</strong>.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Hacking & Artifacts</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<ol>
+<li><strong>Place Data Cube:</strong> When in a space with a data port, place one of your two <strong>Data</strong> cubes on it. Immediately resolve the shown bonus or penalty. The port becomes unusable for all players. You cannot place your second <strong>Data</strong> cube in the same module as your first.</li>
+<li><strong>Complete Code:</strong> After placing two <strong>Data</strong> cubes in different modules, take a <strong>Command Code</strong> token from the <strong>Bank</strong> and advance the <strong>Boss Marker</strong> one space on the <strong>Rage Track</strong>. You cannot enter the <strong>Command</strong> module by any means without this token.</li>
+<li><strong>Enter Command &amp; Steal:</strong> Once you possess a <strong>Command Code</strong>, you may enter the <strong>Command</strong> module. If you are in a space with an <strong>Artifact</strong>, you may pick it up and place it in your play area. You may only carry one <strong>Artifact</strong>. Advancing the <strong>Boss Marker</strong> one space on the <strong>Rage Track</strong> occurs when you take an <strong>Artifact</strong>.</li>
+</ol>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Combat & Health Management</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>Track health using your colored cubes on the <strong>Health Meter</strong>, starting from the left.</p>
+<span class="label-title">Damage Sources</span>
+<span class="inline-title">Boss Attacks</span>
+<p>Place the cubes drawn from the <strong>Boss Bag</strong> on your meter. If a red cube is drawn, use a cube from your personal supply instead.</p>
+<span class="inline-title">Enemy Paths</span>
+<p>If you choose to take damage while moving through enemies without using <strong>Swords</strong>, place cubes from your personal supply on your meter. You cannot choose to take damage if it would completely fill your <strong>Health Meter</strong>.</p>
+<span class="label-title">Healing</span>
+<p>When an effect heals you, remove one of your colored cubes from the <strong>Health Meter</strong> and return it to your personal supply. These cubes can be used for <strong>Clank!</strong> later.</p>
+<span class="label-title">Running Out of Clank!</span>
+<p>If your personal supply is empty, you cannot choose to take damage from enemy paths. You also cannot be forced to add <strong>Clank!</strong> cubes. If a red cube is drawn during a boss attack and you have no personal cubes, use a set-aside black cube to mark the damage.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Lord Eradikus & The Rage Track</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Clank! Management</span>
+<p>Add <strong>Clank!</strong> cubes to the <strong>Clank!</strong> area when card effects require it. Negative <strong>Clank!</strong> removes cubes from the area or prevents future <strong>Clank!</strong> addition later in the turn. Any leftover negative <strong>Clank!</strong> is lost when your turn ends.</p>
+<span class="subsection-title">Boss Attack Resolution</span>
+<ol>
+<li>Place all cubes from the <strong>Clank!</strong> area into the <strong>Boss Bag</strong>.</li>
+<li>Shake the bag and draw a number of cubes equal to the number shown on the <strong>Boss Marker</strong>'s current space.</li>
+<li>Set aside any black cubes. Each player-colored cube drawn deals one damage to that player.</li>
+<li>Undrawn cubes remain in the bag for future attacks.</li>
+</ol>
+<span class="subsection-title">Rage Track Milestones</span>
+<span class="label-title">Progression Triggers</span>
+<p>Advance the <strong>Boss Marker</strong> one space when a <strong>Command Code</strong> is completed, an <strong>Artifact</strong> is picked up, or an <strong>Archive</strong> is discovered.</p>
+<span class="label-title">Bounty Hunters</span>
+<p>When the <strong>Boss Marker</strong> reaches a space with red cubes, take those cubes and place them in the <strong>Clank!</strong> area. If a red cube is drawn during an attack, every player takes one damage, and the red cube returns to the <strong>Clank!</strong> area for the next attack.</p>
+<span class="label-title">Blockade</span>
+<p>When the <strong>Boss Marker</strong> reaches the last space in the red zone, take the <strong>Blockade</strong> token and place it in the <strong>Cargo Bay</strong> module. This severs the <strong>Hyperlift</strong> connection to the last space in the <strong>Cargo Bay</strong> for the remainder of the game.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Card Keywords & Edge Cases</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p><strong>Acquire:</strong> The effect resolves once when you acquire the card from the <strong>Adventure Row</strong>, not when you play it later.</p>
+<p><strong>Arrive:</strong> The effect resolves when the card is revealed, before any boss attack triggered by refilling the <strong>Adventure Row</strong>.</p>
+<p><strong>Danger:</strong> Each <strong>Danger</strong> card in the <strong>Adventure Row</strong> adds one extra cube drawn during each boss attack.</p>
+<p><strong>Discard:</strong> You may only discard unplayed cards from your hand. The discarded card has no effect. You must actually discard a card to receive a benefit.</p>
+<p><strong>Emptying Adventure Deck:</strong> If the <strong>Adventure Deck</strong> is exhausted and you cannot fill all six <strong>Adventure Row</strong> slots at the end of a turn, all players still aboard are knocked out immediately and the game ends.</p>
+<p><strong>Limited Components:</strong> Most components are limited. <strong>Credits</strong> are unlimited; substitute them with any suitable tokens if they run out.</p>
+<p><strong>Order of Card Plays:</strong> Card effects that depend on items or actions during your turn apply regardless of the order you play your cards.</p>
+<p><strong>Play Area:</strong> Played cards are placed in your play area to track turn usage. These cards are not included when reshuffling your discard pile.</p>
+<p><strong>Power Crystal:</strong> Some reward spaces grant a <strong>Power Crystal</strong>. Cards with <strong>Power Crystal</strong> bonuses function like faction bonuses. You only receive the bonus once per turn, regardless of how many <strong>Power Crystals</strong> you possess.</p>
+<p><strong>Factions:</strong> Cards display <strong>Outlaw</strong>, <strong>Resistance</strong>, or <strong>Science</strong> icons. To use faction text on a card, you must play a different card of that same faction during your turn. You may use the text only once per turn.</p>
+<p><strong>Trash:</strong> Trashing removes a card from the game entirely. Choose a card from the specified location and return it to the box at the end of your turn. Benefits for trashing "any cards this turn" trigger only once per turn. You may trash the card itself to receive the benefit.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Token & Item Reference</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>Tokens kept until used are returned to the box after activation. Tokens kept until game end remain in your play area for scoring.</p>
+<span class="subsection-title">Major Secrets</span>
+<p><strong>Mega Health Boost:</strong> Heal 2 damage during your turn. Return to box after use.</p>
+<p><strong>5 Credit Chip:</strong> Counts as 5 <strong>Credits</strong>. Keep until game end or spend normally.</p>
+<p><strong>Flash of Brilliance:</strong> Immediately draw three cards. Return to box after use.</p>
+<p><strong>Spaceship Plans:</strong> Worth 7 points at game end. Not an <strong>Artifact</strong>.</p>
+<p><strong>The Sixth Crystal:</strong> Counts as a <strong>Power Crystal</strong>. Worth 3 points at game end for every <strong>Power Crystal</strong> you have, including this token.</p>
+<p><strong>Sonic Grenade:</strong> Each opponent immediately makes +3 <strong>Clank!</strong>. Return to box after use.</p>
+<span class="subsection-title">Minor Secrets</span>
+<p><strong>Health Boost:</strong> Heal 1 damage during your turn. Return to box after use.</p>
+<p><strong>Speed Boost:</strong> Gain 1 <strong>Boot</strong> during your turn. Return to box after use.</p>
+<p><strong>Combat Boost:</strong> Gain 2 <strong>Swords</strong> during your turn. Return to box after use.</p>
+<p><strong>2 Credit Chip:</strong> Counts as 2 <strong>Credits</strong>. Keep until game end or spend normally.</p>
+<p><strong>MultiPass:</strong> Use all faction-related text on your cards during this turn. Does not work for text requiring a <strong>Power Crystal</strong> or <strong>Contraband</strong>. Return to box after use.</p>
+<p><strong>Vaporizer:</strong> At the end of this turn, trash a card from your discard pile or play area. Return both the card and this token to the box.</p>
+<p><strong>Archive:</strong> Worth 3 points at game end. Advance the <strong>Boss Marker</strong> one space on the <strong>Rage Track</strong>.</p>
+<span class="subsection-title">Market Items</span>
+<p><strong>Master Key:</strong> Allows movement through spaces separated by a lock icon. Worth 5 points at game end.</p>
+<p><strong>TelePass:</strong> Allows use of <strong>Telepads</strong> to move through the spaceship. Worth 5 points at game end.</p>
+<p><strong>Med Kit:</strong> Immediately heal 2 damage upon purchase. Worth 5 points at game end.</p>
+<p><strong>Contraband:</strong> Allows activation of card bonuses requiring <strong>Contraband</strong>. Worth 10 points at game end.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Game End & Scoring</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="label-title">Escape &amp; Knockout Conditions</span>
+<p>If your <strong>Health Meter</strong> is completely filled, you are knocked out. If you have an <strong>Artifact</strong> and are in the <strong>Cargo Bay</strong> module, you are rescued and may count your points. If you lack an <strong>Artifact</strong> or are not in the <strong>Cargo Bay</strong>, you lose the game.</p>
+<p>You may escape by reaching an <strong>Escape Pod</strong> in the <strong>Cargo Bay</strong> while carrying an <strong>Artifact</strong>. Remove the pod, your pawn, and all your <strong>Clank!</strong> cubes from the board. You gain 20 additional points. You cannot escape without an <strong>Artifact</strong>.</p>
+<span class="label-title">Inactive Player Resolution</span>
+<p>Players who escape or are knocked out no longer take normal turns, add <strong>Clank!</strong>, or take damage from the <strong>Boss Bag</strong>. Cards affecting all players do not affect them. When their turn would occur, they place all <strong>Clank!</strong> cubes in the <strong>Boss Bag</strong>, shake it, and draw exactly four cubes (six cubes in a two-player game). Ignore the <strong>Boss Marker</strong> position and <strong>Danger</strong> cards. Apply damage normally.</p>
+<span class="label-title">Game End Trigger</span>
+<p>The game ends when all players have escaped or been knocked out.</p>
+<span class="label-title">Final Scoring Checklist</span>
+<ul>
+<li>Add the point value of your <strong>Artifact</strong>.</li>
+<li>Add points equal to your accumulated <strong>Credits</strong>.</li>
+<li>Add points from any acquired tokens.</li>
+<li>Add points from cards in your deck (top right corner value).</li>
+<li>The player with the most points wins. Ties are broken by the most valuable <strong>Artifact</strong>.</li>
+</ul>
+  </div>
+</details>
+  <p id="no-results">No sections match your search.</p>
+</main>
+<script>
+(function () {
+  var searchEl  = document.getElementById('search');
+  var clearBtn  = document.getElementById('search-clear');
+  var noResults = document.getElementById('no-results');
+  var sections  = Array.from(document.querySelectorAll('details.section'));
+
+  // Snapshot each section body's original HTML so we can restore it
+  // before applying a new round of highlights.
+  sections.forEach(function (s) {
+    var body = s.querySelector('.section-body');
+    if (body) body.dataset.original = body.innerHTML;
+  });
+
+  var timer;
+
+  searchEl.addEventListener('input', function () {
+    var term = this.value.trim();
+    clearBtn.classList.toggle('visible', term.length > 0);
+    clearTimeout(timer);
+    timer = setTimeout(function () { applySearch(term); }, 180);
+  });
+
+  clearBtn.addEventListener('click', function () {
+    searchEl.value = '';
+    clearBtn.classList.remove('visible');
+    applySearch('');
+    searchEl.focus();
+  });
+
+  function escapeRe(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlightTextNodes(container, re) {
+    var walker = document.createTreeWalker(
+      container, NodeFilter.SHOW_TEXT, null, false
+    );
+    var nodes = [];
+    var n;
+    while ((n = walker.nextNode())) {
+      if (n.nodeValue.trim()) nodes.push(n);
+    }
+    nodes.forEach(function (textNode) {
+      re.lastIndex = 0;
+      if (!re.test(textNode.nodeValue)) return;
+      re.lastIndex = 0;
+      var span = document.createElement('span');
+      span.innerHTML = textNode.nodeValue.replace(
+        re, function (m) { return '<mark>' + m + '</mark>'; }
+      );
+      textNode.parentNode.replaceChild(span, textNode);
+    });
+  }
+
+  function applySearch(term) {
+    var re = term ? new RegExp(escapeRe(term), 'gi') : null;
+    var visibleCount = 0;
+
+    sections.forEach(function (section) {
+      var body    = section.querySelector('.section-body');
+      var summary = section.querySelector('summary');
+
+      // Restore original HTML before each search pass
+      if (body) body.innerHTML = body.dataset.original;
+
+      if (!re) {
+        section.classList.remove('search-hidden');
+        section.open = false;
+        return;
+      }
+
+      var titleText = summary ? summary.textContent : '';
+      var bodyText  = body    ? body.textContent    : '';
+
+      re.lastIndex = 0;
+      var inTitle = re.test(titleText);
+      re.lastIndex = 0;
+      var inBody  = re.test(bodyText);
+      re.lastIndex = 0;
+
+      if (inTitle || inBody) {
+        section.classList.remove('search-hidden');
+        section.open = true;
+        if (body) highlightTextNodes(body, new RegExp(escapeRe(term), 'gi'));
+        visibleCount++;
+      } else {
+        section.classList.add('search-hidden');
+      }
+    });
+
+    noResults.style.display = (re && visibleCount === 0) ? 'block' : 'none';
+  }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Space Explorers — Rules Reference</title>
+<style>
+:root {
+  --bg:            #f2ede6;
+  --text:          #1a1a1a;
+  --header-bg:     #7f4537;
+  --section-bg:    #7f4537;
+  --subsection-bg: #392a31;
+  --rule:          #b0a898;
+  --accent:        #392a31;
+  --table-head:    #7f4537;
+  --note-bg:       #e8e0d4;
+  --body-bg:       #ffffff;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 15px;
+  line-height: 1.55;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* ── STICKY HEADER ───────────────────────────────────────── */
+.sticky-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--header-bg);
+  padding: 10px 14px 12px;
+  padding-top: max(10px, env(safe-area-inset-top));
+  padding-left: max(14px, env(safe-area-inset-left));
+  padding-right: max(14px, env(safe-area-inset-right));
+  box-shadow: 0 2px 12px rgba(0,0,0,0.4);
+}
+
+.masthead-row {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 9px;
+}
+
+.masthead-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  line-height: 1.1;
+  flex-shrink: 0;
+}
+
+.masthead-subtitle {
+  font-size: 11px;
+  color: rgba(255,255,255,0.45);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.back-link {
+  margin-left: auto;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+  text-decoration: none;
+  flex-shrink: 0;
+  padding-left: 12px;
+  white-space: nowrap;
+}
+.back-link:hover {
+  color: rgba(255,255,255,0.85);
+}
+
+.search-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-icon {
+  position: absolute;
+  left: 10px;
+  width: 15px;
+  height: 15px;
+  color: rgba(255,255,255,0.4);
+  pointer-events: none;
+  flex-shrink: 0;
+}
+
+#search {
+  width: 100%;
+  padding: 8px 36px 8px 32px;
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 8px;
+  font-size: 15px;
+  background: rgba(255,255,255,0.12);
+  color: #fff;
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+#search::placeholder { color: rgba(255,255,255,0.38); }
+
+#search:focus {
+  background: rgba(255,255,255,0.2);
+  border-color: rgba(255,255,255,0.3);
+}
+
+.search-clear {
+  position: absolute;
+  right: 6px;
+  background: rgba(255,255,255,0.18);
+  border: none;
+  border-radius: 50%;
+  color: rgba(255,255,255,0.8);
+  font-size: 14px;
+  line-height: 1;
+  width: 22px;
+  height: 22px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  flex-shrink: 0;
+}
+
+.search-clear.visible { display: flex; }
+
+/* ── MAIN ────────────────────────────────────────────────── */
+main {
+  padding: 10px 12px 48px;
+  padding-left: max(12px, env(safe-area-inset-left));
+  padding-right: max(12px, env(safe-area-inset-right));
+  padding-bottom: max(48px, env(safe-area-inset-bottom));
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+/* ── NO RESULTS ──────────────────────────────────────────── */
+#no-results {
+  display: none;
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--text);
+  opacity: 0.5;
+  font-size: 14px;
+}
+
+/* ── COLLAPSIBLE SECTIONS ────────────────────────────────── */
+details.section {
+  margin-bottom: 6px;
+  border-radius: 6px;
+  overflow: hidden;
+  scroll-margin-top: 130px;
+}
+
+details.section > summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  min-height: 44px;
+  background: var(--section-bg);
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  list-style: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+details.section > summary::-webkit-details-marker { display: none; }
+
+.chevron {
+  width: 12px;
+  height: 12px;
+  opacity: 0.65;
+  flex-shrink: 0;
+  margin-left: 8px;
+  transition: transform 0.18s ease;
+}
+
+details.section[open] > summary .chevron {
+  transform: rotate(90deg);
+}
+
+.section-body {
+  background: var(--body-bg);
+  padding: 10px 12px 12px;
+  border: 1px solid var(--rule);
+  border-top: none;
+  border-radius: 0 0 6px 6px;
+}
+
+/* ── HEADINGS WITHIN SECTIONS ────────────────────────────── */
+.subsection-title {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: #fff;
+  background: var(--subsection-bg);
+  padding: 4px 12px;
+  margin: 10px -12px 7px;
+}
+
+.label-title {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--section-bg);
+  border-bottom: 1.5px solid var(--rule);
+  padding-bottom: 3px;
+  margin: 10px 0 5px;
+}
+
+.inline-title {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 8px 0 3px;
+}
+
+/* ── BODY TEXT ───────────────────────────────────────────── */
+p { margin-bottom: 7px; }
+b, strong { font-weight: 600; }
+em, i { font-style: italic; }
+
+/* ── LISTS ───────────────────────────────────────────────── */
+ul, ol { padding-left: 20px; margin-bottom: 6px; }
+ul { list-style-type: disc; }
+ol { list-style-type: decimal; }
+ul ul { list-style-type: circle; }
+li { margin-bottom: 3px; }
+li > ul, li > ol { margin-top: 2px; margin-bottom: 0; }
+
+/* ── TABLES ──────────────────────────────────────────────── */
+.table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin-bottom: 6px;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  min-width: 260px;
+}
+thead tr { background: var(--table-head); color: white; }
+thead th {
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  padding: 5px 8px;
+  text-align: left;
+  white-space: nowrap;
+}
+tbody tr:nth-child(even) { background: var(--note-bg); }
+tbody td { padding: 5px 8px; vertical-align: top; }
+
+/* ── BLOCKQUOTE ──────────────────────────────────────────── */
+blockquote {
+  background: var(--note-bg);
+  border-left: 3px solid var(--accent);
+  padding: 6px 10px;
+  margin: 5px 0 7px;
+  font-size: 14px;
+  border-radius: 0 4px 4px 0;
+}
+blockquote p { margin-bottom: 2px; }
+
+/* ── INLINE CODE ─────────────────────────────────────────── */
+code {
+  background: var(--note-bg);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  padding: 1px 4px;
+  font-size: 13px;
+  font-family: inherit;
+  font-weight: 600;
+}
+
+/* ── HR ──────────────────────────────────────────────────── */
+hr { border: none; border-top: 1px solid var(--rule); margin: 8px 0; }
+
+/* ── SEARCH HIGHLIGHT ────────────────────────────────────── */
+mark {
+  background: #ffe566;
+  color: inherit;
+  border-radius: 2px;
+  padding: 0 1px;
+}
+
+/* ── HIDDEN SECTIONS ─────────────────────────────────────── */
+details.section.search-hidden { display: none; }
+
+/* ── VERSION TOGGLE ──────────────────────────────────────── */
+.toggle-bar {
+  display: flex;
+  margin-top: 8px;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.2);
+}
+.toggle-current,
+.toggle-other {
+  flex: 1;
+  text-align: center;
+  padding: 6px 10px;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  line-height: 1;
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.toggle-current {
+  background: rgba(255,255,255,0.18);
+  color: #ffffff;
+  font-weight: 600;
+  cursor: default;
+}
+.toggle-other {
+  color: rgba(255,255,255,0.5);
+}
+.toggle-other:hover {
+  background: rgba(255,255,255,0.08);
+  color: rgba(255,255,255,0.8);
+}
+
+/* ── PRINT ───────────────────────────────────────────────── */
+@media print {
+  .sticky-header { position: static; }
+  details.section[open], details.section { display: block; }
+  .section-body { display: block !important; }
+  .search-wrap, .search-clear, .toggle-bar { display: none; }
+}
+</style>
+</head>
+<body>
+<header class="sticky-header">
+  <div class="masthead-row">
+    <span class="masthead-title">Space Explorers</span>
+    <span class="masthead-subtitle">Rules Reference</span>
+    <a class="back-link" href="../index.html">&#8592; All Games</a>
+  </div>
+  <div class="toggle-bar"><span class="toggle-current">Quick Reference</span><a class="toggle-other" href="space-explorers-rules-refined.html">Full Rules</a></div>
+  <div class="search-wrap">
+    <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+         stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+         aria-hidden="true">
+      <circle cx="11" cy="11" r="8"/>
+      <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+    </svg>
+    <input type="text" id="search" placeholder="Search rules…"
+           autocomplete="off" spellcheck="false" autocorrect="off">
+    <button class="search-clear" id="search-clear" aria-label="Clear search">&#x2715;</button>
+  </div>
+</header>
+<main>
+<details class="section" open>
+  <summary><span>Game Objective & End Conditions</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>You are the head of a <strong>Research &amp; Development Hub</strong> in a Space Research Center. Your goal is to complete large-scale space projects by gathering the best and brightest minds humanity has to offer. You score <strong>Progress points</strong> by recruiting <strong>Specialists</strong> and completing <strong>Projects</strong>. The player who made the most Progress is the winner.</p>
+<p>The game ends when either of the following triggers occurs:</p>
+<ul>
+<li>One player has recruited 12 <strong>Specialists</strong> to their <strong>Hub</strong>.</li>
+<li>All available <strong>Projects</strong> have been completed.</li>
+</ul>
+<p>Play continues until it reaches the <strong>First Player</strong>, who does not take another turn. Note that the <strong>First Player</strong> marker never passes during the game; knowing who started is critical for this end-game trigger.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Setup</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>Prepare the table with the following components and starting positions:</p>
+<ul>
+<li>Shuffle the <strong>Specialist</strong> cards and place them face-down in the center to form the <strong>Specialist Deck</strong>. Reveal the top 6 cards and place them face-up beside the deck to form the <strong>Space Research Center</strong>.</li>
+<li>Take <strong>Project</strong> tiles equal to the number of players plus 2, choosing at random. Return unused tiles to the box. Place the chosen <strong>Projects</strong> in a line beside the <strong>Specialist Deck</strong>.</li>
+<li>Give each player a <strong>Research &amp; Development Hub</strong> (with the two pieces connected), 5 <strong>Research</strong> tokens (one of each color), and a <strong>Player Reference</strong> sheet. Return unused components to the box.</li>
+<li>Deal one card from the <strong>Specialist Deck</strong> to each player to form their starting hand. Players must keep cards in their hand secret.</li>
+<li>Choose a <strong>First Player</strong> and give them the <strong>First Player</strong> marker.</li>
+</ul>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Turn Structure</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>Starting with the <strong>First Player</strong> and proceeding clockwise, players take turns to perform exactly one action. The turn follows a strict flow:</p>
+<ol>
+<li>Choose an action: <strong>Draft a Specialist</strong> or <strong>Recruit a Specialist</strong>.</li>
+<li>Resolve the chosen action.</li>
+<li>Optionally complete a <strong>Project</strong>.</li>
+</ol>
+<p>You must perform one and only one of these actions on your turn.</p>
+<span class="subsection-title">Action 1: Draft a Specialist</span>
+<p>On your turn, you may take one <strong>Specialist</strong> card into your hand by taking a <strong>Specialist</strong> from the <strong>Center</strong> or by drawing a card from the <strong>Specialist Deck</strong>. There is no cost to take a <strong>Specialist</strong> into your hand.</p>
+<p>If you take a card and there are fewer than 6 <strong>Specialists</strong> remaining face-up in the <strong>Center</strong>, reveal the top card of the <strong>Specialist Deck</strong> to fill the vacant place.</p>
+<span class="subsection-title">Action 2: Recruit a Specialist</span>
+<p>On your turn, you may recruit a <strong>Specialist</strong> to your <strong>Hub</strong> directly from the face-up <strong>Specialists</strong> in the <strong>Center</strong> or from your hand. Follow these steps to recruit the chosen <strong>Specialist</strong>:</p>
+<span class="label-title">Step 1: Assign to a Division</span>
+<p>All <strong>Specialists</strong> possess a <strong>Skill</strong> in a particular field, marked with round icons on the upper left of the card. A <strong>Specialist</strong> may only be assigned to a <strong>Division</strong> that matches the <strong>Specialist</strong>’s <strong>Skills</strong>. For example, a Tester (a green <strong>Skill</strong> icon) must be assigned to the Testing <strong>Division</strong> (the green <strong>Hub</strong> section).</p>
+<p>If the <strong>Specialist</strong> has <strong>Skills</strong> in two different areas, you may choose which of those two <strong>Divisions</strong> the <strong>Specialist</strong> joins.</p>
+<span class="label-title">Step 2: Calculate Recruitment Cost</span>
+<p><strong>Specialists</strong> have a basic <strong>Recruitment Cost</strong>, marked on the lower left of the card with square icons, showing the <strong>Research</strong> they require. When you recruit the first <strong>Specialist</strong> in a <strong>Division</strong>, you pay the full basic <strong>Recruitment Cost</strong>, providing <strong>Research</strong> icons matching all of the icons shown.</p>
+<p>Each <strong>Specialist</strong> added to a <strong>Division</strong> reduces the cost to recruit the next <strong>Specialist</strong> into the same <strong>Division</strong>. Once a <strong>Specialist</strong> is added to your <strong>Hub</strong>, each <strong>Skill</strong> icon they have that matches their <strong>Division</strong> will reduce the cost for new recruits, allowing you to ignore one <strong>Research</strong> icon in the <strong>Recruitment Cost</strong>. The <strong>Recruitment Cost</strong> decreases from bottom to top, as indicated by the triangle arrow in the lower left corner of the card.</p>
+<p>If a <strong>Specialist</strong> has two <strong>Skills</strong>, only the <strong>Skills</strong> that match the <strong>Division</strong> are counted toward <strong>Recruitment Cost</strong>. The <strong>Recruitment Cost</strong> can be reduced to zero if there are enough <strong>Specialists</strong> already in that <strong>Division</strong> with matching <strong>Skills</strong>.</p>
+<span class="label-title">Step 3: Pay Research &amp; Place Card</span>
+<p>Now that you have determined the <strong>Recruitment Cost</strong>, you must provide the required icons to recruit the <strong>Specialist</strong>. You can combine these methods any way you wish to produce the <strong>Research</strong> icons you need.</p>
+<span class="inline-title">Payment Methods</span>
+<ol>
+<li>Provide the <strong>Research</strong> icons directly by giving matching tokens from your supply to the player on your left.</li>
+<li>Return one or more <strong>Specialists</strong> from your hand to the <strong>Center</strong>. Each <strong>Specialist</strong> returned counts as up to two <strong>Research</strong> icons of any type you need. These icons do not carry over to the next turn and must be used immediately. You cannot return a <strong>Specialist</strong> to the <strong>Center</strong> and recruit that same <strong>Specialist</strong> in the same turn.</li>
+<li>Use abilities of <strong>Specialists</strong> that are active whenever they are the top card in their <strong>Division</strong>. Some of these abilities provide <strong>Research</strong> icons that you can use each turn when recruiting a new <strong>Specialist</strong>.</li>
+</ol>
+<p>After you have provided all the required <strong>Research</strong> icons, place the newly recruited <strong>Specialist</strong> on top of the other <strong>Specialists</strong> already in that <strong>Division</strong>. Any ability of the new <strong>Specialist</strong> cannot be used immediately; the new ability becomes available on your next turn. When a new <strong>Specialist</strong> is added to a <strong>Division</strong>, the abilities of the previous <strong>Specialists</strong> are covered up and no longer available. Only the abilities of <strong>Specialists</strong> on the top of each <strong>Division</strong> are active.</p>
+<span class="subsection-title">End-of-Turn: Complete a Project</span>
+<p>At the end of your turn, you may complete any <strong>Project</strong> not already taken by another player. This does not require an action. You can only complete one <strong>Project</strong> per turn, even if you have enough <strong>Skills</strong> in your <strong>Hub</strong> to complete more.</p>
+<p>Compare the combined <strong>Skills</strong> available from all <strong>Specialists</strong> in your <strong>Hub</strong> with the <strong>Skills</strong> required by each <strong>Project</strong>. If you have <strong>Skills</strong> that meet or exceed a <strong>Project</strong>’s requirements, you can complete that <strong>Project</strong>. Take the <strong>Project</strong> tile and place it beside your <strong>Hub</strong> for scoring at game end. Completing a <strong>Project</strong> does not use up your <strong>Specialists</strong>. They remain in your <strong>Hub</strong> and can use their <strong>Skills</strong> on the next <strong>Project</strong>.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Specialist Abilities & Card Anatomy</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p><strong>Specialists</strong> are distinguished Engineers, Testers, Scientists, Builders, and Astronauts, who contribute their <strong>Skills</strong> to help you complete <strong>Projects</strong>. <strong>Projects</strong> are the aim of the game: building and launching spacecraft from the historical US and Soviet space programs. <strong>Skills</strong> of different types are required to complete a <strong>Project</strong>. The type of <strong>Skills</strong> required, and how many of each, are marked on each <strong>Project</strong> with circular icons. The <strong>Space Research Center</strong> consists of the <strong>Specialist</strong> cards placed face-up beside the <strong>Specialist Deck</strong>. The <strong>Research &amp; Development Hub</strong> has five <strong>Divisions</strong>: Engineering (blue), Testing (green), Science (yellow), Construction (red), and Space Flight (purple). <strong>Research</strong> is the main resource for recruiting <strong>Specialists</strong>.</p>
+<span class="subsection-title">Card Layout &amp; Icon Legend</span>
+<p><strong>Specialist</strong> cards contain the following zones:</p>
+<ul>
+<li>Picture: Reflects the primary <strong>Skill</strong> of the <strong>Specialist</strong>.</li>
+<li>Progress points: Scored by the <strong>Specialist</strong> at game end. If marked with an asterisk, the score depends on some other condition.</li>
+<li>Skills: Indicate what the <strong>Specialist</strong> contributes to completing a <strong>Project</strong>, which <strong>Divisions</strong> they may be assigned to, and how much they reduce the <strong>Recruitment Cost</strong> for new <strong>Specialists</strong> added to the same <strong>Division</strong>.</li>
+<li>Recruitment Cost: Shows the <strong>Research</strong> icons required to recruit the <strong>Specialist</strong>.</li>
+<li>Triangle arrow: A reminder that the <strong>Recruitment Cost</strong> is reduced from the bottom up.</li>
+<li>Ability: Active while the <strong>Specialist</strong> card is on top of their <strong>Division</strong>, or during scoring at game end.</li>
+<li>Card number: Used to look up the matching ability number in the reference.</li>
+</ul>
+<p><strong>Project</strong> cards contain the following zones:</p>
+<ul>
+<li>Picture: Shows a real satellite, spaceship, or interplanetary station.</li>
+<li>Progress points: Added to your score if you complete this <strong>Project</strong> by game end.</li>
+<li>Skills: Required to complete the <strong>Project</strong>.</li>
+</ul>
+<p>Icon Legend:</p>
+<ul>
+<li>Any Research symbol: Represents any type of <strong>Research</strong> icon.</li>
+<li>Any Specialist card: Represents any <strong>Specialist</strong> card.</li>
+<li>Specialist card whose base Recruitment Cost is equal to the number of Research icons shown: Represents a <strong>Specialist</strong> with that specific cost.</li>
+<li>Specialist card with two Skills: Represents a <strong>Specialist</strong> possessing two <strong>Skills</strong>.</li>
+<li>Specialist recruited to a Division: Represents a <strong>Specialist</strong> placed in a <strong>Division</strong>.</li>
+<li>This Specialist card: Represents the specific <strong>Specialist</strong> card in question.</li>
+<li>A Division of your Hub: Represents a <strong>Division</strong> on your <strong>Hub</strong>.</li>
+<li>A Specialist card in your hand: Represents a <strong>Specialist</strong> in your hand.</li>
+<li>Draw a Specialist card from the deck: Represents drawing from the <strong>Specialist Deck</strong>.</li>
+<li>Specialist cards in the Center: Represents <strong>Specialists</strong> in the <strong>Space Research Center</strong>.</li>
+<li>Any Project: Represents any <strong>Project</strong> tile.</li>
+<li>Pass one Research token to the next player clockwise: Represents passing a token.</li>
+<li>Change the order of Specialists in one Division of your Hub as you choose: Represents reordering a <strong>Division</strong>.</li>
+<li>This Specialist's ability can only be used at the beginning of your turn: Represents a start-of-turn trigger.</li>
+<li>Any skill: Represents any <strong>Skill</strong> type.</li>
+<li>Progress points you gain at game end: Represents end-game scoring.</li>
+</ul>
+<span class="subsection-title">Ability Timing &amp; Activation Rules</span>
+<p>Many <strong>Specialists</strong> have extra abilities. <strong>Specialists</strong> whose cards are marked with an asterisk in their <strong>Progress points</strong> have abilities that are used during scoring at game end. These apply whether the <strong>Specialist</strong> is on top of their <strong>Division</strong> or not.</p>
+<p>Other abilities are available during the game for as long as the <strong>Specialist</strong> is the top card in their <strong>Division</strong>. Each turn, you may choose whether to use each ability or not. Each such ability can be used at most once per turn. Abilities are optional unless stated otherwise. You cannot return a <strong>Specialist</strong> to the <strong>Center</strong> and recruit that same <strong>Specialist</strong> in the same turn.</p>
+<span class="subsection-title">Ability Lookup Index</span>
+<p>Each <strong>Specialist</strong> card is numbered so you can look up a detailed explanation of their ability. A simplified listing is also available on the <strong>Player Reference</strong> sheet.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Number</th>
+<th>Class</th>
+<th>Effect Summary</th>
+<th>Timing/Trigger</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1-4</td>
+<td>Engineers</td>
+<td>Provides extra <strong>Research</strong> icons as shown to use when recruiting a new <strong>Specialist</strong> to any <strong>Division</strong>. Not used up; available each turn.</td>
+<td>During recruitment</td>
+</tr>
+<tr>
+<td>5-6</td>
+<td>Engineers</td>
+<td>Has two <strong>Skills</strong>.</td>
+<td>Passive</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Engineers</td>
+<td>Provides one extra <strong>Research</strong> icon of any type you choose to use when recruiting a new <strong>Specialist</strong> from your hand only. Not used up; may choose a different type each turn.</td>
+<td>During recruitment from hand</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Engineers</td>
+<td>Instead of your usual action, recruit a <strong>Specialist</strong> with a basic <strong>Recruitment Cost</strong> of exactly 3 <strong>Research</strong> icons for free.</td>
+<td>Replaces action</td>
+</tr>
+<tr>
+<td>9</td>
+<td>Engineers</td>
+<td>After recruiting a <strong>Specialist</strong> with basic <strong>Recruitment Cost</strong> 5 or 6, draw a card from the <strong>Specialist Deck</strong>.</td>
+<td>After recruitment</td>
+</tr>
+<tr>
+<td>10</td>
+<td>Engineers</td>
+<td>Instead of your usual action, pass two <strong>Research</strong> tokens of any type to the next player and immediately recruit any <strong>Specialist</strong> from your hand only, regardless of their cost.</td>
+<td>Replaces action</td>
+</tr>
+<tr>
+<td>11</td>
+<td>Engineers</td>
+<td>At game end, score 1 <strong>Progress point</strong> for each Space Flight (purple) <strong>Skill</strong> icon in your <strong>Hub</strong>.</td>
+<td>End game</td>
+</tr>
+<tr>
+<td>12</td>
+<td>Engineers</td>
+<td>At game end, score 2 <strong>Progress points</strong> for each <strong>Specialist</strong> placed on top of this <strong>Specialist</strong> in the same <strong>Division</strong>.</td>
+<td>End game</td>
+</tr>
+<tr>
+<td>13-16</td>
+<td>Testers</td>
+<td>Provides extra <strong>Research</strong> icons as shown to use when recruiting a new <strong>Specialist</strong> to any <strong>Division</strong>. Not used up; available each turn.</td>
+<td>During recruitment</td>
+</tr>
+<tr>
+<td>17-18</td>
+<td>Testers</td>
+<td>Has two <strong>Skills</strong>.</td>
+<td>Passive</td>
+</tr>
+<tr>
+<td>19</td>
+<td>Testers</td>
+<td>At the end of your turn, pass two <strong>Research</strong> tokens of any type to the next player to gain one <strong>Skill</strong> icon of any type you require to complete a <strong>Project</strong>.</td>
+<td>End of turn</td>
+</tr>
+<tr>
+<td>20</td>
+<td>Testers</td>
+<td>Provides one extra <strong>Research</strong> icon of any type you choose to use when recruiting a new <strong>Specialist</strong> with basic <strong>Recruitment Cost</strong> 5 or 6.</td>
+<td>During recruitment</td>
+</tr>
+<tr>
+<td>21</td>
+<td>Testers</td>
+<td>Each time you complete a <strong>Project</strong>, draw two cards from the <strong>Specialist Deck</strong>.</td>
+<td>After completing project</td>
+</tr>
+<tr>
+<td>22</td>
+<td>Testers</td>
+<td>Provides one extra <strong>Research</strong> icon of any type you choose to use when recruiting a new <strong>Specialist</strong>. Not used up; may choose a different type each turn.</td>
+<td>During recruitment</td>
+</tr>
+<tr>
+<td>23</td>
+<td>Testers</td>
+<td>At game end, score 1 <strong>Progress point</strong> for each Construction (red) <strong>Skill</strong> icon in your <strong>Hub</strong>.</td>
+<td>End game</td>
+</tr>
+<tr>
+<td>24</td>
+<td>Testers</td>
+<td>At game end, count the number of <strong>Skill</strong> icons of all types in your <strong>Hub</strong>. Score 1 <strong>Progress point</strong> for every three <strong>Skill</strong> icons.</td>
+<td>End game</td>
+</tr>
+<tr>
+<td>25-28</td>
+<td>Scientists</td>
+<td>Provides extra <strong>Research</strong> icons as shown to use when recruiting a new <strong>Specialist</strong> to any <strong>Division</strong>. Not used up; available each turn.</td>
+<td>During recruitment</td>
+</tr>
+<tr>
+<td>29-30</td>
+<td>Scientists</td>
+<td>Has two <strong>Skills</strong>.</td>
+<td>Passive</td>
+</tr>
+<tr>
+<td>31</td>
+<td>Scientists</td>
+<td>Return this <strong>Specialist</strong> from your <strong>Hub</strong> to the <strong>Center</strong> to get any three <strong>Research</strong> icons when recruiting a new <strong>Specialist</strong>. If you recruit that <strong>Specialist</strong> to the same <strong>Division</strong>, the <strong>Recruitment Cost</strong> does not increase because it has already been determined.</td>
+<td>During recruitment</td>
+</tr>
+<tr>
+<td>32</td>
+<td>Scientists</td>
+<td>When a new <strong>Specialist</strong> is placed directly on top of this one in your <strong>Hub</strong>, draw a card from the <strong>Specialist Deck</strong>. Normally occurs only once during the game.</td>
+<td>When covered</td>
+</tr>
+<tr>
+<td>33</td>
+<td>Scientists</td>
+<td>Provides one extra <strong>Research</strong> icon of any type you choose to use when recruiting a new <strong>Specialist</strong>. Not used up; may choose a different type each turn.</td>
+<td>During recruitment</td>
+</tr>
+<tr>
+<td>34</td>
+<td>Scientists</td>
+<td>When you return a <strong>Specialist</strong> card from your hand to the <strong>Center</strong>, you produce three <strong>Research</strong> icons of any type instead of the usual two.</td>
+<td>When returning from hand</td>
+</tr>
+<tr>
+<td>35</td>
+<td>Scientists</td>
+<td>At game end, score 1 <strong>Progress point</strong> for each Tester (green) <strong>Skill</strong> icon in your <strong>Hub</strong>.</td>
+<td>End game</td>
+</tr>
+<tr>
+<td>36</td>
+<td>Scientists</td>
+<td>At game end, score 2 <strong>Progress points</strong> for each <strong>Specialist</strong> placed below this <strong>Specialist</strong> in the same <strong>Division</strong>.</td>
+<td>End game</td>
+</tr>
+<tr>
+<td>37-40</td>
+<td>Builders</td>
+<td>Provides extra <strong>Research</strong> icons as shown to use when recruiting a new <strong>Specialist</strong> to any <strong>Division</strong>. Not used up; available each turn.</td>
+<td>During recruitment</td>
+</tr>
+<tr>
+<td>41-42</td>
+<td>Builders</td>
+<td>Has two <strong>Skills</strong>.</td>
+<td>Passive</td>
+</tr>
+<tr>
+<td>43</td>
+<td>Builders</td>
+<td>Every time you complete a <strong>Project</strong>, draw one card from the <strong>Specialist Deck</strong>.</td>
+<td>After completing project</td>
+</tr>
+<tr>
+<td>44</td>
+<td>Builders</td>
+<td>At the start of your turn, reveal the top card of the <strong>Specialist Deck</strong> and add it to the <strong>Center</strong>. The <strong>Center</strong> can have more than 6 cards.</td>
+<td>Start of turn</td>
+</tr>
+<tr>
+<td>45</td>
+<td>Builders</td>
+<td>When a new <strong>Specialist</strong> is placed directly on top of this one in your <strong>Hub</strong>, draw two cards from the <strong>Specialist Deck</strong>. Normally occurs only once during the game.</td>
+<td>When covered</td>
+</tr>
+<tr>
+<td>46</td>
+<td>Builders</td>
+<td>Provides two extra <strong>Research</strong> icons of any types you choose to use when recruiting a new <strong>Specialist</strong> who has two <strong>Skills</strong>.</td>
+<td>During recruitment</td>
+</tr>
+<tr>
+<td>47</td>
+<td>Builders</td>
+<td>At game end, score 1 <strong>Progress point</strong> for each Engineering (blue) <strong>Skill</strong> icon in your <strong>Hub</strong>.</td>
+<td>End game</td>
+</tr>
+<tr>
+<td>48</td>
+<td>Builders</td>
+<td>At game end, count the number of complete sets of all 5 types of <strong>Skill</strong> icons in your <strong>Hub</strong> (Engineering, Testing, Research, Construction, Space Flight). Score 3 <strong>Progress points</strong> for each complete set of 5 different <strong>Skill</strong> icons.</td>
+<td>End game</td>
+</tr>
+<tr>
+<td>49-52</td>
+<td>Astronauts</td>
+<td>Provides extra <strong>Research</strong> icons as shown to use when recruiting a new <strong>Specialist</strong> to any <strong>Division</strong>. Not used up; available each turn.</td>
+<td>During recruitment</td>
+</tr>
+<tr>
+<td>53-54</td>
+<td>Astronauts</td>
+<td>Has two <strong>Skills</strong>.</td>
+<td>Passive</td>
+</tr>
+<tr>
+<td>55</td>
+<td>Astronauts</td>
+<td>Instead of your usual action, recruit a <strong>Specialist</strong> with basic <strong>Recruitment Cost</strong> of exactly 2 <strong>Research</strong> icons for free.</td>
+<td>Replaces action</td>
+</tr>
+<tr>
+<td>56</td>
+<td>Astronauts</td>
+<td>At any time during your turn, pass one <strong>Research</strong> token of any type to the next player to draw one card from the <strong>Specialist Deck</strong>.</td>
+<td>During turn</td>
+</tr>
+<tr>
+<td>57</td>
+<td>Astronauts</td>
+<td>At the start of your turn, change the order of <strong>Specialists</strong> in any one <strong>Division</strong> of your <strong>Hub</strong>, making a different <strong>Specialist</strong> the top card in that <strong>Division</strong>.</td>
+<td>Start of turn</td>
+</tr>
+<tr>
+<td>58</td>
+<td>Astronauts</td>
+<td>Whenever you draw a number of cards from the <strong>Specialist Deck</strong>, draw one extra card. Abilities may be used only once per turn.</td>
+<td>When drawing</td>
+</tr>
+<tr>
+<td>59</td>
+<td>Astronauts</td>
+<td>At game end, score 1 <strong>Progress point</strong> for each Science (yellow) <strong>Skill</strong> icon in your <strong>Hub</strong>.</td>
+<td>End game</td>
+</tr>
+<tr>
+<td>60</td>
+<td>Astronauts</td>
+<td>At game end, score 2 extra <strong>Progress points</strong> for each <strong>Project</strong> you have completed.</td>
+<td>End game</td>
+</tr>
+</tbody>
+</table></div>
+  </div>
+</details>
+<details class="section">
+  <summary><span>End Game & Scoring</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>The game ends when one player has recruited 12 <strong>Specialists</strong> to their <strong>Hub</strong> or all available <strong>Projects</strong> have been completed. Play continues until it reaches the <strong>First Player</strong>, who does not take another turn. Total each player's <strong>Progress points</strong> to determine the winner.</p>
+<p>Calculate your score in the following order:</p>
+<ol>
+<li>Count the <strong>Progress points</strong> marked on your completed <strong>Projects</strong>.</li>
+<li>Count the <strong>Progress points</strong> marked on all <strong>Specialists</strong> in your <strong>Hub</strong>, whether they are on top of the <strong>Division</strong> or not. Do not count <strong>Specialist</strong> cards in your hand.</li>
+<li>Determine the score for <strong>Specialists</strong> marked with an asterisk in the upper left corner. These abilities score <strong>Progress points</strong> according to their ability. Scoring abilities are active even if their cards are not on top of their <strong>Division</strong>. You may find it easier to count the ordinary <strong>Progress points</strong> first and then add <strong>Progress points</strong> scored by <strong>Specialists</strong> with asterisks.</li>
+</ol>
+<p>The player who made the most Progress wins. In case of a tie, the player with the most points from completed <strong>Projects</strong> wins. If there is still a tie, both players are proclaimed the winners.</p>
+  </div>
+</details>
+  <p id="no-results">No sections match your search.</p>
+</main>
+<script>
+(function () {
+  var searchEl  = document.getElementById('search');
+  var clearBtn  = document.getElementById('search-clear');
+  var noResults = document.getElementById('no-results');
+  var sections  = Array.from(document.querySelectorAll('details.section'));
+
+  // Snapshot each section body's original HTML so we can restore it
+  // before applying a new round of highlights.
+  sections.forEach(function (s) {
+    var body = s.querySelector('.section-body');
+    if (body) body.dataset.original = body.innerHTML;
+  });
+
+  var timer;
+
+  searchEl.addEventListener('input', function () {
+    var term = this.value.trim();
+    clearBtn.classList.toggle('visible', term.length > 0);
+    clearTimeout(timer);
+    timer = setTimeout(function () { applySearch(term); }, 180);
+  });
+
+  clearBtn.addEventListener('click', function () {
+    searchEl.value = '';
+    clearBtn.classList.remove('visible');
+    applySearch('');
+    searchEl.focus();
+  });
+
+  function escapeRe(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlightTextNodes(container, re) {
+    var walker = document.createTreeWalker(
+      container, NodeFilter.SHOW_TEXT, null, false
+    );
+    var nodes = [];
+    var n;
+    while ((n = walker.nextNode())) {
+      if (n.nodeValue.trim()) nodes.push(n);
+    }
+    nodes.forEach(function (textNode) {
+      re.lastIndex = 0;
+      if (!re.test(textNode.nodeValue)) return;
+      re.lastIndex = 0;
+      var span = document.createElement('span');
+      span.innerHTML = textNode.nodeValue.replace(
+        re, function (m) { return '<mark>' + m + '</mark>'; }
+      );
+      textNode.parentNode.replaceChild(span, textNode);
+    });
+  }
+
+  function applySearch(term) {
+    var re = term ? new RegExp(escapeRe(term), 'gi') : null;
+    var visibleCount = 0;
+
+    sections.forEach(function (section) {
+      var body    = section.querySelector('.section-body');
+      var summary = section.querySelector('summary');
+
+      // Restore original HTML before each search pass
+      if (body) body.innerHTML = body.dataset.original;
+
+      if (!re) {
+        section.classList.remove('search-hidden');
+        section.open = false;
+        return;
+      }
+
+      var titleText = summary ? summary.textContent : '';
+      var bodyText  = body    ? body.textContent    : '';
+
+      re.lastIndex = 0;
+      var inTitle = re.test(titleText);
+      re.lastIndex = 0;
+      var inBody  = re.test(bodyText);
+      re.lastIndex = 0;
+
+      if (inTitle || inBody) {
+        section.classList.remove('search-hidden');
+        section.open = true;
+        if (body) highlightTextNodes(body, new RegExp(escapeRe(term), 'gi'));
+        visibleCount++;
+      } else {
+        section.classList.add('search-hidden');
+      }
+    });
+
+    noResults.style.display = (re && visibleCount === 0) ? 'block' : 'none';
+  }
+})();
+</script>
+</body>
+</html>

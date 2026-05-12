@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Spirit Island — Rules Reference</title>
+<style>
+:root {
+  --bg:            #f2ede6;
+  --text:          #1a1a1a;
+  --header-bg:     #0a8f9e;
+  --section-bg:    #0a8f9e;
+  --subsection-bg: #ce8e48;
+  --rule:          #b0a898;
+  --accent:        #ce8e48;
+  --table-head:    #0a8f9e;
+  --note-bg:       #e8e0d4;
+  --body-bg:       #ffffff;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 15px;
+  line-height: 1.55;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* ── STICKY HEADER ───────────────────────────────────────── */
+.sticky-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--header-bg);
+  padding: 10px 14px 12px;
+  padding-top: max(10px, env(safe-area-inset-top));
+  padding-left: max(14px, env(safe-area-inset-left));
+  padding-right: max(14px, env(safe-area-inset-right));
+  box-shadow: 0 2px 12px rgba(0,0,0,0.4);
+}
+
+.masthead-row {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 9px;
+}
+
+.masthead-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  line-height: 1.1;
+  flex-shrink: 0;
+}
+
+.masthead-subtitle {
+  font-size: 11px;
+  color: rgba(255,255,255,0.45);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.back-link {
+  margin-left: auto;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+  text-decoration: none;
+  flex-shrink: 0;
+  padding-left: 12px;
+  white-space: nowrap;
+}
+.back-link:hover {
+  color: rgba(255,255,255,0.85);
+}
+
+.search-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-icon {
+  position: absolute;
+  left: 10px;
+  width: 15px;
+  height: 15px;
+  color: rgba(255,255,255,0.4);
+  pointer-events: none;
+  flex-shrink: 0;
+}
+
+#search {
+  width: 100%;
+  padding: 8px 36px 8px 32px;
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 8px;
+  font-size: 15px;
+  background: rgba(255,255,255,0.12);
+  color: #fff;
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+#search::placeholder { color: rgba(255,255,255,0.38); }
+
+#search:focus {
+  background: rgba(255,255,255,0.2);
+  border-color: rgba(255,255,255,0.3);
+}
+
+.search-clear {
+  position: absolute;
+  right: 6px;
+  background: rgba(255,255,255,0.18);
+  border: none;
+  border-radius: 50%;
+  color: rgba(255,255,255,0.8);
+  font-size: 14px;
+  line-height: 1;
+  width: 22px;
+  height: 22px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  flex-shrink: 0;
+}
+
+.search-clear.visible { display: flex; }
+
+/* ── MAIN ────────────────────────────────────────────────── */
+main {
+  padding: 10px 12px 48px;
+  padding-left: max(12px, env(safe-area-inset-left));
+  padding-right: max(12px, env(safe-area-inset-right));
+  padding-bottom: max(48px, env(safe-area-inset-bottom));
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+/* ── NO RESULTS ──────────────────────────────────────────── */
+#no-results {
+  display: none;
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--text);
+  opacity: 0.5;
+  font-size: 14px;
+}
+
+/* ── COLLAPSIBLE SECTIONS ────────────────────────────────── */
+details.section {
+  margin-bottom: 6px;
+  border-radius: 6px;
+  overflow: hidden;
+  scroll-margin-top: 130px;
+}
+
+details.section > summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  min-height: 44px;
+  background: var(--section-bg);
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  list-style: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+details.section > summary::-webkit-details-marker { display: none; }
+
+.chevron {
+  width: 12px;
+  height: 12px;
+  opacity: 0.65;
+  flex-shrink: 0;
+  margin-left: 8px;
+  transition: transform 0.18s ease;
+}
+
+details.section[open] > summary .chevron {
+  transform: rotate(90deg);
+}
+
+.section-body {
+  background: var(--body-bg);
+  padding: 10px 12px 12px;
+  border: 1px solid var(--rule);
+  border-top: none;
+  border-radius: 0 0 6px 6px;
+}
+
+/* ── HEADINGS WITHIN SECTIONS ────────────────────────────── */
+.subsection-title {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: #fff;
+  background: var(--subsection-bg);
+  padding: 4px 12px;
+  margin: 10px -12px 7px;
+}
+
+.label-title {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--section-bg);
+  border-bottom: 1.5px solid var(--rule);
+  padding-bottom: 3px;
+  margin: 10px 0 5px;
+}
+
+.inline-title {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 8px 0 3px;
+}
+
+/* ── BODY TEXT ───────────────────────────────────────────── */
+p { margin-bottom: 7px; }
+b, strong { font-weight: 600; }
+em, i { font-style: italic; }
+
+/* ── LISTS ───────────────────────────────────────────────── */
+ul, ol { padding-left: 20px; margin-bottom: 6px; }
+ul { list-style-type: disc; }
+ol { list-style-type: decimal; }
+ul ul { list-style-type: circle; }
+li { margin-bottom: 3px; }
+li > ul, li > ol { margin-top: 2px; margin-bottom: 0; }
+
+/* ── TABLES ──────────────────────────────────────────────── */
+.table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin-bottom: 6px;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  min-width: 260px;
+}
+thead tr { background: var(--table-head); color: white; }
+thead th {
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  padding: 5px 8px;
+  text-align: left;
+  white-space: nowrap;
+}
+tbody tr:nth-child(even) { background: var(--note-bg); }
+tbody td { padding: 5px 8px; vertical-align: top; }
+
+/* ── BLOCKQUOTE ──────────────────────────────────────────── */
+blockquote {
+  background: var(--note-bg);
+  border-left: 3px solid var(--accent);
+  padding: 6px 10px;
+  margin: 5px 0 7px;
+  font-size: 14px;
+  border-radius: 0 4px 4px 0;
+}
+blockquote p { margin-bottom: 2px; }
+
+/* ── INLINE CODE ─────────────────────────────────────────── */
+code {
+  background: var(--note-bg);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  padding: 1px 4px;
+  font-size: 13px;
+  font-family: inherit;
+  font-weight: 600;
+}
+
+/* ── HR ──────────────────────────────────────────────────── */
+hr { border: none; border-top: 1px solid var(--rule); margin: 8px 0; }
+
+/* ── SEARCH HIGHLIGHT ────────────────────────────────────── */
+mark {
+  background: #ffe566;
+  color: inherit;
+  border-radius: 2px;
+  padding: 0 1px;
+}
+
+/* ── HIDDEN SECTIONS ─────────────────────────────────────── */
+details.section.search-hidden { display: none; }
+
+/* ── VERSION TOGGLE ──────────────────────────────────────── */
+.toggle-bar {
+  display: flex;
+  margin-top: 8px;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.2);
+}
+.toggle-current,
+.toggle-other {
+  flex: 1;
+  text-align: center;
+  padding: 6px 10px;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  line-height: 1;
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.toggle-current {
+  background: rgba(255,255,255,0.18);
+  color: #ffffff;
+  font-weight: 600;
+  cursor: default;
+}
+.toggle-other {
+  color: rgba(255,255,255,0.5);
+}
+.toggle-other:hover {
+  background: rgba(255,255,255,0.08);
+  color: rgba(255,255,255,0.8);
+}
+
+/* ── PRINT ───────────────────────────────────────────────── */
+@media print {
+  .sticky-header { position: static; }
+  details.section[open], details.section { display: block; }
+  .section-body { display: block !important; }
+  .search-wrap, .search-clear, .toggle-bar { display: none; }
+}
+</style>
+</head>
+<body>
+<header class="sticky-header">
+  <div class="masthead-row">
+    <span class="masthead-title">Spirit Island</span>
+    <span class="masthead-subtitle">Rules Reference</span>
+    <a class="back-link" href="../index.html">&#8592; All Games</a>
+  </div>
+  <div class="toggle-bar"><span class="toggle-current">Quick Reference</span><a class="toggle-other" href="spirit-island-rules-refined.html">Full Rules</a></div>
+  <div class="search-wrap">
+    <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+         stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+         aria-hidden="true">
+      <circle cx="11" cy="11" r="8"/>
+      <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+    </svg>
+    <input type="text" id="search" placeholder="Search rules…"
+           autocomplete="off" spellcheck="false" autocorrect="off">
+    <button class="search-clear" id="search-clear" aria-label="Clear search">&#x2715;</button>
+  </div>
+</header>
+<main>
+<details class="section" open>
+  <summary><span>Quick Turn Sequence</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p><strong>Spirit Phase</strong></p>
+<ul>
+<li>Choose one <strong>Growth</strong> option, gain <strong>Energy</strong>, and select <strong>Power Cards</strong> to play and pay for.</li>
+<li>Do not pick targets or resolve effects yet.</li>
+</ul>
+<p><strong>Fast Power Phase</strong></p>
+<ul>
+<li>Resolve all <strong>Fast Powers</strong> (Innate and played cards) simultaneously or in any agreed order.</li>
+<li>Pick targets and apply effects before the Invader Phase.</li>
+</ul>
+<p><strong>Invader Phase</strong></p>
+<ul>
+<li>Resolve <strong>Blighted Island</strong> effect if active, then resolve earned <strong>Fear Cards</strong>.</li>
+<li>Invaders <strong>Ravage</strong>, <strong>Build</strong>, and <strong>Explore</strong> in order, then advance Invader Cards.</li>
+</ul>
+<p><strong>Slow Power Phase</strong></p>
+<ul>
+<li>Resolve all <strong>Slow Powers</strong> (Innate and played cards) using the same rules as the Fast Phase.</li>
+</ul>
+<p><strong>Time Passes</strong></p>
+<ul>
+<li>Discard played Power Cards, clear all <strong>Damage</strong> and <strong>Elements</strong>, and remove reminder tokens.</li>
+</ul>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Phase Details</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Spirit Phase</span>
+<span class="label-title">Growth and Energy</span>
+<p>Each Spirit performs three steps in order. First, choose one <strong>Growth</strong> option from your Spirit Panel. You must complete all actions shown in the chosen section, though you may perform them in any order. Common options include adding a <strong>Presence</strong> at <strong>Range</strong> 2, gaining 2 <strong>Energy</strong>, gaining a <strong>Power Card</strong>, or reclaiming cards from your discard. Second, gain <strong>Energy</strong> equal to the highest uncovered number on your Energy Presence Track. Place gained Energy on or near your panel. Unspent Energy carries over to future turns.</p>
+<span class="label-title">Playing and Paying for Cards</span>
+<p>Select the <strong>Power Cards</strong> you will use this turn. The maximum number of cards you may play is determined by the highest uncovered number on your Card Plays Presence Track. You must immediately pay Energy for all selected cards, even Slow ones. You immediately gain all <strong>Elements</strong> from played cards, regardless of speed. Do not pick targets or resolve effects during this phase. Target selection occurs in the Fast or Slow Power Phase.</p>
+<span class="subsection-title">Fast &amp; Slow Power Phases</span>
+<span class="label-title">Resolution Order and Simultaneous Play</span>
+<p>Players resolve <strong>Fast Powers</strong> before the Invader Phase and <strong>Slow Powers</strong> after it. Both Innate Powers and played Power Cards resolve during their respective phases. Players may resolve powers mostly simultaneously. When timing matters, resolve powers in any order players agree upon, provided no power interrupts another mid-resolution. You may skip a power entirely if you cannot or choose not to use its text effect. You cannot delay a Fast Power until the Slow Phase.</p>
+<span class="label-title">Elemental Thresholds and Usage Limits</span>
+<p>Innate Powers require specific <strong>Elements</strong> to trigger but do not cost Energy or use Card Plays. <strong>Elemental Thresholds</strong> are optional effects that activate only if you have gained the required Elements that turn. Elements are never spent, only checked. You may resolve a power as if you had fewer Elements than you actually possess. Unless explicitly stated otherwise, a power affects only one target land, lasts only for the current turn, and can be used only once per turn. Changes to a power's speed or range carry over to any <strong>Repeat</strong> use.</p>
+<span class="subsection-title">Invader Phase</span>
+<span class="label-title">Blighted Island and Fear Resolution</span>
+<p>If the <strong>Blight Card</strong> has flipped to <strong>Blighted Island</strong>, follow its instructions immediately. If any <strong>Fear Cards</strong> have been earned, flip the face-down stack and resolve each card one at a time in the order earned. Use only the effect listed next to the current <strong>Terror Level</strong>. Fear effects last only for the current turn. Discard resolved cards to the Fear Discard Space.</p>
+<span class="label-title">Ravage</span>
+<p>Invaders deal <strong>Damage</strong> simultaneously to the land and <strong>Dahan</strong> in lands matching the Ravage Invader Card. Each Explorer deals 1 Damage, each Town deals 2 Damage, and each City deals 3 Damage. Reduce total Damage by any <strong>Defend</strong> effects. If 2 or more Damage reaches the land, add one <strong>Blight</strong> to it. Every 2 points of Damage destroys one Dahan. You must destroy Dahan as efficiently as possible. Surviving Dahan then fight back, dealing 2 Damage to Invaders in that land. Dahan fight back even if Ravage Damage is reduced to zero, unless the action is skipped entirely. Spirit Presence does not fight back.</p>
+<span class="label-title">Build and Explore</span>
+<p>Invaders <strong>Build</strong> in lands matching the Build Invader Card. If a land contains Invaders and has more Towns than Cities, add a City. Otherwise, add a Town. Invaders <strong>Explore</strong> in accessible lands matching the Explore Invader Card. Add one Explorer to every matching land that contains a Town or City, or is adjacent to a Town, City, or Ocean. If playing with an <strong>Adversary</strong> and the card shows a flag icon, perform the <strong>Escalation Effect</strong> first. If the Invader Deck is empty when you need to draw, you lose.</p>
+<span class="label-title">Advance Invader Cards</span>
+<p>After Explore, slide all Invader Cards left. Move the Ravage Card to discard, the Build Card to the Ravage Space, and the Explore Card to the Build Space.</p>
+<span class="subsection-title">Time Passes</span>
+<span class="label-title">Cleanup and Reset</span>
+<p>Discard all played Power Cards to your personal discard pile. All <strong>Elements</strong> leave play. All <strong>Damage</strong> clears; reset any rotated models to their original orientation. Remove any reminder tokens used for single-turn effects. The board is now ready for the next turn.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Core Mechanics</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Presence &amp; Sacred Sites</span>
+<span class="label-title">Placement and Destruction</span>
+<p><strong>Spirit Presence</strong> marks lands a Spirit occupies. A land may hold any number of Presence from any Spirits. Game effects involving Presence always affect Presence on the Island unless stated otherwise. If your Presence is ever <strong>Destroyed</strong>, remove it and place it next to the Island. It does not return to your Presence Track. If any Spirit has zero Presence left on the Island, the players immediately lose.</p>
+<span class="label-title">Sacred Sites and Repositioning</span>
+<p>A <strong>Sacred Site</strong> is any land where a Spirit has more than one Presence. Some powers require a Sacred Site to function. Whenever you would add a Presence from your Presence Track, you may instead reposition one of your existing Presence from anywhere on the Island to a valid location. This allows you to move Presence even if all your Presence is already in play.</p>
+<span class="subsection-title">Energy &amp; Card Plays</span>
+<span class="label-title">Income and Limits</span>
+<p>Each turn, gain Energy equal to the highest uncovered number on your Energy Presence Track. You may play up to the highest uncovered number on your Card Plays Presence Track. Energy and Card Plays are individual to each Spirit and cannot be shared. Unused Card Plays do not carry over. Unspent Energy carries over indefinitely.</p>
+<span class="label-title">Gaining and Forgetting Cards</span>
+<p>When you <strong>Gain a Power Card</strong>, choose Minor or Major. Draw four cards from that deck, keep one, and discard the rest. If using a Power Progression, take the next card in sequence. Whenever you gain a Major Power, you must <strong>Forget</strong> one Power Card from your hand, discard, or play. Place Forgotten cards in the appropriate discard pile, or under your panel if it is a Unique Power. You may Forget any card at any time. Forgetting a card in play immediately removes its Elements.</p>
+<span class="subsection-title">Powers &amp; Elements</span>
+<span class="label-title">Power Anatomy and Speed</span>
+<p>Powers consist of an Energy Cost (cards only), Name, Elements Gained, Speed, <strong>Range</strong>, <strong>Target</strong>, Effects, and optional Thresholds. Fast Powers resolve before the Invader Phase. Slow Powers resolve after. Power Cards show speed via a red (Fast) or blue (Slow) ring around the cost. Innate Powers are free, available every turn, and require Elements instead of Energy.</p>
+<span class="label-title">Elements and Thresholds</span>
+<p>The eight Elements are <strong>Sun</strong>, <strong>Moon</strong>, <strong>Fire</strong>, <strong>Air</strong>, <strong>Water</strong>, <strong>Earth</strong>, <strong>Plant</strong>, and <strong>Animal</strong>. Elements do not persist between turns. Thresholds are checked, not spent. If a threshold says "Instead," it replaces previous effects. You may always choose to ignore thresholds by acting as if you have fewer Elements.</p>
+<span class="label-title">Gather, Push, and Repeat</span>
+<p><strong>Gather</strong> moves pieces into a target land from adjacent lands only. <strong>Push</strong> moves pieces out of a target land to adjacent lands only. Range boosts do not affect Gather or Push distance. <strong>Repeat</strong> activates a power's effect again without granting additional Elements. Repeats cannot chain. Changes to the original power apply to the Repeat. You may make different choices when Repeating.</p>
+<span class="subsection-title">Damage, Destruction &amp; Defend</span>
+<span class="label-title">Health and Damage Tracking</span>
+<p>Invaders and Dahan have fixed <strong>Health</strong>. Explorers have 1 Health. Towns have 2 Health. Cities have 3 Health. Dahan have 2 Health. Models are rotated to track Damage; no tokens are used. When Damage equals or exceeds Health, the piece is <strong>Destroyed</strong> immediately. Return Destroyed pieces to the supply. Any remaining Damage on survivors clears at the end of the turn.</p>
+<span class="label-title">Destruction, Removal, and Defend</span>
+<p><strong>Destroying</strong> a Town generates 1 <strong>Fear</strong>. <strong>Destroying</strong> a City generates 2 Fear. <strong>Removing</strong> or <strong>Replacing</strong> Invaders does not generate Fear. Replaced Invaders keep existing Damage. <strong>Defend</strong> reduces Damage dealt by Invaders to the land and Dahan by the specified amount. Multiple Defend effects stack. Defend lasts for the entire turn.</p>
+<span class="subsection-title">Blight &amp; Cascade</span>
+<span class="label-title">Adding and Removing Blight</span>
+<p>When you add <strong>Blight</strong> to a land, take it from the Blight Card or Blight Space. When you remove Blight, return it to the Blight Card. The Blight Card never flips back to Healthy. If you run out of Blight on the Healthy side, flip the card to Blighted Island and follow its instructions. If you run out of Blight on the Blighted side, you lose.</p>
+<span class="label-title">Cascade and Land Damage</span>
+<p>Adding Blight to a land that already contains Blight triggers <strong>Cascade</strong>. Add one additional Blight to any adjacent land. If that land also has Blight, cascade continues. Whenever a land takes 2 or more Damage during Ravage, add one Blight to it. Adding Blight to a land destroys one Presence from each Spirit with Presence there.</p>
+<span class="subsection-title">Fear &amp; Terror Levels</span>
+<span class="label-title">Generation and Marker Advancement</span>
+<p><strong>Fear</strong> is generated by powers with the Fear symbol and by Destroying Towns or Cities. For each Fear generated, advance one Fear Marker from the Fear Pool to the Generated Fear area. When all Fear Markers have advanced, move the top Fear Card face-down to the Earned Fear Cards area. If this reveals a <strong>Terror Level</strong> divider, move it to cover the old level.</p>
+<span class="label-title">Card Resolution and Progression</span>
+<p>Move all Fear Markers back to the Fear Pool. If leftover Fear remains, advance that many markers. Earned Fear Cards are resolved during the next Invader Phase. Effects last only for the current turn unless they permanently change the board. Discard resolved cards. New Terror Levels and victory conditions take effect immediately.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Win & Loss Conditions</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Condition</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Terror Level 1: No Invaders on the Island</td>
+<td>Victory</td>
+</tr>
+<tr>
+<td>Terror Level 2: No Towns or Cities on the Island</td>
+<td>Victory</td>
+</tr>
+<tr>
+<td>Terror Level 3: No Cities on the Island</td>
+<td>Victory</td>
+</tr>
+<tr>
+<td>Terror Level VICTORY reached</td>
+<td>Immediate Victory</td>
+</tr>
+<tr>
+<td>Single effect causes both win and loss</td>
+<td>Sacrifice Victory (Spirit Destroyed, Island saved)</td>
+</tr>
+<tr>
+<td>Last Blight removed from Blight Card</td>
+<td>Follow card instructions (usually Loss)</td>
+</tr>
+<tr>
+<td>Any Spirit has zero Presence on the Island</td>
+<td>Loss</td>
+</tr>
+<tr>
+<td>Invader Deck empty when Explore requires a draw</td>
+<td>Loss</td>
+</tr>
+</tbody>
+</table></div>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Symbol & Component Reference</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Icons &amp; Key Terms</span>
+<p><strong>Explorer</strong>: Invader piece, 1 Health, 1 Damage.
+<strong>Town</strong>: Invader piece, 2 Health, 2 Damage, 1 Fear.
+<strong>City</strong>: Invader piece, 3 Health, 3 Damage, 2 Fear.
+<strong>Dahan</strong>: Native piece, 2 Health, 2 Damage.
+<strong>Blight</strong>: Environmental harm, destroys Presence, cascades.
+<strong>Fear</strong>: Advances markers, earns cards, shifts Terror.
+<strong>Presence</strong>: Spirit location marker, destroyed by Blight.
+<strong>Sacred Site</strong>: Land with 2+ Presence of one Spirit.
+<strong>Fast Power</strong>: Resolves before Invader Phase.
+<strong>Slow Power</strong>: Resolves after Invader Phase.
+<strong>Push/Gather</strong>: Moves pieces to/from adjacent lands.
+<strong>Repeat</strong>: Activates power effect again, no new Elements.</p>
+<span class="subsection-title">Range &amp; Targeting</span>
+<p><strong>Range 0</strong>: Land with your Presence.
+<strong>Range 1+</strong>: Maximum lands away from your Presence.
+<strong>Coastal</strong>: Land adjacent to the Ocean.
+<strong>Inland</strong>: Land not adjacent to the Ocean.
+<strong>Target Restrictions</strong>: Powers target one land or Spirit unless stated otherwise. Terrain, content, or Coastal/Inland restrictions appear left of the Range icon. You may always use a shorter Range.</p>
+<span class="subsection-title">Presence Tracks</span>
+<p><strong>Energy Track</strong>: Top track. Highest uncovered number determines Energy gained per turn.
+<strong>Card Plays Track</strong>: Bottom track. Highest uncovered number determines maximum Power Cards played per turn.
+<strong>Reclaim One</strong>: Allows returning one Power Card from discard to hand during Spirit Phase.
+<strong>Bonus Elements</strong>: Constantly provide the shown Element while uncovered. "Any" lets you choose one Element per turn.
+<strong>Removal</strong>: Destroyed Presence goes to the side of the Island, not back to the track.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Setup & Variants</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="label-title">Standard Setup Checklist</span>
+<ul>
+<li>Choose Adversary and Scenario first if using them.</li>
+<li>Build Invader Deck: 3 Stage I, 4 Stage II, 5 Stage III cards. Shuffle each stage, pick required amount, discard rest.</li>
+<li>Place Invader Board. Put 4 Fear Markers per player in Fear Pool.</li>
+<li>Shuffle Fear Cards, place 9 on Fear Deck. Place Terror Level 3 divider 3 from bottom, Level 2 divider 3 above that.</li>
+<li>Place Invader Deck on Explore Action Space.</li>
+<li>Place random Blight Card Healthy side up. Add 1 extra Blight regardless of player count.</li>
+<li>Arrange Island Boards randomly. Populate with Invaders, Dahan, and Blight per icons.</li>
+<li>Shuffle Minor and Major Power Decks. Place Energy, Cities, Towns, Explorers, and Dahan in supply.</li>
+<li>Each player takes colored Presence, Single-Turn Effect Markers, Spirit Panel, and 4 Unique Power Cards.</li>
+<li>Follow back of Spirit Panel for initial Presence placement. Flip panel, place remaining Presence on dashed circles.</li>
+<li>Reveal top Invader Deck card. Invaders Explore in that land type. Place card face-up in Build Space. Begin Spirit Phase.</li>
+</ul>
+<span class="label-title">Solo Mode</span>
+<p>Use a single board as the Island. You may target yourself with powers targeting "Another Spirit," but do not gain extra benefits from such powers.</p>
+<span class="label-title">Adversaries and Scenarios</span>
+<p>Adversaries add Escalation Effects when Stage II cards with flag icons are revealed. They may add loss conditions or modify Invader Actions. Difficulty levels are cumulative. Scenarios modify victory conditions, prerequisites, or rules. Scenario rules override Adversary rules if they conflict.</p>
+<span class="label-title">Scoring</span>
+<p>Victory: 5x Difficulty + 10 bonus + 2 per remaining Invader Card.
+Defeat: 2x Difficulty + 1 per Invader Card not in deck.
+Both: +1 per living Dahan divided by player count, -1 per Blight on Island divided by player count.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Quick Resolution Guide</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Decision Making &amp; General Principles</span>
+<span class="label-title">Who Decides</span>
+<p>When the game requires a decision and does not specify who makes it, the Spirit using the power makes the choice. For other situations, players should reach consensus. If consensus fails, each Spirit decides for lands on their starting board. The game organizer decides for all other cases.</p>
+<span class="label-title">Core Resolution Principles</span>
+<p>Do as much as you can when resolving effects. Skip parts that cannot be performed. You may forego using a power's text effects entirely, but you still gain its Elements. Powers affect only one target land, last only for the current turn, and can be used only once per turn unless explicitly stated otherwise.</p>
+<span class="subsection-title">Common Interactions &amp; Clarifications</span>
+<span class="label-title">Thresholds and Elements</span>
+<p>Elements are checked, not spent. You may ignore thresholds by acting as if you have fewer Elements. Thresholds requiring "Instead" replace previous effects. Bonus Elements on Presence Tracks are constant while uncovered. "Any" Elements are chosen once per turn and cannot change until the next turn.</p>
+<span class="label-title">Damage and Destruction</span>
+<p>Damage defaults to Invaders unless specified otherwise. Damage may combine from multiple powers. Destroying Towns or Cities generates Fear automatically. Removing or Replacing does not. Replaced pieces retain existing Damage. Defend reduces Invader Damage to land and Dahan. Defend stacks and lasts the full turn.</p>
+<span class="label-title">Single-Turn Effects and Repeat</span>
+<p>Temporary land effects last only until Time Passes. Use reminder tokens if helpful. Repeat activates the same effect again without granting new Elements. Repeats cannot chain. Range and speed modifications apply to Repeats. You may choose different targets or make different choices when Repeating. Repeating a card does not count as playing a new card, but does count as using a new power.</p>
+<span class="label-title">Gather, Push, and Range</span>
+<p>Gather pulls from adjacent lands only. Push sends to adjacent lands only. Range boosts do not extend Gather or Push distance. You may push multiple pieces to different adjacent lands. You cannot push off the board or into the Ocean. Range 0 means a land with your Presence. You may always use a shorter Range.</p>
+  </div>
+</details>
+  <p id="no-results">No sections match your search.</p>
+</main>
+<script>
+(function () {
+  var searchEl  = document.getElementById('search');
+  var clearBtn  = document.getElementById('search-clear');
+  var noResults = document.getElementById('no-results');
+  var sections  = Array.from(document.querySelectorAll('details.section'));
+
+  // Snapshot each section body's original HTML so we can restore it
+  // before applying a new round of highlights.
+  sections.forEach(function (s) {
+    var body = s.querySelector('.section-body');
+    if (body) body.dataset.original = body.innerHTML;
+  });
+
+  var timer;
+
+  searchEl.addEventListener('input', function () {
+    var term = this.value.trim();
+    clearBtn.classList.toggle('visible', term.length > 0);
+    clearTimeout(timer);
+    timer = setTimeout(function () { applySearch(term); }, 180);
+  });
+
+  clearBtn.addEventListener('click', function () {
+    searchEl.value = '';
+    clearBtn.classList.remove('visible');
+    applySearch('');
+    searchEl.focus();
+  });
+
+  function escapeRe(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlightTextNodes(container, re) {
+    var walker = document.createTreeWalker(
+      container, NodeFilter.SHOW_TEXT, null, false
+    );
+    var nodes = [];
+    var n;
+    while ((n = walker.nextNode())) {
+      if (n.nodeValue.trim()) nodes.push(n);
+    }
+    nodes.forEach(function (textNode) {
+      re.lastIndex = 0;
+      if (!re.test(textNode.nodeValue)) return;
+      re.lastIndex = 0;
+      var span = document.createElement('span');
+      span.innerHTML = textNode.nodeValue.replace(
+        re, function (m) { return '<mark>' + m + '</mark>'; }
+      );
+      textNode.parentNode.replaceChild(span, textNode);
+    });
+  }
+
+  function applySearch(term) {
+    var re = term ? new RegExp(escapeRe(term), 'gi') : null;
+    var visibleCount = 0;
+
+    sections.forEach(function (section) {
+      var body    = section.querySelector('.section-body');
+      var summary = section.querySelector('summary');
+
+      // Restore original HTML before each search pass
+      if (body) body.innerHTML = body.dataset.original;
+
+      if (!re) {
+        section.classList.remove('search-hidden');
+        section.open = false;
+        return;
+      }
+
+      var titleText = summary ? summary.textContent : '';
+      var bodyText  = body    ? body.textContent    : '';
+
+      re.lastIndex = 0;
+      var inTitle = re.test(titleText);
+      re.lastIndex = 0;
+      var inBody  = re.test(bodyText);
+      re.lastIndex = 0;
+
+      if (inTitle || inBody) {
+        section.classList.remove('search-hidden');
+        section.open = true;
+        if (body) highlightTextNodes(body, new RegExp(escapeRe(term), 'gi'));
+        visibleCount++;
+      } else {
+        section.classList.add('search-hidden');
+      }
+    });
+
+    noResults.style.display = (re && visibleCount === 0) ? 'block' : 'none';
+  }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,1211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Legendary - James Bond — Rules Reference</title>
+<style>
+:root {
+  --bg:            #f2ede6;
+  --text:          #1a1a1a;
+  --header-bg:     #c29a42;
+  --section-bg:    #c29a42;
+  --subsection-bg: #81bf27;
+  --rule:          #b0a898;
+  --accent:        #81bf27;
+  --table-head:    #c29a42;
+  --note-bg:       #e8e0d4;
+  --body-bg:       #ffffff;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 15px;
+  line-height: 1.55;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* ── STICKY HEADER ───────────────────────────────────────── */
+.sticky-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--header-bg);
+  padding: 10px 14px 12px;
+  padding-top: max(10px, env(safe-area-inset-top));
+  padding-left: max(14px, env(safe-area-inset-left));
+  padding-right: max(14px, env(safe-area-inset-right));
+  box-shadow: 0 2px 12px rgba(0,0,0,0.4);
+}
+
+.masthead-row {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 9px;
+}
+
+.masthead-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  line-height: 1.1;
+  flex-shrink: 0;
+}
+
+.masthead-subtitle {
+  font-size: 11px;
+  color: rgba(255,255,255,0.45);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.back-link {
+  margin-left: auto;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+  text-decoration: none;
+  flex-shrink: 0;
+  padding-left: 12px;
+  white-space: nowrap;
+}
+.back-link:hover {
+  color: rgba(255,255,255,0.85);
+}
+
+.search-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-icon {
+  position: absolute;
+  left: 10px;
+  width: 15px;
+  height: 15px;
+  color: rgba(255,255,255,0.4);
+  pointer-events: none;
+  flex-shrink: 0;
+}
+
+#search {
+  width: 100%;
+  padding: 8px 36px 8px 32px;
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 8px;
+  font-size: 15px;
+  background: rgba(255,255,255,0.12);
+  color: #fff;
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+#search::placeholder { color: rgba(255,255,255,0.38); }
+
+#search:focus {
+  background: rgba(255,255,255,0.2);
+  border-color: rgba(255,255,255,0.3);
+}
+
+.search-clear {
+  position: absolute;
+  right: 6px;
+  background: rgba(255,255,255,0.18);
+  border: none;
+  border-radius: 50%;
+  color: rgba(255,255,255,0.8);
+  font-size: 14px;
+  line-height: 1;
+  width: 22px;
+  height: 22px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  flex-shrink: 0;
+}
+
+.search-clear.visible { display: flex; }
+
+/* ── MAIN ────────────────────────────────────────────────── */
+main {
+  padding: 10px 12px 48px;
+  padding-left: max(12px, env(safe-area-inset-left));
+  padding-right: max(12px, env(safe-area-inset-right));
+  padding-bottom: max(48px, env(safe-area-inset-bottom));
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+/* ── NO RESULTS ──────────────────────────────────────────── */
+#no-results {
+  display: none;
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--text);
+  opacity: 0.5;
+  font-size: 14px;
+}
+
+/* ── COLLAPSIBLE SECTIONS ────────────────────────────────── */
+details.section {
+  margin-bottom: 6px;
+  border-radius: 6px;
+  overflow: hidden;
+  scroll-margin-top: 130px;
+}
+
+details.section > summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  min-height: 44px;
+  background: var(--section-bg);
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  list-style: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+details.section > summary::-webkit-details-marker { display: none; }
+
+.chevron {
+  width: 12px;
+  height: 12px;
+  opacity: 0.65;
+  flex-shrink: 0;
+  margin-left: 8px;
+  transition: transform 0.18s ease;
+}
+
+details.section[open] > summary .chevron {
+  transform: rotate(90deg);
+}
+
+.section-body {
+  background: var(--body-bg);
+  padding: 10px 12px 12px;
+  border: 1px solid var(--rule);
+  border-top: none;
+  border-radius: 0 0 6px 6px;
+}
+
+/* ── HEADINGS WITHIN SECTIONS ────────────────────────────── */
+.subsection-title {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: #fff;
+  background: var(--subsection-bg);
+  padding: 4px 12px;
+  margin: 10px -12px 7px;
+}
+
+.label-title {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--section-bg);
+  border-bottom: 1.5px solid var(--rule);
+  padding-bottom: 3px;
+  margin: 10px 0 5px;
+}
+
+.inline-title {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 8px 0 3px;
+}
+
+/* ── BODY TEXT ───────────────────────────────────────────── */
+p { margin-bottom: 7px; }
+b, strong { font-weight: 600; }
+em, i { font-style: italic; }
+
+/* ── LISTS ───────────────────────────────────────────────── */
+ul, ol { padding-left: 20px; margin-bottom: 6px; }
+ul { list-style-type: disc; }
+ol { list-style-type: decimal; }
+ul ul { list-style-type: circle; }
+li { margin-bottom: 3px; }
+li > ul, li > ol { margin-top: 2px; margin-bottom: 0; }
+
+/* ── TABLES ──────────────────────────────────────────────── */
+.table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin-bottom: 6px;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  min-width: 260px;
+}
+thead tr { background: var(--table-head); color: white; }
+thead th {
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  padding: 5px 8px;
+  text-align: left;
+  white-space: nowrap;
+}
+tbody tr:nth-child(even) { background: var(--note-bg); }
+tbody td { padding: 5px 8px; vertical-align: top; }
+
+/* ── BLOCKQUOTE ──────────────────────────────────────────── */
+blockquote {
+  background: var(--note-bg);
+  border-left: 3px solid var(--accent);
+  padding: 6px 10px;
+  margin: 5px 0 7px;
+  font-size: 14px;
+  border-radius: 0 4px 4px 0;
+}
+blockquote p { margin-bottom: 2px; }
+
+/* ── INLINE CODE ─────────────────────────────────────────── */
+code {
+  background: var(--note-bg);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  padding: 1px 4px;
+  font-size: 13px;
+  font-family: inherit;
+  font-weight: 600;
+}
+
+/* ── HR ──────────────────────────────────────────────────── */
+hr { border: none; border-top: 1px solid var(--rule); margin: 8px 0; }
+
+/* ── SEARCH HIGHLIGHT ────────────────────────────────────── */
+mark {
+  background: #ffe566;
+  color: inherit;
+  border-radius: 2px;
+  padding: 0 1px;
+}
+
+/* ── HIDDEN SECTIONS ─────────────────────────────────────── */
+details.section.search-hidden { display: none; }
+
+/* ── VERSION TOGGLE ──────────────────────────────────────── */
+.toggle-bar {
+  display: flex;
+  margin-top: 8px;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.2);
+}
+.toggle-current,
+.toggle-other {
+  flex: 1;
+  text-align: center;
+  padding: 6px 10px;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  line-height: 1;
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.toggle-current {
+  background: rgba(255,255,255,0.18);
+  color: #ffffff;
+  font-weight: 600;
+  cursor: default;
+}
+.toggle-other {
+  color: rgba(255,255,255,0.5);
+}
+.toggle-other:hover {
+  background: rgba(255,255,255,0.08);
+  color: rgba(255,255,255,0.8);
+}
+
+/* ── PRINT ───────────────────────────────────────────────── */
+@media print {
+  .sticky-header { position: static; }
+  details.section[open], details.section { display: block; }
+  .section-body { display: block !important; }
+  .search-wrap, .search-clear, .toggle-bar { display: none; }
+}
+</style>
+</head>
+<body>
+<header class="sticky-header">
+  <div class="masthead-row">
+    <span class="masthead-title">Legendary - James Bond</span>
+    <span class="masthead-subtitle">Rules Reference</span>
+    <a class="back-link" href="../index.html">&#8592; All Games</a>
+  </div>
+  <div class="toggle-bar"><span class="toggle-current">Full Rules</span><a class="toggle-other" href="legendary-james-bond-rules-reference.html">Quick Reference</a></div>
+  <div class="search-wrap">
+    <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+         stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+         aria-hidden="true">
+      <circle cx="11" cy="11" r="8"/>
+      <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+    </svg>
+    <input type="text" id="search" placeholder="Search rules…"
+           autocomplete="off" spellcheck="false" autocorrect="off">
+    <button class="search-clear" id="search-clear" aria-label="Clear search">&#x2715;</button>
+  </div>
+</header>
+<main>
+<p>Welcome to Legendary®: James Bond 007! In this game you can play four classic Bond movies: Goldfinger, The Man With The Golden Gun, GoldenEye, or Casino Royale. Can you foil Operation: Grand Slam and end Goldfinger’s plot to contaminate the gold supply of the United States? Do you have the steely nerve to best Le Chiffre in the high-stakes poker tournament at Casino Royale? In this game the players are in control. The fate of the world is up to you. You can fight against the forces of evil by yourself or gather a cadre of up to four friends. Defeat the evil Masterminds as they lead powerful Villains in an attempt to complete their Schemes to gain power and world dominance!</p>
+<p>Each player starts with their own deck of basic starting cards. At the start of your turn, play the top card of the Villain Deck which allows Villains and Missions to enter “On Assignment”, acquire Gadgets, and wreak havoc on the players in other nefarious ways. Then play Hero cards from your hand to generate Attack, Recruit Points, and special abilities. You use Attack to defeat your enemies. You use Recruit Points to recruit more powerful Heroes from “Q Branch” for your deck.</p>
+<p>Whenever your deck runs out of cards, shuffle your discard pile to make a new deck, including all the new Heroes you recruited. This way your deck gets stronger and stronger over time. Build up enough power, and you can defeat the Mastermind! But be careful: If the players fail too many Missions, the Mastermind wins the game!</p>
+<p>Players must attack the Mastermind successfully four times. If they do this, then the Mastermind is beaten once and for all, and all the players win the game! In addition, defeating Villains, completing Missions, and acquiring Gadgets earn each player Victory Points. After the Mastermind is defeated, the player with the most Victory Points is the Top Agent of all and the individual winner.</p>
+<p>Unlike other games, Legendary®: James Bond 007 fights back against the players! The Mastermind, like Goldfinger or Alec Trevelyan, isn’t played by a player. Instead, the game itself plays the part of the Mastermind.</p>
+<p>During the game, the players need to complete Missions to thwart the Mastermind. But each time a Mission is failed, the Danger Level goes up. If it goes too high (as indicated on the Scheme), all the players lose!</p>
+<p>For your first game we suggest you play the movie Goldfinger. Follow the setup rules on the following page, using the specific card stacks listed there. After your first game, you can have fun playing the other three movies included in the game: The Man With The Golden Gun, GoldenEye, and Casino Royale. Each movie uses different Heroes, Villains, Missions, Masterminds, and Schemes. You will find that each one offers new challenges to master and new combinations to explore.</p>
+<p>If you have played other Legendary® titles, then there are only a few new things that you need to know before you jump right into Legendary®: James Bond 007.</p>
+<p>The game has a slightly different set up from other Legendary® games. First, each player starts with a Special Starter card such as “Shaken, Not Stirred” or “Bond. James Bond.”, which gives them a unique ability. Second, the Villain deck is built such that its cards get tougher throughout the game. This will be covered in detail in the Game Setup section.</p>
+<p>Legendary®: James Bond 007 also introduces two new card types: Gadgets and Missions.</p>
+<p>Gadgets work just like Bystanders in previous games — Villains can acquire them and escape with them to help the Mastermind’s chances.</p>
+<p>Missions are tasks for you to complete. In most ways they work just like a Villain — they enter On Assignment, they can acquire Gadgets, and they can be defeated.</p>
+<p>But be careful, each Mission has a Danger Level. If that Mission is failed (escapes) the overall Danger Level rises. If the Danger Level gets too high you lose!</p>
+<p>Legendary®: James Bond 007 is both cooperative (with players cooperating to beat the Mastermind) and competitive (with players competing to get the most Victory Points). Some play groups like to focus on cooperating. Other groups focus on competing. And some do a little of both. Some players even start out competing, and then switch to cooperating more and more as the Mastermind gets closer to victory. It’s a good idea to make sure everyone knows whether you’re playing cooperatively or competitively before the game starts.</p>
+<details class="section">
+  <summary><span>Your First Game - Cards to Use</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p><strong>Mastermind:</strong> Auric Goldfinger
+<strong>Scheme:</strong> Operation: Grand Slam
+<strong>Special Starter cards:</strong> Each player gets one of these: Standard Field Issue, Special Upgrades, “Shaken, Not Stirred”, MI6, “Bond, James Bond.”
+<strong>Heroes:</strong> James Bond-Goldfinger, Pussy Galore, Allies-Goldfinger, Equipment-Goldfinger and Vehicles-Goldfinger (For 4 or 5 players add one additional Hero.)
+<strong>Villain Groups for the Villain Deck:</strong>
+For 2 players: Goldfinger Villain Group, Operation: Grand Slam Mission Group, Fort Knox Assault Team
+For 3 players: Goldfinger Villain Group, Operation: Grand Slam Mission Group, Fort Knox Assault Team, and one additional Villain Group
+For 4 players: Goldfinger Villain Group, Operation: Grand Slam Mission Group, Fort Knox Assault Team, one additional Villain Group, and one additional Henchmen Group
+For 5 players: Goldfinger Villain Group, Operation: Grand Slam Mission Group, Fort Knox Assault Team, two additional Villain Groups, and one additional Henchmen Group</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Player Decks</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>Give each player their own personal 13-card deck, made of these cards:
+• 8 007 Basic Starters
+• 4 00 Agent Basic Starters
+• 1 Special Starter
+• There are 20 different Special Starting cards, 5 for each movie.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Danger Level Counter</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>Place a counter next to the Danger Level tracker. You can use a card from out of play, or a coin, bead, etc.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Game Stacks</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>Place these stacks of cards face up on their spaces on the game mat. Use all the cards of each type:
+• 12 Miss Moneypenny-Allies
+• 30 Wounds
+• 30 Gadgets</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Mastermind and Scheme</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>Pick 1 Mastermind and place the Mastermind card face-up on the Mastermind space on the game mat. Take the 4 Mastermind Tactics cards that match the Mastermind you selected and place them underneath the Mastermind card face-down in random order.</p>
+<p>Pick 1 Scheme card and place it face-up on the Scheme space on the game mat. Follow the setup instructions in the "Setup" section for that Scheme. A Scheme card's "Setup" section always tells you how many "Scheme Twist" cards to add to the Villain Deck. Set aside that many Scheme Twists for the Villain Deck. Many Schemes also have unique special rules.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>To Add Villain Groups</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>• Each Mastermind card says that the Mastermind "Always Leads" a particular Villain Group. Be sure to include that group.
+• Pick the other Villain Groups as needed.
+• For each Villain Group you pick, set aside all 8 Villain cards from that Villain Group for the Villain Deck.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Villain Deck</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>Set aside 5 Master Strikes for the Villain Deck.</p>
+<p>Now set aside Villain Groups and a Mission Group for the Villain Deck. A Villain Group is a group of eight Villain cards that work together. Each movie has its own Villain Group. Each Villain card has the name of the movie under its card name. Mission Groups are similar to Villain Groups but have the name of the Scheme under the card name. You will only need one Mission Group. The more players you have in the game, the more Villain Groups you use, as shown in this table:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th style="text-align: left;">Number of Players</th>
+<th style="text-align: left;">Mission Groups</th>
+<th style="text-align: left;">Villain Groups</th>
+<th style="text-align: left;">Henchmen Groups</th>
+<th style="text-align: left;">Gadgets</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">2</td>
+</tr>
+<tr>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">8</td>
+</tr>
+<tr>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">8</td>
+</tr>
+<tr>
+<td style="text-align: left;">5</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">12</td>
+</tr>
+</tbody>
+</table></div>
+<p>(For 1-player solo play, check the Solo Play section.)</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>To Add the Mission Group</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>• Some Scheme cards say that the Scheme "Always Uses" a particular Mission Group. Be sure to include that group.
+• If the Scheme does not list an "Always Uses" Mission Group just pick one.
+• For each Mission Group you pick, set aside all 9 Mission cards from that Mission Group for the Villain deck.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>To Add Henchman Groups</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>Next pick a Henchmen Group. You can use the Henchmen that best suit the Mastermind and Scheme you have chosen to play. For example, when playing the Goldfinger movie (the Goldfinger Mastermind and the Operation: Grand Slam Scheme) you should use the Fort Knox Assault Team. Henchmen are weaker Villains, and each group has 10 cards. Set aside those cards for the Villain Deck.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>To Add Gadgets</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>Check the table below to see how many Gadget cards to add to the Villain Deck from the Gadget stack. Leave the rest in the Gadget stack.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th style="text-align: left;">Number of Gadgets</th>
+<th style="text-align: left;">Deck A</th>
+<th style="text-align: left;">Deck B</th>
+<th style="text-align: left;">Deck C</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">0</td>
+</tr>
+<tr>
+<td style="text-align: left;">8</td>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">2</td>
+</tr>
+<tr>
+<td style="text-align: left;">12</td>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">4</td>
+</tr>
+</tbody>
+</table></div>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Assemble the Villain Deck</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<ul>
+<li>Add 1 Master Strike and 1 Scheme Twist to the Deck A pile. Add 2 Master Strikes and 2 Scheme Twists to the Deck B pile. Add 2 more Master Strikes and 2 more Scheme Twists to the Deck C Pile.</li>
+<li>See the Gadget chart above to determine where to put the Gadgets.</li>
+<li>Shuffle the Deck C pile and put that stack face down on top of the Inevitable card.</li>
+<li>Shuffle the Deck B pile and put that stack face down on top of the Deck C pile.</li>
+<li>Shuffle the Deck A pile and put that stack face down on top of the Deck B pile.</li>
+<li>The finished Villain deck will have the Deck A pile on the top and the Inevitable card on the bottom.</li>
+</ul>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Hero Deck</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>There are 5 different Hero Groups for each of the four movies included in this game. Each Hero Group has 14 associated cards. A Hero card could be a character from the movie, a vehicle or item that Bond uses, or something that Bond or one of his allies does. Make the Hero Deck this way:</p>
+<ul>
+<li>Pick the 5 Hero Groups (Exactly one of your Hero Groups must be a James Bond Hero). You can use the Hero Groups that match the movie you are playing. Add all 14 cards for each selected Hero Group to the Hero Deck. That’s 70 cards total. (If playing with 4 or 5 players, add a 6th Hero Group.)</li>
+</ul>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Starting the Game</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<ul>
+<li>Setup the Villain Deck (see pages 6 and 7) and place it face-down on the Villain Deck space.</li>
+<li>Shuffle the Hero Deck and place it face-down on the Hero Deck space. Flip 5 cards from the Hero Deck face-up into the 5 Hero Spaces in Q Branch.</li>
+<li>Each player shuffles their own personal deck and draws a hand of 6 cards from it.</li>
+<li>Choose a player to go first. Players take turns in clockwise order.</li>
+</ul>
+  </div>
+</details>
+<details class="section">
+  <summary><span>On Your Turn</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>On your turn, you perform the following three things in order:</p>
+<ol>
+<li>Play the top card of the Villain Deck.</li>
+<li>Play cards from your hand, using them to recruit and fight.</li>
+<li>Discard your hand and draw 6 new cards.</li>
+</ol>
+<span class="subsection-title">If the Villain Deck Card is a Villain or Mission</span>
+<p>That card goes On Assignment!
+Here are the different parts of a Villain card:
+<strong>Villain Card</strong>
+Name
+Villain Group
+Victory Points
+Special Ability
+Attack: You must have this much attack power to defeat this Villain.
+Note: Villains have a red card frame.
+Here are the different parts of a Mission card:
+<strong>Mission Card</strong>
+Name
+Mission Group
+Danger Value
+Victory Points
+Special Ability
+Attack: You must have this much attack power to defeat this Mission.
+Note: Missions have a blue card frame and are the only card type with [icon].</p>
+<span class="subsection-title">Villain or Mission Enters On Assignment</span>
+<p>Move the new Villain or Mission into the rightmost On Assignment space, closest to the Villain Deck. (Cards On Assignment are always face-up.)</p>
+<span class="subsection-title">Push Other Cards Forward if Necessary</span>
+<p>Each of the five spaces On Assignment can only hold one Villain or Mission. Whenever one enters a space where there is already another Villain or Mission, move the one that is already there one space to the left to make room. A single card entering On Assignment sometimes causes a chain reaction of several cards moving forward.
+Remember: Only push a Villain or Mission forward if it needs to make room for another card entering that space.</p>
+<span class="subsection-title">A Villain or Mission Might Escape</span>
+<p>If a Villain or Mission is pushed off the fifth On Assignment space (leftmost), then that card "escapes" and is placed face-up into the Escaped Villains pile on the game mat. Here's what happens when a card escapes:</p>
+<ul>
+<li>The escaping Villain or Mission KO's (knocks out) a Hero that costs 6 or less from Q Branch. The player whose turn it is chooses which of those Heroes gets KO'd (knocked out). Place that Hero into a KO pile next to the game mat, face-up. Immediately flip a new Hero from the Hero Deck, face-up, to fill the empty space in Q Branch.</li>
+<li>If the escaping Villain or Mission had any acquired Gadgets, then each player must discard a card of their choice from their hand as a penalty for allowing a gadget to fall into the wrong hands. Each player only discards one card, no matter how many Gadgets were acquired. Place the stolen Gadgets in the Escaped Villains pile.</li>
+<li>If the Mastermind has an "Escape/Failure" ability, resolve it now.</li>
+<li>If the escaping Villain has an "Escape" effect, or the Mission has a "Failure" effect, resolve that effect now.</li>
+<li>If the escaping card was a Mission, that Mission has now been "Failed." Look at its Danger value and adjust the Danger Level up that much. If the Danger Level reaches the amount noted on the Scheme, Evil wins!</li>
+</ul>
+<span class="subsection-title">The New Villain or Mission Might Have an Ambush Effect</span>
+<p>If the new card has an "Ambush" effect on its card, do what it says.
+Note: If a card escaped when this new Villain or Mission appeared, handle all the Escape effects for the escaping card before resolving any Ambush effect for the new card.
+Ambush: Each player gains a Wound.</p>
+<span class="subsection-title">If the Villain Deck Card is a Gadget</span>
+<p>The bad guys have acquired the Gadget! Place the Gadget under the Villain or Mission card that is closest to the Villain Deck. If there are no Villains or Missions On Assignment, then the Gadget is acquired by the Mastermind. Make sure the Gadget is visible to the players.</p>
+<ul>
+<li>Whenever a Villain or Mission card with one or more Gadgets moves to a new space, those Gadgets move with that card.</li>
+<li>It's up to the players to recover that Gadget! When a Villain, Mission, or Mastermind with a Gadget is defeated by a player, that player recovers that Gadget and places it into that their personal Victory Pile. Each Gadget is worth Victory Points, so the more Gadgets you recover, the more Victory Points you earn.</li>
+</ul>
+<span class="subsection-title">If the Villain Deck Card is a Scheme Twist</span>
+<p>A Scheme Twist card represents the Scheme moving toward a victory for the Mastermind. Every Scheme works in a different way, with its Scheme Twists doing a specific thing related to that Scheme. When a Scheme Twist card is played, look at the “Twist” effect on the main Scheme card and do what it says. Place the Scheme Twist in the KO pile unless the Scheme tells you to place it somewhere else.</p>
+<span class="subsection-title">If the Villain Deck Card is a Master Strike</span>
+<p>A Master Strike card represents the evil Mastermind getting their hands dirty to make life miserable for the Heroes. Each Mastermind card has its own specific Master Strike effect. When a Master Strike card is played, look at the “Master Strike” effect on the Mastermind card and do what it says. Place the Master Strike in the KO pile unless the Mastermind tells you to place it somewhere else.</p>
+<p>Note: Mission and Villain cards On Assignment don’t move forward when the Villain Deck card is a Gadget, Scheme Twist, or Master Strike.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Step 2: Play Cards from Your Hand to Recruit and Fight</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>Usually your hand will be made up of Hero cards. Here are the different parts of a Hero card:
+<strong>Hero Card</strong>
+Name
+Hero Group
+Hero Class Icon
+Special Ability
+Recruit Points: Use these to recruit more Heroes.
+Cost: How many Recruit Points it costs to add this Hero to your deck.
+Attack: Use this to defeat Villains.</p>
+<p>When you play cards from your hand, some produce “Recruit Points” that let you recruit more Heroes. Other cards produce “Attack” that let you defeat Villains and complete Missions. Some cards give you Special Abilities, like drawing more cards. Here’s what you do:
+• Play each card in your hand in any order, one at a time.
+• Each time you play a card, do what that card says.
+• You also get any Recruit Points listed in the Recruit icon on the card.
+• You also get any Attack listed in the Attack icon on the card.
+• Some cards have a number like “2+” inside their Recruit or Attack icon. The “2” means that you always get at least 2 Points from that card. The “+” symbol means that you might get even more Points based on what the card says in its Special Ability.
+• Keep the cards you play in front of you in your play area until the end of your turn</p>
+<span class="subsection-title">Class Special Ability</span>
+<p>Some cards have a Special Ability with a hero class icon and a colon, like : You get +1.
+• You can use that Class Special Ability only if you have already played another card of that class earlier in your turn.
+• A card’s class is shown with the class icon in the card’s upper left and in the color of the card’s border.
+• You can only use a card’s Class Special Ability once, even if you played two or more cards of the required hero class earlier in the turn. If a Class Special Ability has more than one symbol, you must have played that many other cards of that class in order to trigger that ability.
+• The more Heroes of the same class that you recruit, the more often you will be able to use your Special Ability! A deck focusing on one or two classes can be very powerful.</p>
+<span class="subsection-title">Recruiting Heroes and Fighting Villains</span>
+<p>In between playing cards from your hand, or after you’ve played all your cards, you can recruit any number of Heroes and fight any number of Villains. You can recruit and fight in the same turn.</p>
+<span class="label-title">How to Recruit a Hero</span>
+<p>You use Recruit Points to gain Heroes from Q Branch, one at a time. The "Q Branch" area of the game mat has five spaces. Those five spaces always contain exactly five Heroes, all face-up. You can also recruit "Miss Moneypenny" Heroes from the Allies stack on the game mat.
+To recruit a Hero:
+• Spend Recruit Points equal to that Hero's cost and place that Hero into your discard pile. A Hero's cost is in its lower right-hand corner.
+• When your deck runs out, you shuffle your discard pile to make a new deck. You will then be able to soon draw that new Hero and use that card's abilities.
+• Refill the empty space in Q Branch with a new card from the Hero Deck, face-up. You do this whenever there is an empty space in Q Branch. You can even recruit a Hero, see what new Hero appears in its place from the Hero Deck, and then recruit that new Hero too if you have enough Recruit Points.</p>
+<span class="label-title">How to Fight a Villain</span>
+<p>You use Attack to fight any number of Villains On Assignment, one at a time. It doesn't matter which On Assignment space holds the Villain. But you can only attack a Villain if you have at least as much Attack as the Villain's Attack. You can also fight the Mastermind - see the Mastermind section for details.
+To fight a Villain:
+• Spend Attack equal to that Villain's Attack to defeat it. You can use the remaining Attack value available to fight another Villain.
+• Place the defeated Villain and any Gadgets it had acquired into your personal Victory Pile.
+• If the Villain card has a "Fight" effect on it, do what it says prior to comparing Attack totals.</p>
+<span class="label-title">How to Complete a Mission</span>
+<p>You complete Missions the same way you fight Villains. The difference is that some Missions require you to complete them by using ⭐ instead of ➳. (This is because sometimes being a super spy requires other methods than using force.)
+To complete a Mission:
+• Spend Attack or Recruit equal to what is shown on that Mission card. If you need Attack the card will have an ➳ if Recruit is needed it will have a ⭐. You can use the remaining Attack or Recruit value available to fight another Villain or recruit a Hero from Q Branch, or even maybe complete another Mission!
+• Place the completed Mission and any Gadgets it had acquired into your personal Victory Pile.
+• If the Mission card has a "Success" effect on it, do what it says when you complete the Mission.</p>
+<span class="subsection-title">Your Victory Pile</span>
+<p>• Each player has their own face-up personal Victory Pile. Your Victory Pile holds all the Villains and Missions you defeat/complete and all the Gadgets you recover.
+• Villains, Missions and Gadgets don't usually go into your deck.
+• Many players keep their Victory Pile horizontal so they don't mix it up with their face-up discard pile.
+• At the end of the game, Villains, Missions and Gadgets in your Victory Pile are worth the Victory Points shown on their cards.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Step 3: Discard Your Hand and Draw 6 New Cards</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>• At the end of your turn, place all the cards you played this turn into your discard pile. Also discard any cards in your hand that you didn't play this turn.
+• Then, draw 6 new cards from your deck.
+• If you don't have any cards left in your deck and still need to draw more cards, then shuffle your discard pile to form a new deck and draw the rest of the cards you need.
+• Finally, resolve any effects that happen "At the end of the turn."</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Masterminds</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>A Mastermind is a powerful evildoer obsessed with an evil Scheme. Masterminds command other Villains and attempt to foil the Heroes in their attempt to complete Missions. A player can choose to fight the Mastermind instead of fighting a Villain or completing a Mission. Like any other fight, you must use Attack equal to the Mastermind's Attack to fight that Mastermind.
+Note: Masterminds and their tactics have black card frames.
+<strong>Mastermind Card</strong>
+Name
+Card Type
+Victory Points
+Always Leads
+Special Rules
+Master Strike
+Attack
+<strong>Mastermind Tactics</strong>
+Masterminds use different abilities during fights, represented by "Mastermind Tactic" cards. All four "Mastermind Tactic" cards have the same Attack number, but they each have different "Fight" effects on them. When you fight a Mastermind:
+• Choose a random card from the four face-down Mastermind Tactics cards underneath the Mastermind.
+• Place that Mastermind Tactic card into your Victory Pile because it's worth Victory Points.
+• Then, follow the "Fight" effect listed on that Mastermind Tactic card.
+A Mastermind is not fully defeated until all four of their Mastermind Tactics cards have been defeated by the players. If you have enough Attack, you can fight the Mastermind multiple times in one turn.
+Note: Defeating any Mastermind Tactic card lets you recover all the Gadgets currently under that Mastermind and place them into your Victory Pile.
+<strong>Mastermind Tactic Card</strong>
+Name
+Card Type
+Victory Points
+Special Ability
+Attack</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Winning the Game</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>Players win the game when they have defeated the Mastermind four times.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Losing the Game</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>Each time a Mission is failed, increase the Danger Level by that Mission’s Danger value. If the Danger Level reaches the amount on the Scheme, the players lose.
+Similarly, if an effect says “Evil Wins”, then the players instantly lose.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>The Inevitable Card</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>The last card in the Villain deck is always a Mission with the keyword “Inevitable.” This card works slightly differently than other Villain deck cards:</p>
+<ul>
+<li>Once the Inevitable card is in play, it will move one space whenever you need to play a card from the Villain deck. (Usually this means it will move one space at the start of every turn.)</li>
+<li>If the Inevitable card moves off On Assignment, it is failed like any other Mission... which means Evil wins!</li>
+<li>Inevitable cards never leave play by getting successfully completed. Instead they’ll instruct you as what to do when they are completed.</li>
+<li>A Villain or Mission can never be moved or otherwise placed to the right of an Inevitable card. (Just ignore any effects that would do that.)</li>
+<li>An Inevitable card can’t be moved by any card effects except what’s written on the Inevitable card itself.</li>
+</ul>
+  </div>
+</details>
+<details class="section">
+  <summary><span>“KO”</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>Many card abilities tell you to “KO” certain cards, meaning “knock out.” This means place them into the KO pile. Cards in the KO pile are out of the game. The players and the game all share one big KO pile next to the game mat.</p>
+<ul>
+<li>If a card says to KO “one of your Heroes,” that effect will say where that card will come from. For example, if a card effect refers to your “hand” the KO’d card can’t be from cards you have already played this turn. If the effect says “Hero you’ve played this turn” then you KO a Hero in your play area. If you KO a Hero that you already played this turn, you can still use the Recruit Points, Attack, and Special Abilities that the Hero produced. If an effect refers to either of those two areas they will be listed separately.</li>
+</ul>
+  </div>
+</details>
+<details class="section">
+  <summary><span>007, 00 Agents, and Miss Moneypenny Allies</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>Basic Starter Heroes (007 and 00 Agents) and Miss Moneypenny Allies all count as “Heroes” for Special Abilities that talk about Heroes. So if you have to “KO one of your Heroes,” you can KO one of your Basic Starters if you want.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>“Defeat”</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>When a card tells you to “defeat a Villain”, add that Villain to your Victory Pile. You still do that Villain’s fight effect (if any). If a card says a Villain is “not defeated” that means leave it where it is.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>“Complete”</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>When a card tells you to “complete a Mission”, add that Mission to your Victory Pile. You still do that Mission’s success effect (if any).</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>“Acquire a Gadget”</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>Some card abilities tell you to “acquire a Gadget.” This means take the top Gadget from the Gadget stack and place it into your Victory Pile. Gadgets can also be acquired by Villains or Missions, as described on page 10. You have to defeat them to recover those Gadgets.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>“Gaining” Cards</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>Some card abilities say that a player “gains” a card. That means place that card into that player’s discard pile.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>“Active Player”</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>The active player is the player whose turn it is.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>“Friendly Players”</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>When playing cooperatively you and each other player are considered “friendly.” When playing competitively, the only “friendly” player is you. (It’s possible to play with teams. In that case, you and your teammates are “friendly”.)</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Wounds</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>Some Special Abilities make you gain Wound cards, representing your Heroes getting hurt very badly. When a player gains a Wound, take a Wound from the Wound Stack and place it into their discard pile. Wounds don’t have any Recruit Points or Attack, so when you draw Wounds in your hand, your hand is weaker than normal.</p>
+<ul>
+<li>Some cards let you KO your Wounds so you don’t have to worry about them anymore.</li>
+<li>Wound cards aren’t Heroes. If a card tells you to “KO one of your Heroes,” you cannot KO a Wound. However, if a card says “KO one of your cards,” then you can KO a Wound because Wounds are still cards.</li>
+</ul>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Healing Wounds</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>If you have one or more Wounds in your hand, you can use the ability written on the Wound card. This is often worth doing if you have at least two Wounds in your hand or if your turn wouldn’t have been very good anyway.
+It’s okay to play the cards in your hand and use some abilities like “draw a card,” then use the “Healing” ability to KO Wounds from your hand, as long as you don’t recruit any Heroes, fight any Villains or the Mastermind or complete any Missions during your turn.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Generated Extra Cards</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>Some Schemes, Villain Groups, Masterminds and Mastermind Tactics have card abilities that generate Extra cards. These “Extra” cards are placed near the game mat during set up. Some Extra cards will enter On Assignment, some are gained, others are placed in the player’s deck, etc. When a card effect brings them into play just follow the directions on the card.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Common Cards</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>This box includes cards to play four classic 007 films, but there are some common cards. These include the Basic Starters, Wounds, Gadgets, etc. As fans of James Bond you will have noticed that not all the content comes from just these four films. This is our way of including special James Bond images, Bond Gadgets, and other notable content. These common cards will also be used in future Bond adventures (expansions).</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>“Once This Turn”</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>If an ability says “Once this turn” that means you don’t have to do it right when you play the card. Instead you can wait until later in that turn to do it.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>“Moves”</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>Some abilities refer to when a card “moves.” For a card to count as moving, it must start on an On Assignment space and then end up either on another space or in the Escaped Villains pile. Note: When a card first enters On Assignment, that does not count as moving.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Running out of Cards in the Hero Deck</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>If this deck runs out of cards before Evil wins, then finish the turn and consider the players as having successfully survived the Scheme without defeating the Mastermind. As a result, the game is a draw between good and evil. The player with the most Victory Points wins an individual victory. Be sure to get the Mastermind next time!</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Running out of Cards in the Gadget Stack</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>If the Gadget stack runs out, the game continues. If something would acquire a Gadget, but there aren’t any more of that card left in the stack, then no Gadget is acquired, and the game still continues. Don’t take extra copies out of the KO pile.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Running out of Cards in the Wound Stack</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>If the Wound stack runs out, the game continues. If a player would gain a Wound, but there aren’t any more of that card left in the stack, take all of them that have been KO’d and create a new Wound stack.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Running out of Cards in the Allies Stack</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>If this stack runs out, the game continues. You just can’t recruit them anymore.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Special Abilities on Cards</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>Special Abilities on cards can override the rules of the game. Some cards tell each player to do something. In those cases, the player whose turn it is does the action first, and then the rest perform the action in clockwise order. If a card tells you to do something, and you can’t do all of it, then do as much as you can. For example: if a card tells you to KO two Gadgets from your Victory Pile, and you only have one Gadget, then KO that Gadget. If a Special Ability calls for a choice, and it’s not obvious who should make the choice, then the active player makes the choice.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Two Class Abilities</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>Some cards like “Time Bomb” have both a single Class Ability and a double Class ability. If you played one card with the matching class, you’ll get the single Class Ability. But if you played two cards with the matching class, you’ll get both the single AND the double Class ability.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Villain Cards That Go In Your Deck</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>Some cards like “Dropped Derby” go into your deck when you Fight them. Once there, use the second half of their text and the ⭐ or ⚔ on the left side of the card.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>“+1 ⭐ or ⚔”</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>If a card On Assignment gets +1 ⭐ or ⚔, this means it gets +1 of whichever type it already has. In the rare case it has both types (such as the Mission, Retrieve the Solex Agitator) it gets +1 in both types.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Reducing ⚔</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>Some cards reduce the ⚔ of a Villain or Mission. This can never reduce it below 0. (The same is true for reducing a Mission’s ⭐.)</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>“Printed ⭐ or ⚔”</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>If an effect refers to a card’s printed ⭐ or ⚔ that means the numeral printed on the card. Ignore any special ability in its text box when resolving this type of effect.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>“Masterminds Don’t Count as “Villains”</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>Masterminds are so powerful that they are far beyond regular Villains. As a result, Masterminds don’t count as mere “Villains,” and Special Abilities that only affect Villains won’t affect Masterminds.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Cards with No Cost</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>If a card has no cost it counts as having 0 ⌂ for effects that care about cost.</p>
+<p><strong>Strength Heroes</strong> include Heroes with raw strength, but also Heroes with strength of will, determination, and strong leadership.
+<strong>Instinct Heroes</strong> use their intellect and intuition to win the day.
+<strong>Covert Heroes</strong> include Heroes using trickery and deception to outwit their foes.
+<strong>Tech Heroes</strong> include Heroes using advanced technology and weaponry. Where would our Heroes be without the brilliant inventions and incredible gadgets of Q Branch?
+<strong>Ranged Heroes</strong> are crack shots or able to track their foes or help their allies from a distance.
+<strong>Basic Starter Heroes</strong> include all the starting 007 and 00 Agents. They are Heroes in their own right, but they aren’t quite as powerful as the other Heroes that you will find in Q Branch.
+<strong>Miss Moneypenny Starter Ally</strong> The beloved Miss Moneypenny is also available for recruitment. Efficient and capable Moneypenny is always there to help Bond and friends with support.</p>
+<p>Some cards have keyword abilities in bold. Here’s what they mean:</p>
+<span class="subsection-title">Liaison</span>
+<p>Liaison cards represent Bond working together with another agent or contact. If a card has Liaison, you may leave it in your play area after the end of your turn. Then during any other friendly player’s next turn, you can discard it to give that player the Liaison effect. (If you don’t use it by the start of your next turn, it’s discarded automatically.)
+If you’re the only friendly player in the game, Liaison works differently. You get the Liaison effect on your next turn. (If you don’t use it on that turn, it’s discarded automatically at the end of the turn.)</p>
+<span class="subsection-title">Loyalty to the Mission</span>
+<p>Cards with this keyword represent Bond’s dedication to her Majesty’s Secret Service. Each Loyalty to the Mission card has an “X” in its text. “X” is always equal to the highest among Missions in your Victory pile. So as you complete more dangerous Missions, these cards will grow in power.</p>
+<span class="subsection-title">00 Status</span>
+<p>Cards with this keyword represent Bond’s ability to use brute force when necessary. At the end of your turn, before you discard your hand and draw a new one, if you defeated at least one Villain and/or the Mastermind that turn, you’ll get each of your cards’ 00 Status effects.</p>
+<span class="subsection-title">Inevitable</span>
+<p>The last card of the Villain deck is always an “Inevitable” card. It will move one space automatically every turn, and if it escapes, Evil wins. For more information see the Inevitable Card section.</p>
+<span class="subsection-title">Chase</span>
+<p>This keyword represents the many cars, boats, and other vehicles Bond has chased or been chased by. Each turn, after you’re done playing a card from the Villain deck, but before you can start playing Heroes from your hand, a Villain or Mission with Chase will automatically move one space, pushing other cards as normal.
+This move happens whether the card with Chase was pushed by another card this turn or not. And the card will move this way on the turn it first entered On Assignment.
+If more than one card has Chase, resolve each move starting from left to right. (It should look like they’re all moving simultaneously.)</p>
+<span class="subsection-title">High-Speed Chase</span>
+<p>This keyword is just like Chase except the card will move two spaces after you’re done playing a card from the Villain deck.</p>
+<span class="subsection-title">Flying</span>
+<p>Instead of entering On Assignment in the rightmost space, a card with Flying will enter on the first OPEN space. So if the two rightmost spaces already have Villains, but the third space is open, it will enter On Assignment in the third space.</p>
+<span class="subsection-title">Persist</span>
+<p>If this card would be pushed off On Assignment it instead stays where it is and the card pushing it will escape instead.</p>
+<span class="subsection-title">Squeeze</span>
+<p>When a card with Squeeze enters On Assignment, KO the leftmost and rightmost spaces in Q Branch. Those spaces won’t refill until the card with Squeeze leaves play. If there are two cards with Squeeze in play, together they will keep the two leftmost and two rightmost spaces from refilling. If a third card with Squeeze is On Assignment, then Q Branch will be empty until at least one leaves play.</p>
+<span class="subsection-title">Poker Hands</span>
+<p>Some effects require someone to try to make a poker hand. Here’s how it works: Choose up to two total cards with cost 1 or more in your hand and/or play area. Then using those cards plus the cards in Q Branch, choose up to five total cards that make one of the following poker hands (in order from weakest to strongest):
+<strong>Pair</strong> – Two cards with the same cost.
+<strong>Two Pair</strong> – Two cards with same cost and another two cards with the same cost. (Example: 4, 4, 3, 3)
+<strong>Three of a Kind</strong> – Three cards with the same cost.
+<strong>Straight</strong> – Five cards with successive costs. (Example: 2, 3, 4, 5, 6)
+<strong>Flush</strong> – Five cards with the same class. (Example: Five cards.)
+<strong>Full House</strong> – Three cards with the same cost and another two cards with the same cost. (Example: 4, 4, 4, 3, 3) Note: Five cards with the same cost doesn’t count.
+<strong>Four of a Kind</strong> – Four cards with the same cost.
+<strong>Straight Flush</strong> – Five cards with the same class and successive costs.
+Some Villains require you to make a specific hand like a Flush in order to fight them. In that case, just make sure you can make that hand when you fight them.
+If two poker hands are the same strength, such as two Straights, they are considered tied. (There is no tiebreaker.)</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Solo Setup</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>You can also play <em>Legendary®: James Bond 007</em> with a single player. Here are the adjustments you need:</p>
+<ul>
+<li>Hero Deck – Use the cards for only four Heroes. There are 56 cards in total.</li>
+<li>
+<p>Villain Deck – Use these cards:</p>
+<ul>
+<li>1 Villain Group</li>
+<li>1 Mission Group</li>
+<li>3 Henchman cards from the same Henchman Group (1 in Deck A, 1 in Deck B, 1 in Deck C)</li>
+<li>0 Gadgets</li>
+<li>5 Master Strikes (1 Deck A, 2 Deck B, 2 Deck C)</li>
+<li>5 Scheme Twists (1 Deck A, 2 Deck B, 2 Deck C)
+Also add the following rules:</li>
+</ul>
+</li>
+<li>
+<p>After you play a Scheme Twist put a Hero of your choice with cost 6 or less in Q Branch on the bottom of the Hero deck.</p>
+</li>
+<li>After you play a Master Strike, play the next card in the Villain Deck.</li>
+</ul>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Solo Scoring</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>If you win the game, add up your Victory Points and subtract these penalties:</p>
+<ul>
+<li>-4 for each Gadget carried away</li>
+<li>-3 for each Scheme Twist that occurred</li>
+<li>-1 for each Villain that escaped</li>
+<li>-X, where X is the Danger Level
+Write down your score and which Heroes and Scheme and Mastermind you used. Compete to get better scores against other Masterminds and Schemes representing other classic Bond films!</li>
+</ul>
+<p>Some play groups like an easier challenge when introducing new or younger players or after the Mastermind wins. Other groups like to face tougher and tougher challenges.</p>
+<p>One way to make the game easier is give each player one or more "prep" turns, where they take a normal turn except skip playing the top card of the Villain deck.</p>
+<p>On the other hand, if you're ready for a tougher challenge, you can give each player one or more "surprised" turns, where they take a normal turn except skip the step where they can play cards from their hand.</p>
+<p>If you want to give newer or younger players a boost to help them compete with veteran players, you can replace some of their 007s with Miss Moneypenny Allies in the new players' starting decks.</p>
+<p>Regardless of where you set the difficulty of the game, you can also play "Perfect Mission Mode" where you must complete every mission. If you fail even a single one, you lose the game.</p>
+<p>If you'd like to experience the four classic movies make sure to use these combinations:</p>
+<p><strong>Goldfinger</strong></p>
+<ul>
+<li>Auric Goldfinger and the Goldfinger Villain Group</li>
+<li>Operation: Grand Slam and its Mission Group</li>
+<li>Fort Knox Assault team</li>
+</ul>
+<p><strong>The Man With The Golden Gun</strong></p>
+<ul>
+<li>Francisco Scaramanga and The Man With The Golden Gun Villain Group</li>
+<li>A Duel to the Death and its Mission Group</li>
+<li>Martial Arts Students</li>
+</ul>
+<p><strong>GoldenEye</strong></p>
+<ul>
+<li>Alec Trevelyan and the GoldenEye Villain Group</li>
+<li>Worldwide Financial Meltdown and its Mission Group</li>
+<li>Russian Soldiers</li>
+</ul>
+<p><strong>Casino Royale</strong></p>
+<ul>
+<li>Le Chiffre and the Casino Royale Villain Group</li>
+<li>Win the Casino Royale Tournament and its Mission Group</li>
+<li>Embassy Guards</li>
+</ul>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Setup</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Initial Setup</span>
+<ul>
+<li>Each player shuffles a personal deck of 8 007s, 4 00 Agents and 1 Special Starter, and then draws 6 cards.</li>
+<li>Place all the Miss Moneypenny Allies, Wounds, and Gadgets on the game mat in the appropriate spaces.</li>
+<li>Pick 1 Mastermind and place it on the game mat, with its 4 Mastermind Tactics face-down underneath it in random order. Check which Villain Group this Mastermind "Always Leads."</li>
+<li>Pick 1 Scheme and place it on the game mat. Check which Mission Group this Scheme "Always Uses."</li>
+</ul>
+<span class="subsection-title">Villain Deck</span>
+<ul>
+<li>Set aside 5 Scheme Twists and 5 Master Strikes for the Villain Deck.</li>
+<li>Add the following Villain Groups, Henchmen Groups, Mission Group and Gadgets to the Villain Deck based on player count. Reference the instructions on pages 6 and 7.</li>
+</ul>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th style="text-align: center;">Number of Players</th>
+<th style="text-align: center;">Mission Groups</th>
+<th style="text-align: center;">Villain Groups</th>
+<th style="text-align: center;">Henchmen Groups</th>
+<th style="text-align: center;">Gadgets</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">2</td>
+</tr>
+<tr>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">8</td>
+</tr>
+<tr>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">8</td>
+</tr>
+<tr>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">12</td>
+</tr>
+</tbody>
+</table></div>
+<span class="subsection-title">Hero Deck</span>
+<ul>
+<li>Pick 5 Heroes. Add all of those Heroes' cards to the Hero Deck (70 cards total). Shuffle it.<ul>
+<li>If you are playing with 4 or 5 players, shuffle in a 6th Hero.</li>
+</ul>
+</li>
+<li>Place 5 cards from the top of the Hero Deck into Q Branch, face-up.</li>
+</ul>
+  </div>
+</details>
+<details class="section">
+  <summary><span>On Your Turn</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>During your turn, you do the following:</p>
+<ol>
+<li><strong>Villain Phase:</strong> Play the top card of the Villain Deck (face up) and add it to the rightmost On Assignment space (if needed). Then do any end of the Villain Phase effects.</li>
+<li><strong>Action Phase:</strong> Play cards from your hand, using them to recruit and defeat Villains or complete Missions.</li>
+<li><strong>Clean Up Phase:</strong> Discard your hand and draw 6 new cards.</li>
+</ol>
+  </div>
+</details>
+  <p id="no-results">No sections match your search.</p>
+</main>
+<script>
+(function () {
+  var searchEl  = document.getElementById('search');
+  var clearBtn  = document.getElementById('search-clear');
+  var noResults = document.getElementById('no-results');
+  var sections  = Array.from(document.querySelectorAll('details.section'));
+
+  // Snapshot each section body's original HTML so we can restore it
+  // before applying a new round of highlights.
+  sections.forEach(function (s) {
+    var body = s.querySelector('.section-body');
+    if (body) body.dataset.original = body.innerHTML;
+  });
+
+  var timer;
+
+  searchEl.addEventListener('input', function () {
+    var term = this.value.trim();
+    clearBtn.classList.toggle('visible', term.length > 0);
+    clearTimeout(timer);
+    timer = setTimeout(function () { applySearch(term); }, 180);
+  });
+
+  clearBtn.addEventListener('click', function () {
+    searchEl.value = '';
+    clearBtn.classList.remove('visible');
+    applySearch('');
+    searchEl.focus();
+  });
+
+  function escapeRe(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlightTextNodes(container, re) {
+    var walker = document.createTreeWalker(
+      container, NodeFilter.SHOW_TEXT, null, false
+    );
+    var nodes = [];
+    var n;
+    while ((n = walker.nextNode())) {
+      if (n.nodeValue.trim()) nodes.push(n);
+    }
+    nodes.forEach(function (textNode) {
+      re.lastIndex = 0;
+      if (!re.test(textNode.nodeValue)) return;
+      re.lastIndex = 0;
+      var span = document.createElement('span');
+      span.innerHTML = textNode.nodeValue.replace(
+        re, function (m) { return '<mark>' + m + '</mark>'; }
+      );
+      textNode.parentNode.replaceChild(span, textNode);
+    });
+  }
+
+  function applySearch(term) {
+    var re = term ? new RegExp(escapeRe(term), 'gi') : null;
+    var visibleCount = 0;
+
+    sections.forEach(function (section) {
+      var body    = section.querySelector('.section-body');
+      var summary = section.querySelector('summary');
+
+      // Restore original HTML before each search pass
+      if (body) body.innerHTML = body.dataset.original;
+
+      if (!re) {
+        section.classList.remove('search-hidden');
+        section.open = false;
+        return;
+      }
+
+      var titleText = summary ? summary.textContent : '';
+      var bodyText  = body    ? body.textContent    : '';
+
+      re.lastIndex = 0;
+      var inTitle = re.test(titleText);
+      re.lastIndex = 0;
+      var inBody  = re.test(bodyText);
+      re.lastIndex = 0;
+
+      if (inTitle || inBody) {
+        section.classList.remove('search-hidden');
+        section.open = true;
+        if (body) highlightTextNodes(body, new RegExp(escapeRe(term), 'gi'));
+        visibleCount++;
+      } else {
+        section.classList.add('search-hidden');
+      }
+    });
+
+    noResults.style.display = (re && visibleCount === 0) ? 'block' : 'none';
+  }
+})();
+</script>
+</body>
+</html>

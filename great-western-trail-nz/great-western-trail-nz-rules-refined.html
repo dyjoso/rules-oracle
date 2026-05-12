@@ -1,0 +1,1096 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Great Western Trail - NZ — Rules Reference</title>
+<style>
+:root {
+  --bg:            #f2ede6;
+  --text:          #1a1a1a;
+  --header-bg:     #0f3938;
+  --section-bg:    #0f3938;
+  --subsection-bg: #728eb1;
+  --rule:          #b0a898;
+  --accent:        #728eb1;
+  --table-head:    #0f3938;
+  --note-bg:       #e8e0d4;
+  --body-bg:       #ffffff;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 15px;
+  line-height: 1.55;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* ── STICKY HEADER ───────────────────────────────────────── */
+.sticky-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--header-bg);
+  padding: 10px 14px 12px;
+  padding-top: max(10px, env(safe-area-inset-top));
+  padding-left: max(14px, env(safe-area-inset-left));
+  padding-right: max(14px, env(safe-area-inset-right));
+  box-shadow: 0 2px 12px rgba(0,0,0,0.4);
+}
+
+.masthead-row {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 9px;
+}
+
+.masthead-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  line-height: 1.1;
+  flex-shrink: 0;
+}
+
+.masthead-subtitle {
+  font-size: 11px;
+  color: rgba(255,255,255,0.45);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.back-link {
+  margin-left: auto;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+  text-decoration: none;
+  flex-shrink: 0;
+  padding-left: 14px;
+  white-space: nowrap;
+}
+.back-link:hover {
+  color: rgba(255,255,255,0.85);
+}
+
+/* ── TOGGLE + BACK ROW ───────────────────────────────────── */
+.toggle-back-row {
+  display: flex;
+  align-items: center;
+  margin-top: 7px;
+}
+
+.search-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-icon {
+  position: absolute;
+  left: 10px;
+  width: 15px;
+  height: 15px;
+  color: rgba(255,255,255,0.4);
+  pointer-events: none;
+  flex-shrink: 0;
+}
+
+#search {
+  width: 100%;
+  padding: 8px 36px 8px 32px;
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 8px;
+  font-size: 15px;
+  background: rgba(255,255,255,0.12);
+  color: #fff;
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+#search::placeholder { color: rgba(255,255,255,0.38); }
+
+#search:focus {
+  background: rgba(255,255,255,0.2);
+  border-color: rgba(255,255,255,0.3);
+}
+
+.search-clear {
+  position: absolute;
+  right: 6px;
+  background: rgba(255,255,255,0.18);
+  border: none;
+  border-radius: 50%;
+  color: rgba(255,255,255,0.8);
+  font-size: 14px;
+  line-height: 1;
+  width: 22px;
+  height: 22px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  flex-shrink: 0;
+}
+
+.search-clear.visible { display: flex; }
+
+/* ── MAIN ────────────────────────────────────────────────── */
+main {
+  padding: 10px 12px 48px;
+  padding-left: max(12px, env(safe-area-inset-left));
+  padding-right: max(12px, env(safe-area-inset-right));
+  padding-bottom: max(48px, env(safe-area-inset-bottom));
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+/* ── NO RESULTS ──────────────────────────────────────────── */
+#no-results {
+  display: none;
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--text);
+  opacity: 0.5;
+  font-size: 14px;
+}
+
+/* ── COLLAPSIBLE SECTIONS ────────────────────────────────── */
+details.section {
+  margin-bottom: 6px;
+  border-radius: 6px;
+  overflow: hidden;
+  scroll-margin-top: 130px;
+}
+
+details.section > summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  min-height: 44px;
+  background: var(--section-bg);
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  list-style: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+details.section > summary::-webkit-details-marker { display: none; }
+
+.chevron {
+  width: 12px;
+  height: 12px;
+  opacity: 0.65;
+  flex-shrink: 0;
+  margin-left: 8px;
+  transition: transform 0.18s ease;
+}
+
+details.section[open] > summary .chevron {
+  transform: rotate(90deg);
+}
+
+.section-body {
+  background: var(--body-bg);
+  padding: 10px 12px 12px;
+  border: 1px solid var(--rule);
+  border-top: none;
+  border-radius: 0 0 6px 6px;
+}
+
+/* ── HEADINGS WITHIN SECTIONS ────────────────────────────── */
+.subsection-title {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: #fff;
+  background: var(--subsection-bg);
+  padding: 4px 12px;
+  margin: 10px -12px 7px;
+}
+
+.label-title {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--section-bg);
+  border-bottom: 1.5px solid var(--rule);
+  padding-bottom: 3px;
+  margin: 10px 0 5px;
+}
+
+.inline-title {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 8px 0 3px;
+}
+
+/* ── BODY TEXT ───────────────────────────────────────────── */
+p { margin-bottom: 7px; }
+b, strong { font-weight: 600; }
+em, i { font-style: italic; }
+
+/* ── LISTS ───────────────────────────────────────────────── */
+ul, ol { padding-left: 20px; margin-bottom: 6px; }
+ul { list-style-type: disc; }
+ol { list-style-type: decimal; }
+ul ul { list-style-type: circle; }
+li { margin-bottom: 3px; }
+li > ul, li > ol { margin-top: 2px; margin-bottom: 0; }
+
+/* ── TABLES ──────────────────────────────────────────────── */
+.table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin-bottom: 6px;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  min-width: 260px;
+}
+thead tr { background: var(--table-head); color: white; }
+thead th {
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  padding: 5px 8px;
+  text-align: left;
+  white-space: nowrap;
+}
+tbody tr:nth-child(even) { background: var(--note-bg); }
+tbody td { padding: 5px 8px; vertical-align: top; }
+
+/* ── BLOCKQUOTE ──────────────────────────────────────────── */
+blockquote {
+  background: var(--note-bg);
+  border-left: 3px solid var(--accent);
+  padding: 6px 10px;
+  margin: 5px 0 7px;
+  font-size: 14px;
+  border-radius: 0 4px 4px 0;
+}
+blockquote p { margin-bottom: 2px; }
+
+/* ── INLINE CODE ─────────────────────────────────────────── */
+code {
+  background: var(--note-bg);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  padding: 1px 4px;
+  font-size: 13px;
+  font-family: inherit;
+  font-weight: 600;
+}
+
+/* ── HR ──────────────────────────────────────────────────── */
+hr { border: none; border-top: 1px solid var(--rule); margin: 8px 0; }
+
+/* ── SEARCH HIGHLIGHT ────────────────────────────────────── */
+mark {
+  background: #ffe566;
+  color: inherit;
+  border-radius: 2px;
+  padding: 0 1px;
+}
+
+/* ── HIDDEN SECTIONS ─────────────────────────────────────── */
+details.section.search-hidden { display: none; }
+
+/* ── VERSION TOGGLE ──────────────────────────────────────── */
+.toggle-bar {
+  display: inline-flex;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.2);
+}
+.toggle-current,
+.toggle-other {
+  padding: 6px 14px;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  line-height: 1;
+  text-decoration: none;
+  white-space: nowrap;
+  -webkit-tap-highlight-color: transparent;
+}
+.toggle-current {
+  background: rgba(255,255,255,0.18);
+  color: #ffffff;
+  font-weight: 600;
+  cursor: default;
+}
+.toggle-other {
+  color: rgba(255,255,255,0.5);
+}
+.toggle-other:hover {
+  background: rgba(255,255,255,0.08);
+  color: rgba(255,255,255,0.8);
+}
+
+/* ── PRINT ───────────────────────────────────────────────── */
+@media print {
+  .sticky-header { position: static; }
+  details.section[open], details.section { display: block; }
+  .section-body { display: block !important; }
+  .search-wrap, .search-clear, .toggle-bar { display: none; }
+}
+</style>
+</head>
+<body>
+<header class="sticky-header">
+  <div class="masthead-row">
+    <span class="masthead-title">Great Western Trail - NZ</span>
+    <span class="masthead-subtitle">Rules Reference</span>
+  </div>
+  <div class="toggle-back-row"><div class="toggle-bar"><span class="toggle-current">Full Rules</span><a class="toggle-other" href="great-western-trail-nz-rules-reference.html">Quick Reference</a></div><a class="back-link" href="../index.html">&#8592; All Games</a></div>
+  <div class="search-wrap">
+    <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+         stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+         aria-hidden="true">
+      <circle cx="11" cy="11" r="8"/>
+      <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+    </svg>
+    <input type="text" id="search" placeholder="Search rules…"
+           autocomplete="off" spellcheck="false" autocorrect="off">
+    <button class="search-clear" id="search-clear" aria-label="Clear search">&#x2715;</button>
+  </div>
+</header>
+<main>
+<details class="section" open>
+  <summary><span>Game Board Setup</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<ol>
+<li>Place the <strong>game board</strong> in the middle of the table and the <strong>sea routes board</strong> above it.</li>
+<li>Shuffle the <em>8 harbourmaster tiles</em> and place one at random face-up onto each of the <em>5 harbourmaster spaces</em> on the sea routes board. Return the remaining 3 harbourmaster tiles to the box.</li>
+<li>Take the <strong>8 neutral building tiles</strong> and place one face-up (thus the four double sided with the icon visible) onto each of the <em>8 neutral spaces</em> on the game board:<ul>
+<li>If this is your first game, place each tile onto the space marked with its matching bags.</li>
+<li>In subsequent games, you may shuffle the tiles and distribute them at random (still, all face-up).</li>
+</ul>
+</li>
+<li>Place the <em>bonus tiles market token</em> onto the top dashed round space in the <em>bonus tiles market</em>.</li>
+<li>Take the <strong>28 worker tiles</strong>, the <strong>16 hazard tiles</strong> and the <strong>33 bonus tiles</strong> and turn them face-down. Sort them by the letters on their back (A to H) and put them into their corresponding bags. Place the bags next to the game board (close to Wellington). These bags are called the <em>Wellington supply</em>.</li>
+<li>
+<p>From the <em>Wellington supply</em>, first pick <strong>1</strong> of each <strong>worker type</strong> (with an <strong>A</strong> on their back) and place these <strong>4</strong> worker tiles face-up onto the indicated spaces of the top row in the <em>job market</em>. Then, depending on your player count, draw a number of <strong>A</strong> tiles from the <em>Wellington supply</em>:</p>
+<ul>
+<li>In a <em>2-player game</em>: Draw 12 tiles.</li>
+<li>In a <em>3-player game</em>: Draw 13 tiles.</li>
+<li>
+<p>In a <em>4-player game</em>: Draw 14 tiles.
+   Where a tile is placed depends on its type:</p>
+</li>
+<li>
+<p>If it is a <strong>hazard tile</strong>, place it in its corresponding hazard section (flood or rockfall) onto the empty space with the lowest number (starting at space 1).</p>
+</li>
+<li>If no empty space is left because all spaces in this section are occupied, return that tile to its bag and draw a new tile.</li>
+<li>If it is a <strong>worker tile</strong>, place it onto the top most empty space of its corresponding column (which is the one in its colour with the highest cost) in the <em>job market</em>.</li>
+<li>If no empty space is left because all spaces in this column are already occupied, return that tile to its bag and draw a new tile.
+7. Start drawing tiles with a <strong>B</strong> on their back (which include only bonus tiles) from the <em>Wellington supply</em>. Put these bonus tiles one after the other in the <em>bonus tiles market</em> as follows:
+   Start at the top row and place the first drawn tile onto the space directly beneath the <strong>player count sign</strong> of your actual player count. Place the next tile onto the space to the right of that tile and continue like this rightwards.
+   After you have placed a tile onto the rightmost space of the top row, continue along the second row, where you place the next tile yet again onto the space in line with your player count sign.
+   Then continue like this rightwards until you place a tile onto the space to the left of the <em>bonus tiles market token</em>. This is the last tile. So depending on your player count, there are now 3, 5 or 7 bonus tiles in the <em>bonus tiles market</em>.</li>
+</ul>
+</li>
+<li>
+<p>Now fill the <em>4 foresight spaces</em> in Wellington with tiles from the <em>Wellington supply</em>:</p>
+<ul>
+<li>Draw 2 tiles with an <strong>A</strong> on their back and place them face-up onto the two foresight spaces marked with A.</li>
+<li>Draw 2 tiles with a <strong>B</strong> on their back and place them face-up onto the two foresight spaces marked with B.</li>
+</ul>
+</li>
+<li>
+<p>Shuffle the <strong>37 market sheep cards</strong> and place them as a face-down <em>market stack</em> beneath the lower right of the game board. Depending on your player count, draw a number of sheep cards from this stack:</p>
+<ul>
+<li>In a <em>2-player game</em>: Draw 9 cards.</li>
+<li>In a <em>3-player game</em>: Draw 11 cards.</li>
+<li>In a <em>4-player game</em>: Draw 14 cards.
+   Sort the drawn cards by colour and place them face-up beneath the game board in the <em>sheep market</em>, forming an overlapping row in which the left side of each card is visible. For clarity, the cards of this row should be arranged in the following order from left to right: orange, red, yellow, blue, brown, purple (not all colours may be present though).</li>
+</ul>
+</li>
+<li>
+<p>Shuffle the <strong>24 objective cards</strong> and place them as a face-down stack to the right of the game board. Then reveal 4 cards from this stack and display them face-up in a column below the stack. This display is called the <em>general objective display</em>.</p>
+</li>
+<li>Place the <strong>16 Romney sheep cards</strong>, the <strong>12 Sheepdog cards</strong>, the <strong>14 Ferry cards</strong>, and the <strong>12 Kōtare bird cards</strong> on the left side of the game board. For a better overview you may optionally place the <strong>5 additional cards tiles</strong> above their corresponding stacks of cards. This display is called <em>deck-building supply</em>.</li>
+<li>
+<p>Pick the one card marked with a <em>white star</em> from each of the 10 bonus cards sets. Shuffle those 10 picked cards, draw randomly a total of 4 of them and return the 6 leftover cards to the box. To each of these 4 drawn cards, add a certain number of the remaining 5 cards from their set (which is indicated by the set number on the lower right), depending on your player count:</p>
+<ul>
+<li><strong>In a 2-player game:</strong> Add 2 cards for a total of 3 (and return the 3 leftover cards to the box).</li>
+<li><strong>In a 3-player game:</strong> Add 4 cards for a total of 5 (and return the leftover card to the box).</li>
+<li><strong>In a 4-player game:</strong> Add all 5 cards for a total of 6.
+Then place the 4 bonus cards tiles next to the sea routes board and the stack with the lowest set number (out of the 4 determined sets) below the tile with the steering wheel. The stack with the second lowest set number goes below the tile with the barrel and the stack with the second highest set number below the bell. Finally place the stack with the highest set number below the bonus card tile with the compass. This display is called bonus cards supply.</li>
+</ul>
+</li>
+<li>
+<p>Place a number of step tiles equal to your player count onto the respective orange space next to the pathfinder track. E.g., 3 step tiles in a 3-player game next to space 4 of the pathfinder track or 4 step tiles in a 4-player game next to space 6 of the pathfinder track.</p>
+</li>
+<li>Place the coins and exchange tokens within reach of all players as a general supply. This supply is called the bank. Also place the neutral buildings overview tile next to the game board.</li>
+</ol>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Player Setup</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<ol start="15">
+<li>
+<p>Each player chooses a player colour.
+    You receive the player board of that colour (identifiable by the 16 round coloured spaces) and place it in front of you.
+    In addition, you also receive a player count tile that shows the appropriate player count and a fee tile. Place both in the Phase A box of your player board, with the fee tile on the right showing two coins with -1 and -2 on them (the side with the crossed out hands may be used later in the game).</p>
+</li>
+<li>
+<p>You receive the 10 private building tiles of your colour.
+    These building tiles are double sided and each is marked with a number (from 1 to 10) and with the lowercase letter 'a' on one side and the lowercase letter 'b' on the other.</p>
+<ul>
+<li>In your first couple of games, turn your private building tiles to the a-side and display them in an ascending order of required craftsmen above your player board.</li>
+<li>As you know the game better, you may try the following: Choose a player who determines the side of each of the building tiles at random (for example by tossing them in the air) and then displays them in ascending order of required craftsmen above their player board. Afterwards all other players copy the display by turning their tiles to the same sides.
+Thus, for the remainder of the game, the side of each building tile is identical for all players. No one may deliberately flip a building tile to its other side.</li>
+</ul>
+</li>
+<li>
+<p>You also receive the following items of your colour:</p>
+<ul>
+<li><strong>16 discs</strong>—which you place onto your player board to cover up each of the 16 coloured disc spaces. (Only the 2 gray spaces in the upper left remain empty.)</li>
+<li><strong>10 storehouses</strong>—which you place onto your player board to cover up each of the 10 coloured square spaces.</li>
+<li><strong>1 ship</strong>—which you place onto a starting water-space on the sea routes board.</li>
+<li><strong>1 certificate marker</strong>—which you place onto the top space of your certificate track (next to the 0).</li>
+<li><strong>1 gold marker</strong>—which you place onto the second space of your gold track (next to the 1; thus you start with 1 gold).</li>
+<li><strong>1 runholder</strong>—which you place next to your player board for now.</li>
+</ul>
+</li>
+<li>
+<p>Then you receive the 14 player sheep cards that are marked with your colour.
+    These 14 cards make up your flock deck.
+    Shuffle your flock deck and place it as your face-down personal draw stack to the left of your player board.</p>
+</li>
+<li>
+<p>Finally, determine a starting player, the other players will follow in clockwise order. Receive your starting capital and 1 exchange token from the bank and draw cards from your personal draw stack to add them to your hand according to this chart:</p>
+<ul>
+<li><strong>1st player:</strong> 7 pounds, 4 cards and 1 exchange token</li>
+<li><strong>2nd player:</strong> 8 pounds, 5 cards and 1 exchange token</li>
+<li><strong>3rd player:</strong> 9 pounds, 6 cards and 1 exchange token</li>
+<li><strong>4th player:</strong> 10 pounds, 7 cards and 1 exchange token</li>
+</ul>
+</li>
+</ol>
+<p><strong>You are now ready to start the game.</strong></p>
+<p><strong>Important:</strong> At the beginning of your very first turn of the game, discard cards from your hand until you have only 4 remaining. Discarded cards go to your personal discard pile.
+Then place one of your player discs from a disc space with white corners onto space 0 of the pathfinder track. You may chose the same disc as a previous player. (See the white box on page 9 for the rules of clearing disc spaces on your player board.)
+Afterwards, place your runholder onto any neutral building tile and continue directly with phase B. You may start on the same building tile as other players.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Object of the Game</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>In Great Western Trail New Zealand, you move your runholder along a trail that winds and forks from the lower left corner of the game board to Wellington in the upper right. Along your path, you perform actions that provide you with various ways to earn victory points. For example: placing private building tiles, buying sheep from the sheep market, upgrading harbours and removing hazards.</p>
+<p>Each time your runholder reaches Wellington, you deliver sheep to a local or foreign trading post, which may also be worth victory points. Afterwards, your runholder continues its movement again in the lower left corner of the game board. In an average game, your runholder will usually reach Wellington 5 or 6 times.</p>
+<p>All victory points are awarded at the end of the game. Then, you add up the victory point icons on the various components in front of you as well as the ones marked with your colour on the game board and the sea routes board. The player with the most victory points wins the game.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Flock Deck</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p><strong>What is your <em>flock deck</em>?</strong>
+Your <em>flock deck</em> represents your flock, which you lead along the trail. Each sheep card of that flock represents one animal of a specific sheep type, clearly denoted by the card's colour as well as its <em>breeding</em> and <em>wool value</em>.</p>
+<p>Each player starts with an identical flock deck of rather low breeding and wool values.</p>
+<p>However, during the game, you can improve your flock deck by adding sheep cards with higher breeding or wool values as well as deck-building, bonus and objective cards to it.</p>
+<p>Your flock deck is made up of the following parts:</p>
+<ul>
+<li>Your face-down personal draw stack to the left of your player board.</li>
+<li>Your hand cards that you draw from that draw stack according to your hand limit (you start with a hand limit of 4 cards).</li>
+<li>Your face-up personal discard pile, onto which you place any cards that you discard from your hand as well as any cards you acquire during the game.</li>
+</ul>
+<p><strong>Important:</strong> When you must draw a card from your personal draw stack but have no cards left in that stack, then (and only then) pick up your personal discard pile, shuffle it thoroughly and place it as your new face-down personal draw stack to the left of your player board. Then continue to draw cards from it as usual.</p>
+<p><strong>What is the purpose of the sheep cards?</strong>
+On the locations of the trail, there are several actions that require specific sheep cards to be discarded from your hand in order to gain rewards.</p>
+<p>Also, each time you reach Wellington, you want to have many different types of sheep with high breeding values in your hand. The more varied and valuable they are, the more money and victory points are in store for you. (See pages 9 to 11 for details.)</p>
+<p>Finally, each sheep card also displays the wool value of that particular breed. Selling wool is an additional way of obtaining pounds during the game. (See page 16 for details.)</p>
+<p><strong>What is the purpose of the deck-building and bonus cards?</strong>
+These cards are very helpful and make each deck and hence each game unique. They make your strategy stronger or turn it in a different direction – depending on your decisions.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Gameplay</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>Beginning with the starting player (the one with a starting capital of only 7 pounds), players consecutively take turns in clockwise order.
+On your turn, you must carry out all of the following phases in this order:</p>
+<p><strong>PHASE A</strong> Move your runholder to another location along the trail
+<strong>PHASE B</strong> Use the action(s) of your reached location
+<strong>PHASE C</strong> Draw up to your hand limit</p>
+<p>Then it is the next player's turn.</p>
+<p>Note: The 3 boxes at the top of each player board give an overview of the 3 phases.</p>
+<span class="subsection-title">Phase A</span>
+<p><strong>What is considered a location?</strong>
+The main location of the trail is Wellington. Furthermore, any <strong>tile</strong> that is placed on a space of the trail is considered a location (so every building tile as well as every hazard tile). <strong>Spaces without any tile are considered an unimpeded part of the trail and are NOT locations!</strong></p>
+<p>In this phase, you must move your runholder from its current location along the trail to another location.</p>
+<p>For this, bear the following rules in mind:</p>
+<ul>
+<li>The movement of your runholder is measured in <strong>steps</strong>. <strong>Each location</strong> along your path takes <strong>1 step</strong> (remember, empty spaces along the trail are not considered locations).</li>
+<li>You must always move your runholder <strong>forward</strong> along the intended direction of the trail as indicated by the arrows. If the trail forks, choose one of the available paths to continue along. (A path is always used in one direction only.)</li>
+<li>You are not allowed to pass over Wellington. So when your runholder reaches Wellington, they must end their movement there.</li>
+<li>The runholders of the other players do not interfere in any way with your own runholder. Several runholders can be on the same location.</li>
+<li>You must move your runholder <strong>at least 1 step</strong> and are not allowed to move them more steps than the current <strong>step limit</strong> your player board indicates. (Depending on your player count, you start with a step limit of 3 or 4, which can be increased during the game.)</li>
+<li>The location on which your runholder ends their movement (either because you want them to or because your step limit is exhausted) is the location you use in phase B.</li>
+</ul>
+<p><strong>Attention:</strong> Several locations show a green or black hand. If your runholder moves to or passes over such a location, you must <strong>immediately</strong> pay a fee:</p>
+<ol>
+<li>If it is a hazard tile, you must pay the fee to the <strong>bank</strong>.</li>
+<li>If it is a private building tile of another player, you must pay the fee to <strong>that player</strong>.</li>
+</ol>
+<p>The fee depends only on the colour of the hand (regardless of player count):</p>
+<ul>
+<li>each black hand costs 1 pound</li>
+<li>each green hand costs 2 pounds</li>
+</ul>
+<p><strong>Important:</strong> If you cannot pay for some or all of the hands along your path, you are still allowed to move. This means that if your runholder moves to or passes over a location whose fee you cannot pay, pay as much as you can and continue as usual.</p>
+<p>You never pay fees retroactively, even if you receive money while still at a location whose fee you could not pay before.</p>
+<p>This <strong>only</strong> applies to fees levied by hands. All other costs and requirements in the game must always be paid/met in full.</p>
+<span class="subsection-title">Phase B</span>
+<p>After moving your runholder, use the location on which they ended their movement. However, your options on the location differ depending on whether it is:</p>
+<p>1) A neutral building tile or a private building tile of your own colour
+2) A private building tile of another player or a hazard tile
+3) Wellington</p>
+<p><strong>1) On a neutral building tile or a private building tile of your own colour, you have two options:</strong>
+EITHER use the local action(s) of that tile OR use one single auxiliary action</p>
+<p><strong>! Use the local action(s)</strong>
+Most building tiles show two different local actions on their bottom half. These actions are separated from one another by full-length dividers. (Only a few building tiles show just one or more than two local actions.)
+• You may now perform each of that tile's local actions once.
+• You may perform these local actions in any order (i.e., without combining them).
+• You do not have to perform all of the available local actions. But if an action shows a cost or requirement, you have to pay/meet it completely in order to gain that action's reward.
+• A few tiles show two actions (separated by a white slash) within the same local action. You are only allowed to perform one of those actions.
+• Some spaces of the trail have risk actions attached. If a building tile is placed on such a space, the risk action becomes part of that tile's local actions and thus can be performed by its owner each time that player reaches the location.</p>
+<p>The individual local actions are explained in detail on pages 12 to 18.</p>
+<p><strong>Use one single auxiliary action</strong>
+If you do not perform any of the local actions of the reached tile, then and only then may you perform one single auxiliary action instead.</p>
+<p>Your auxiliary actions can be found on the left side of your player board in the auxiliary action section.</p>
+<p>At the beginning of the game before your first turn, only 2 of them are available. Each of the other auxiliary actions become available after you have cleared at least one of its two disc spaces (you will soon learn how to clear more of them).</p>
+<p>The individual auxiliary actions are explained in detail on page 18.</p>
+<p><strong>2) On a building tile of another player (meaning a different player colour than yours) or a hazard tile, you have only one option:</strong>
+Perform one single auxiliary action (see left).</p>
+<p>Note: This means that you will usually try to reach a neutral building tile or a building tile of your own colour, because only there can you perform local actions.</p>
+<p><strong>3) When you reach Wellington, you must carry out all of the 4 Wellington subphases in succession.</strong>
+To make sure that you do not forget any subphases, you may move your runholder along the numbered spots and perform the corresponding subphase before moving on to the next spot.</p>
+<p>The 4 Wellington subphases are:
+<strong>1 Income:</strong> Reveal as many sheep of different types as you like from your hand, calculate your income and gain that amount from the bank. Then discard the revealed cards to your personal discard pile.
+<strong>2 Delivery:</strong> Move one of your player discs from your player board onto a trading post crest and pay any transport costs arising.
+<strong>3 Foresight A:</strong> Choose one of the 2 tiles in the foresight spaces next to spot 3 and move it to its corresponding section.
+<strong>4 Foresight B:</strong> Choose one of the 2 tiles in the foresight spaces next to spot 4 and move it to its corresponding section.</p>
+<p><strong>1 Income:</strong>
+Reveal as many sheep of <strong>different types</strong> as you like from your hand to the other players and calculate their <em>total breeding value</em>. To do this, sum the breeding values of each sheep that you have revealed. This means that you may reveal each type only <strong>once</strong>, no matter how many cards of that type you have in hand. (Ignore any victory points or wool values on your sheep cards.) You cannot reveal any deck-building or bonus cards at this moment that are not sheep.</p>
+<p>Then, if possible and if you like, you can increase that total breeding value by adding certificates to it. There are two types of certificates in the game: temporary certificates and permanent certificates.</p>
+<p><strong>Temporary certificates</strong> are those on your certificate track: The number next to the current position of your certificate marker tells you how many temporary certificates you have available. Of those, you can use as many now as you want by moving your certificate marker backwards accordingly.</p>
+<p><strong>Permanent certificates</strong> are those you cleared on your player board and any depicted on the upper half of harbourmaster tiles in front of you. Each of those increases your total breeding value by one for the rest of the game. (The white box to the right explains how to clear disc spaces for permanent certificates on your player board. Other permanent certificates may be obtained from harbourmaster tiles. On how to receive harbourmaster tiles see section "Upgrading harbours" on page 15.)</p>
+<p>Once your total breeding value is set (including any certificates), take that many pounds from the bank. Place this amount a little set off from the rest of your money so that you are able to track that total breeding value in subphase 2.
+Then discard <strong>all</strong> the cards you <strong>revealed</strong> to your personal discard pile. Cards you did not reveal (e.g., because they are duplicates) are kept in your hand.</p>
+<p><strong>2 Delivery:</strong>
+The sheep for which you just received your income must now be delivered to a trading post. The crest of each trading post shows a <strong>trading post value</strong> that corresponds to those sheep's total breeding value: the higher the total breeding value, the better you can deliver. At the start of the game, only the <strong>local trading posts</strong> on the game board are available. During the game you can <strong>unlock foreign trading posts</strong> by placing storehouses onto the sea routes board (see page 15 for details on how to place storehouses).
+To deliver, decide on a trading post whose <strong>trading post value</strong> is <strong>equal to</strong> or <strong>lower than</strong> your sheep's <strong>total breeding value</strong>. Bear in mind, however, that you are <strong>not</strong> allowed to choose any trading post to which you have delivered before, i.e., that already has one of your discs on its <strong>trading post space</strong>. The only exceptions to this rule are:</p>
+<ul>
+<li>the first local trading post with number 0, and</li>
+<li>the terminal local trading post with number 21.</li>
+</ul>
+<p>You may deliver to either of these local trading posts even if you already have one or more of your discs there.
+Once you have decided on a trading post, place one of your player discs onto its trading post space (if other player discs are already there, put yours on top of those). Take that player disc from any of the <strong>disc spaces</strong> of your player board but keep in mind that there are two types of disc spaces: Those with white corners and those with dark corners.</p>
+<ol>
+<li>A disc from a disc space with <strong>white corners</strong> can be placed onto <strong>any</strong> trading post space.</li>
+<li>A disc from a disc space with <strong>dark corners</strong>, however, can only be placed onto a trading post space that <strong>also has dark corners</strong>.</li>
+</ol>
+<p>By clearing a disc space of its disc this way, you unlock its ability. Note that some of the disc spaces have additional requirements or give rewards for clearing them.</p>
+<ul>
+<li>By clearing this space, you increase your <strong>step limit</strong>. If you take the disc from this space, immediately gain 3 pounds from the bank.</li>
+<li>By clearing <strong>either of these spaces</strong>, you increase your <strong>hand limit</strong>. However, if you take a disc from either one of these spaces, you must immediately pay 3 or 8 pounds to the bank. If you can't, you must choose another space to clear. The 3 victory points for clearing the space on the right are awarded at the end of the game.</li>
+<li>By clearing any of the disc spaces in the <strong>auxiliary action section</strong>, you broaden your options when performing <strong>auxiliary actions</strong> (see page 18 for details).</li>
+<li>By clearing this space, you increase your <strong>temporary certificate limit</strong> to 5 (you start with a limit of 3).</li>
+<li>By clearing these spaces, you unlock <strong>permanent wool</strong> for "shear your sheep" (see page 16 for details). If you take the disc from the right space , you must immediately pay 4 pounds to the bank. If you can't, you must choose another space to clear.</li>
+<li>By clearing these spaces, you unlock some of the available <strong>permanent certificates</strong> for you in the game. If you take the disc from the left space , you must immediately pay 4 pounds to the bank. If you can't, you must choose another space to clear.</li>
+</ul>
+<p>By placing your disc onto a trading post space, you may gain or lose victory points at the end of the game and may trigger a delivery action which you must perform immediately (e.g., gain pounds, gain a specific card, etc).</p>
+<p>For each disc you place on trading post 0, immediately gain 6 pounds from the bank. At the end of the game, you lose 8 victory points for each of your discs there.</p>
+<p>Most other delivery actions that you trigger when placing one of your discs onto a trading post space will add a specific card to your discard pile (and thus your deck). Depending on the depicted icon, you must:
+• EITHER take the shown card from its supply and place it onto your personal discard pile
+• OR if it is an objective card immediately choose one from the general objective display, place it face up onto your personal discard pile and replenish the display if necessary. (For details see “Gain one objective card” on page 17.)</p>
+<p>Finally, check whether you need to pay any transport costs for your delivery. Those in general are only applied for disc spaces with dark corners.</p>
+<p>If you can’t immediately pay the transport costs (including potential disc clearing cost) you have to choose a different combination (or trading post).</p>
+<p>Note: Since you gain your income beforehand, you are always able to pay any transport costs arising, but this may not be true for clearing disc spaces at the same time. These combined costs must always be paid/met in full before, as usual.</p>
+<p><strong>3 4 Foresights (A &amp; B):</strong> Each of the 2 tiles that you choose in subphases 3 and 4 must immediately be moved to its corresponding section:
+<strong>Worker tile</strong>
+If it is a worker tile, place it onto the most expensive (i.e., the farthest up) free space of its worker type column in the job market. If no spaces remain for workers of that type in the job market, remove this worker tile from the game by returning it to the box.</p>
+<p><strong>Hazard tile</strong>
+If it is a hazard tile, place it in the corresponding hazard section (flood or rockfall) onto the empty space with the lowest number. If no hazard spaces of that type remain, remove this hazard tile from the game by returning it to the box.</p>
+<p><strong>Bonus tiles</strong>
+If it is a bonus tile, place it onto the next free space of the bonus tiles market. To determine that next free space, apply the following rules:
+• The tile must always be placed in the row where the bonus tiles market token is located.
+• The spaces of that row must always be filled from left to right.
+• If you are playing with fewer than 4 players, also consider the following:
+In a 3-player game, each row only comprises 3 spaces (starting beneath the 3-player count sign) and the entire left column is left empty.
+In a 2-player game, each row only comprises 2 spaces (starting beneath the 2-player count sign) and both left columns are left empty.
+• The last space to be filled in each row is always the one with the bonus tiles market token. And as you place a bonus tile onto this space, move that token along the arrow to the dashed round space of the next row.</p>
+<p>When the bonus tiles market token is moved to the next row along a black arrow, nothing in particular happens. However, when that token is moved along a yellow or turquoise arrow, you must immediately either fill up the sheep market or flip the 4 neutral building tiles to their back showing the 11 icon.</p>
+<p><strong>Refill sheep market</strong>
+Draw from the market stack as many cards as it takes to bring the cards in the sheep market up to their initial number:</p>
+<ul>
+<li><strong>In a 2-player game:</strong> Fill the sheep market up to its total of 9 cards.</li>
+<li><strong>In a 3-player game:</strong> Fill the sheep market up to its total of 11 cards.</li>
+<li>
+<p><strong>In a 4-player game:</strong> Fill the sheep market up to its total of 14 cards.
+As in the setup, sort all sheep cards by colour and place them face up in an overlapping row in which the left side of each card is visible. For clarity, the cards of this row should be arranged in the usual order from left to right: orange, red, yellow, blue, brown, purple.</p>
+</li>
+<li>
+<p>If you must fill up the sheep market but the number of sheep cards in the market is already equal to (or higher than) the total for your player count, don't add any cards to it.</p>
+</li>
+<li>If the market sheep stack is empty, no more cards are added to the sheep market.</li>
+</ul>
+<p><strong>Flip the 4 neutral building tiles</strong>
+When the bonus tiles market token is moved to the next row along the turquoise arrow, flip the 4 neutral buildings with the 11 on their front to their back which shows a 11 (as depicted on the neutral buildings overview tile).</p>
+<p>Runholders on any of the 4 flipped neutral buildings remain on this tile's back. They continue their movement from there as usual.</p>
+<p>The actions of the now hidden front side are no longer accessible.</p>
+<p>From now on, these 4 neutral buildings offer modified options for their actions.</p>
+<p>For the rest of the game, these 4 neutral buildings remain flipped showing their back (with the 11) face-up.</p>
+<p>After finishing the 4 Wellington subphases, carry out these two final steps:</p>
+<p>1) Move your runholder to the start of the trail, by placing them onto the <em>horseman space</em> in the lower left corner of the game board. The next time it is your turn, the movement of your runholder starts from there.
+2) Refill each of the 2 empty foresight spaces in Wellington with tiles drawn from the Wellington supply. Make sure that onto each space you place a face-up tile whose letter on the back matches the letter of that space.</p>
+<p><strong>End of game</strong>
+If the bonus tiles market token is moved from the bottom row along the <em>red arrow</em>, the end of the game is triggered (<em>see page 19</em>).</p>
+<span class="subsection-title">Phase C</span>
+<p>Each player starts with a <em>hand limit</em> of 4 and can increase it up to 6. If you have fewer cards in your hand now than the current hand limit your player board indicates, bring their number up to that limit by drawing as many cards from your personal draw stack as you lack. (If necessary, shuffle your personal discard pile and use it to replace your run-out draw stack as described on page 6.)</p>
+<p><strong>Note:</strong> During this phase you may <strong>not</strong> play any deck-building or bonus cards.</p>
+<p>Then it is the next player's turn.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Actions</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>The main source of actions in the game are the local actions of the neutral building tiles and of your private building tiles, though there are a few other situations in which actions might be triggered (delivery actions, single auxiliary actions, etc.).</p>
+<p>However, irrespective of the situation in which actions are performed, the actions themselves are always represented by the same icons. So wherever the same icon appears, it refers to the same action.</p>
+<p>We start with a few general notes and explanations. After that, the local actions of the tiles will be explained in detail as well as the final scoring and some special cases.</p>
+<p><strong>Examples of discarding actions:</strong>
+Requirement
+Discard exactly one black sheep card (“Southdown”).
+Discard exactly two sheep cards of the same type.
+Discard exactly one sheep card of any type.
+Discard exactly one sheep card of any type.
+Discard exactly one sheep card of any type.</p>
+<p>Reward
+Gain 3 pounds.
+Gain 2 pounds.
+Move your gold marker 1 space forward.
+Move your certificate marker 1 space forward.
+Gain pounds equal to that sheep’s total wool value (plus your permanent wool).</p>
+<p>Attention: Quite a few actions consist of a specific requirement and a specific reward. Only if you meet the requirement are you allowed to gain the reward. Requirements are usually associated with red (red arrows or red numbers), while rewards are usually associated with green and white (green arrows and/or white numbers).
+1 Requirement
+2 Reward</p>
+<p>Important: You are allowed to forfeit a reward completely or in part even though you meet the requirement. However, if you receive an amount of pounds as a reward, you must take that entire amount. Also, if you receive a card due to a delivery action (of a local/foreign/wool trading post), you must take that card as well.</p>
+<p>The most frequent requirement is discarding cards. Wherever an action shows one or more cards with a red arrow, you must discard the exact depicted card(s) from your hand to your face-up personal discard pile in order to gain the reward shown next to it. (As mentioned on page 8, you can perform the action only once, no matter how often you would be able to meet the requirement.)</p>
+<p>Attention: If a specific card is meant, it is represented by its colour and breeding value. In addition, the specific victory points of the meant card (at the bottom) are indicated for better distinguishability. In case a player sheep card is addressed, the respective symbol is depicted.</p>
+<p>For the remainder of this rules explanation, keep the following terminology in mind:</p>
+<ul>
+<li>Whenever we speak of DISCARDING A CARD, it always implies that you must place the card from your hand face up onto your personal discard pile.</li>
+<li>Whenever we speak of GAINING A SPECIFIC AMOUNT OF pounds, it always implies that you must take that exact amount from the bank.</li>
+<li>Whenever we speak of PAYING A SPECIFIC AMOUNT OF pounds, it always implies that you must return that exact amount to the bank.</li>
+<li>Whenever we speak of MOVING YOUR CERTIFICATE MARKER FORWARD, it always implies that your certificate marker is moved forward on your certificate track. You can move it as many spaces forward as the particular action icon indicates. However, you can never move your certificate marker beyond your temporary certificate limit (which is 3 at the beginning of the game).</li>
+<li>Whenever we speak of MOVING YOUR GOLD MARKER FORWARD, the same rules apply as described above for the certificate marker (while your gold limit is always exactly 5).</li>
+<li>Whenever you move your certificate marker on the certificate track from 0 or 1, to 2 or further, you also move your gold marker 1 space forward.</li>
+</ul>
+<p>With this action icon, you can move your certificate marker 1 space forward.
+With this action icon, you can move your certificate marker up to 2 spaces forward.</p>
+<span class="subsection-title">Hire one worker</span>
+<p>When you perform this action, choose exactly one worker tile from the job market, pay that worker's hiring cost and place that tile in the worker section of your player board.</p>
+<p>The hiring cost of the workers in the job market is the cost depicted on the right side of their row. However, this hiring cost is modified by the value shown on the action icon itself:
+-0 = The hiring cost is not modified.
+-3 = Costs 3 pounds more.
+-2 = Costs 2 pounds less.</p>
+<p>After you have paid the hiring cost, place the worker tile in your worker section, onto the leftmost free space in the row of its worker type. Note that each player already starts the game with one worker of each of the 4 types: shepherd, craftsman, sailor and shearer. Which means that the first space of each row is already occupied.</p>
+<p>Pay 4 pounds, take 1 "Hampshire" OR "Ryeland" sheep card and place it onto your draw pile.</p>
+<p>Immediate actions
+Buy sheep from the sheep market.
+Build or upgrade once and pay 1 pound for each craftsman needed.
+Move your ship up to 5 spaces in any direction (and/or upgrade a harbour if possible).
+EITHER take exactly 2 sheep cards with a victory points value of 2 each from the sheep market OR take 1 "Hampshire" OR "Ryeland" sheep card from the sheep market and place them/it onto your discard pile.
+Advance your disc 1 space on the pathfinder track.
+Take a "Romney" sheep from the supply and place it onto your discard pile.</p>
+<p>If the space on which you place the hired worker depicts an immediate action, you must choose to either perform that action immediately or forfeit it.
+• If a row is already full, you are not allowed to hire another worker of that type.
+• At the end of the game, each worker that is placed on the fifth space of any row of your player board is worth 4 victory points.</p>
+<span class="subsection-title">Invest in a bonus tile</span>
+<p>When you perform this action, choose exactly one bonus tile from the bonus tiles market, pay that tile's investment cost, receive its bonus and place it next to your player board.</p>
+<p>Bear the following rules in mind:
+• You are not allowed to invest in a bonus tile from the row where the bonus tiles market token is currently located. Those bonus tiles are unavailable until the bonus tiles market token has moved.
+• The investment cost of any of the other bonus tiles in the bonus tiles market is the cost depicted on the right side of their row. However, this cost is modified by the value shown on the action icon itself:
+-0 = The investment cost is not modified.
+-3 = Costs 3 pounds more.</p>
+<p>All other bonuses appearing on these tiles are explained on the last page of the Appendix.</p>
+<p>Important: The joker worker (who can be placed in any worker row) shows an additional cost of 1 gold which must always be paid. Also some other bonus tiles have additional costs or requirements which must always be paid/met in full.</p>
+<span class="subsection-title">Buy sheep from the sheep market</span>
+<p>When you perform this action, you can acquire sheep cards from the sheep market and place them face-up onto your personal discard pile. However, the number and types of sheep cards that you may acquire in the course of this action is not fixed. Instead, your options depend on how many shepherds you have in your shepherd row as well as how much money you spend.</p>
+<p>If you have just one shepherd in your shepherd row, you have one of these three options:
+EITHER buying 1 “Dorset Horn” sheep card for 3 pounds
+OR buying 1 “Corriedale” OR “Lincoln” sheep card for 5 pounds
+OR buying 1 “Hampshire” OR “Ryeland” sheep card for 9 pounds.</p>
+<p>If you have 2 shepherds, you have the following three options (in addition to those above):
+EITHER buying 1 “Dorset Horn” sheep card for 1 pound
+OR buying 1 “Corriedale” OR “Lincoln” sheep card for 2 pounds
+OR buying 1 “Suffolk” sheep card AND 1 exchange token for 10 pounds.</p>
+<p>This means that the more shepherds you have, the better are your options. How you split your shepherds among these options is up to you, as long as you make sure that each of your shepherds is only put to use once during this action.</p>
+<p>If you put 3 shepherds to use and pay 3 pounds, you get exactly 2 sheep cards with a victory points value of 2 each.
+If you put 4 shepherds to use and pay 4 pounds, you get exactly 1 “Suffolk” sheep card AND 1 exchange token.</p>
+<p>Any shepherd that you do not put to use to buy sheep cards you may instead use in the following way: Draw 2 cards from the market sheep stack and add them face-up to the sheep market. You may do this at any given moment while performing this action (so even before you buy sheep cards).</p>
+<p>As mentioned (on page 11), the number of sheep cards can be higher than the total for your player count.</p>
+<p>Important:
+• You can only buy/choose sheep cards that are currently available in the sheep market.
+• You can always choose to buy fewer sheep cards than you are allowed.
+• Any sheep card that you acquire during this action must be placed face-up onto your personal discard pile.</p>
+<span class="subsection-title">Place one of your private buildings</span>
+<p>When you perform this action, choose one of the private building tiles above your player board:
+EITHER place it onto any empty building space on the trail OR use it to replace one of your private building tiles that is already placed on a building space on the trail.</p>
+<p>Remember: The side of each building tile is identical for all players. You are not allowed to flip it to its other side.</p>
+<p>Before choosing a building tile for this action, you must make sure:
+a) that you have enough craftsmen for it AND
+b) that you can pay that building tile’s cost.</p>
+<p>In its upper left corner, each private building tile shows how many craftsmen you need for it. If the number of craftsmen in the craftsman row of your worker section equals or exceeds that number, you can place the tile onto any empty building space on the trail, provided you immediately pay its cost:
+For each craftsman needed for that building tile, you must pay 2 pounds.</p>
+<p>Alternatively, you can use this action to replace one of your private building tiles on the trail with a higher-valued private building tile from above your player board. For this, you only need to have the difference of craftsmen between the two building tiles and also only must pay the difference. Then put the new building tile in place of the old one and remove that old building tile entirely from the game by returning it to the box. This is the only way to place building tiles that require more than 5 craftsmen.</p>
+<p>Note: The neutral building tile “B” is the only one that allows you to place your own building tiles on the trail. The only other two ways to do it are the immediate actions of your craftsman row (see on the right) and the bonus cards from Set 6 (which works for replacing one of your building tiles with an exactly 1-value-higher one; see last page of Appendix).</p>
+<p>The right immediate action has the advantage that you must only pay 1 pound per craftsman needed.</p>
+<p>Important:
+• There are four building spaces on the trail, which, as a condition for being allowed to build on them, must not only be empty, but also require a certain advancement (2, 4 or 7) on the pathfinder track (on how to advance on this track see page 17).
+• If you have not advanced at least the required amount of steps on the pathfinder track (shown on the respective building spaces), you cannot build a building on such a building space.</p>
+<span class="subsection-title">Move your ship / Upgrading harbours</span>
+<p><strong>Move your ship</strong>
+If you move your ship via this action icon, you can move it up to as many spaces in any direction on the sea routes board as you have sailors in your sailor row. When moving your ship, bear the following rules in mind:</p>
+<ul>
+<li>Every space of the sea routes can accommodate any number of ships at a time. This means that when moving your ship, you take into account all spaces you navigate – whether they are occupied by other ships or not.</li>
+<li>Along the routes, there are several harbours, each of which either allows you to place a storehouse or one of your player discs if your ship is on its associated water space. Each time you want to place a storehouse or a disc, you have to spend one movement step and your move action is concluded (see below “Upgrading harbours”).</li>
+<li>When choosing to move your ship via an action, you may move it fewer spaces than allowed. However, once you decide to stop on a space (and upgrade a harbour or not), you forfeit any excess movement you might have left from that action (i.e., they cannot be saved for later).</li>
+</ul>
+<p><strong>Note:</strong> Other actions let you move your ship regardless of the number of sailors. In this case the same rules apply.</p>
+<p><strong>Upgrading harbours</strong>
+If your ship is already on a space with a harbour connection (indicated by the icons for placing a storehouse/player disc which are connected to the swirl water spaces) or you land on such a space by moving your ship and (in either case) you have at least one ship movement left, you may upgrade this harbour. To do this, either place a storehouse or one of your player discs on the associated space and pay the indicated cost if applicable. When you move to a harbour to upgrade it, that ship move action is concluded, even if you moved fewer spaces (or not at all) to get there than you could have.</p>
+<p>You can only upgrade a harbour if you can pay the upgrade cost and if you have not upgraded that harbour before (which you’ll recognise because you’ll already have one of your storehouses or discs on it). It does not matter if any of your opponents already have a storehouse or disc on the harbour. However, if you do not have any storehouses or discs left on your player board, you can no longer upgrade a corresponding harbour.</p>
+<p>There are three kind of harbours:</p>
+<span class="label-title">Small harbour</span>
+<p>To upgrade a small harbour, first pay the upgrade cost depicted on one of the storehouse spaces of that harbour and then choose one of your storehouses from your player board and place it there. After you have placed it, take the card depicted on that small harbour and place it face-up onto your personal discard pile. (Only if it is no longer in the supply, you do not take a card.) Then check whether you unlocked a permanent or immediate bonus on your player board due to placing that storehouse: Every time both storehouses that are linked (by two brown arrows) to an immediate bonus on your player board have been placed on the sea routes board, either take this bonus immediately or forfeit it. (A permanent bonus is ongoing as usual.)</p>
+<span class="label-title">Medium harbour</span>
+<p>To upgrade a medium harbour, first also pay the upgrade cost (depicted above the disc space of that harbour) and then place one of your player discs onto that harbours disc space (if other player discs are already there, put yours on top of those). Take this player disc from any of the disc spaces of your player board but bear in mind that the harbour spaces also have either white corners or black corners. As with delivering, a disc from a disc space with white corners can be placed onto any medium harbour disc space; while a disc from a disc space with dark corners can only be placed onto a medium harbour disc space that has dark corners as well (for details on clearing your disc spaces see the white box on page 9). After you placed your disc, take the card depicted on that medium harbour. (Only if it is no longer in the supply, you do not take it).</p>
+<p>After placing your disc onto that harbour’s disc space, check whether there is a harbourmaster tile still next to it. If so, you may now acquire that harbourmaster tile by appointing one of your hired workers (shepherd, craftsman, sailor, or shearer) as the harbourmaster.</p>
+<p>To do this, choose from your worker section any of your hired workers currently placed on the rightmost space of its respective row. Remove that worker tile from your player board, put it in place of the harbourmaster tile and finally place that harbourmaster tile face-up next to your player board (see images on the right).</p>
+<ul>
+<li>Once a worker tile is placed on a harbourmaster space, it remains there for the rest of the game.</li>
+<li>Only at the moment in which you upgrade a harbour do you get the chance to acquire its harbourmaster tile. If you forfeit that chance, you have no way of getting it later.</li>
+<li>If you remove a worker from your worker section and thus uncover its immediate action again, you can perform that action the next time you place another hired worker onto that space.</li>
+</ul>
+<p><strong>Note:</strong> Joker workers may become harbourmasters like any other worker.</p>
+<p>Each harbourmaster tile comprises two parts:</p>
+<ol>
+<li>The upper half 1 either depicts an immediate action or a permanent certificate. If you receive a tile with an immediate action, either perform that action right away or forfeit it. (For the use of permanent certificates, see page 9.)</li>
+<li>The lower half 2 depicts a unique way of gaining additional victory points at the end of the game (see page 19).</li>
+</ol>
+<p><strong>Immediate actions on harbourmaster tiles:</strong></p>
+<ul>
+<li>Gain 5 pounds.</li>
+<li>Advance your disc 4 spaces on the pathfinder track.</li>
+<li>Gain 3 pounds. Also take one “Ferry” card and place it onto your personal discard pile.</li>
+</ul>
+<span class="label-title">Large harbour</span>
+<p>Upgrading a large harbour works similarly to upgrading a small harbour. However, you do not have to pay any upgrade cost. You just place your storehouse on one of the four storehouse spaces as usual. Then check whether you unlocked a permanent or immediate bonus on your player board due to placing that storehouse. After you placed it, you enable another option for one of your future deliveries.</p>
+<p>If you later want to place one of your discs on a large harbour, you must pay the depicted transport costs on that foreign trading post crest to the bank as always. On each of these large harbours foreign trading posts, you may place only one of your player discs as usual. In case that large harbour involves a foreign wool trading post, you can only deliver there when you shear your sheep (see the paragraph below).</p>
+<p>You are not obliged to deliver to a foreign trading post of a large harbour only because you have a storehouse there.</p>
+<p><strong>Attention:</strong> The respective small harbour connected to the very last space of each of the three sea routes is special. You may upgrade one of these as usual (by paying the upgrade cost and placing a storehouse there). But if you do, you <strong>must</strong> reset your ship to the starting space (after you took a compass bonus card).</p>
+<p>At the end of the game, you gain the 4 victory points depicted on the yellow arrows in the upper left of the sea routes board only if both adjacent small harbours have one of your <strong>storehouses</strong> on them.</p>
+<span class="subsection-title">Shear your sheep</span>
+<p>When you perform this action, you may reveal up to as many <strong>different</strong> sheep cards from your hand as you have shearers in your shearer row. To determine your total wool value, sum up the wool values of each different type of sheep that you just revealed from your hand and add all permanent wool you have. (Ignore any victory points or breeding value on your sheep cards.)</p>
+<p>Once your total wool value is set (including permanent wool unlocked on your player board or from a bonus tile), take that many pounds from the bank and place them in front of you. You can do this only <strong>once</strong>, per "shear your sheep" action. You cannot reveal any deck-building or bonus cards at this moment that are not sheep. Then discard <strong>all</strong> sheep cards you <strong>revealed</strong> from your hand to your personal discard pile.</p>
+<p>The wool value for which you just received money might allow you to also place one of your player discs from your player board onto a wool trading post on the sea routes map. There are three local wool trading posts (with the values 5, 9 and 13) that are available from the beginning of the game and two foreign wool trading posts which you may unlock by upgrading their associated large harbour.</p>
+<p>The crest of each wool trading post shows a wool value that corresponds to your just determined sheep's total wool value. To place a disc, check which wool trading posts are equal to or lower than your sheep's total wool value (determined before). Bear in mind, however, that you are not allowed to choose any wool trading post to which you sent wool before (i. e., that already has one of your discs on its wool trading post space).</p>
+<p>The only exception to this rule is the wool trading post with value 13. You may send wool to this wool trading post even if you already have one or more of your discs there.</p>
+<p>Once you have decided on a wool trading post, place one of your player discs onto its wool trading post space. (If other discs are already there, put it on top of those.) Take that player disc from any of the disc spaces of your player board but remember that there are two types of disc spaces: Those with white corners and those with dark corners.</p>
+<ol>
+<li>A disc from a disc space with white corners can be placed onto any wool trading post space.</li>
+<li>A disc from a disc space with dark corners, however, can only be placed onto a wool trading post space that also has dark corners.</li>
+</ol>
+<p>By clearing a disc space of its disc this way, you unlock its ability. Note that some of the disc spaces have additional requirements or give rewards for clearing them. (<em>For further details on clearing your disc spaces, see the white box on page 9.</em>)</p>
+<p>1 Any shearer that you <strong>do not</strong> put to use to shear your sheep you <strong>may</strong> instead use in the following way: Draw 1 card from your personal draw stack. Then immediately discard 1 card. You may do this at any given moment while performing this action (so even before you shear your sheep). How you use each of your shearer is up to you, as long as you make sure that each of your shearer is only <strong>put to use once</strong> during this action.</p>
+<p><strong>Note:</strong> Each wool trading post disc space with dark corners gives you a "Romney" sheep card, which you must take (as long as the supply is not depleted) as this is a delivery action that you must perform immediately as usual. Place it face up onto your personal discard pile.</p>
+<span class="subsection-title">Gain one objective card</span>
+<p>When you perform this action, either choose one objective card from the general objective display to the right of the game board or draw the top card of the objective stack. Place this card face-up onto your personal discard pile. If you take a card from the objective display, fill its vacant place immediately with a new face-up card drawn from the objective stack.</p>
+<p>With this action, you may not choose a bonus objective card (Set 8, 9 or 10) that is on display at the bonus card supply (which is why there is a reminder on the back of the 3 bonus card tiles that could be above bonus objective cards). However, all of the following rules otherwise apply also to the bonus objective cards.</p>
+<p>At some point later, the objective cards you acquired will enter your hand.</p>
+<p>During your own turn, if you happen to have one or more objective cards in your hand, you can play any of them, either:
+• before performing phase A
+• or before or after performing any single action in phase B.</p>
+<p>This means that you are neither allowed to play objective cards in the middle of your movement, an action (the 4 Wellington subphases count as one action) nor after you have started to carry out phase C.</p>
+<p>When you play an objective card, place it face-up in your personal objective area (beneath your player board). Then perform the immediate action depicted in the upper left corner of the card or forfeit it.</p>
+<p>The following immediate actions can be found on objective cards:
+4 Gain 4 pounds.
+Gain two exchange tokens.
+2 Move your certificate marker up to 2 spaces forward.
+2 Advance your disc 2 spaces on the pathfinder track.
+2 Move your ship up to 2 spaces in any direction (and/or upgrade a harbour if possible).</p>
+<p>Each objective card depicts a combination of tasks to be fulfilled at the end of the game. If all of the tasks of an objective card are fulfilled by then, you gain the victory points printed on it. If its tasks are not fulfilled completely, you lose the negative victory point value printed on it.</p>
+<p><strong>Important:</strong> Each single fulfilled task can only count towards one objective card. So, if several objective cards show the same tasks, each of these tasks must be fulfilled individually.</p>
+<p>The following tasks can be found on objective cards:
+• Have 1 of your disc on any trading post (wool/foreign/local) with a trading post value of 13 or higher.
+• 2/3 Have 1 "Lincoln" OR "Corriedale" sheep card in your deck.
+• Have 1 of your private building tiles on the game board.
+• 4/2 Have 1 "Hampshire" OR "Ryeland" sheep card in your deck.
+• Have 1 of your private building tiles on the game board that needs at least 4 craftsmen.
+• Have 1 ferry card in your deck. (This could also be the ferry card from bonus cards Set 1.)
+• Have 2 shearers in your shearer row on your player board. (A joker worker in this row also counts.)
+• 6 Have your disc on the pathfinder track advanced by 6 spaces.
+• Have 1 storehouse placed on the sea routes map.
+• Have 1 flood hazard tile in front of you.</p>
+<p><strong>Note:</strong> You are not compelled to play your objective cards. If you want, you can keep some or all of them in your deck by the usual means (for example, by discarding them via this icon ). For each objective card that is still in your deck at the end of the game, you may then decide if you want to score it or not. For the cards placed in your personal objective area, you do not have that choice. Those must be scored.</p>
+<span class="subsection-title">Advance on the pathfinder track</span>
+<p>With this action you advance on the pathfinder track (also consider spaces that are occupied by other players' discs) which provides you with rewards when you reach or exceed certain spaces:
+• Spaces 3 and 8 each lets you collect 1 gold (i.e., move your gold marker 1 space forward immediately).
+• Spaces 4 or 6 (depending on your player count) grant you an orange step tile, which increases your step limit by 1. Place the tile in the designated square on your player board.
+• Spaces 2, 4 and 7 do not provide a direct reward, but they do unlock building spaces along the trail.
+• On reaching or exceeding space 11, you must take a decision: EITHER flip the previously received step tile on its +2 side, which increases your step limit by one, OR flip your fee tile to the side with the crossed-out hands, which means that from now on, you do not pay any fees anymore (ignore all black/green hands).
+• Finally, at the end of the game, you gain the highest victory point value you have reached (maximum of 15).</p>
+<p>In case you reach space 16 of the pathfinder track and earn further advancement there, you will instead receive 1 pound for each advancement. Your pathfinder disc never moves backwards; not under any circumstances.</p>
+<span class="subsection-title">Gain an exchange token</span>
+<p>When you perform this action, gain <strong>one</strong> exchange token from the bank and place it in front of you.
+The exchange tokens are special because you can use one or more of them at any point in the game—even, in the middle of an action or when it is not your turn.</p>
+<ul>
+<li>To use an exchange token, place it back into the bank. Then, draw up to 2 cards from your personal draw stack and <strong>immediately</strong> discard as many cards as you drew.</li>
+<li>You may alternatively <strong>combine</strong> 2 exchange tokens to remove 1 of your “Shropshire” sheep from your hand cards entirely from the game (and thus your deck) by returning it to the box and moving your gold marker 1 space forward (as depicted on your player board and on the right).</li>
+</ul>
+<p>Each player starts the game with one exchange token and you may gain new ones on different occasions:</p>
+<ul>
+<li>as a local action on the private building “8b”</li>
+<li>when buying a “Suffolk” sheep card from the sheep market</li>
+<li>as an immediate action in your shepherd row</li>
+<li>when investing in certain bonus tiles</li>
+</ul>
+<span class="subsection-title">Perform one single or one double auxiliary action</span>
+<p>The auxiliary action section of your player board shows 5 different auxiliary actions.
+Each auxiliary action has 2 disc spaces next to it. As long as both disc spaces of an auxiliary action are occupied by a disc, the particular action is locked and cannot be used. Only if at least one of its disc spaces has been cleared is the action unlocked and available to you.</p>
+<p>If you use this icon to perform <strong>one single auxiliary action</strong> on a location (see page 8), you can never double it (even if both disc spaces of the particular action are cleared).</p>
+<p>Whenever you use this action icon, choose <strong>one</strong> of your available auxiliary actions and perform it. If only one of that action’s two disc spaces is cleared, you can use the particular action once (single auxiliary action). If both disc spaces of that action are cleared, you may use it as a <strong>double auxiliary action</strong>. This means that its requirement (if it has one) and its reward are both doubled.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th style="text-align: left;">Single auxiliary action</th>
+<th style="text-align: left;">Double auxiliary action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Gain 1 pound.</td>
+<td style="text-align: left;">Gain 2 pounds.</td>
+</tr>
+<tr>
+<td style="text-align: left;">Draw 1 card from your personal draw stack. Then immediately discard 1 card.</td>
+<td style="text-align: left;">Draw 2 cards from your personal draw stack. Then immediately discard 2 cards.</td>
+</tr>
+<tr>
+<td style="text-align: left;">Pay 2 pounds and move your certificate marker 1 space forward.</td>
+<td style="text-align: left;">Pay 4 pounds and move your certificate marker up to 2 spaces forward.</td>
+</tr>
+<tr>
+<td style="text-align: left;">Pay 1 pound and move your ship 1 space in any direction (or upgrade a harbour if possible).</td>
+<td style="text-align: left;">Pay 2 pounds and move your ship up to 2 spaces in any direction (and/or upgrade a harbour if possible).</td>
+</tr>
+<tr>
+<td style="text-align: left;">Pay 1 pound and advance your disc 1 space on the pathfinder track.</td>
+<td style="text-align: left;">Pay 2 pounds and advance your disc 2 spaces on the pathfinder track.</td>
+</tr>
+</tbody>
+</table></div>
+<span class="subsection-title">Remove a hazard</span>
+<p>When you perform this action, remove <strong>one</strong> hazard tile of your choice from any hazard section, place it face up in front of you and take the associated deck-building card.
+If the icon shows a cost, you must immediately pay that many pounds (otherwise you are not allowed to take a hazard tile). If the icon shows no cost, take the hazard tile free of charge.
+Each hazard tile has either 2, 3 or 4 victory points printed on it. As usual, you gain those at the end of the game. However, when you pick a rockfall hazard tile, you also take <strong>one</strong> “Sheepdog” card and place it onto your personal discard pile. Same when removing a flood hazard tile, but you take <strong>one</strong> “Ferry” card.
+If both hazard sections are empty, you cannot get a hazard tile.</p>
+<span class="subsection-title">Move your runholder forward</span>
+<p>This local action allows you to move your runholder forward to another location along the trail. If you do, you must move it at least 1 step and may not move it more steps than the white number in the icon states.
+On the location where you stop, you must then perform <strong>once more</strong> all of phase B.
+Note that you do <strong>not</strong> replenish your hand cards before performing phase B again. This is only done at the end of your turn in phase C.</p>
+<span class="subsection-title">Collect gold and spend it</span>
+<p>Each player starts the game with 1 gold and may collect more on different occasions:</p>
+<ul>
+<li>as an immediate action in your sailor row</li>
+<li>when investing in certain bonus tiles</li>
+<li>when placing a new private building onto the trail (not when you replace one)</li>
+</ul>
+<p>On your gold track, the number next to the current position of your gold marker tells you how much gold you have available (if you receive more gold than you can store, the excess is lost). Of these, you may use as much gold as you have available <strong>during</strong> phase A or B as you want by moving your gold marker backwards accordingly to buy one of the 4 different randomly determined bonus cards from the bonus cards supply.</p>
+<p>When you perform this “free action”, choose <strong>one bonus card</strong> from the bonus cards supply next to the sea routes board (below their respective bonus cards tiles) and place this card face-up onto your <strong>personal discard pile</strong>.</p>
+<p>For the bonus cards below the steering wheel and the barrel you must pay <strong>3 gold</strong> each. For one card from below the bell pay <strong>4 gold</strong> and for a compass card <strong>5 gold</strong>. These bonus cards, however, can only be obtained by using gold or upgrading harbours.</p>
+<p>Among the bonus cards, the two sheep (Set 3 and 7) as well as the three objective cards (Set 8, 9 and 10) work the same as any other sheep or objective card. No other rules apply to them.
+The rules of the other five bonus cards (Set 1, 2, 4, 5 and 6) which may be obtained in the same way are explained in detail on the last page of the Appendix.</p>
+<span class="subsection-title">End of the Game</span>
+<p>The end of the game is triggered when you place a bonus tile onto the last space of the bonus tiles market while carrying out subphase 4 in Wellington. As this makes the bonus tiles market token move along the red arrow out of the bonus tiles market, immediately take the bonus tiles market token and place it in front of you. Afterwards, refill any empty foresight spaces at the end of your turn. This was your last turn.</p>
+<p><strong>Important:</strong> On your last turn, you do not carry out phase C (i.e., after carrying out phase B on your final turn, you do not draw up to your hand limit).</p>
+<p>Then, <strong>each of the other players has one final turn</strong>, in which they move their runholder as usual and use the reached location. Players that move to Wellington during their final turn also carry out the 4 subphases as usual. However, if they choose a bonus tile from the foresight space B when performing subphase 4 it is removed from the game. At the end of their turn (after carrying out phase B), they must refill any empty foresight spaces. When the last player has finished their final turn (without carrying out phase C), the game ends.</p>
+<span class="subsection-title">Final Scoring</span>
+<p>Take the <strong>scoring pad</strong> and go through its 12 categories. In each category, write down the victory points for each player as follows:</p>
+<ol>
+<li>Gain 1 victory point for every 5 pounds that you own.</li>
+<li>Gain the sum of the victory points printed on each of your private building tiles that is placed <strong>on the game board</strong>.</li>
+<li>Gain the sum of the victory points that you have unlocked with your discs on all the trading post crests (i.e., including the local, foreign and wool trading posts). Any negative victory points must be subtracted of course. (Thus, even negative sums are possible.) <em>See page 10 for details.</em></li>
+<li>Gain the sum of the victory points that you have unlocked with your discs and storehouses on small and medium harbours on the sea routes board. <em>See page 15 for details.</em></li>
+<li>Gain the victory points that you have unlocked with your disc on the pathfinder track. (These points are either depicted next to your disc or below it, at the most recent unlocked victory point space.)</li>
+<li>Gain the sum of the victory points printed on each of the collected hazard tiles and bonus tiles in front of you.</li>
+<li>From your deck (personal draw stack, hand cards and personal discard pile), seek out all bonus cards (except bonus objective cards) and sheep cards that have victory points on them. Then gain the sum of those victory points.</li>
+<li>Seek out all objective cards (including bonus objective cards) that you still have in your deck. For each of those, you must decide whether you want to remove it from the game or add it to your personal objective area now (without using its immediate action). Afterwards, check each objective card in your personal objective area to see if you have fulfilled each of its tasks <strong>individually</strong>. For all cards that are entirely fulfilled, sum the positive victory points printed on them. For all cards that you have not fulfilled completely, subtract the negative points printed on them. Then gain the result as your victory points (this can also be a negative result). <em>See page 17 for details.</em></li>
+<li>Gain the sum of victory points generated by the <strong>individual tasks</strong> of the harbourmaster tiles that you have in front of you. These individual tasks (see chart below) are <strong>totally independent</strong> of the tasks on objective cards.</li>
+<li>Gain 3 victory points if you managed to clear this disc space (hand limit) on your player board.</li>
+<li>Gain 4 victory points for each worker that is placed on the fifth space of any row in your worker section. Additionally, gain 2 and/or 4 victory points if you managed to clear the corresponding pair of storehouses on your player board.</li>
+<li>Gain 5 victory points if you have the bonus tiles market token in front of you.</li>
+</ol>
+<p>After totaling all the categories, the player with the most victory points wins the game! In the case of a tie, the victory is shared.</p>
+<p><strong>The individual tasks of the harbourmaster tiles:</strong></p>
+<ul>
+<li>Gain 1 victory point for every certificate you have (no matter if they are permanent or temporary).</li>
+<li>Gain 1 victory point for each of your objective cards in your <strong>objective area</strong> (whether you fulfilled them or not).</li>
+<li>Gain 1 victory point for each hazard tile you have collected (of any kind).</li>
+<li>Gain 2 victory points per 5 spaces you advanced on the pathfinder track.</li>
+<li>Gain 1 victory point for every 2 storehouses that you have placed onto the sea routes board.</li>
+<li>Gain 1 victory point for each of your private building tiles that is placed on the game board.</li>
+<li>Gain 1 victory point for each card in your deck that shows a ferry (this includes also the bonus cards of Set 1).</li>
+<li>Gain 1 victory point for every 2 worker tiles in your worker section (including the ones printed on your player board).</li>
+</ul>
+<span class="subsection-title">General notes and special cases</span>
+<ul>
+<li>Money and exchange tokens are considered <strong>unlimited</strong>. If the bank should run out, use something else as a substitute.</li>
+<li>If the objective stack should run out, the vacant spaces in the general objective display are not refilled anymore. If the general objective display is empty, no new objective cards can be gained. The same is true for all 4 stacks of deck-building cards and the bonus cards supply.</li>
+<li>You are allowed to look through the cards of your <strong>personal discard pile</strong> at any time. You are <strong>not</strong> allowed to look at the cards of your <strong>personal draw stack</strong>.</li>
+<li>If you must place a disc onto a trading post space during delivering or onto a harbour space while upgrading it, some special cases can occur:</li>
+<li>If you are supposed to place a disc onto a space with white corners, but only happen to have discs on disc spaces with dark corners left, you are allowed to place a disc from a disc space with dark corners onto a space with white corners.</li>
+<li>If you are supposed to place a disc but are unable to (because you have none left or cannot pay for their removal), remove one of your discs from a medium harbour of your choice and place that one instead (if none of your discs is on a medium harbour, you do not place one).</li>
+<li>If you replace a building while your runholder is on that building, you are <strong>not</strong> allowed to immediately use the new building's local actions, <strong>in case</strong> you already used an action, that was part of the replaced building (i.e., if you did not use any action of the replaced building, you may use the local actions of the new building).</li>
+<li>If you remove a hazard tile on which there are any runholders, leave those runholders on the empty space. They continue their movement from there as usual.</li>
+<li>When you <strong>reveal</strong> cards from your hand (during Wellington subphase <strong>1</strong> or when you calculate your wool value shearing your sheep) this is only a “snapshot of that moment in time” at which you cannot use an exchange token or a card that lets you draw from your deck.</li>
+<li>Whenever you play a deck-building or bonus card (that is not a sheep or objective card), you draw a card after performing or forfeiting its effect.</li>
+</ul>
+  </div>
+</details>
+  <p id="no-results">No sections match your search.</p>
+</main>
+<script>
+(function () {
+  var searchEl  = document.getElementById('search');
+  var clearBtn  = document.getElementById('search-clear');
+  var noResults = document.getElementById('no-results');
+  var sections  = Array.from(document.querySelectorAll('details.section'));
+
+  // Snapshot each section body's original HTML so we can restore it
+  // before applying a new round of highlights.
+  sections.forEach(function (s) {
+    var body = s.querySelector('.section-body');
+    if (body) body.dataset.original = body.innerHTML;
+  });
+
+  var timer;
+
+  searchEl.addEventListener('input', function () {
+    var term = this.value.trim();
+    clearBtn.classList.toggle('visible', term.length > 0);
+    clearTimeout(timer);
+    timer = setTimeout(function () { applySearch(term); }, 180);
+  });
+
+  clearBtn.addEventListener('click', function () {
+    searchEl.value = '';
+    clearBtn.classList.remove('visible');
+    applySearch('');
+    searchEl.focus();
+  });
+
+  function escapeRe(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlightTextNodes(container, re) {
+    var walker = document.createTreeWalker(
+      container, NodeFilter.SHOW_TEXT, null, false
+    );
+    var nodes = [];
+    var n;
+    while ((n = walker.nextNode())) {
+      if (n.nodeValue.trim()) nodes.push(n);
+    }
+    nodes.forEach(function (textNode) {
+      re.lastIndex = 0;
+      if (!re.test(textNode.nodeValue)) return;
+      re.lastIndex = 0;
+      var span = document.createElement('span');
+      span.innerHTML = textNode.nodeValue.replace(
+        re, function (m) { return '<mark>' + m + '</mark>'; }
+      );
+      textNode.parentNode.replaceChild(span, textNode);
+    });
+  }
+
+  function applySearch(term) {
+    var re = term ? new RegExp(escapeRe(term), 'gi') : null;
+    var visibleCount = 0;
+
+    sections.forEach(function (section) {
+      var body    = section.querySelector('.section-body');
+      var summary = section.querySelector('summary');
+
+      // Restore original HTML before each search pass
+      if (body) body.innerHTML = body.dataset.original;
+
+      if (!re) {
+        section.classList.remove('search-hidden');
+        section.open = false;
+        return;
+      }
+
+      var titleText = summary ? summary.textContent : '';
+      var bodyText  = body    ? body.textContent    : '';
+
+      re.lastIndex = 0;
+      var inTitle = re.test(titleText);
+      re.lastIndex = 0;
+      var inBody  = re.test(bodyText);
+      re.lastIndex = 0;
+
+      if (inTitle || inBody) {
+        section.classList.remove('search-hidden');
+        section.open = true;
+        if (body) highlightTextNodes(body, new RegExp(escapeRe(term), 'gi'));
+        visibleCount++;
+      } else {
+        section.classList.add('search-hidden');
+      }
+    });
+
+    noResults.style.display = (re && visibleCount === 0) ? 'block' : 'none';
+  }
+})();
+</script>
+</body>
+</html>

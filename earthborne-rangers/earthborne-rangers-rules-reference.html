@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Earthborne Rangers — Rules Reference</title>
+<style>
+:root {
+  --bg:            #f2ede6;
+  --text:          #1a1a1a;
+  --header-bg:     #324b4f;
+  --section-bg:    #324b4f;
+  --subsection-bg: #926e54;
+  --rule:          #b0a898;
+  --accent:        #926e54;
+  --table-head:    #324b4f;
+  --note-bg:       #e8e0d4;
+  --body-bg:       #ffffff;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 15px;
+  line-height: 1.55;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* ── STICKY HEADER ───────────────────────────────────────── */
+.sticky-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--header-bg);
+  padding: 10px 14px 12px;
+  padding-top: max(10px, env(safe-area-inset-top));
+  padding-left: max(14px, env(safe-area-inset-left));
+  padding-right: max(14px, env(safe-area-inset-right));
+  box-shadow: 0 2px 12px rgba(0,0,0,0.4);
+}
+
+.masthead-row {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 9px;
+}
+
+.masthead-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  line-height: 1.1;
+  flex-shrink: 0;
+}
+
+.masthead-subtitle {
+  font-size: 11px;
+  color: rgba(255,255,255,0.45);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.back-link {
+  margin-left: auto;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+  text-decoration: none;
+  flex-shrink: 0;
+  padding-left: 12px;
+  white-space: nowrap;
+}
+.back-link:hover {
+  color: rgba(255,255,255,0.85);
+}
+
+.search-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-icon {
+  position: absolute;
+  left: 10px;
+  width: 15px;
+  height: 15px;
+  color: rgba(255,255,255,0.4);
+  pointer-events: none;
+  flex-shrink: 0;
+}
+
+#search {
+  width: 100%;
+  padding: 8px 36px 8px 32px;
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 8px;
+  font-size: 15px;
+  background: rgba(255,255,255,0.12);
+  color: #fff;
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+#search::placeholder { color: rgba(255,255,255,0.38); }
+
+#search:focus {
+  background: rgba(255,255,255,0.2);
+  border-color: rgba(255,255,255,0.3);
+}
+
+.search-clear {
+  position: absolute;
+  right: 6px;
+  background: rgba(255,255,255,0.18);
+  border: none;
+  border-radius: 50%;
+  color: rgba(255,255,255,0.8);
+  font-size: 14px;
+  line-height: 1;
+  width: 22px;
+  height: 22px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  flex-shrink: 0;
+}
+
+.search-clear.visible { display: flex; }
+
+/* ── MAIN ────────────────────────────────────────────────── */
+main {
+  padding: 10px 12px 48px;
+  padding-left: max(12px, env(safe-area-inset-left));
+  padding-right: max(12px, env(safe-area-inset-right));
+  padding-bottom: max(48px, env(safe-area-inset-bottom));
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+/* ── NO RESULTS ──────────────────────────────────────────── */
+#no-results {
+  display: none;
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--text);
+  opacity: 0.5;
+  font-size: 14px;
+}
+
+/* ── COLLAPSIBLE SECTIONS ────────────────────────────────── */
+details.section {
+  margin-bottom: 6px;
+  border-radius: 6px;
+  overflow: hidden;
+  scroll-margin-top: 130px;
+}
+
+details.section > summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  min-height: 44px;
+  background: var(--section-bg);
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  list-style: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+details.section > summary::-webkit-details-marker { display: none; }
+
+.chevron {
+  width: 12px;
+  height: 12px;
+  opacity: 0.65;
+  flex-shrink: 0;
+  margin-left: 8px;
+  transition: transform 0.18s ease;
+}
+
+details.section[open] > summary .chevron {
+  transform: rotate(90deg);
+}
+
+.section-body {
+  background: var(--body-bg);
+  padding: 10px 12px 12px;
+  border: 1px solid var(--rule);
+  border-top: none;
+  border-radius: 0 0 6px 6px;
+}
+
+/* ── HEADINGS WITHIN SECTIONS ────────────────────────────── */
+.subsection-title {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: #fff;
+  background: var(--subsection-bg);
+  padding: 4px 12px;
+  margin: 10px -12px 7px;
+}
+
+.label-title {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--section-bg);
+  border-bottom: 1.5px solid var(--rule);
+  padding-bottom: 3px;
+  margin: 10px 0 5px;
+}
+
+.inline-title {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 8px 0 3px;
+}
+
+/* ── BODY TEXT ───────────────────────────────────────────── */
+p { margin-bottom: 7px; }
+b, strong { font-weight: 600; }
+em, i { font-style: italic; }
+
+/* ── LISTS ───────────────────────────────────────────────── */
+ul, ol { padding-left: 20px; margin-bottom: 6px; }
+ul { list-style-type: disc; }
+ol { list-style-type: decimal; }
+ul ul { list-style-type: circle; }
+li { margin-bottom: 3px; }
+li > ul, li > ol { margin-top: 2px; margin-bottom: 0; }
+
+/* ── TABLES ──────────────────────────────────────────────── */
+.table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin-bottom: 6px;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  min-width: 260px;
+}
+thead tr { background: var(--table-head); color: white; }
+thead th {
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  padding: 5px 8px;
+  text-align: left;
+  white-space: nowrap;
+}
+tbody tr:nth-child(even) { background: var(--note-bg); }
+tbody td { padding: 5px 8px; vertical-align: top; }
+
+/* ── BLOCKQUOTE ──────────────────────────────────────────── */
+blockquote {
+  background: var(--note-bg);
+  border-left: 3px solid var(--accent);
+  padding: 6px 10px;
+  margin: 5px 0 7px;
+  font-size: 14px;
+  border-radius: 0 4px 4px 0;
+}
+blockquote p { margin-bottom: 2px; }
+
+/* ── INLINE CODE ─────────────────────────────────────────── */
+code {
+  background: var(--note-bg);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  padding: 1px 4px;
+  font-size: 13px;
+  font-family: inherit;
+  font-weight: 600;
+}
+
+/* ── HR ──────────────────────────────────────────────────── */
+hr { border: none; border-top: 1px solid var(--rule); margin: 8px 0; }
+
+/* ── SEARCH HIGHLIGHT ────────────────────────────────────── */
+mark {
+  background: #ffe566;
+  color: inherit;
+  border-radius: 2px;
+  padding: 0 1px;
+}
+
+/* ── HIDDEN SECTIONS ─────────────────────────────────────── */
+details.section.search-hidden { display: none; }
+
+/* ── VERSION TOGGLE ──────────────────────────────────────── */
+.toggle-bar {
+  display: flex;
+  margin-top: 8px;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.2);
+}
+.toggle-current,
+.toggle-other {
+  flex: 1;
+  text-align: center;
+  padding: 6px 10px;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  line-height: 1;
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.toggle-current {
+  background: rgba(255,255,255,0.18);
+  color: #ffffff;
+  font-weight: 600;
+  cursor: default;
+}
+.toggle-other {
+  color: rgba(255,255,255,0.5);
+}
+.toggle-other:hover {
+  background: rgba(255,255,255,0.08);
+  color: rgba(255,255,255,0.8);
+}
+
+/* ── PRINT ───────────────────────────────────────────────── */
+@media print {
+  .sticky-header { position: static; }
+  details.section[open], details.section { display: block; }
+  .section-body { display: block !important; }
+  .search-wrap, .search-clear, .toggle-bar { display: none; }
+}
+</style>
+</head>
+<body>
+<header class="sticky-header">
+  <div class="masthead-row">
+    <span class="masthead-title">Earthborne Rangers</span>
+    <span class="masthead-subtitle">Rules Reference</span>
+    <a class="back-link" href="../index.html">&#8592; All Games</a>
+  </div>
+  <div class="toggle-bar"><span class="toggle-current">Quick Reference</span><a class="toggle-other" href="earthborne-rangers-rules-refined.html">Full Rules</a></div>
+  <div class="search-wrap">
+    <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+         stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+         aria-hidden="true">
+      <circle cx="11" cy="11" r="8"/>
+      <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+    </svg>
+    <input type="text" id="search" placeholder="Search rules…"
+           autocomplete="off" spellcheck="false" autocorrect="off">
+    <button class="search-clear" id="search-clear" aria-label="Clear search">&#x2715;</button>
+  </div>
+</header>
+<main>
+<details class="section" open>
+  <summary><span>Round Structure & Turn Flow</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Energy &amp; Testing</span>
+<span class="label-title">Test Structure &amp; Resolution</span>
+<span class="inline-title">Aspect, Approach, &amp; Effect</span>
+<p><strong>Tests</strong> represent your <strong>Ranger</strong>'s interactions with their environment. They appear on cards as an <strong>Aspect</strong>, plus an <strong>Approach</strong> icon, followed by both a thematic and mechanical description of what your <strong>Ranger</strong> does if the test is successful. You always have access to four <strong>Common Tests</strong> which you can reference on the <strong>Common Test Reference Card</strong>. Additionally, cards in play will provide other tests from which you can choose. On your turn, you can choose one test to perform on any card in play except for cards in other <strong>Rangers</strong>' <strong>Player Areas</strong> (such as their equipped <strong>Gear</strong>).</p>
+<span class="inline-title">Common Test Access</span>
+<p>The four standard tests are referenced on the <strong>Common Test Reference Card</strong>. When performing a test, you follow the aspect and approach requirements listed. If a test requires you to interact with a card in play, you count as interacting with that card. When you perform a test on a card in your <strong>Player Area</strong> or played from your hand, if that test directly affects a card in play, you count as interacting with the affected card or cards.</p>
+<span class="label-title">Interaction Targeting</span>
+<span class="inline-title">Area-Based Targeting Rules</span>
+<p>Most tests require that you interact with a card in play. When you perform a test on a card <strong>Within Reach</strong>, <strong>Along the Way</strong>, or in the <strong>Surroundings</strong>, you count as interacting with that card. When you interact with a card in play, other cards between you and the card with which you're interacting can cause you to suffer <strong>Fatigue</strong>.</p>
+<span class="inline-title">Multi-Target Resolution</span>
+<p>If a test on a card in your <strong>Player Area</strong> or played from your hand interacts with multiple cards, only resolve the fatigue step once for the card with which you're interacting that is furthest from you.</p>
+<span class="label-title">Energy Management</span>
+<span class="inline-title">Pool Refill &amp; Spending</span>
+<p>To play a card from your hand, spend an amount of <strong>Energy</strong> matching the card's cost: the number and type of <strong>Energy</strong> shown in the upper left-hand corner of the card. At the end of each round, add <strong>Energy</strong> tokens to your <strong>Energy</strong> pool until you have a number of each <strong>Energy</strong> type equal to the corresponding <strong>Aspect</strong> value. If you have <strong>Energy</strong> in excess of one of your <strong>Aspect</strong> values, you must discard tokens until you are down to that value.</p>
+<span class="subsection-title">Fatigue &amp; Injury</span>
+<span class="label-title">Fatigue Stack &amp; Soothing</span>
+<span class="inline-title">Suffering &amp; Soothing Fatigue</span>
+<p>When your <strong>Ranger</strong> suffers <strong>Fatigue</strong>, remove cards equal to the amount of <strong>Fatigue</strong> suffered from the top of your <strong>Ranger</strong> deck and, without looking at them, place those cards facedown near your <strong>Ranger</strong> discard, creating the <strong>Fatigue Stack</strong>. If you are ever instructed to suffer <strong>Fatigue</strong>, but you do not have enough cards remaining in your <strong>Ranger</strong> deck to suffer that <strong>Fatigue</strong>, you must end the day. Some game effects will allow you to soothe <strong>Fatigue</strong>. When this happens, draw that many cards from the top of your <strong>Fatigue Stack</strong> and place them in your hand.</p>
+<span class="inline-title">Presence &amp; Exhaustion Rules</span>
+<p>Each card in the <strong>Path Deck</strong> has a <strong>Presence</strong> value in the upper right-hand corner. Some game effects will cause cards to fatigue you. When this happens, if the card is <strong>Ready</strong>, you suffer <strong>Fatigue</strong> equal to the <strong>Presence</strong> of that card. If it is <strong>Exhausted</strong>, the card does not fatigue you.</p>
+<span class="label-title">Fatigue from Interacting</span>
+<span class="inline-title">Area Distance Calculations</span>
+<p>Before you perform a test, each <strong>Ready</strong> card between you and the farthest card with which you are interacting fatigues you. Which <strong>Ready</strong> cards are between you and that card depends on the area in which it sits. If the card is <strong>Within Reach</strong>, nothing is between you. If the card is <strong>Within Reach</strong> of another <strong>Ranger</strong>, all cards <strong>Within Reach</strong> of you are between you. If the card is <strong>Along the Way</strong>, all cards <strong>Within Reach</strong> of you are between you. If the card is in the <strong>Surroundings</strong>, all cards <strong>Within Reach</strong> of you and <strong>Along the Way</strong> are between you.</p>
+<span class="inline-title">Non-Test Effects</span>
+<p>Some <strong>Ranger</strong> cards and game effects will act upon a card and manipulate it in some way without performing a test. These effects are not considered interactions, so cards between you and the affected card do not fatigue you.</p>
+<span class="label-title">Injury Thresholds &amp; Consequences</span>
+<span class="inline-title">Injury Triggers &amp; Stack Clearing</span>
+<p>When you suffer an <strong>Injury</strong>, discard all cards in your <strong>Fatigue Stack</strong>. When you rest, you suffer one <strong>Fatigue</strong> for each <strong>Injury</strong> you have.</p>
+<span class="inline-title">Third Injury &amp; Lingering Injury</span>
+<p>If a <strong>Ranger</strong> suffers their third <strong>Injury</strong>, the day ends at the end of the current turn. That <strong>Ranger</strong> must add one <strong>Lingering Injury</strong> card to their deck. <strong>Maladies</strong> are always in addition to the thirty cards normally in your <strong>Ranger</strong> deck and cannot be swapped out for <strong>Reward</strong> cards, traded away to merchants, or removed by any other method apart from what is described on the <strong>Malady</strong> card itself.</p>
+<span class="subsection-title">Resting &amp; Ending the Day</span>
+<span class="label-title">Rest Action</span>
+<span class="inline-title">Resting Procedure &amp; Fatigue</span>
+<p>If you are finished taking turns for the round, you can choose to rest. You can resolve any effects that resolve when you rest, then your turn ends and you suffer one <strong>Fatigue</strong> for each <strong>Injury</strong> you have. You cannot take another turn this round. Once all <strong>Rangers</strong> have rested, <strong>Ranger Turns</strong> are over, and play proceeds to the travel phase.</p>
+<span class="inline-title">Turn Termination</span>
+<p>During the <strong>Ranger Turns</strong> phase, each <strong>Ranger</strong> takes separate turns. There is no limit to the number of turns a <strong>Ranger</strong> can take each round. You decide as a group which <strong>Ranger</strong> takes the first turn, and following that, <strong>Rangers</strong> can take their turns in any order. Unless you are the only <strong>Ranger</strong> still taking turns, a different <strong>Ranger</strong> must go after you finish your turn. You can take a second turn in a row by exhausting your <strong>Role</strong> card.</p>
+<span class="label-title">End of Day Triggers</span>
+<span class="inline-title">Five Termination Conditions</span>
+<p>The day can end in several ways. You can choose to camp when you successfully travel. If a <strong>Ranger</strong> needs to draw a card or suffer <strong>Fatigue</strong> but cannot, the day ends immediately. If a <strong>Ranger</strong> suffers their third <strong>Injury</strong>, the day ends at the end of the current turn. If an ally is cleared due to harm, the <strong>Campaign Guide</strong> will instruct you to end the day. Sometimes, when the final stage of a mission is complete, you will reach a stopping point important enough to end the day, and the <strong>Campaign Guide</strong> will instruct you to do so.</p>
+<span class="label-title">Session Cleanup</span>
+<span class="inline-title">Post-Session Mechanical Steps</span>
+<p>When the day ends, your current play session is over, and one day of campaign time passes. Check off the next day on the <strong>Campaign Tracker</strong>. Save your current location by either storing it with your <strong>Ranger</strong> deck or writing it down on the <strong>Campaign Tracker</strong> along with the terrain type you were traveling on. The rest of the game materials can be packed up and returned to their normal storage locations. If you ended the day by camping, before you start the next day, you may choose up to two copies of each <strong>Reward</strong> card that you've unlocked and add them to your deck. For each <strong>Reward</strong> card you add, you must choose a non-<strong>Malady</strong> card to remove from your deck. If the removed card is another <strong>Reward</strong>, return it to the collection. If the removed card is a <strong>Starting Ranger</strong> card, set it aside. These <strong>Displaced</strong> cards can be swapped back into your deck any time you camp in the same way as <strong>Rewards</strong>, and are not part of the collection.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Card Types & Effects</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Playing Cards &amp; Gear Limits</span>
+<span class="label-title">Card Type Definitions</span>
+<span class="inline-title">Moments &amp; Attachments</span>
+<p><strong>Moments</strong> cards describe the specific circumstances under which they can be played in their rules text. When you play a moment, resolve all instructions on the card and discard it. <strong>Attachment</strong> cards are placed in play attached to a card specified in the <strong>Attachment</strong> card's text. Place that card under or to the side of the card to which it is attached and apply its effects. If the card it is attached to leaves play for any reason, discard the <strong>Attachment</strong> card.</p>
+<span class="inline-title">Gear &amp; Features or Beings</span>
+<p><strong>Gear</strong> cards have ongoing effects or abilities that you can trigger during your turn or at other times specified on the card. <strong>Gear</strong> cards are equipped by being played into your <strong>Player Area</strong> and stay there until you choose to discard them. <strong>Features</strong> or <strong>Beings</strong> are <strong>Ranger</strong> cards that function like a <strong>Path Card</strong>. When you play these cards, place them <strong>Within Reach</strong> of you and treat them like a <strong>Path Card</strong> for as long as they remain in play.</p>
+<span class="inline-title">Attributes</span>
+<p><strong>Attribute</strong> cards have no <strong>Energy</strong> cost. They cannot be played and can only be used for tests.</p>
+<span class="label-title">Gear Equip Limits &amp; Discarding</span>
+<span class="inline-title">Square Limits &amp; Discard Rules</span>
+<p>Each <strong>Gear</strong> has an <strong>Equip Value</strong>, ranging from 0 to 5, displayed as a series of filled-in squares at the lower right of its title bar. If you ever have more than five squares worth of cards in your <strong>Player Area</strong>, you must discard cards from your <strong>Player Area</strong> until five or fewer squares remain. On your turn, you can choose to discard any number of equipped cards that you no longer want.</p>
+<span class="subsection-title">Tokens &amp; Responses</span>
+<span class="label-title">Token Tracking &amp; Usage</span>
+<span class="inline-title">General Use &amp; Named Tokens</span>
+<p>Many cards make use of unique tokens to track the number of times they can be used. These cards are marked with a number and name for the tokens in a box on the right side of the card. When one of these cards comes into play, place a number of <strong>General Use Tokens</strong> on this card equal to that number. When the card instructs you to use one of the tokens, discard that token. If a rule affects tokens on a card, it is referring to one of these named tokens.</p>
+<span class="inline-title">Token Depletion Rules</span>
+<p>If you no longer have tokens to discard, you cannot resolve effects that require you to use a token. Cards are not discarded when they run out of tokens.</p>
+<span class="label-title">Response Timing &amp; Resolution</span>
+<span class="inline-title">Response Triggers &amp; Moment Playing</span>
+<p>Some rules begin with Response. These effects resolve at the time specified by their rules text. If this is on a moment, you can play that card at the specified time. This might be during your turn, during other <strong>Rangers</strong>' turns, or even during other phases of the game. Responses can trigger outside turns and phases.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Keywords & Traits</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Keyword Definitions</span>
+<span class="label-title">Alphabetized Keyword List</span>
+<p><strong>Ambush:</strong> When a card with the <strong>Ambush</strong> keyword enters play <strong>Within Reach</strong> or moves <strong>Within Reach</strong> of a <strong>Ranger</strong>, it fatigues that <strong>Ranger</strong>. Only <strong>Ready</strong> cards can fatigue you. If the card is <strong>Exhausted</strong>, you do not suffer <strong>Fatigue</strong> from <strong>Ambush</strong>.</p>
+<p><strong>Conduit:</strong> When you have a card with the <strong>Conduit</strong> keyword equipped, you can play <strong>Manifestation</strong> cards from your hand by spending one token from the <strong>Conduit</strong>.</p>
+<p><strong>Disconnected:</strong> You cannot add progress to this card using the <strong>Connect</strong> common test.</p>
+<p><strong>Fatiguing:</strong> When you rest, if this card is <strong>Ready</strong> and is equipped, <strong>Within Reach</strong>, or <strong>Along the Way</strong>, you suffer <strong>Fatigue</strong> equal to its <strong>Presence</strong>. If this keyword is followed by a number, suffer that much <strong>Fatigue</strong> instead.</p>
+<p><strong>Friendly:</strong> When a card with the <strong>Friendly</strong> keyword is between you and the card with which you're interacting, it does not fatigue you. You cannot affect a card that has the <strong>Friendly</strong> keyword with a card that has the <strong>Weapon</strong> trait.</p>
+<p><strong>Manifestation:</strong> You cannot play a <strong>Manifestation</strong> card from your hand without discarding a token from one of your equipped cards that has the <strong>Conduit</strong> keyword.</p>
+<p><strong>Obstacle:</strong> You cannot interact with a card if a <strong>Ready</strong> card with the <strong>Obstacle</strong> keyword is between you and that card. An <strong>Obstacle</strong> <strong>Within Reach</strong> prevents you from interacting with cards <strong>Along the Way</strong> or in the <strong>Surroundings</strong>. An <strong>Obstacle</strong> <strong>Along the Way</strong> prevents you from interacting with cards in the <strong>Surroundings</strong>. You cannot travel if there are any <strong>Ready</strong> cards with the <strong>Obstacle</strong> keyword in play.</p>
+<p><strong>Persistent:</strong> <strong>Persistent</strong> cards (<strong>Ready</strong> or <strong>Exhausted</strong>) and all cards attached to them remain in play when you travel.</p>
+<p><strong>Setup:</strong> At the start of the day after step 1 of setup, you can search your deck for one card with the <strong>Setup</strong> keyword and put it into play.</p>
+<p><strong>Unique:</strong> A <strong>Ranger</strong> cannot have two <strong>Unique</strong> cards with the same name from their deck in play at the same time. If you play a second copy of the same <strong>Unique</strong> card, the first one is immediately discarded.</p>
+<span class="subsection-title">Trait Definitions</span>
+<span class="label-title">Weapon, Expert, Malady, &amp; Reward Traits</span>
+<p><strong>Weapon:</strong> Cards with the <strong>Weapon</strong> trait cannot affect a card that has the <strong>Friendly</strong> keyword.</p>
+<p><strong>Expert:</strong> The <strong>Outside Interest</strong> card chosen during <strong>Ranger</strong> creation cannot have the <strong>Expert</strong> trait.</p>
+<p><strong>Malady:</strong> <strong>Maladies</strong> represent lingering negative effects. The primary <strong>Malady</strong> is <strong>Lingering Injury</strong>, added to your deck if you are forced to end the day after suffering three injuries. <strong>Maladies</strong> are always in addition to the thirty cards normally in your <strong>Ranger</strong> deck and cannot be swapped out for <strong>Reward</strong> cards, traded away to merchants, or removed by any other method apart from what is described on the <strong>Malady</strong> card itself.</p>
+<p><strong>Reward:</strong> <strong>Reward</strong> cards can be swapped into your deck between sessions if you end the day by camping. You may choose up to two copies of each unlocked <strong>Reward</strong> card to add. For each added, you must remove a non-<strong>Malady</strong> card. <strong>Displaced</strong> cards can be swapped back in when camping.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Setup & Location Management</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Daily Setup</span>
+<span class="label-title">Player Area &amp; Deck Preparation</span>
+<span class="inline-title">Aspect, Role, &amp; Energy Placement</span>
+<p>Place your <strong>Aspect</strong> card, <strong>Role</strong> card, and <strong>Common Test Reference Card</strong> in your <strong>Player Area</strong>. Shuffle your <strong>Ranger</strong> deck and place it in your <strong>Player Area</strong>. Place a number of <strong>Energy</strong> tokens equal to their corresponding <strong>Aspect</strong> values onto your <strong>Aspect</strong> card.</p>
+<span class="inline-title">Hand Draw &amp; Mulligan</span>
+<p>Draw six cards from your <strong>Ranger</strong> deck. If you don't like your starting hand, you can set aside any number of cards from your hand and draw an equivalent number of new cards. Then shuffle the set-aside cards back into your <strong>Ranger</strong> deck.</p>
+<span class="inline-title">Lead Ranger Election</span>
+<p>Together, choose a <strong>Ranger</strong> to be the <strong>Lead Ranger</strong>. The <strong>Lead Ranger</strong> always draws the first <strong>Path Card</strong> at the start of each round and makes decisions for the group if a consensus cannot be reached.</p>
+<span class="label-title">Location, Weather, &amp; Mission Placement</span>
+<span class="inline-title">Challenge Deck &amp; Starting Location</span>
+<p>Shuffle the <strong>Challenge Deck</strong> and place it above the <strong>Surroundings</strong>. Place your current location in the <strong>Surroundings</strong>. If continuing a campaign, check the current location line of your <strong>Campaign Tracker</strong>.</p>
+<span class="inline-title">Weather &amp; Mission Card Setup</span>
+<p>Find the weather card or cards noted below the current day on your <strong>Campaign Tracker</strong>, and place it in the <strong>Surroundings</strong> to the left of the location with the side named on the <strong>Campaign Tracker</strong> faceup. Find the corresponding cards for each uncompleted mission on your <strong>Campaign Tracker</strong> and place them in the <strong>Surroundings</strong> to the right of the location.</p>
+<span class="label-title">Arrival &amp; Start of Day Resolution</span>
+<span class="inline-title">Campaign Entry &amp; Setup Instructions</span>
+<p>Read the campaign entry marked on the back of the location card. Then perform all setup instructions on the back of the location card. If the card calls for the next <strong>Ranger</strong> to resolve an effect but each <strong>Ranger</strong> has already resolved one, that effect is ignored.</p>
+<span class="inline-title">Token Placement &amp; Start of Day Effects</span>
+<p>Place any tokens as dictated by the cards in play, and resolve any instructions on weather or missions labeled Start of Day.</p>
+<span class="subsection-title">Travel &amp; Arrival</span>
+<span class="label-title">Clearing &amp; Movement</span>
+<span class="inline-title">Play Area Clearing &amp; Persistent Cards</span>
+<p>Discard all <strong>Path Cards</strong> in play and all <strong>Ranger</strong> cards <strong>Within Reach</strong>, <strong>Along the Way</strong>, or in the <strong>Surroundings</strong> (but not in your <strong>Player Area</strong>). Then sort all cards from the <strong>Path Deck</strong> and <strong>Path Discard</strong> into their sets, and return them to your collection. Cards with the <strong>Persistent</strong> keyword are not discarded. Missions that instruct you to travel away from a location resolve at this time.</p>
+<span class="inline-title">Map Navigation &amp; Destination Placement</span>
+<p>As a group, choose a new location to travel to by consulting the campaign map. You must choose a location that is connected directly to your current location by one of the paths marked on the map. The chosen destination must be the next location on the chosen path. You cannot travel along river paths until a certain game component allows you to do so. Once the group has chosen a destination, find its location card, and place it into the <strong>Surroundings</strong>, replacing the current location.</p>
+<span class="label-title">Path Deck Construction</span>
+<span class="inline-title">Terrain, Location, &amp; Valley Sets</span>
+<p>To build the <strong>Path Deck</strong> for your new location, combine several sets of <strong>Path Cards</strong>. The terrain you travel across determines what kinds of features and wildlife you will encounter. Each path on the Valley map has an associated type of terrain based on its color and an icon that appears along the line. To form the base of the <strong>Path Deck</strong>, find all <strong>Path Cards</strong> from the set matching the type of terrain of the path you took to the new location. Certain locations are pivotal and have sets of <strong>Path Cards</strong> unique to them. Add each of these cards to the <strong>Path Deck</strong>. If your new location is not pivotal, shuffle all the <strong>Path Cards</strong> in The Valley set, and add three random cards from this set to the <strong>Path Deck</strong>.</p>
+<span class="inline-title">Weather, Mission, &amp; Assembly Instructions</span>
+<p>Other game effects may add additional cards to the <strong>Path Deck</strong>. Check the weather, location, and missions for any instructions labeled <strong>Path Deck Assembly</strong>. When you finish building the <strong>Path Deck</strong>, shuffle it.</p>
+<span class="label-title">Arrival Setup &amp; Camping</span>
+<span class="inline-title">Arrival Instructions &amp; Next Ranger Resolution</span>
+<p>Read the campaign guide entry noted on the back of the location card. Missions to arrive at a location resolve now. These may override reading the normal campaign guide entry. To finish setting up your destination, resolve each instruction under the Arrival Setup header. Most cards instruct the <strong>Lead Ranger</strong> to resolve an effect then have some number of next <strong>Rangers</strong> resolve effects. If an effect calls for the next <strong>Ranger</strong>, but each <strong>Ranger</strong> has already resolved an effect, ignore those additional effects.</p>
+<span class="inline-title">Camping Decision &amp; Reward Swapping</span>
+<p>After choosing your new location, as a group, you can decide to end the day and set up camp for the night before venturing into the new landscape. Ending the day in this way is safer than ending it in the middle of navigating through a location and allows you an opportunity to prepare yourselves for the next day. If you end the day in this way, you are allowed to swap <strong>Reward</strong> cards into your <strong>Ranger</strong> decks between sessions.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Quick Reference Tables</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Icons &amp; Symbols</span>
+<span class="label-title">Visual Lookup Table</span>
+<span class="inline-title">Aspect, Approach, &amp; Presence Icons</span>
+<p><strong>Aspect</strong> icons represent <strong>Awareness</strong>, <strong>Spirit</strong>, <strong>Fitness</strong>, and <strong>Focus</strong> values on cards and <strong>Aspect Cards</strong>. <strong>Approach</strong> symbols indicate the method of interaction required for a test. <strong>Presence</strong> values appear in the upper right-hand corner of cards and determine <strong>Fatigue</strong> suffered when interacting with <strong>Ready</strong> cards.</p>
+<span class="inline-title">Progress, Book, &amp; Arrow Symbols</span>
+<p><strong>Progress</strong> thresholds appear on the right-hand side of location cards and determine travel eligibility. A book icon with a number indicates a corresponding entry in the <strong>Campaign Guide</strong>. An upward-pointing arrow indicates placement <strong>Along the Way</strong>. A downward-pointing arrow indicates placement <strong>Within Reach</strong> of the <strong>Ranger</strong> who drew it.</p>
+<span class="subsection-title">Common Tests</span>
+<span class="label-title">Standard Test Reference</span>
+<span class="inline-title">Four Common Test Lookup</span>
+<p>You always have access to four common tests which you can reference on the <strong>Common Test Reference Card</strong>. Tests appear on cards as an <strong>Aspect</strong>, plus an <strong>Approach</strong> icon, followed by both a thematic and mechanical description of what your <strong>Ranger</strong> does if the test is successful. Example: <strong>FIT</strong> + Traverse [X] the nearby terrain to add to a location or feature equal to your effort. If you fail, suffer 1 <strong>Injury</strong>.</p>
+<span class="subsection-title">Reminders &amp; Edge Cases</span>
+<span class="label-title">Frequently Missed Rules</span>
+<span class="inline-title">Targeting &amp; Fatigue Clarifications</span>
+<p>When a card refers to <strong>Within Reach</strong>, it is referring to <strong>Within Reach</strong> of the <strong>Ranger</strong> resolving the effect unless otherwise specified. Exhausted cards cannot fatigue you. When you suffer an <strong>Injury</strong>, discard all cards in your <strong>Fatigue Stack</strong>. When you rest, suffer one <strong>Fatigue</strong> for each <strong>Injury</strong> you have.</p>
+<span class="inline-title">Turn &amp; Role Exhaustion Rules</span>
+<p>If there is more than one <strong>Ranger</strong> who hasn't rested this round, you must exhaust your <strong>Role</strong> if you want to take a second turn in a row. Each other <strong>Ranger</strong> token (apart from your own) on a card you are interacting with commits one additional effort to your test.</p>
+<span class="label-title">Resolution Priorities</span>
+<span class="inline-title">Partial Resolution &amp; Effort Commitment</span>
+<p>When part of an ability cannot be resolved, resolve as much of the ability as you can unless it follows a &gt;&gt; icon. If you need to draw a <strong>Path Card</strong> but the deck is empty, shuffle the <strong>Path Discard</strong> to create a new <strong>Path Deck</strong> from which to draw. Fully resolve the effects of each card before drawing and resolving the next.</p>
+  </div>
+</details>
+  <p id="no-results">No sections match your search.</p>
+</main>
+<script>
+(function () {
+  var searchEl  = document.getElementById('search');
+  var clearBtn  = document.getElementById('search-clear');
+  var noResults = document.getElementById('no-results');
+  var sections  = Array.from(document.querySelectorAll('details.section'));
+
+  // Snapshot each section body's original HTML so we can restore it
+  // before applying a new round of highlights.
+  sections.forEach(function (s) {
+    var body = s.querySelector('.section-body');
+    if (body) body.dataset.original = body.innerHTML;
+  });
+
+  var timer;
+
+  searchEl.addEventListener('input', function () {
+    var term = this.value.trim();
+    clearBtn.classList.toggle('visible', term.length > 0);
+    clearTimeout(timer);
+    timer = setTimeout(function () { applySearch(term); }, 180);
+  });
+
+  clearBtn.addEventListener('click', function () {
+    searchEl.value = '';
+    clearBtn.classList.remove('visible');
+    applySearch('');
+    searchEl.focus();
+  });
+
+  function escapeRe(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlightTextNodes(container, re) {
+    var walker = document.createTreeWalker(
+      container, NodeFilter.SHOW_TEXT, null, false
+    );
+    var nodes = [];
+    var n;
+    while ((n = walker.nextNode())) {
+      if (n.nodeValue.trim()) nodes.push(n);
+    }
+    nodes.forEach(function (textNode) {
+      re.lastIndex = 0;
+      if (!re.test(textNode.nodeValue)) return;
+      re.lastIndex = 0;
+      var span = document.createElement('span');
+      span.innerHTML = textNode.nodeValue.replace(
+        re, function (m) { return '<mark>' + m + '</mark>'; }
+      );
+      textNode.parentNode.replaceChild(span, textNode);
+    });
+  }
+
+  function applySearch(term) {
+    var re = term ? new RegExp(escapeRe(term), 'gi') : null;
+    var visibleCount = 0;
+
+    sections.forEach(function (section) {
+      var body    = section.querySelector('.section-body');
+      var summary = section.querySelector('summary');
+
+      // Restore original HTML before each search pass
+      if (body) body.innerHTML = body.dataset.original;
+
+      if (!re) {
+        section.classList.remove('search-hidden');
+        section.open = false;
+        return;
+      }
+
+      var titleText = summary ? summary.textContent : '';
+      var bodyText  = body    ? body.textContent    : '';
+
+      re.lastIndex = 0;
+      var inTitle = re.test(titleText);
+      re.lastIndex = 0;
+      var inBody  = re.test(bodyText);
+      re.lastIndex = 0;
+
+      if (inTitle || inBody) {
+        section.classList.remove('search-hidden');
+        section.open = true;
+        if (body) highlightTextNodes(body, new RegExp(escapeRe(term), 'gi'));
+        visibleCount++;
+      } else {
+        section.classList.add('search-hidden');
+      }
+    });
+
+    noResults.style.display = (re && visibleCount === 0) ? 'block' : 'none';
+  }
+})();
+</script>
+</body>
+</html>

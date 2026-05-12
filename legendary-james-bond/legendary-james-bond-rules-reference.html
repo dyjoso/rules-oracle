@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Legendary - James Bond — Rules Reference</title>
+<style>
+:root {
+  --bg:            #f2ede6;
+  --text:          #1a1a1a;
+  --header-bg:     #c29a42;
+  --section-bg:    #c29a42;
+  --subsection-bg: #81bf27;
+  --rule:          #b0a898;
+  --accent:        #81bf27;
+  --table-head:    #c29a42;
+  --note-bg:       #e8e0d4;
+  --body-bg:       #ffffff;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 15px;
+  line-height: 1.55;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* ── STICKY HEADER ───────────────────────────────────────── */
+.sticky-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--header-bg);
+  padding: 10px 14px 12px;
+  padding-top: max(10px, env(safe-area-inset-top));
+  padding-left: max(14px, env(safe-area-inset-left));
+  padding-right: max(14px, env(safe-area-inset-right));
+  box-shadow: 0 2px 12px rgba(0,0,0,0.4);
+}
+
+.masthead-row {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 9px;
+}
+
+.masthead-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  line-height: 1.1;
+  flex-shrink: 0;
+}
+
+.masthead-subtitle {
+  font-size: 11px;
+  color: rgba(255,255,255,0.45);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.back-link {
+  margin-left: auto;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+  text-decoration: none;
+  flex-shrink: 0;
+  padding-left: 12px;
+  white-space: nowrap;
+}
+.back-link:hover {
+  color: rgba(255,255,255,0.85);
+}
+
+.search-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-icon {
+  position: absolute;
+  left: 10px;
+  width: 15px;
+  height: 15px;
+  color: rgba(255,255,255,0.4);
+  pointer-events: none;
+  flex-shrink: 0;
+}
+
+#search {
+  width: 100%;
+  padding: 8px 36px 8px 32px;
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 8px;
+  font-size: 15px;
+  background: rgba(255,255,255,0.12);
+  color: #fff;
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+#search::placeholder { color: rgba(255,255,255,0.38); }
+
+#search:focus {
+  background: rgba(255,255,255,0.2);
+  border-color: rgba(255,255,255,0.3);
+}
+
+.search-clear {
+  position: absolute;
+  right: 6px;
+  background: rgba(255,255,255,0.18);
+  border: none;
+  border-radius: 50%;
+  color: rgba(255,255,255,0.8);
+  font-size: 14px;
+  line-height: 1;
+  width: 22px;
+  height: 22px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  flex-shrink: 0;
+}
+
+.search-clear.visible { display: flex; }
+
+/* ── MAIN ────────────────────────────────────────────────── */
+main {
+  padding: 10px 12px 48px;
+  padding-left: max(12px, env(safe-area-inset-left));
+  padding-right: max(12px, env(safe-area-inset-right));
+  padding-bottom: max(48px, env(safe-area-inset-bottom));
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+/* ── NO RESULTS ──────────────────────────────────────────── */
+#no-results {
+  display: none;
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--text);
+  opacity: 0.5;
+  font-size: 14px;
+}
+
+/* ── COLLAPSIBLE SECTIONS ────────────────────────────────── */
+details.section {
+  margin-bottom: 6px;
+  border-radius: 6px;
+  overflow: hidden;
+  scroll-margin-top: 130px;
+}
+
+details.section > summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  min-height: 44px;
+  background: var(--section-bg);
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  list-style: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+details.section > summary::-webkit-details-marker { display: none; }
+
+.chevron {
+  width: 12px;
+  height: 12px;
+  opacity: 0.65;
+  flex-shrink: 0;
+  margin-left: 8px;
+  transition: transform 0.18s ease;
+}
+
+details.section[open] > summary .chevron {
+  transform: rotate(90deg);
+}
+
+.section-body {
+  background: var(--body-bg);
+  padding: 10px 12px 12px;
+  border: 1px solid var(--rule);
+  border-top: none;
+  border-radius: 0 0 6px 6px;
+}
+
+/* ── HEADINGS WITHIN SECTIONS ────────────────────────────── */
+.subsection-title {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: #fff;
+  background: var(--subsection-bg);
+  padding: 4px 12px;
+  margin: 10px -12px 7px;
+}
+
+.label-title {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--section-bg);
+  border-bottom: 1.5px solid var(--rule);
+  padding-bottom: 3px;
+  margin: 10px 0 5px;
+}
+
+.inline-title {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 8px 0 3px;
+}
+
+/* ── BODY TEXT ───────────────────────────────────────────── */
+p { margin-bottom: 7px; }
+b, strong { font-weight: 600; }
+em, i { font-style: italic; }
+
+/* ── LISTS ───────────────────────────────────────────────── */
+ul, ol { padding-left: 20px; margin-bottom: 6px; }
+ul { list-style-type: disc; }
+ol { list-style-type: decimal; }
+ul ul { list-style-type: circle; }
+li { margin-bottom: 3px; }
+li > ul, li > ol { margin-top: 2px; margin-bottom: 0; }
+
+/* ── TABLES ──────────────────────────────────────────────── */
+.table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin-bottom: 6px;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  min-width: 260px;
+}
+thead tr { background: var(--table-head); color: white; }
+thead th {
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  padding: 5px 8px;
+  text-align: left;
+  white-space: nowrap;
+}
+tbody tr:nth-child(even) { background: var(--note-bg); }
+tbody td { padding: 5px 8px; vertical-align: top; }
+
+/* ── BLOCKQUOTE ──────────────────────────────────────────── */
+blockquote {
+  background: var(--note-bg);
+  border-left: 3px solid var(--accent);
+  padding: 6px 10px;
+  margin: 5px 0 7px;
+  font-size: 14px;
+  border-radius: 0 4px 4px 0;
+}
+blockquote p { margin-bottom: 2px; }
+
+/* ── INLINE CODE ─────────────────────────────────────────── */
+code {
+  background: var(--note-bg);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  padding: 1px 4px;
+  font-size: 13px;
+  font-family: inherit;
+  font-weight: 600;
+}
+
+/* ── HR ──────────────────────────────────────────────────── */
+hr { border: none; border-top: 1px solid var(--rule); margin: 8px 0; }
+
+/* ── SEARCH HIGHLIGHT ────────────────────────────────────── */
+mark {
+  background: #ffe566;
+  color: inherit;
+  border-radius: 2px;
+  padding: 0 1px;
+}
+
+/* ── HIDDEN SECTIONS ─────────────────────────────────────── */
+details.section.search-hidden { display: none; }
+
+/* ── VERSION TOGGLE ──────────────────────────────────────── */
+.toggle-bar {
+  display: flex;
+  margin-top: 8px;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.2);
+}
+.toggle-current,
+.toggle-other {
+  flex: 1;
+  text-align: center;
+  padding: 6px 10px;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  line-height: 1;
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.toggle-current {
+  background: rgba(255,255,255,0.18);
+  color: #ffffff;
+  font-weight: 600;
+  cursor: default;
+}
+.toggle-other {
+  color: rgba(255,255,255,0.5);
+}
+.toggle-other:hover {
+  background: rgba(255,255,255,0.08);
+  color: rgba(255,255,255,0.8);
+}
+
+/* ── PRINT ───────────────────────────────────────────────── */
+@media print {
+  .sticky-header { position: static; }
+  details.section[open], details.section { display: block; }
+  .section-body { display: block !important; }
+  .search-wrap, .search-clear, .toggle-bar { display: none; }
+}
+</style>
+</head>
+<body>
+<header class="sticky-header">
+  <div class="masthead-row">
+    <span class="masthead-title">Legendary - James Bond</span>
+    <span class="masthead-subtitle">Rules Reference</span>
+    <a class="back-link" href="../index.html">&#8592; All Games</a>
+  </div>
+  <div class="toggle-bar"><span class="toggle-current">Quick Reference</span><a class="toggle-other" href="legendary-james-bond-rules-refined.html">Full Rules</a></div>
+  <div class="search-wrap">
+    <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+         stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+         aria-hidden="true">
+      <circle cx="11" cy="11" r="8"/>
+      <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+    </svg>
+    <input type="text" id="search" placeholder="Search rules…"
+           autocomplete="off" spellcheck="false" autocorrect="off">
+    <button class="search-clear" id="search-clear" aria-label="Clear search">&#x2715;</button>
+  </div>
+</header>
+<main>
+<details class="section" open>
+  <summary><span>Setup & Game Start</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Player Decks &amp; Hands</span>
+<p>Each player begins with a personal deck composed of eight <strong>007 Basic Starters</strong>, four <strong>00 Agent Basic Starters</strong>, and one <strong>Special Starter</strong> card. There are twenty different <strong>Special Starter</strong> cards available, with five corresponding to each movie. Shuffle each player's personal deck thoroughly and draw a starting hand of six cards.</p>
+<span class="subsection-title">Game Mat Stacks</span>
+<p>Place the following card stacks face-up on their designated spaces on the game mat. Use all cards of each type for these stacks. Place twelve <strong>Miss Moneypenny</strong> cards in the <strong>Allies</strong> stack. Place thirty <strong>Wound</strong> cards in the <strong>Wound</strong> stack. Place thirty <strong>Gadget</strong> cards in the <strong>Gadget</strong> stack. Position a counter next to the <strong>Danger Level</strong> tracker. You may use a card from out of play, a coin, a bead, or any similar object for this counter.</p>
+<span class="subsection-title">Mastermind &amp; Scheme Placement</span>
+<p>Select one <strong>Mastermind</strong> card and place it face-up on the <strong>Mastermind</strong> space on the game mat. Take the four <strong>Mastermind Tactic</strong> cards that match the selected <strong>Mastermind</strong> and place them face-down underneath the <strong>Mastermind</strong> card in random order. Select one <strong>Scheme</strong> card and place it face-up on the <strong>Scheme</strong> space. Follow the setup instructions printed in the <strong>Setup</strong> section of that <strong>Scheme</strong> card. The <strong>Setup</strong> section always specifies how many <strong>Scheme Twist</strong> cards to add to the <strong>Villain Deck</strong>. Set aside that exact number of <strong>Scheme Twists</strong> for later assembly. Many <strong>Scheme</strong> cards also contain unique special rules that apply throughout the game.</p>
+<span class="subsection-title">Villain Deck Assembly</span>
+<p>Determine the required <strong>Villain Groups</strong>, <strong>Henchmen Groups</strong>, <strong>Mission Groups</strong>, and <strong>Gadgets</strong> based on the player count using the table below. Each <strong>Mastermind</strong> card specifies a <strong>Villain Group</strong> it <strong>Always Leads</strong>; ensure that group is included. Some <strong>Scheme</strong> cards specify a <strong>Mission Group</strong> they <strong>Always Use</strong>; ensure that group is included. If no group is specified, choose one that fits the theme. Set aside all eight <strong>Villain</strong> cards from each selected <strong>Villain Group</strong>, all nine <strong>Mission</strong> cards from the selected <strong>Mission Group</strong>, and all ten cards from each selected <strong>Henchmen Group</strong>. Set aside five <strong>Master Strike</strong> cards for the <strong>Villain Deck</strong>.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th style="text-align: left;">Number of Players</th>
+<th style="text-align: left;">Mission Groups</th>
+<th style="text-align: left;">Villain Groups</th>
+<th style="text-align: left;">Henchmen Groups</th>
+<th style="text-align: left;">Gadgets</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">2</td>
+</tr>
+<tr>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">8</td>
+</tr>
+<tr>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">8</td>
+</tr>
+<tr>
+<td style="text-align: left;">5</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">12</td>
+</tr>
+</tbody>
+</table></div>
+<p>Distribute the <strong>Gadgets</strong> across the deck layers according to the following chart. Leave any remaining <strong>Gadgets</strong> in the <strong>Gadget</strong> stack.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th style="text-align: left;">Number of Gadgets</th>
+<th style="text-align: left;">Deck A</th>
+<th style="text-align: left;">Deck B</th>
+<th style="text-align: left;">Deck C</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">0</td>
+</tr>
+<tr>
+<td style="text-align: left;">8</td>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">2</td>
+</tr>
+<tr>
+<td style="text-align: left;">12</td>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">4</td>
+</tr>
+</tbody>
+</table></div>
+<p>Assemble the <strong>Villain Deck</strong> using the following three-step layering process. Add one <strong>Master Strike</strong> and one <strong>Scheme Twist</strong> to the <strong>Deck A</strong> pile. Add two <strong>Master Strikes</strong> and two <strong>Scheme Twists</strong> to the <strong>Deck B</strong> pile. Add the remaining two <strong>Master Strikes</strong> and two <strong>Scheme Twists</strong> to the <strong>Deck C</strong> pile. Shuffle the <strong>Deck C</strong> pile and place it face-down on top of the <strong>Inevitable</strong> card. Shuffle the <strong>Deck B</strong> pile and place it face-down on top of the <strong>Deck C</strong> pile. Shuffle the <strong>Deck A</strong> pile and place it face-down on top of the <strong>Deck B</strong> pile. The finished <strong>Villain Deck</strong> will have the <strong>Deck A</strong> pile on top and the <strong>Inevitable</strong> card on the bottom. Place the assembled <strong>Villain Deck</strong> face-down on the <strong>Villain Deck</strong> space.</p>
+<span class="subsection-title">Hero Deck &amp; Q Branch</span>
+<p>Select five <strong>Hero Groups</strong> for the <strong>Hero Deck</strong>. Exactly one of these groups must be a <strong>James Bond</strong> <strong>Hero</strong>. Each <strong>Hero Group</strong> contains fourteen cards. Add all cards from the selected groups to the <strong>Hero Deck</strong>, resulting in seventy cards total. If playing with four or five players, add a sixth <strong>Hero Group</strong> to the <strong>Hero Deck</strong>. Shuffle the <strong>Hero Deck</strong> thoroughly and place it face-down on the <strong>Hero Deck</strong> space. Flip five cards from the top of the <strong>Hero Deck</strong> face-up into the five <strong>Hero</strong> spaces in <strong>Q Branch</strong>.</p>
+<span class="subsection-title">First Player Selection</span>
+<p>Choose one player to take the first turn. Players will take turns in clockwise order for the remainder of the game.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Turn Structure</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Villain Phase</span>
+<p>Play the top card of the <strong>Villain Deck</strong> face-up. If the card is a <strong>Villain</strong> or <strong>Mission</strong>, place it in the rightmost <strong>On Assignment</strong> space. If that space is occupied, push the existing card one space to the left to make room. Continue pushing cards leftward as necessary to accommodate the new entry. If a card is pushed off the leftmost <strong>On Assignment</strong> space, it escapes. Resolve all escape effects before resolving any ambush effects on the newly played card. If the played card is a <strong>Gadget</strong>, place it under the <strong>Villain</strong> or <strong>Mission</strong> closest to the <strong>Villain Deck</strong>. If no cards are <strong>On Assignment</strong>, the <strong>Mastermind</strong> acquires the <strong>Gadget</strong>. If the played card is a <strong>Scheme Twist</strong> or <strong>Master Strike</strong>, resolve its effect immediately and place it in the <strong>KO Pile</strong> unless instructed otherwise. <strong>Villain</strong> and <strong>Mission</strong> cards <strong>On Assignment</strong> do not move forward when a <strong>Gadget</strong>, <strong>Scheme Twist</strong>, or <strong>Master Strike</strong> is played.</p>
+<span class="subsection-title">Action Phase</span>
+<p>Play cards from your hand one at a time in any order. Each played card generates <strong>Attack</strong>, <strong>Recruit Points</strong>, and/or special abilities as printed on the card. Keep all played cards in your play area until the end of your turn. Between playing cards, or after playing all cards, you may spend accumulated <strong>Attack</strong> and <strong>Recruit Points</strong> to fight <strong>Villains</strong>, complete <strong>Missions</strong>, or recruit <strong>Heroes</strong>. You may perform any number of these actions in any order during this phase.</p>
+<span class="subsection-title">Clean Up Phase</span>
+<p>Discard all cards you played this turn into your discard pile. Discard any remaining cards in your hand. Draw six new cards from your deck. If your deck is empty and you still need to draw cards, shuffle your discard pile to form a new deck and draw the remaining cards. Resolve any effects that trigger at the end of the turn.</p>
+<p><strong>Resolution Priority:</strong> Escape effects → Ambush effects → Player actions → End-of-turn effects.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Card Types & Board Zones</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Board Zones</span>
+<span class="label-title">On Assignment</span>
+<p>This zone holds up to five <strong>Villain</strong> or <strong>Mission</strong> cards face-up. New entries always occupy the rightmost available space. Cards are pushed leftward when new cards enter. Cards pushed off the leftmost space escape to the <strong>Escaped Pile</strong>.</p>
+<span class="label-title">Q Branch</span>
+<p>This zone displays five face-up <strong>Hero</strong> cards drawn from the <strong>Hero Deck</strong>. Players spend <strong>Recruit Points</strong> to recruit these <strong>Heroes</strong>. Empty spaces are immediately refilled by flipping the top card of the <strong>Hero Deck</strong>.</p>
+<span class="label-title">Victory Pile</span>
+<p>Each player maintains a personal face-up <strong>Victory Pile</strong>. Defeated <strong>Villains</strong>, completed <strong>Missions</strong>, and recovered <strong>Gadgets</strong> are placed here. These cards track progress and determine final scoring.</p>
+<span class="label-title">KO Pile</span>
+<p>This shared pile holds cards that are removed from the game. <strong>Scheme Twists</strong>, <strong>Master Strikes</strong>, and cards targeted by <strong>KO</strong> effects are placed here face-up.</p>
+<span class="label-title">Escaped Pile</span>
+<p>This zone holds <strong>Villains</strong> and <strong>Missions</strong> that were pushed off the <strong>On Assignment</strong> zone. Escaped cards trigger failure effects and may carry <strong>Gadgets</strong>.</p>
+<span class="subsection-title">Card Types</span>
+<span class="label-title">Villains &amp; Missions</span>
+<p><strong>Function:</strong> Obstacles that enter <strong>On Assignment</strong> and must be defeated or completed. <strong>Entry Rule:</strong> Enter the rightmost <strong>On Assignment</strong> space, pushing existing cards left. <strong>Defeat/Complete Condition:</strong> Spend <strong>Attack</strong> equal to the card's <strong>Attack</strong> value. <strong>Escape/Failure Effect:</strong> KO a <strong>Hero</strong> costing six or less from <strong>Q Branch</strong>. If the card carries <strong>Gadgets</strong>, each player discards one card from their hand. Increase the <strong>Danger Level</strong> by the <strong>Mission</strong>'s <strong>Danger Value</strong> if a <strong>Mission</strong> escapes. <strong>Victory Point Value:</strong> Printed on the card.</p>
+<span class="label-title">Heroes</span>
+<p><strong>Function:</strong> Cards played from hand to generate resources and abilities. <strong>Entry Rule:</strong> Played from hand during the <strong>Action Phase</strong>. <strong>Defeat/Complete Condition:</strong> Not applicable. <strong>Escape/Failure Effect:</strong> Not applicable. <strong>Victory Point Value:</strong> Not applicable.</p>
+<span class="label-title">Gadgets</span>
+<p><strong>Function:</strong> Items acquired by enemies that grant <strong>Victory Points</strong> when recovered. <strong>Entry Rule:</strong> Placed under the <strong>Villain</strong> or <strong>Mission</strong> closest to the <strong>Villain Deck</strong>, or under the <strong>Mastermind</strong> if no cards are <strong>On Assignment</strong>. <strong>Defeat/Complete Condition:</strong> Recovered when the holding card is defeated or completed. <strong>Escape/Failure Effect:</strong> Carried to the <strong>Escaped Pile</strong> if the holder escapes. <strong>Victory Point Value:</strong> Printed on the card.</p>
+<span class="label-title">Masterminds &amp; Mastermind Tactics</span>
+<p><strong>Function:</strong> Primary antagonists that must be defeated four times to win. <strong>Entry Rule:</strong> Placed face-up on the <strong>Mastermind</strong> space with four <strong>Tactic</strong> cards face-down underneath. <strong>Defeat/Complete Condition:</strong> Spend <strong>Attack</strong> equal to the <strong>Mastermind</strong>'s <strong>Attack</strong> value. Choose a random <strong>Tactic</strong> card, place it in your <strong>Victory Pile</strong>, and resolve its <strong>Fight</strong> effect. <strong>Escape/Failure Effect:</strong> Not applicable. <strong>Victory Point Value:</strong> Printed on the <strong>Mastermind</strong> and <strong>Tactic</strong> cards.</p>
+<span class="label-title">Scheme Twists &amp; Master Strikes</span>
+<p><strong>Function:</strong> Special event cards that advance the <strong>Mastermind</strong>'s plans or hinder players. <strong>Entry Rule:</strong> Played from the <strong>Villain Deck</strong> during the <strong>Villain Phase</strong>. <strong>Defeat/Complete Condition:</strong> Not applicable. <strong>Escape/Failure Effect:</strong> Not applicable. <strong>Victory Point Value:</strong> Not applicable.</p>
+<span class="label-title">Wounds &amp; Allies</span>
+<p><strong>Function:</strong> <strong>Wounds</strong> weaken player hands. <strong>Allies</strong> provide additional recruitment options. <strong>Entry Rule:</strong> <strong>Wounds</strong> are placed in a player's discard pile when gained. <strong>Allies</strong> are placed in the <strong>Allies</strong> stack. <strong>Defeat/Complete Condition:</strong> Not applicable. <strong>Escape/Failure Effect:</strong> Not applicable. <strong>Victory Point Value:</strong> Not applicable.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Core Actions: Recruiting & Combat</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Recruiting Heroes</span>
+<p>Spend <strong>Recruit Points</strong> equal to a <strong>Hero</strong>'s cost to recruit it from <strong>Q Branch</strong> or the <strong>Allies</strong> stack. Place the recruited <strong>Hero</strong> into your discard pile. Refill the empty space in <strong>Q Branch</strong> immediately by flipping the top card of the <strong>Hero Deck</strong>. You may chain recruitments in a single turn if you have sufficient <strong>Recruit Points</strong>.</p>
+<span class="subsection-title">Fighting Villains</span>
+<p>Spend <strong>Attack</strong> equal to a <strong>Villain</strong>'s <strong>Attack</strong> value to defeat it. You may target any <strong>Villain</strong> <strong>On Assignment</strong> regardless of its position. Resolve any <strong>Fight</strong> effect printed on the <strong>Villain</strong> before comparing <strong>Attack</strong> totals. Place the defeated <strong>Villain</strong> and any attached <strong>Gadgets</strong> into your <strong>Victory Pile</strong>. Remaining <strong>Attack</strong> may be used to fight additional targets.</p>
+<span class="subsection-title">Completing Missions</span>
+<p>Complete <strong>Missions</strong> using the same process as fighting <strong>Villains</strong>. Some <strong>Missions</strong> require <strong>Recruit Points</strong> instead of <strong>Attack</strong>, indicated by a star icon. Spend the required resource equal to the <strong>Mission</strong>'s value. Resolve any <strong>Success</strong> effect printed on the <strong>Mission</strong> upon completion. Place the completed <strong>Mission</strong> and any attached <strong>Gadgets</strong> into your <strong>Victory Pile</strong>. Remaining resources may be used for other actions.</p>
+<span class="subsection-title">Class Abilities</span>
+<p><strong>Class Special Abilities</strong> trigger when you play cards of a matching <strong>Hero Class</strong> earlier in the same turn. A single class icon requires one previously played card of that class. A double class icon requires two previously played cards of that class. If a card has both single and double class abilities, playing one matching card triggers the single ability, while playing two matching cards triggers both abilities. You may only use a card's <strong>Class Special Ability</strong> once per turn, even if multiple qualifying cards were played.</p>
+<span class="subsection-title">Victory Pile Tracking</span>
+<p>Maintain your <strong>Victory Pile</strong> face-up and separate from your discard pile. Many players keep it horizontal to avoid confusion. <strong>Villains</strong>, <strong>Missions</strong>, and <strong>Gadgets</strong> in your <strong>Victory Pile</strong> do not return to your deck. At the end of the game, tally the <strong>Victory Points</strong> printed on each card in your <strong>Victory Pile</strong> to determine your final score.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Keywords & Special Rules</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Keywords</span>
+<span class="label-title">Liaison</span>
+<p>You may leave a <strong>Liaison</strong> card in your play area after your turn. During a <strong>Friendly Player</strong>'s next turn, they may discard it to gain the <strong>Liaison</strong> effect. If unused by the start of your next turn, it is discarded automatically. In solo play, you gain the effect on your next turn or it is discarded at the end of that turn.</p>
+<span class="label-title">Chase</span>
+<p>After playing the <strong>Villain Deck</strong> card but before playing <strong>Heroes</strong> from your hand, a <strong>Chase</strong> card moves one space left, pushing other cards normally. This occurs even if the card was already pushed this turn or just entered <strong>On Assignment</strong>. Resolve multiple <strong>Chase</strong> moves from left to right.</p>
+<span class="label-title">High-Speed Chase</span>
+<p>Functions identically to <strong>Chase</strong>, but the card moves two spaces left instead of one.</p>
+<span class="label-title">Flying</span>
+<p>Enters <strong>On Assignment</strong> in the first open space from the right, rather than the rightmost space.</p>
+<span class="label-title">Persist</span>
+<p>If pushed off <strong>On Assignment</strong>, it remains in place and the card pushing it escapes instead.</p>
+<span class="label-title">Squeeze</span>
+<p>When it enters <strong>On Assignment</strong>, KO the leftmost and rightmost spaces in <strong>Q Branch</strong>. Those spaces do not refill until the <strong>Squeeze</strong> card leaves play. Multiple <strong>Squeeze</strong> cards block additional spaces symmetrically. Three or more <strong>Squeeze</strong> cards empty <strong>Q Branch</strong> entirely.</p>
+<span class="label-title">00 Status</span>
+<p>At the end of your turn, before discarding your hand, if you defeated at least one <strong>Villain</strong> or the <strong>Mastermind</strong> that turn, resolve each of your cards' <strong>00 Status</strong> effects.</p>
+<span class="label-title">Loyalty to the Mission</span>
+<p>The "X" value on these cards equals the highest <strong>Danger Value</strong> among <strong>Missions</strong> in your <strong>Victory Pile</strong>.</p>
+<span class="label-title">Inevitable</span>
+<p>The final card of the <strong>Villain Deck</strong>. Moves one space automatically every turn. Escaping triggers an instant loss. See <strong>Inevitable Card Rules</strong> for full details.</p>
+<span class="label-title">Poker Hands</span>
+<p>Choose up to two cards with cost one or higher from your hand and/or play area. Combine them with cards in <strong>Q Branch</strong> to form a five-card hand. Rankings from weakest to strongest: <strong>Pair</strong>, <strong>Two Pair</strong>, <strong>Three of a Kind</strong>, <strong>Straight</strong>, <strong>Flush</strong>, <strong>Full House</strong>, <strong>Four of a Kind</strong>, <strong>Straight Flush</strong>. Five cards of the same cost do not count as a <strong>Full House</strong>. Tied hands remain tied.</p>
+<span class="subsection-title">General Ability Rules</span>
+<p><strong>Special Abilities</strong> override standard rules. If an ability affects multiple players, the <strong>Active Player</strong> acts first, followed by others clockwise. If you cannot fully resolve an effect, perform as much as possible. If a choice is required and the chooser is unspecified, the <strong>Active Player</strong> decides.</p>
+<p><strong>Wounds</strong> are placed in your discard pile when gained. They provide no <strong>Attack</strong> or <strong>Recruit Points</strong>. You may KO <strong>Wounds</strong> from your hand using their healing ability, provided you have not recruited <strong>Heroes</strong>, fought <strong>Villains</strong> or the <strong>Mastermind</strong>, or completed <strong>Missions</strong> during that turn. <strong>Wounds</strong> are not <strong>Heroes</strong>, but they are cards and can be targeted by effects that say "KO one of your cards."</p>
+<p><strong>Generated Extra Cards</strong> are placed near the game mat during setup. Follow the specific instructions on the card when an effect brings them into play.</p>
+<p><strong>Common Cards</strong> include <strong>Basic Starters</strong>, <strong>Wounds</strong>, <strong>Gadgets</strong>, and other shared components used across multiple movie scenarios and future expansions.</p>
+<p><strong>Reducing ⚔</strong> or ⭐ can never lower a value below zero.</p>
+<p><strong>Printed ⭐ or ⚔</strong> refers strictly to the numeral printed on the card, ignoring any modifications from special abilities.</p>
+<p><strong>Cards with No Cost</strong> count as having zero cost for effects that reference cost.</p>
+<p><strong>Masterminds</strong> do not count as <strong>Villains</strong>. Effects that specifically target <strong>Villains</strong> do not affect <strong>Masterminds</strong>.</p>
+<p><strong>Villain Cards That Go In Your Deck</strong> are added to your discard pile when fought. Once drawn, use the secondary text and resource icons printed on the left side of the card.</p>
+<p><strong>Once This Turn</strong> abilities may be resolved at any point during the turn, not necessarily immediately when the card is played.</p>
+<p><strong>Moves</strong> refers to a card starting on an <strong>On Assignment</strong> space and ending on another space or in the <strong>Escaped Pile</strong>. Initial entry into <strong>On Assignment</strong> does not count as moving.</p>
+<p><strong>007, 00 Agents, and Miss Moneypenny Allies</strong> all count as <strong>Heroes</strong> for ability purposes.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Winning, Losing & Scoring</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Win Conditions</span>
+<p>The game ends immediately when players have defeated the <strong>Mastermind</strong> four times. All players achieve a cooperative victory.</p>
+<span class="subsection-title">Loss Conditions</span>
+<p>The game ends immediately if the <strong>Danger Level</strong> reaches the threshold printed on the <strong>Scheme</strong> card. The game also ends immediately if any effect states "Evil Wins." All players suffer a cooperative loss.</p>
+<span class="subsection-title">Scoring &amp; Tiebreakers</span>
+<p>Tally the <strong>Victory Points</strong> from all cards in each player's <strong>Victory Pile</strong>. The player with the highest total is declared the <strong>Top Agent</strong> and wins the individual competitive portion of the game. Groups may choose to focus primarily on cooperative survival, competitive point accumulation, or a balanced mix of both.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Edge Cases & Deck Management</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Deck Exhaustion</span>
+<p>If the <strong>Hero Deck</strong> runs out before the game ends, finish the current turn. The game concludes as a draw between good and evil. The player with the most <strong>Victory Points</strong> wins the individual victory.</p>
+<p>If the <strong>Gadget</strong> stack runs out, the game continues. Effects that would acquire a <strong>Gadget</strong> simply fail to acquire one. Do not retrieve extra copies from the <strong>KO Pile</strong>.</p>
+<p>If the <strong>Wound</strong> stack runs out, the game continues. If a player would gain a <strong>Wound</strong> but none remain, gather all KO'd <strong>Wounds</strong> to create a new stack.</p>
+<p>If the <strong>Allies</strong> stack runs out, the game continues. Players can no longer recruit from that stack.</p>
+<span class="subsection-title">Card Resolution Terms</span>
+<p><strong>KO</strong> means place the targeted card into the <strong>KO Pile</strong>. Cards in the <strong>KO Pile</strong> are out of the game. Effects specify whether the KO'd card comes from your hand, your play area, or another location. KO'd cards retain any resources or abilities they generated before being removed.</p>
+<p><strong>Defeat</strong> means add the <strong>Villain</strong> to your <strong>Victory Pile</strong>. Resolve its <strong>Fight</strong> effect before moving it.</p>
+<p><strong>Complete</strong> means add the <strong>Mission</strong> to your <strong>Victory Pile</strong>. Resolve its <strong>Success</strong> effect before moving it.</p>
+<p><strong>Acquire a Gadget</strong> means take the top <strong>Gadget</strong> from the <strong>Gadget</strong> stack and place it into your <strong>Victory Pile</strong>.</p>
+<p><strong>Gaining</strong> a card means place that card into your discard pile.</p>
+<span class="subsection-title">Player &amp; Target Definitions</span>
+<p>The <strong>Active Player</strong> is the player whose turn it currently is.</p>
+<p><strong>Friendly Players</strong> includes all other players during cooperative play. During competitive play, only you are considered <strong>Friendly</strong>. Team play treats teammates as <strong>Friendly</strong>.</p>
+<span class="subsection-title">Inevitable Card Rules</span>
+<p>The <strong>Inevitable</strong> card moves one space left whenever a card is played from the <strong>Villain Deck</strong>, typically once per turn. It is never successfully completed. Instead, it provides instructions for what to do when its defeat condition is met. No <strong>Villain</strong> or <strong>Mission</strong> may be placed to the right of an <strong>Inevitable</strong> card. Ignore any effects that would attempt to do so. The <strong>Inevitable</strong> card is only moved by its own printed rules or automatic turn progression.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Variants & Solo Play</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Solo Setup &amp; Scoring</span>
+<p>Use only four <strong>Hero Groups</strong> for the <strong>Hero Deck</strong>, totaling fifty-six cards. Assemble the <strong>Villain Deck</strong> with one <strong>Villain Group</strong>, one <strong>Mission Group</strong>, three <strong>Henchmen</strong> cards from the same group (one in <strong>Deck A</strong>, one in <strong>Deck B</strong>, one in <strong>Deck C</strong>), zero <strong>Gadgets</strong>, five <strong>Master Strikes</strong> (one in <strong>Deck A</strong>, two in <strong>Deck B</strong>, two in <strong>Deck C</strong>), and five <strong>Scheme Twists</strong> (one in <strong>Deck A</strong>, two in <strong>Deck B</strong>, two in <strong>Deck C</strong>).</p>
+<p>After playing a <strong>Scheme Twist</strong>, place a <strong>Hero</strong> of your choice costing six or less from <strong>Q Branch</strong> on the bottom of the <strong>Hero Deck</strong>. After playing a <strong>Master Strike</strong>, immediately play the next card from the <strong>Villain Deck</strong>.</p>
+<p>If you win, calculate your final score by subtracting penalties from your <strong>Victory Points</strong>. Subtract four points for each <strong>Gadget</strong> carried away. Subtract three points for each <strong>Scheme Twist</strong> that occurred. Subtract one point for each <strong>Villain</strong> that escaped. Subtract points equal to the final <strong>Danger Level</strong>. Record your score, used <strong>Heroes</strong>, <strong>Scheme</strong>, and <strong>Mastermind</strong> to track progress across different scenarios.</p>
+<span class="subsection-title">Difficulty Modifiers</span>
+<p>To ease the challenge, grant each player one or more prep turns. During a prep turn, take a normal turn but skip playing the top card of the <strong>Villain Deck</strong>.</p>
+<p>To increase the challenge, grant each player one or more surprised turns. During a surprised turn, take a normal turn but skip the step where you play cards from your hand.</p>
+<p>To balance skill levels, replace some <strong>007 Basic Starters</strong> in newer players' decks with <strong>Miss Moneypenny Allies</strong>.</p>
+<span class="subsection-title">Perfect Mission Mode</span>
+<p>Enable this mode to require the completion of every <strong>Mission</strong>. Failing even a single <strong>Mission</strong> results in an immediate loss.</p>
+<span class="subsection-title">Movie-Specific Combos</span>
+<p>Use the following combinations to experience the four classic films.</p>
+<p><strong>Goldfinger:</strong> Auric Goldfinger <strong>Mastermind</strong>, Goldfinger <strong>Villain Group</strong>, Operation: Grand Slam <strong>Scheme</strong> and <strong>Mission Group</strong>, Fort Knox Assault Team <strong>Henchmen</strong>.</p>
+<p><strong>The Man With The Golden Gun:</strong> Francisco Scaramanga <strong>Mastermind</strong>, The Man With The Golden Gun <strong>Villain Group</strong>, A Duel to the Death <strong>Scheme</strong> and <strong>Mission Group</strong>, Martial Arts Students <strong>Henchmen</strong>.</p>
+<p><strong>GoldenEye:</strong> Alec Trevelyan <strong>Mastermind</strong>, GoldenEye <strong>Villain Group</strong>, Worldwide Financial Meltdown <strong>Scheme</strong> and <strong>Mission Group</strong>, Russian Soldiers <strong>Henchmen</strong>.</p>
+<p><strong>Casino Royale:</strong> Le Chiffre <strong>Mastermind</strong>, Casino Royale <strong>Villain Group</strong>, Win the Casino Royale Tournament <strong>Scheme</strong> and <strong>Mission Group</strong>, Embassy Guards <strong>Henchmen</strong>.</p>
+  </div>
+</details>
+  <p id="no-results">No sections match your search.</p>
+</main>
+<script>
+(function () {
+  var searchEl  = document.getElementById('search');
+  var clearBtn  = document.getElementById('search-clear');
+  var noResults = document.getElementById('no-results');
+  var sections  = Array.from(document.querySelectorAll('details.section'));
+
+  // Snapshot each section body's original HTML so we can restore it
+  // before applying a new round of highlights.
+  sections.forEach(function (s) {
+    var body = s.querySelector('.section-body');
+    if (body) body.dataset.original = body.innerHTML;
+  });
+
+  var timer;
+
+  searchEl.addEventListener('input', function () {
+    var term = this.value.trim();
+    clearBtn.classList.toggle('visible', term.length > 0);
+    clearTimeout(timer);
+    timer = setTimeout(function () { applySearch(term); }, 180);
+  });
+
+  clearBtn.addEventListener('click', function () {
+    searchEl.value = '';
+    clearBtn.classList.remove('visible');
+    applySearch('');
+    searchEl.focus();
+  });
+
+  function escapeRe(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlightTextNodes(container, re) {
+    var walker = document.createTreeWalker(
+      container, NodeFilter.SHOW_TEXT, null, false
+    );
+    var nodes = [];
+    var n;
+    while ((n = walker.nextNode())) {
+      if (n.nodeValue.trim()) nodes.push(n);
+    }
+    nodes.forEach(function (textNode) {
+      re.lastIndex = 0;
+      if (!re.test(textNode.nodeValue)) return;
+      re.lastIndex = 0;
+      var span = document.createElement('span');
+      span.innerHTML = textNode.nodeValue.replace(
+        re, function (m) { return '<mark>' + m + '</mark>'; }
+      );
+      textNode.parentNode.replaceChild(span, textNode);
+    });
+  }
+
+  function applySearch(term) {
+    var re = term ? new RegExp(escapeRe(term), 'gi') : null;
+    var visibleCount = 0;
+
+    sections.forEach(function (section) {
+      var body    = section.querySelector('.section-body');
+      var summary = section.querySelector('summary');
+
+      // Restore original HTML before each search pass
+      if (body) body.innerHTML = body.dataset.original;
+
+      if (!re) {
+        section.classList.remove('search-hidden');
+        section.open = false;
+        return;
+      }
+
+      var titleText = summary ? summary.textContent : '';
+      var bodyText  = body    ? body.textContent    : '';
+
+      re.lastIndex = 0;
+      var inTitle = re.test(titleText);
+      re.lastIndex = 0;
+      var inBody  = re.test(bodyText);
+      re.lastIndex = 0;
+
+      if (inTitle || inBody) {
+        section.classList.remove('search-hidden');
+        section.open = true;
+        if (body) highlightTextNodes(body, new RegExp(escapeRe(term), 'gi'));
+        visibleCount++;
+      } else {
+        section.classList.add('search-hidden');
+      }
+    });
+
+    noResults.style.display = (re && visibleCount === 0) ? 'block' : 'none';
+  }
+})();
+</script>
+</body>
+</html>

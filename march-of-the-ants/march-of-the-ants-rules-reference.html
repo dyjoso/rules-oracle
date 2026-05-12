@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>March of the Ants — Rules Reference</title>
+<style>
+:root {
+  --bg:            #f2ede6;
+  --text:          #1a1a1a;
+  --header-bg:     #304c24;
+  --section-bg:    #304c24;
+  --subsection-bg: #643220;
+  --rule:          #b0a898;
+  --accent:        #643220;
+  --table-head:    #304c24;
+  --note-bg:       #e8e0d4;
+  --body-bg:       #ffffff;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 15px;
+  line-height: 1.55;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* ── STICKY HEADER ───────────────────────────────────────── */
+.sticky-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--header-bg);
+  padding: 10px 14px 12px;
+  padding-top: max(10px, env(safe-area-inset-top));
+  padding-left: max(14px, env(safe-area-inset-left));
+  padding-right: max(14px, env(safe-area-inset-right));
+  box-shadow: 0 2px 12px rgba(0,0,0,0.4);
+}
+
+.masthead-row {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 9px;
+}
+
+.masthead-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  line-height: 1.1;
+  flex-shrink: 0;
+}
+
+.masthead-subtitle {
+  font-size: 11px;
+  color: rgba(255,255,255,0.45);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.back-link {
+  margin-left: auto;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+  text-decoration: none;
+  flex-shrink: 0;
+  padding-left: 12px;
+  white-space: nowrap;
+}
+.back-link:hover {
+  color: rgba(255,255,255,0.85);
+}
+
+.search-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-icon {
+  position: absolute;
+  left: 10px;
+  width: 15px;
+  height: 15px;
+  color: rgba(255,255,255,0.4);
+  pointer-events: none;
+  flex-shrink: 0;
+}
+
+#search {
+  width: 100%;
+  padding: 8px 36px 8px 32px;
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 8px;
+  font-size: 15px;
+  background: rgba(255,255,255,0.12);
+  color: #fff;
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+#search::placeholder { color: rgba(255,255,255,0.38); }
+
+#search:focus {
+  background: rgba(255,255,255,0.2);
+  border-color: rgba(255,255,255,0.3);
+}
+
+.search-clear {
+  position: absolute;
+  right: 6px;
+  background: rgba(255,255,255,0.18);
+  border: none;
+  border-radius: 50%;
+  color: rgba(255,255,255,0.8);
+  font-size: 14px;
+  line-height: 1;
+  width: 22px;
+  height: 22px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  flex-shrink: 0;
+}
+
+.search-clear.visible { display: flex; }
+
+/* ── MAIN ────────────────────────────────────────────────── */
+main {
+  padding: 10px 12px 48px;
+  padding-left: max(12px, env(safe-area-inset-left));
+  padding-right: max(12px, env(safe-area-inset-right));
+  padding-bottom: max(48px, env(safe-area-inset-bottom));
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+/* ── NO RESULTS ──────────────────────────────────────────── */
+#no-results {
+  display: none;
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--text);
+  opacity: 0.5;
+  font-size: 14px;
+}
+
+/* ── COLLAPSIBLE SECTIONS ────────────────────────────────── */
+details.section {
+  margin-bottom: 6px;
+  border-radius: 6px;
+  overflow: hidden;
+  scroll-margin-top: 130px;
+}
+
+details.section > summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  min-height: 44px;
+  background: var(--section-bg);
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  list-style: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+details.section > summary::-webkit-details-marker { display: none; }
+
+.chevron {
+  width: 12px;
+  height: 12px;
+  opacity: 0.65;
+  flex-shrink: 0;
+  margin-left: 8px;
+  transition: transform 0.18s ease;
+}
+
+details.section[open] > summary .chevron {
+  transform: rotate(90deg);
+}
+
+.section-body {
+  background: var(--body-bg);
+  padding: 10px 12px 12px;
+  border: 1px solid var(--rule);
+  border-top: none;
+  border-radius: 0 0 6px 6px;
+}
+
+/* ── HEADINGS WITHIN SECTIONS ────────────────────────────── */
+.subsection-title {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: #fff;
+  background: var(--subsection-bg);
+  padding: 4px 12px;
+  margin: 10px -12px 7px;
+}
+
+.label-title {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--section-bg);
+  border-bottom: 1.5px solid var(--rule);
+  padding-bottom: 3px;
+  margin: 10px 0 5px;
+}
+
+.inline-title {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 8px 0 3px;
+}
+
+/* ── BODY TEXT ───────────────────────────────────────────── */
+p { margin-bottom: 7px; }
+b, strong { font-weight: 600; }
+em, i { font-style: italic; }
+
+/* ── LISTS ───────────────────────────────────────────────── */
+ul, ol { padding-left: 20px; margin-bottom: 6px; }
+ul { list-style-type: disc; }
+ol { list-style-type: decimal; }
+ul ul { list-style-type: circle; }
+li { margin-bottom: 3px; }
+li > ul, li > ol { margin-top: 2px; margin-bottom: 0; }
+
+/* ── TABLES ──────────────────────────────────────────────── */
+.table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin-bottom: 6px;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  min-width: 260px;
+}
+thead tr { background: var(--table-head); color: white; }
+thead th {
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  padding: 5px 8px;
+  text-align: left;
+  white-space: nowrap;
+}
+tbody tr:nth-child(even) { background: var(--note-bg); }
+tbody td { padding: 5px 8px; vertical-align: top; }
+
+/* ── BLOCKQUOTE ──────────────────────────────────────────── */
+blockquote {
+  background: var(--note-bg);
+  border-left: 3px solid var(--accent);
+  padding: 6px 10px;
+  margin: 5px 0 7px;
+  font-size: 14px;
+  border-radius: 0 4px 4px 0;
+}
+blockquote p { margin-bottom: 2px; }
+
+/* ── INLINE CODE ─────────────────────────────────────────── */
+code {
+  background: var(--note-bg);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  padding: 1px 4px;
+  font-size: 13px;
+  font-family: inherit;
+  font-weight: 600;
+}
+
+/* ── HR ──────────────────────────────────────────────────── */
+hr { border: none; border-top: 1px solid var(--rule); margin: 8px 0; }
+
+/* ── SEARCH HIGHLIGHT ────────────────────────────────────── */
+mark {
+  background: #ffe566;
+  color: inherit;
+  border-radius: 2px;
+  padding: 0 1px;
+}
+
+/* ── HIDDEN SECTIONS ─────────────────────────────────────── */
+details.section.search-hidden { display: none; }
+
+/* ── VERSION TOGGLE ──────────────────────────────────────── */
+.toggle-bar {
+  display: flex;
+  margin-top: 8px;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.2);
+}
+.toggle-current,
+.toggle-other {
+  flex: 1;
+  text-align: center;
+  padding: 6px 10px;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  line-height: 1;
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.toggle-current {
+  background: rgba(255,255,255,0.18);
+  color: #ffffff;
+  font-weight: 600;
+  cursor: default;
+}
+.toggle-other {
+  color: rgba(255,255,255,0.5);
+}
+.toggle-other:hover {
+  background: rgba(255,255,255,0.08);
+  color: rgba(255,255,255,0.8);
+}
+
+/* ── PRINT ───────────────────────────────────────────────── */
+@media print {
+  .sticky-header { position: static; }
+  details.section[open], details.section { display: block; }
+  .section-body { display: block !important; }
+  .search-wrap, .search-clear, .toggle-bar { display: none; }
+}
+</style>
+</head>
+<body>
+<header class="sticky-header">
+  <div class="masthead-row">
+    <span class="masthead-title">March of the Ants</span>
+    <span class="masthead-subtitle">Rules Reference</span>
+    <a class="back-link" href="../index.html">&#8592; All Games</a>
+  </div>
+  <div class="toggle-bar"><span class="toggle-current">Quick Reference</span><a class="toggle-other" href="march-of-the-ants-rules-refined.html">Full Rules</a></div>
+  <div class="search-wrap">
+    <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+         stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+         aria-hidden="true">
+      <circle cx="11" cy="11" r="8"/>
+      <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+    </svg>
+    <input type="text" id="search" placeholder="Search rules…"
+           autocomplete="off" spellcheck="false" autocorrect="off">
+    <button class="search-clear" id="search-clear" aria-label="Clear search">&#x2715;</button>
+  </div>
+</header>
+<main>
+<details class="section" open>
+  <summary><span>Game Flow & Structure</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>March of the Ants is played over multiple rounds. Each round follows a strict four-phase sequence: <strong>Worker Phase</strong>, <strong>Soldier Phase</strong>, <strong>Queen Phase</strong>, and <strong>Slumber</strong>. The player with the most <strong>Colony Points</strong> at the end of the final round wins the game.</p>
+<p>The <strong>Active Player Marker</strong> determines turn order. It begins with a randomly selected player and passes clockwise after each turn. The player holding the marker at the end of the <strong>Worker Phase</strong> retains it and takes the first turn in the next round.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Setup</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<ol>
+<li>Place the <strong>Great Tunnel</strong> in the center of the table.</li>
+<li>Place the <strong>Score/Round Track</strong> on one side of the play area on the 4-round side. Place the <strong>Strength Track</strong> beneath it. Place the <strong>Round Marker</strong> on Round 1 and the <strong>Centipede Size Marker</strong> on the space corresponding to the player count.</li>
+<li>Shuffle the starting hexes (#1-10) together and place 2 per player to form a facedown stack. Return the rest to the game box.</li>
+<li>Randomly select 2 <strong>Beyond the Meadow</strong> hexes (#24-28) and shuffle them with the standard hexes (#11-23). Place the starting hex stack on top of these, and place the combined stack near the <strong>Great Tunnel</strong>. With 4-5 players, add 1 extra <strong>Beyond the Meadow</strong> hex.</li>
+<li>Place the food, centipede, and wormhole tokens next to the play area.</li>
+<li>Place the <strong>Great Defender Rest Tile</strong> beneath the <strong>Round Track</strong>. Shuffle the other <strong>Rest Tiles</strong> and place them in a facedown stack nearby. Draw and place tiles faceup under the <strong>Score Track</strong> until there is 1 <strong>Rest Tile</strong> per player.</li>
+<li>Randomly select 2 <strong>Reward Tiles</strong> from each level. Place the two "I - II" tiles on top of the two "III+" tiles to form a facedown stack. Return the rest to the box.</li>
+<li>Reveal the top <strong>Reward Tile</strong> and place it faceup in the center of the <strong>Great Tunnel</strong>.</li>
+<li>Randomly select a starting player and give them the <strong>Active Player Marker</strong>.</li>
+<li>Shuffle the <strong>Ant Card</strong> deck. Place it near the play area.</li>
+<li>Each player chooses a color and takes 36 ant tokens of that color and 1 <strong>Nest Mat</strong> with the star side up.</li>
+<li>Each player places 4 ant tokens into their <strong>Larvae Chamber</strong> as larvae and 2 in the <strong>Great Tunnel</strong> as ants. Place the rest on the side of the <strong>Nest Mat</strong> as eggs.</li>
+<li>Each player places their <strong>Score</strong> and <strong>Strength Markers</strong> on the spaces of their respective tracks, with the printed sides down.</li>
+<li>Each player places 2 food tokens into their <strong>Food Stores</strong>.</li>
+<li>Each player draws 3 cards.</li>
+</ol>
+<p>See <strong>Variants &amp; Player Counts</strong> section for 2-player, Epic, Ancient Species, and Solo/Co-op rules.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>The Worker Phase</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Turn Structure</span>
+<p>Players take turns in clockwise order, starting with the player holding the <strong>Active Player Marker</strong>. Play continues until all faceup <strong>Rest Tiles</strong> have been taken using the <strong>Rest</strong> action.</p>
+<p>On your turn, you first pay the cost, then perform the chosen <strong>Action</strong>. After your action resolves, the two neighboring players may take the associated <strong>Reaction</strong> in clockwise order, starting with the player to your left. <strong>Reactions</strong> have no cost. Once your action and all <strong>Reactions</strong> are resolved, pass the <strong>Active Player Marker</strong> clockwise to begin the next turn.</p>
+<span class="subsection-title">Actions &amp; Reactions</span>
+<p><strong>Explore</strong>
+Cost: 1 food
+Action: Draw a hex and place it connected by a tunnel to an adjacent location where you have at least 1 ant. Move any number of your ants from any adjacent connected locations into the explored hex. You must move at least 1 ant. Ants immediately move into collection sites, or to the <strong>Outskirts</strong> if all sites are full.
+Reaction: Each neighbor may move 1 larva from their <strong>Larvae Chamber</strong> to a hex they inhabit or to the <strong>Great Tunnel</strong>.</p>
+<p><strong>Forage</strong>
+Cost: 1 food
+Action: Draw 3 cards, then discard any 1 card from your hand. There is no limit to hand size. If you would draw a card and the deck is empty, shuffle the discard pile to make a new deck.
+Reaction: Each neighbor may gain 1 larva by moving an egg from their supply to their <strong>Larvae Chamber</strong>. If you have no eggs, you may not gain a larva.</p>
+<p><strong>March</strong>
+Cost: 1 food
+Action: Take up to 6 steps with your larvae and/or ants. Taking steps is always optional.
+Reaction: Each neighbor may take 1 ant step, or move 1 larva from their <strong>Larvae Chamber</strong> to the <strong>Great Tunnel</strong>.</p>
+<p><strong>Play a Card</strong>
+Cost: Shown on Card
+Action: Play one card from your hand. Playing a card does not cost food. To pay, remove larvae and/or ants equal to the card's cost from your <strong>Larvae Chamber</strong> or the Meadow and return them to your egg supply. Pay with any combination of larvae and ants, or only with ants, or only with larvae, as specified on the card.
+Reaction: Each neighbor may discard a card from their hand to draw a card.</p>
+<p><strong>Rest</strong>
+Cost: None
+Action: Take 1 faceup <strong>Rest Tile</strong> of your choice and gain its rewards. You may not <strong>Rest</strong> on your first turn in a round unless you have no food and no cards in hand. Once you have <strong>Rest</strong>ed, you must <strong>Rest</strong> on each subsequent turn. When a player takes the last faceup <strong>Rest Tile</strong>, they finish their turn, pass the <strong>Active Player Marker</strong> clockwise, and the <strong>Worker Phase</strong> ends.
+Reaction: None.</p>
+<span class="subsection-title">End of Phase Reactions</span>
+<p>At the end of the <strong>Worker Phase</strong>, in player order starting with the <strong>Active Player</strong>, take <strong>Reactions</strong> equal to the number of thorax Evolutions you have in play. You may not choose the same <strong>Reaction</strong> twice. Each player takes all of their <strong>Reactions</strong> before the next player takes any. Choose <strong>Reactions</strong> from the four standard actions: <strong>Explore</strong>, <strong>Forage</strong>, <strong>March</strong>, or <strong>Play a Card</strong>. If you have more than 4 evolved thoraxes, you only take 4 <strong>Reactions</strong>—one of each.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>The Soldier Phase</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Battle Trigger &amp; Setup</span>
+<p>Battles occur in the <strong>Great Tunnel</strong> and in <strong>Contested</strong> hexes. A hex is <strong>Contested</strong> when two or more players have ants in it and there are ants in the <strong>Outskirts</strong>, or if a centipede is present in a hex containing any ants. If a <strong>Contested</strong> hex becomes uncontested before a battle starts, the battle will not occur. No hex battles occur in Round 1.</p>
+<p>The <strong>Great Tunnel</strong> does not count as a hex. A battle takes place there if ants from two or more different colonies are present. If only one player's ants are present, they gain the 1st-place award and no battle occurs. Hexes adjacent to the <strong>Great Tunnel</strong> grant their controller points during <strong>Slumber</strong>. Players may always move larvae directly to the <strong>Great Tunnel</strong>.</p>
+<span class="subsection-title">Resolution Steps</span>
+<ol>
+<li>Determine Defender: In hexes, the player who inhabits the <strong>Control Site</strong> is the defender. In the <strong>Great Tunnel</strong>, the player with the <strong>Great Defender Rest Tile</strong> is the defender. The defender wins ties and acts last.</li>
+<li>Declare Strength: Each player counts their ants in the location and adds the number of head Evolutions they have. Set your marker to that number on the <strong>Strength Track</strong>.</li>
+<li>Ferocity: Starting with the player to the left of the defender and proceeding clockwise, each player in the battle may play 1 card from their hand facedown. All players reveal their cards and add the number of pips shown in the symbol to their Strength, adjusting their position on the <strong>Strength Track</strong>.</li>
+<li>Outcome: The player with the greatest Strength wins. In the <strong>Great Tunnel</strong>, also determine 2nd and 3rd place based on Strength. Ties are broken in clockwise order starting with the defender. Only one player can win. All other players lose.</li>
+<li>Casualties: Losing players assign casualties to the winner. For every 2 losing ants combined, assign 1 casualty to the winner. The winning player assigns 1 casualty per ant they have, distributed as evenly as possible to losing players in clockwise order. The winner cannot lose their last ant in the location. Each player may only be assigned enough casualties to remove all of their ants. Once assigned, each player loses 1 ant of their choice from the battle location for each casualty assigned to them.</li>
+<li>Spoils: In hexes, the winner gains control and may move 1 ant in the hex into the <strong>Control Site</strong>, pushing any occupant to the <strong>Outskirts</strong>. In the <strong>Great Tunnel</strong>, 1st, 2nd, and 3rd place players gain the spoils shown on the <strong>Reward Tile</strong>. Players gain spoils even if all their ants were removed during Casualties.</li>
+<li>Cleanup: Players take turns moving all of their ants in the <strong>Outskirts</strong> of that hex to vacant collection sites in clockwise order starting with the winner. Reset the markers on the <strong>Strength Track</strong> to zero. Discard all cards played during battle.</li>
+</ol>
+  </div>
+</details>
+<details class="section">
+  <summary><span>The Queen Phase & Slumber</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Harvest &amp; Feeding</span>
+<p>Gain resources from collection sites that your ants inhabit. Add 1 food to your stores, add 1 or 2 larvae to your <strong>Larvae Chamber</strong> as shown on the site, draw a card, or advance your <strong>Score Marker</strong> 1 space.</p>
+<p>All ants in the Meadow must be fed to survive. Larvae do not need to be fed. Each food token feeds up to 4 ants, plus 1 additional ant for each abdomen Evolution you have. You may choose not to feed any number of your ants, but you will lose any unfed ants, returning them to your egg supply.</p>
+<span class="subsection-title">Queen’s Choice &amp; Scoring</span>
+<p>After all ants have been fed, each player chooses twice to gain either 1 food or 3 larvae. There is no <strong>Queen's Choice</strong> in the final round. If needed, resolve the <strong>Queen's Choice</strong> in clockwise order starting with the <strong>Active Player</strong>.</p>
+<p>Gain 1 <strong>Colony Point</strong> for each <strong>Inner Meadow</strong> hex you control. All hexes adjacent to the <strong>Great Tunnel</strong> are part of the <strong>Inner Meadow</strong>. They do not need to be connected to the <strong>Great Tunnel</strong> to score.</p>
+<p>Gain 1, 2, or 3 <strong>Colony Points</strong> for meeting the conditions of the <strong>Colony Goal</strong> cards you have in play. The number of points gained is based on how well you meet the condition, as shown on the card.</p>
+<span class="subsection-title">Round Cleanup</span>
+<p>If it is the final round, the game ends. Otherwise, advance the <strong>Round Marker</strong> one space and complete the following steps:</p>
+<ol>
+<li>Return the <strong>Great Defender Rest Tile</strong> to the area beneath the <strong>Round Track</strong>.</li>
+<li>Discard all other faceup <strong>Rest Tiles</strong> in a discard stack. Reveal new <strong>Rest Tiles</strong> until there is 1 tile per player beneath the <strong>Round Track</strong>. If all <strong>Rest Tiles</strong> have been used, shuffle all discarded <strong>Rest Tiles</strong> to form a new stack.</li>
+<li>Discard the current <strong>Reward Tile</strong>. Reveal the topmost <strong>Reward Tile</strong> and place it faceup in the <strong>Great Tunnel</strong>.</li>
+<li>The next <strong>Worker Phase</strong> begins. The player who was passed the <strong>Active Player Marker</strong> at the end of the last <strong>Worker Phase</strong> takes the first turn.</li>
+</ol>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Core Mechanics & Concepts</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Board &amp; Hex Rules</span>
+<span class="label-title">Hex Placement</span>
+<p>Anytime you place a hex in the Meadow, whether through <strong>Explore</strong>, a card effect, or another ability, you must connect at least one of its tunnel openings to an existing tunnel opening. You may block its tunnels or the tunnels of other hexes. If the hex has a feature, place the corresponding token on the hex and resolve any special abilities.</p>
+<span class="label-title">Inhabiting &amp; Control</span>
+<p>When you have at least one ant in a collection site in a hex, you <strong>inhabit</strong> that hex. Inhabiting a hex allows you to move larvae directly to that hex and is required for many card effects and abilities. A <strong>Control Site</strong> is a type of collection site that also grants control of the hex. Control is important for scoring and winning ties in battle.</p>
+<span class="label-title">Outskirts &amp; Sharing</span>
+<p>When you move an ant into a hex, it immediately <strong>inhabits</strong> an empty collection site of your choice. If none are empty, place the ant in the <strong>Outskirts</strong> (anywhere else on that hex). When an ant leaves a collection site, any ant in the <strong>Outskirts</strong> of that hex will immediately <strong>inhabit</strong> it at the end of the current action or <strong>Reaction</strong>. If multiple players have ants in the <strong>Outskirts</strong>, players take turns inhabiting empty sites in player order.</p>
+<p>Ants from multiple colonies may peacefully share a hex as long as there are enough collection sites for all the ants. A hex is <strong>Shared</strong> when two or more players' ants <strong>inhabit</strong> that hex. If a hex is <strong>Shared</strong> but there are not enough sites for all the ants, that hex is also <strong>Contested</strong>.</p>
+<span class="label-title">Meadow Features</span>
+<p>Hexes have different features, collection sites, and sometimes special rules. Hex numbers are used in the <strong>Soldier Phase</strong> and are color-coded according to their number. Hex names do not have any gameplay effect. Ants may move between adjacent locations if those locations have a connected tunnel. <strong>Beyond the Meadow</strong> hexes have unique effects written on them. The player who places the hex resolves any "when placed" effects before any players take <strong>Reactions</strong>. <strong>Beyond the Meadow</strong> hexes are part of the Meadow.</p>
+<p>Centipedes are threats to the ants. Place a centipede token on the hex and advance the <strong>Centipede Size</strong> by 1. Ants may move into hexes with centipedes and inhabit collection sites as normal, but will have to battle the centipedes during the <strong>Soldier Phase</strong>.</p>
+<p>Wormholes allow ants to move between two hexes that have wormholes with a single step. Wormholes do not connect hexes for the purposes of card effects and <strong>Explore</strong> actions.</p>
+<span class="subsection-title">Movement &amp; Steps</span>
+<p>Steps let you move ants around the Meadow and move larvae into the Meadow, where they become ants. Taking steps is always optional. One step allows you to move:</p>
+<ol>
+<li>1 ant from any location to any adjacent connected location.</li>
+<li>1 ant from a location with a wormhole to any other location with a wormhole.</li>
+<li>1 ant from a collection site to another open collection site in the same hex.</li>
+<li>1 larva from your <strong>Larvae Chamber</strong> to any hex that you inhabit or the <strong>Great Tunnel</strong>.</li>
+</ol>
+<p>Abilities that instruct you to take ant steps only allow you to move ants, not larvae. You may use multiple steps to move 1 ant several times, or distribute them among several ants or larvae.</p>
+<span class="subsection-title">Ant Lifecycle &amp; Resources</span>
+<p>The wooden ant tokens represent different stages of the life cycle depending on where they are located. When tokens are in the Meadow (the <strong>Great Tunnel</strong> or hexes), they are ants. When they are in your <strong>Larvae Chamber</strong>, they are larvae. All other tokens are kept to the side of the <strong>Nest Mat</strong> as eggs.</p>
+<p>To gain a larva, take an egg from your supply and place it in your <strong>Larvae Chamber</strong>. To move a larva, take a larva from your <strong>Larvae Chamber</strong> and place it into the Meadow, where it immediately becomes an ant.</p>
+<p>Each player has a limit of 36 wooden ant tokens available each game. If they are all in use, the player cannot gain more larvae or ants. A few extras are included in the game to cover manufacturing issues. Set aside any extras to use as backup.</p>
+<span class="subsection-title">Cards &amp; Rest Tiles</span>
+<span class="label-title">Card Payment &amp; Types</span>
+<p>Playing a card does not cost food. To pay for a card, remove larvae and/or ants equal to the cost of the card from your <strong>Larvae Chamber</strong> or the Meadow and return them to your supply of eggs. Cards may require payment with any combination of larvae and ants, only with ants from the Meadow, or only with larvae from the <strong>Larvae Chamber</strong>. Card types, their uses, and their effects are detailed on the cards themselves.</p>
+<span class="label-title">Rest Tile Effects</span>
+<p>Each time you <strong>Rest</strong>, choose an available <strong>Rest Tile</strong> and place it next to your <strong>Nest Mat</strong>. Some <strong>Rest Tiles</strong> grant immediate rewards, while others grant bonuses or effects later in the round. Immediate effects resolve when the tile is taken. Ongoing effects apply until the end of the round or as specified on the tile.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Game End & Victory</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>After the final round, determine the winner of each endgame award. Each award grants <strong>Colony Points</strong> to the player who wins it. If players tie for an award, each tied player gains the points. Players who failed to feed any of their ants in Autumn are ineligible for endgame awards. If an ineligible player would win an award, it goes to the player with the next most qualifying resources.</p>
+<p>The awards go to the player who has:
+Largest Brood: The most larvae.
+Greatest Stores: The most food.
+Untold Potential: The most cards in hand.</p>
+<p>The player with the highest score wins. In case of a tie, the player with the most ants in the Meadow wins. If still tied, all tied players share the victory.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Quick Reference Tables</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Icons &amp; Symbols</span>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Icon</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Control Site</td>
+<td>Grants hex control, wins ties in battle, scores in Slumber if adjacent to Great Tunnel</td>
+</tr>
+<tr>
+<td>Collection Site</td>
+<td>Offers resources during Queen Phase. Max 1 ant per site.</td>
+</tr>
+<tr>
+<td>Food</td>
+<td>Resource used for actions and feeding ants</td>
+</tr>
+<tr>
+<td>Colony Point</td>
+<td>Victory point</td>
+</tr>
+<tr>
+<td>Single Larva</td>
+<td>Grants 1 larva during Harvest</td>
+</tr>
+<tr>
+<td>Ant Card</td>
+<td>Grants 1 card during Harvest</td>
+</tr>
+<tr>
+<td>Double Larvae</td>
+<td>Grants 2 larvae during Harvest</td>
+</tr>
+<tr>
+<td>Tunnel</td>
+<td>Connection point for hex placement and ant movement</td>
+</tr>
+<tr>
+<td>Wormhole</td>
+<td>Allows 1-step movement between any two wormhole hexes</td>
+</tr>
+<tr>
+<td>Centipede</td>
+<td>Threat token. Advances Centipede Size. Triggers battle if ants present.</td>
+</tr>
+<tr>
+<td>Ferocity Pips</td>
+<td>Added to Strength during battle when card is revealed</td>
+</tr>
+<tr>
+<td>Immediate Effect</td>
+<td>Resolves when card is played</td>
+</tr>
+<tr>
+<td>Slumber Effect</td>
+<td>Resolves during Slumber phase</td>
+</tr>
+<tr>
+<td>Head / Thorax / Abdomen</td>
+<td>Evolution segment types</td>
+</tr>
+</tbody>
+</table></div>
+<span class="subsection-title">Segment Bonuses &amp; Rest Tiles</span>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Evolution Segment</th>
+<th>Bonus Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Head</td>
+<td>Gain +1 Strength in battle per head</td>
+</tr>
+<tr>
+<td>Thorax</td>
+<td>At end of Worker Phase, choose 1 different Reaction per thorax</td>
+</tr>
+<tr>
+<td>Abdomen</td>
+<td>Each food feeds 1 additional ant per abdomen</td>
+</tr>
+</tbody>
+</table></div>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Rest Tile Category</th>
+<th>Effect Timing</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Immediate Effects</td>
+<td>Resolve when tile is taken during Rest action</td>
+</tr>
+<tr>
+<td>Ongoing Effects</td>
+<td>Apply until end of round or as specified on tile</td>
+</tr>
+<tr>
+<td>Great Defender Tile</td>
+<td>Grants defender status in Great Tunnel. Available each round.</td>
+</tr>
+</tbody>
+</table></div>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Clarifications & FAQ</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Card Interactions</span>
+<p><strong>Adaptive Radiation</strong>: If this card causes you to lose and then complete an ant body, you do not lose points or score points as a result.
+<strong>Into the Unknown</strong>: There may only be one wormhole per hex. There may only be 1 centipede per hex.
+<strong>Mating Flight</strong>: You may choose to exchange the location of any player's ant, including your own, with that of any other player's ant.
+<strong>Sneak Attack</strong>: This card will not cause a hex battle to take place in round 1. Battle in the hex resolves as it normally would in the <strong>Soldier Phase</strong>, at which point the <strong>Worker Phase</strong> continues. If there is a centipede in the hex, it will battle until it is defeated, then, if the hex is still <strong>Contested</strong>, resolve one ant battle.
+<strong>Amazon Head</strong>: You gain a larva even if no opponents have larvae to lose.
+<strong>Armored Head</strong>: This does not prevent your last ant in a hex from being lost, as long as enough casualties are assigned to you. This does not prevent you from losing all your ants when you lose to a centipede.
+<strong>Army Head</strong>: You may move 1 larva from your <strong>Larvae Chamber</strong> or 1 ant from an adjacent location into the current battle.
+<strong>Betrayer Abdomen/Traitorous Head</strong>: Instead of battling a centipede in a hex you are in, you may choose to lose 1 ant from that hex. If you do, other players in that hex still battle the centipede.
+<strong>Blasting Head</strong>: When ants are removed, the player whose ants are removed decides which ants are lost. If this card's effect causes a hex to become uncontested, no battle will take place there. You cannot choose to remove less than 3 ants, even if it means removing your own. This may be used in Round 1.
+<strong>Flying Thorax</strong>: This does not allow you to move larvae to hexes you do not inhabit or place an explored hex with no connecting tunnels.
+<strong>Garden Thorax</strong>: The cost of cards cannot be reduced to zero.
+<strong>Golden Fire Head</strong>: You must choose to use this ability immediately after you play your standard Ferocity card.
+<strong>Marching Thorax</strong>: This does not double <strong>March</strong> <strong>Reactions</strong> when taken as a thorax bonus <strong>Reaction</strong>.
+<strong>Parasitic Thorax</strong>: If 2 or more opponents have an equal amount of larvae, steal 1 larva from each of them. Steal means the opponent loses 1 larva and you gain 1.
+<strong>Renegade Thorax</strong>: Centipedes may not end their movement in the <strong>Great Tunnel</strong> or a hex with another centipede.
+<strong>Scouting Thorax</strong>: You do not need to show the unexplored hex to other players.
+<strong>Tunneling Thorax</strong>: You cannot place an explored hex with no connecting tunnels. Because you always inhabit hexes with wormholes, you may move larvae directly to those hexes with <strong>Explore</strong> <strong>Reactions</strong> or with 1 step.
+<strong>Weaver Thorax</strong>: Your opponents cannot use any actions or card effects to move ants out of hexes you control, including effects that would move your ants. This includes effects that exchange ants. They may use ants in those hexes to pay for the cost of cards.
+<strong>Extensive Tunnel</strong>: "Hexes connected by a single tunnel" refers to a group of hexes that an ant could traverse without retracing its steps.
+<strong>Eyeless Overlords</strong>: There may only be 1 wormhole per hex.
+<strong>Abandoned Spider's Lair</strong>: The player who places this hex may choose not to play any of the revealed cards.
+<strong>Ant Lion Den</strong>: Only discard cards for inhabited sites, not for the total number of ants in the hex.
+<strong>Nest of Centipedes</strong>: There can only be 1 centipede in each hex at any time. If all connected hexes already contain a centipede token, no centipede token is placed.</p>
+<span class="subsection-title">Hex &amp; Board Rules</span>
+<p><strong>Contested Hex</strong>: If multiple players have ants in the same hex and there are ants in the <strong>Outskirts</strong>, it is <strong>Contested</strong>. If a centipede and ants are in the same hex, it is <strong>Contested</strong>. If a hex is <strong>Contested</strong> during <strong>Soldier Phase</strong>, a battle takes place there.
+<strong>Control Site</strong>: A site in a hex that gives the occupying ant's player control over that hex, allowing them to win ties in battle and gain 1 point in <strong>Slumber</strong> if the hex is adjacent to the <strong>Great Tunnel</strong>.
+<strong>Excess Casualties</strong>: Once all casualties have been assigned, any extra have no effect.
+<strong>Great Defender Rest Tile</strong>: This <strong>Rest Tile</strong> is available each round. The player with this tile counts as the defender in the <strong>Great Tunnel</strong> Battle, even if they are not present in the battle. Ties are broken in clockwise order, starting with them, and Ferocity card play starts with the player to their left.
+<strong>The Great Tunnel</strong>: The central location of the Meadow. You may always move larvae into the <strong>Great Tunnel</strong>. A battle will take place there during <strong>Soldier Phase</strong> if ants from 2 or more different colonies are present. The <strong>Great Tunnel</strong> is not a hex.
+<strong>Hand</strong>: A player's cards. There is no hand size limit. The number of cards each player has is public knowledge.
+<strong>Hex Battle</strong>: A battle that takes place in a hex. (As opposed to the <strong>Great Tunnel</strong> Battle, which is not a hex battle.)
+<strong>Inhabit</strong>: A hex is inhabited by each player who has at least one ant in a collection site in that hex.
+<strong>The Meadow</strong>: Consists of the <strong>Great Tunnel</strong> and all placed hexes.
+<strong>Moving Larvae</strong>: When a larva moves to the Meadow, it immediately becomes an ant. When taking steps, you may move larva directly to any hex you inhabit or the <strong>Great Tunnel</strong>.
+<strong>Location</strong>: Each hex and the <strong>Great Tunnel</strong>.
+<strong>Lose Ants</strong>: Remove your own ants from the Meadow. When you are instructed to lose ants, as a result of a card effect or battle casualties, you choose which ants to lose.
+<strong>Outer Meadow Hex</strong>: A hex that is not adjacent to the <strong>Great Tunnel</strong>.
+<strong>Outskirts</strong>: Any place in a hex that is not a collection site. If all collection sites in a hex are inhabited, any ant that enters that hex is placed in the <strong>Outskirts</strong>. Ants in the <strong>Outskirts</strong> of a hex automatically move to inhabit collection sites that become empty as soon as the current action or <strong>Reaction</strong> is resolved.
+<strong>Player Order</strong>: The order in which turns are taken. Player order is clockwise and starts with the <strong>Active Player</strong> unless specified otherwise.
+<strong>Play Priority</strong>: Unless specified, resolve questions of priority in player order.
+<strong>Reactions</strong>: Players only take <strong>Reactions</strong> to their neighbors' main action that they take on their turn. Players do not take <strong>Reactions</strong> to action-like effects that result from cards or other abilities.
+<strong>Shared Hex</strong>: A hex that 2 or more players inhabit.
+<strong>Wormhole Hex</strong>: A hex that contains a wormhole token is sometimes referred to as a wormhole hex.
+<strong>Wormholes</strong>: A location with a wormhole token has a wormhole. Ants may move from any hex with a wormhole to any other hex with a wormhole with 1 step. Ants may not <strong>Explore</strong> through wormholes.</p>
+<span class="subsection-title">General Terminology</span>
+<p><strong>Active Player</strong>: The player with the <strong>Active Player Marker</strong>.
+<strong>Centipedes</strong>: A hex can only have 1 centipede token on it at a time. Centipedes may not be placed in the <strong>Great Tunnel</strong>.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Variants & Player Counts</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">2-Player Rules</span>
+<p>After completing normal setup, take these extra steps:</p>
+<ol>
+<li>Beginning with the <strong>Active Player</strong>, each player takes 2 of the unused starting hexes at random. Each player chooses 1 hex and places it connected to the <strong>Great Tunnel</strong>. Return the unchosen hex to the game box.</li>
+<li>Each player places 3 ants into their placed hex.</li>
+<li>Set aside the ants and <strong>Strength Marker</strong> of an unused color for the Old Guard.
+At the start of each <strong>Worker Phase</strong>, reveal 1 additional <strong>Rest Tile</strong>. You will use 3 <strong>Rest Tiles</strong> each round: the <strong>Great Defender Tile</strong>, and two additional ones.</li>
+</ol>
+<span class="subsection-title">Epic Game</span>
+<p>The epic game is played over 5 rounds rather than 4. It follows all standard rules with these adjustments:
+During setup, flip the <strong>Score Track</strong> to the 5-round side and add 1 additional "II+" <strong>Reward Tile</strong> to the bottom of the stack.
+In Rounds 4 and 5, each food feeds up to 3 ants per food instead of 4 (before adding abdomen bonuses).</p>
+<span class="subsection-title">Ancient Species</span>
+<p>Randomly assign a <strong>Nest Mat</strong> to each player. Each player plays as the Ancient Species found on the backside of the <strong>Nest Mat</strong>. The game follows standard rules and structure. Each Ancient Species shows the new rules that apply to it.</p>
+<p>Each Ancient Species has a unique action you can use once per <strong>Worker Phase</strong>. These actions give a Global <strong>Reaction</strong>, meaning that all other players, not just the neighboring players, get to take the <strong>Reaction</strong>. At the start of each <strong>Worker Phase</strong>, place your <strong>Strength Marker</strong> in the circular space above your unique action to track whether you have used it. Return it to the <strong>Strength Track</strong> when you use your unique action, or at the start of the <strong>Soldier Phase</strong>.</p>
+<p>Features are other abilities or penalties that apply to the species. Each Ancient Species has a drawback, and some have a special way to score points during <strong>Slumber</strong>.</p>
+<p><strong>Egg Gardeners</strong>: Reaction: Choose one of the played Evolution cards and gain larvae equal to its cost. If no evolutions are played for <strong>Reactions</strong>, you do not gain any larvae. If an ability lets you play more than one Ferocity card, you will lose a point for each. You do not lose points for playing cards for Ferocity in the <strong>Great Tunnel</strong> Battle.
+<strong>Horizon Seekers</strong>: Expand counts as a single <strong>Explore</strong> action for purposes of cards or other effects. Abilities that trigger off of <strong>Explore</strong> actions only apply to one of the explored hexes. If you place both hexes, they must be connected to the same hex and you must move at least 1 ant into each of them.
+<strong>Visionary Queen</strong>: You may have any number of <strong>Colony Goals</strong> in play but once you have 2 or more, you may only add additional <strong>Colony Goals</strong> by using your unique action. If you play a <strong>Colony Goal</strong> in any other way, you must replace one of your current ones. The additional cost to Evolve multiple times is always 1 ant or larva, regardless of the cost requirement of the card you are playing.
+<strong>Chaos Dancers</strong>: You must take the steps before resolving the card effect.</p>
+<span class="subsection-title">Solo/Co-op</span>
+<p>The rules for the solo and co-op modes are explained on the standalone Rise of the Centipedes sheet.</p>
+  </div>
+</details>
+  <p id="no-results">No sections match your search.</p>
+</main>
+<script>
+(function () {
+  var searchEl  = document.getElementById('search');
+  var clearBtn  = document.getElementById('search-clear');
+  var noResults = document.getElementById('no-results');
+  var sections  = Array.from(document.querySelectorAll('details.section'));
+
+  // Snapshot each section body's original HTML so we can restore it
+  // before applying a new round of highlights.
+  sections.forEach(function (s) {
+    var body = s.querySelector('.section-body');
+    if (body) body.dataset.original = body.innerHTML;
+  });
+
+  var timer;
+
+  searchEl.addEventListener('input', function () {
+    var term = this.value.trim();
+    clearBtn.classList.toggle('visible', term.length > 0);
+    clearTimeout(timer);
+    timer = setTimeout(function () { applySearch(term); }, 180);
+  });
+
+  clearBtn.addEventListener('click', function () {
+    searchEl.value = '';
+    clearBtn.classList.remove('visible');
+    applySearch('');
+    searchEl.focus();
+  });
+
+  function escapeRe(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlightTextNodes(container, re) {
+    var walker = document.createTreeWalker(
+      container, NodeFilter.SHOW_TEXT, null, false
+    );
+    var nodes = [];
+    var n;
+    while ((n = walker.nextNode())) {
+      if (n.nodeValue.trim()) nodes.push(n);
+    }
+    nodes.forEach(function (textNode) {
+      re.lastIndex = 0;
+      if (!re.test(textNode.nodeValue)) return;
+      re.lastIndex = 0;
+      var span = document.createElement('span');
+      span.innerHTML = textNode.nodeValue.replace(
+        re, function (m) { return '<mark>' + m + '</mark>'; }
+      );
+      textNode.parentNode.replaceChild(span, textNode);
+    });
+  }
+
+  function applySearch(term) {
+    var re = term ? new RegExp(escapeRe(term), 'gi') : null;
+    var visibleCount = 0;
+
+    sections.forEach(function (section) {
+      var body    = section.querySelector('.section-body');
+      var summary = section.querySelector('summary');
+
+      // Restore original HTML before each search pass
+      if (body) body.innerHTML = body.dataset.original;
+
+      if (!re) {
+        section.classList.remove('search-hidden');
+        section.open = false;
+        return;
+      }
+
+      var titleText = summary ? summary.textContent : '';
+      var bodyText  = body    ? body.textContent    : '';
+
+      re.lastIndex = 0;
+      var inTitle = re.test(titleText);
+      re.lastIndex = 0;
+      var inBody  = re.test(bodyText);
+      re.lastIndex = 0;
+
+      if (inTitle || inBody) {
+        section.classList.remove('search-hidden');
+        section.open = true;
+        if (body) highlightTextNodes(body, new RegExp(escapeRe(term), 'gi'));
+        visibleCount++;
+      } else {
+        section.classList.add('search-hidden');
+      }
+    });
+
+    noResults.style.display = (re && visibleCount === 0) ? 'block' : 'none';
+  }
+})();
+</script>
+</body>
+</html>

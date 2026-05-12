@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Carnival of Monsters — Rules Reference</title>
+<style>
+:root {
+  --bg:            #f2ede6;
+  --text:          #1a1a1a;
+  --header-bg:     #573123;
+  --section-bg:    #573123;
+  --subsection-bg: #96952a;
+  --rule:          #b0a898;
+  --accent:        #96952a;
+  --table-head:    #573123;
+  --note-bg:       #e8e0d4;
+  --body-bg:       #ffffff;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 15px;
+  line-height: 1.55;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* ── STICKY HEADER ───────────────────────────────────────── */
+.sticky-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--header-bg);
+  padding: 10px 14px 12px;
+  padding-top: max(10px, env(safe-area-inset-top));
+  padding-left: max(14px, env(safe-area-inset-left));
+  padding-right: max(14px, env(safe-area-inset-right));
+  box-shadow: 0 2px 12px rgba(0,0,0,0.4);
+}
+
+.masthead-row {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 9px;
+}
+
+.masthead-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  line-height: 1.1;
+  flex-shrink: 0;
+}
+
+.masthead-subtitle {
+  font-size: 11px;
+  color: rgba(255,255,255,0.45);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.back-link {
+  margin-left: auto;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+  text-decoration: none;
+  flex-shrink: 0;
+  padding-left: 12px;
+  white-space: nowrap;
+}
+.back-link:hover {
+  color: rgba(255,255,255,0.85);
+}
+
+.search-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-icon {
+  position: absolute;
+  left: 10px;
+  width: 15px;
+  height: 15px;
+  color: rgba(255,255,255,0.4);
+  pointer-events: none;
+  flex-shrink: 0;
+}
+
+#search {
+  width: 100%;
+  padding: 8px 36px 8px 32px;
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 8px;
+  font-size: 15px;
+  background: rgba(255,255,255,0.12);
+  color: #fff;
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+#search::placeholder { color: rgba(255,255,255,0.38); }
+
+#search:focus {
+  background: rgba(255,255,255,0.2);
+  border-color: rgba(255,255,255,0.3);
+}
+
+.search-clear {
+  position: absolute;
+  right: 6px;
+  background: rgba(255,255,255,0.18);
+  border: none;
+  border-radius: 50%;
+  color: rgba(255,255,255,0.8);
+  font-size: 14px;
+  line-height: 1;
+  width: 22px;
+  height: 22px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  flex-shrink: 0;
+}
+
+.search-clear.visible { display: flex; }
+
+/* ── MAIN ────────────────────────────────────────────────── */
+main {
+  padding: 10px 12px 48px;
+  padding-left: max(12px, env(safe-area-inset-left));
+  padding-right: max(12px, env(safe-area-inset-right));
+  padding-bottom: max(48px, env(safe-area-inset-bottom));
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+/* ── NO RESULTS ──────────────────────────────────────────── */
+#no-results {
+  display: none;
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--text);
+  opacity: 0.5;
+  font-size: 14px;
+}
+
+/* ── COLLAPSIBLE SECTIONS ────────────────────────────────── */
+details.section {
+  margin-bottom: 6px;
+  border-radius: 6px;
+  overflow: hidden;
+  scroll-margin-top: 130px;
+}
+
+details.section > summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  min-height: 44px;
+  background: var(--section-bg);
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  list-style: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+details.section > summary::-webkit-details-marker { display: none; }
+
+.chevron {
+  width: 12px;
+  height: 12px;
+  opacity: 0.65;
+  flex-shrink: 0;
+  margin-left: 8px;
+  transition: transform 0.18s ease;
+}
+
+details.section[open] > summary .chevron {
+  transform: rotate(90deg);
+}
+
+.section-body {
+  background: var(--body-bg);
+  padding: 10px 12px 12px;
+  border: 1px solid var(--rule);
+  border-top: none;
+  border-radius: 0 0 6px 6px;
+}
+
+/* ── HEADINGS WITHIN SECTIONS ────────────────────────────── */
+.subsection-title {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: #fff;
+  background: var(--subsection-bg);
+  padding: 4px 12px;
+  margin: 10px -12px 7px;
+}
+
+.label-title {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--section-bg);
+  border-bottom: 1.5px solid var(--rule);
+  padding-bottom: 3px;
+  margin: 10px 0 5px;
+}
+
+.inline-title {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 8px 0 3px;
+}
+
+/* ── BODY TEXT ───────────────────────────────────────────── */
+p { margin-bottom: 7px; }
+b, strong { font-weight: 600; }
+em, i { font-style: italic; }
+
+/* ── LISTS ───────────────────────────────────────────────── */
+ul, ol { padding-left: 20px; margin-bottom: 6px; }
+ul { list-style-type: disc; }
+ol { list-style-type: decimal; }
+ul ul { list-style-type: circle; }
+li { margin-bottom: 3px; }
+li > ul, li > ol { margin-top: 2px; margin-bottom: 0; }
+
+/* ── TABLES ──────────────────────────────────────────────── */
+.table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin-bottom: 6px;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  min-width: 260px;
+}
+thead tr { background: var(--table-head); color: white; }
+thead th {
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  padding: 5px 8px;
+  text-align: left;
+  white-space: nowrap;
+}
+tbody tr:nth-child(even) { background: var(--note-bg); }
+tbody td { padding: 5px 8px; vertical-align: top; }
+
+/* ── BLOCKQUOTE ──────────────────────────────────────────── */
+blockquote {
+  background: var(--note-bg);
+  border-left: 3px solid var(--accent);
+  padding: 6px 10px;
+  margin: 5px 0 7px;
+  font-size: 14px;
+  border-radius: 0 4px 4px 0;
+}
+blockquote p { margin-bottom: 2px; }
+
+/* ── INLINE CODE ─────────────────────────────────────────── */
+code {
+  background: var(--note-bg);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  padding: 1px 4px;
+  font-size: 13px;
+  font-family: inherit;
+  font-weight: 600;
+}
+
+/* ── HR ──────────────────────────────────────────────────── */
+hr { border: none; border-top: 1px solid var(--rule); margin: 8px 0; }
+
+/* ── SEARCH HIGHLIGHT ────────────────────────────────────── */
+mark {
+  background: #ffe566;
+  color: inherit;
+  border-radius: 2px;
+  padding: 0 1px;
+}
+
+/* ── HIDDEN SECTIONS ─────────────────────────────────────── */
+details.section.search-hidden { display: none; }
+
+/* ── VERSION TOGGLE ──────────────────────────────────────── */
+.toggle-bar {
+  display: flex;
+  margin-top: 8px;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.2);
+}
+.toggle-current,
+.toggle-other {
+  flex: 1;
+  text-align: center;
+  padding: 6px 10px;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  line-height: 1;
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.toggle-current {
+  background: rgba(255,255,255,0.18);
+  color: #ffffff;
+  font-weight: 600;
+  cursor: default;
+}
+.toggle-other {
+  color: rgba(255,255,255,0.5);
+}
+.toggle-other:hover {
+  background: rgba(255,255,255,0.08);
+  color: rgba(255,255,255,0.8);
+}
+
+/* ── PRINT ───────────────────────────────────────────────── */
+@media print {
+  .sticky-header { position: static; }
+  details.section[open], details.section { display: block; }
+  .section-body { display: block !important; }
+  .search-wrap, .search-clear, .toggle-bar { display: none; }
+}
+</style>
+</head>
+<body>
+<header class="sticky-header">
+  <div class="masthead-row">
+    <span class="masthead-title">Carnival of Monsters</span>
+    <span class="masthead-subtitle">Rules Reference</span>
+    <a class="back-link" href="../index.html">&#8592; All Games</a>
+  </div>
+  <div class="toggle-bar"><span class="toggle-current">Quick Reference</span><a class="toggle-other" href="carnival-of-monsters-rules-refined.html">Full Rules</a></div>
+  <div class="search-wrap">
+    <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+         stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+         aria-hidden="true">
+      <circle cx="11" cy="11" r="8"/>
+      <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+    </svg>
+    <input type="text" id="search" placeholder="Search rules…"
+           autocomplete="off" spellcheck="false" autocorrect="off">
+    <button class="search-clear" id="search-clear" aria-label="Clear search">&#x2715;</button>
+  </div>
+</header>
+<main>
+<details class="section" open>
+  <summary><span>Game Overview & Setup</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p><strong>Objective:</strong> Score the most <strong>Victory Points</strong> after four <strong>Seasons</strong> of play.</p>
+<p><strong>Components:</strong> Main Board, <strong>Carnival Cards</strong>, <strong>Season Cards</strong>, <strong>Loan Cards</strong>, Player Boards, <strong>Gold Crowns</strong>, <strong>Hunter Tokens</strong>, Royal Hunter dice, Starting <strong>Land Cards</strong>.</p>
+<p><strong>Setup Checklist:</strong></p>
+<ol>
+<li>Place the Main Board in the center of the table.</li>
+<li>Shuffle all <strong>Carnival Cards</strong> together and create a face-down draw deck on the matching space of the Main Board.</li>
+<li>Shuffle the <strong>Season Cards</strong> and draw four at random. Place them face-down on the matching space of the Main Board. Return the remaining three <strong>Season Cards</strong> to the box without revealing them.</li>
+<li>Stack the <strong>Loan Cards</strong> on the ledger space of the Main Board.</li>
+<li>Give each player a Player Board and four <strong>Gold Crowns</strong>. Place the remaining <strong>Gold Crowns</strong>, all <strong>Hunter Tokens</strong>, and the Royal Hunter dice in the center of the Main Board to form the bank.</li>
+<li>Shuffle the ten Starting <strong>Land Cards</strong> and deal two to each player. Place your Starting <strong>Land Cards</strong> face-up next to your Player Board. Return any unused Starting <strong>Land Cards</strong> to the box.</li>
+</ol>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Season Flow Overview</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p><strong>Carnival of Monsters</strong> is played over four <strong>Seasons</strong>. Each <strong>Season</strong> follows the same four-phase structure. All players act simultaneously during the drafting phase. The direction that cards are passed changes each <strong>Season</strong>: pass to the left during the first and third <strong>Seasons</strong>, and pass to the right during the second and fourth <strong>Seasons</strong>. Repeat Phases 1 through 4 until the fourth <strong>Season</strong> ends.</p>
+<span class="subsection-title">Phase 1: Reveal Season Card</span>
+<span class="label-title">Season Bonus &amp; Aerie Exception</span>
+<p>Turn over the next <strong>Season Card</strong> on the Main Board. The <strong>Season Card</strong> indicates one type of <strong>Monster</strong> that is in demand this <strong>Season</strong>. The first time each player displays a <strong>Monster</strong> that matches the <strong>Season Card</strong>, they receive a <strong>Season Bonus</strong> of two <strong>Gold Crowns</strong> from the bank. This bonus can only be received once per <strong>Season</strong>.</p>
+<p>If the revealed <strong>Season Card</strong> is the Aerie <strong>Season</strong>, each player gains two <strong>Gold Crowns</strong> the first time they play an Aerie <strong>Monster</strong>.</p>
+<span class="label-title">Trophy Tracking</span>
+<p>The player who displays the most impressive collection of <strong>Monsters</strong> matching the current <strong>Season Card</strong> will earn the <strong>Victory Points</strong> shown on the <strong>Season Card</strong>. This <strong>Trophy</strong> is tracked from Phase 1 but officially awarded during Phase 4.</p>
+<span class="subsection-title">Phase 2: Draft &amp; Play Cards</span>
+<span class="label-title">Drafting Loop</span>
+<p>Deal eight <strong>Carnival Cards</strong> to every player. All players keep their cards secret. Players will capture cards one at a time until all cards in their hands have been captured. Each capture cycle follows three steps:</p>
+<ol>
+<li>Capture one card by placing it face-down on the journal space of your Player Board.</li>
+<li>Pass all remaining cards in your hand to the next player in the current <strong>Season</strong> direction. When you receive cards from your neighbor, place them face-down on your Player Board without looking at them.</li>
+<li>Decide whether to play or keep the captured card.</li>
+</ol>
+<span class="label-title">Playing or Keeping Cards</span>
+<p>After all players have resolved their captured card, pick up the cards passed to you, choose one to capture, pass the rest, and repeat the cycle until all <strong>Carnival Cards</strong> for the <strong>Season</strong> have been captured.</p>
+<p>If you choose to keep a captured card, you must pay one <strong>Gold Crown</strong> to the bank. Place the kept card face-down in the <strong>Kept Cards</strong> space on your Player Board. There is no limit to the number of cards you can keep. You may play any of your <strong>Kept Cards</strong> at any time, except during the <strong>Danger Check</strong>, as long as you meet the requirements to play that card.</p>
+<span class="subsection-title">Phase 3: Danger Check</span>
+<span class="label-title">Hunter Sources</span>
+<p>Tally the total number of Danger symbols on the <strong>Monsters</strong> you displayed during the current <strong>Season</strong>. Do not count Danger symbols on <strong>Kept Cards</strong> or in your <strong>Menagerie</strong>. You must have Hunters equal to or greater than this total. You may draw from the following Hunter sources:</p>
+<ol>
+<li>Royal Hunters: One player rolls all three Royal Hunter dice once per <strong>Season</strong>. Add the cage values to determine the total Royal Hunters available. All players may use these Hunters. Unused Royal Hunters do not carry over to the next <strong>Season</strong>.</li>
+<li>Staff Hunters: Provided by played <strong>Staff Cards</strong>. Each Staff Hunter can be used once per <strong>Season</strong>.</li>
+<li><strong>Hunter Tokens</strong>: Awarded by certain <strong>Event Cards</strong>. Each <strong>Hunter Token</strong> can be used only once and must be returned to the supply after use. Unused <strong>Hunter Tokens</strong> can be saved for later <strong>Seasons</strong>.</li>
+</ol>
+<span class="label-title">Resolution &amp; Fines</span>
+<p>Add your available Staff Hunters and Royal Hunters together. If the sum equals or exceeds your Danger symbol total, your <strong>Monsters</strong> are secure. If you do not have enough Hunters, you may discard <strong>Hunter Tokens</strong> to cover the difference. If you still lack Hunters after using all available sources, you must pay a fine of three <strong>Gold Crowns</strong> for each remaining Danger symbol. If you cannot pay the fine, you must take out enough <strong>Loans</strong> to cover the cost. You cannot play any cards from your <strong>Kept Cards</strong> during this phase.</p>
+<span class="subsection-title">Phase 4: Season End</span>
+<span class="label-title">Trophy Award</span>
+<p>Players compare all <strong>Monsters</strong> they displayed this <strong>Season</strong> that match the current <strong>Season Card</strong>. The player with the highest combined sum of <strong>Victory Points</strong> or Danger symbols on matching <strong>Monster Cards</strong> takes the <strong>Season Card</strong> as a <strong>Trophy</strong> and places it face-down in their <strong>Menagerie</strong>. If there is a tie for the highest sum, no one takes the <strong>Trophy</strong> and the <strong>Season Card</strong> is discarded.</p>
+<span class="label-title">Cleanup &amp; Game Continuation</span>
+<p>Move all <strong>Monsters</strong> you played this <strong>Season</strong> face-down into the <strong>Menagerie</strong> space on your Player Board. All <strong>Land Cards</strong> remain in play for the upcoming <strong>Seasons</strong>. If you have just completed the fourth <strong>Season</strong>, the game ends. Otherwise, begin the next <strong>Season</strong> at Phase 1.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Card Reference</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Land Cards</span>
+<p><strong>Land Cards</strong> provide <strong>Land Points</strong> for a specific Region. <strong>Land Points</strong> are spent to play <strong>Monster Cards</strong>. Some <strong>Land Cards</strong> feature Distant Lands symbols. If a <strong>Land Card</strong> shows one Distant Land symbol, you may only play it if you already have at least one <strong>Land Card</strong> of the same Region in play. If it shows two Distant Land symbols, you must already have at least two <strong>Land Cards</strong> of the same Region in play. The same matching <strong>Land Cards</strong> can qualify for any number of Distant Land <strong>Cards</strong>.</p>
+<span class="subsection-title">Monster Cards</span>
+<p><strong>Monster Cards</strong> depict creatures worth <strong>Victory Points</strong> at game end. To play a <strong>Monster Card</strong>, you must spend <strong>Land Points</strong> from matching Region <strong>Land Cards</strong> equal to the <strong>Monster</strong>'s Level. Each <strong>Land Point</strong> can only be spent once per <strong>Season</strong>. You may split a single <strong>Land Card</strong>'s <strong>Land Points</strong> across multiple <strong>Monsters</strong>. </p>
+<p>Some <strong>Monsters</strong> are Dangerous and feature Danger symbols, which trigger the <strong>Danger Check</strong>. <strong>Monsters</strong> with the Monstrous Lore symbol allow you to immediately draw <strong>Carnival Cards</strong> from the deck, which you may play immediately or keep for free. Dreamlands <strong>Monsters</strong> can be paid for using any type of <strong>Land Points</strong>. However, <strong>Land Points</strong> from Dreamlands <strong>Land Cards</strong> can only be used to play Dreamlands <strong>Monsters</strong>.</p>
+<span class="subsection-title">Event &amp; Staff Cards</span>
+<p><strong>Event Cards</strong> provide a one-time benefit when played and must be discarded afterward. <strong>Staff Cards</strong> represent hired experts. You must pay <strong>Gold Crowns</strong> to play a <strong>Staff Card</strong>, as shown in its top corner. <strong>Staff Cards</strong> provide permanent ongoing effects until the end of the game. The four Intrepid Explorers function as both <strong>Staff Cards</strong> and <strong>Land Points</strong>. When played, choose a Land Type. The Explorer functions as one <strong>Land Point</strong> of that chosen type for the rest of the game and is turned sideways to indicate this.</p>
+<span class="subsection-title">Secret Goal Cards</span>
+<p><strong>Secret Goal Cards</strong> are never played. They must always be kept until the end of the game. At game end, reveal all your <strong>Secret Goal Cards</strong> and earn the <strong>Victory Points</strong> shown if you have fulfilled the listed requirements.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Economy & Loans</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p><strong>Gold Crowns</strong> spent during the game always go to the bank, and <strong>Gold Crowns</strong> earned are taken from the bank. You may make change with the bank at any time. If you are required to spend <strong>Gold Crowns</strong> you do not have, you must take a <strong>Loan Card</strong> from the Main Board. When you take a <strong>Loan Card</strong>, you also take three <strong>Gold Crowns</strong> from the bank. You may use these <strong>Gold Crowns</strong> normally. <strong>Loans</strong> cannot be repaid and must be kept until the end of the game. If you run out of standard <strong>Loan Cards</strong>, you may exchange three <strong>Loan Cards</strong> for one Consolidated <strong>Loan Card</strong>. Consolidated <strong>Loan Cards</strong> do not provide additional <strong>Gold Crowns</strong> and penalize you fifteen <strong>Victory Points</strong>. All <strong>Loan</strong> penalties are applied at game end.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>End Game & Scoring</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>The game ends immediately after the fourth <strong>Season</strong> concludes. Reveal all <strong>Secret Goal Cards</strong> among your <strong>Kept Cards</strong> and award <strong>Victory Points</strong> for any fulfilled requirements. Tally your final score using the following checklist:</p>
+<ol>
+<li>Add the <strong>Victory Point</strong> value of all <strong>Monsters</strong> in your <strong>Menagerie</strong>. <strong>Monsters</strong> among your <strong>Kept Cards</strong> score zero points.</li>
+<li>Add <strong>Victory Points</strong> earned from completed <strong>Secret Goals</strong>.</li>
+<li>Each <strong>Gold Crown</strong> you possess is worth one <strong>Victory Point</strong>.</li>
+<li>Each unused <strong>Hunter Token</strong> is worth one <strong>Victory Point</strong>. Staff Hunters do not provide points.</li>
+<li>Each <strong>Season Trophy</strong> you collected is worth three <strong>Victory Points</strong>.</li>
+<li>Subtract five <strong>Victory Points</strong> for every standard <strong>Loan Card</strong> you hold, and fifteen <strong>Victory Points</strong> for every Consolidated <strong>Loan Card</strong>.</li>
+</ol>
+<p>The player with the highest total <strong>Victory Points</strong> wins. If there is a tie, the tied players share the win.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Variants & Optional Rules</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Two-Player Drafting</span>
+<p>Two-player games use all standard rules with the following drafting modification. After you choose which card to capture, draw one card from your own draw stack and add it to your opponent's hand. Then, choose one <strong>Carnival Card</strong> in your hand to discard from the game before passing the stack to your opponent. When the draw stacks run out, discard one final time and pass the remaining card in your hand to your opponent.</p>
+<span class="subsection-title">Simplified Play</span>
+<p>For new players, remove all <strong>Secret Goal Cards</strong> from the deck before play. Also remove all <strong>Staff Cards</strong> and <strong>Event Cards</strong> except those that award Hunters, <strong>Hunter Tokens</strong>, or <strong>Gold Crowns</strong>. This modification allows players to focus on the core drafting mechanics before engaging with deeper strategy elements.</p>
+  </div>
+</details>
+  <p id="no-results">No sections match your search.</p>
+</main>
+<script>
+(function () {
+  var searchEl  = document.getElementById('search');
+  var clearBtn  = document.getElementById('search-clear');
+  var noResults = document.getElementById('no-results');
+  var sections  = Array.from(document.querySelectorAll('details.section'));
+
+  // Snapshot each section body's original HTML so we can restore it
+  // before applying a new round of highlights.
+  sections.forEach(function (s) {
+    var body = s.querySelector('.section-body');
+    if (body) body.dataset.original = body.innerHTML;
+  });
+
+  var timer;
+
+  searchEl.addEventListener('input', function () {
+    var term = this.value.trim();
+    clearBtn.classList.toggle('visible', term.length > 0);
+    clearTimeout(timer);
+    timer = setTimeout(function () { applySearch(term); }, 180);
+  });
+
+  clearBtn.addEventListener('click', function () {
+    searchEl.value = '';
+    clearBtn.classList.remove('visible');
+    applySearch('');
+    searchEl.focus();
+  });
+
+  function escapeRe(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlightTextNodes(container, re) {
+    var walker = document.createTreeWalker(
+      container, NodeFilter.SHOW_TEXT, null, false
+    );
+    var nodes = [];
+    var n;
+    while ((n = walker.nextNode())) {
+      if (n.nodeValue.trim()) nodes.push(n);
+    }
+    nodes.forEach(function (textNode) {
+      re.lastIndex = 0;
+      if (!re.test(textNode.nodeValue)) return;
+      re.lastIndex = 0;
+      var span = document.createElement('span');
+      span.innerHTML = textNode.nodeValue.replace(
+        re, function (m) { return '<mark>' + m + '</mark>'; }
+      );
+      textNode.parentNode.replaceChild(span, textNode);
+    });
+  }
+
+  function applySearch(term) {
+    var re = term ? new RegExp(escapeRe(term), 'gi') : null;
+    var visibleCount = 0;
+
+    sections.forEach(function (section) {
+      var body    = section.querySelector('.section-body');
+      var summary = section.querySelector('summary');
+
+      // Restore original HTML before each search pass
+      if (body) body.innerHTML = body.dataset.original;
+
+      if (!re) {
+        section.classList.remove('search-hidden');
+        section.open = false;
+        return;
+      }
+
+      var titleText = summary ? summary.textContent : '';
+      var bodyText  = body    ? body.textContent    : '';
+
+      re.lastIndex = 0;
+      var inTitle = re.test(titleText);
+      re.lastIndex = 0;
+      var inBody  = re.test(bodyText);
+      re.lastIndex = 0;
+
+      if (inTitle || inBody) {
+        section.classList.remove('search-hidden');
+        section.open = true;
+        if (body) highlightTextNodes(body, new RegExp(escapeRe(term), 'gi'));
+        visibleCount++;
+      } else {
+        section.classList.add('search-hidden');
+      }
+    });
+
+    noResults.style.display = (re && visibleCount === 0) ? 'block' : 'none';
+  }
+})();
+</script>
+</body>
+</html>

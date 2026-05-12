@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Roll for the Galaxy — Rules Reference</title>
+<style>
+:root {
+  --bg:            #f2ede6;
+  --text:          #1a1a1a;
+  --header-bg:     #54698f;
+  --section-bg:    #54698f;
+  --subsection-bg: #8360bf;
+  --rule:          #b0a898;
+  --accent:        #8360bf;
+  --table-head:    #54698f;
+  --note-bg:       #e8e0d4;
+  --body-bg:       #ffffff;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 15px;
+  line-height: 1.55;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* ── STICKY HEADER ───────────────────────────────────────── */
+.sticky-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--header-bg);
+  padding: 10px 14px 12px;
+  padding-top: max(10px, env(safe-area-inset-top));
+  padding-left: max(14px, env(safe-area-inset-left));
+  padding-right: max(14px, env(safe-area-inset-right));
+  box-shadow: 0 2px 12px rgba(0,0,0,0.4);
+}
+
+.masthead-row {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 9px;
+}
+
+.masthead-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  line-height: 1.1;
+  flex-shrink: 0;
+}
+
+.masthead-subtitle {
+  font-size: 11px;
+  color: rgba(255,255,255,0.45);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.back-link {
+  margin-left: auto;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+  text-decoration: none;
+  flex-shrink: 0;
+  padding-left: 12px;
+  white-space: nowrap;
+}
+.back-link:hover {
+  color: rgba(255,255,255,0.85);
+}
+
+.search-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-icon {
+  position: absolute;
+  left: 10px;
+  width: 15px;
+  height: 15px;
+  color: rgba(255,255,255,0.4);
+  pointer-events: none;
+  flex-shrink: 0;
+}
+
+#search {
+  width: 100%;
+  padding: 8px 36px 8px 32px;
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 8px;
+  font-size: 15px;
+  background: rgba(255,255,255,0.12);
+  color: #fff;
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+#search::placeholder { color: rgba(255,255,255,0.38); }
+
+#search:focus {
+  background: rgba(255,255,255,0.2);
+  border-color: rgba(255,255,255,0.3);
+}
+
+.search-clear {
+  position: absolute;
+  right: 6px;
+  background: rgba(255,255,255,0.18);
+  border: none;
+  border-radius: 50%;
+  color: rgba(255,255,255,0.8);
+  font-size: 14px;
+  line-height: 1;
+  width: 22px;
+  height: 22px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  flex-shrink: 0;
+}
+
+.search-clear.visible { display: flex; }
+
+/* ── MAIN ────────────────────────────────────────────────── */
+main {
+  padding: 10px 12px 48px;
+  padding-left: max(12px, env(safe-area-inset-left));
+  padding-right: max(12px, env(safe-area-inset-right));
+  padding-bottom: max(48px, env(safe-area-inset-bottom));
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+/* ── NO RESULTS ──────────────────────────────────────────── */
+#no-results {
+  display: none;
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--text);
+  opacity: 0.5;
+  font-size: 14px;
+}
+
+/* ── COLLAPSIBLE SECTIONS ────────────────────────────────── */
+details.section {
+  margin-bottom: 6px;
+  border-radius: 6px;
+  overflow: hidden;
+  scroll-margin-top: 130px;
+}
+
+details.section > summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  min-height: 44px;
+  background: var(--section-bg);
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  list-style: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+details.section > summary::-webkit-details-marker { display: none; }
+
+.chevron {
+  width: 12px;
+  height: 12px;
+  opacity: 0.65;
+  flex-shrink: 0;
+  margin-left: 8px;
+  transition: transform 0.18s ease;
+}
+
+details.section[open] > summary .chevron {
+  transform: rotate(90deg);
+}
+
+.section-body {
+  background: var(--body-bg);
+  padding: 10px 12px 12px;
+  border: 1px solid var(--rule);
+  border-top: none;
+  border-radius: 0 0 6px 6px;
+}
+
+/* ── HEADINGS WITHIN SECTIONS ────────────────────────────── */
+.subsection-title {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: #fff;
+  background: var(--subsection-bg);
+  padding: 4px 12px;
+  margin: 10px -12px 7px;
+}
+
+.label-title {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--section-bg);
+  border-bottom: 1.5px solid var(--rule);
+  padding-bottom: 3px;
+  margin: 10px 0 5px;
+}
+
+.inline-title {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 8px 0 3px;
+}
+
+/* ── BODY TEXT ───────────────────────────────────────────── */
+p { margin-bottom: 7px; }
+b, strong { font-weight: 600; }
+em, i { font-style: italic; }
+
+/* ── LISTS ───────────────────────────────────────────────── */
+ul, ol { padding-left: 20px; margin-bottom: 6px; }
+ul { list-style-type: disc; }
+ol { list-style-type: decimal; }
+ul ul { list-style-type: circle; }
+li { margin-bottom: 3px; }
+li > ul, li > ol { margin-top: 2px; margin-bottom: 0; }
+
+/* ── TABLES ──────────────────────────────────────────────── */
+.table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin-bottom: 6px;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  min-width: 260px;
+}
+thead tr { background: var(--table-head); color: white; }
+thead th {
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  padding: 5px 8px;
+  text-align: left;
+  white-space: nowrap;
+}
+tbody tr:nth-child(even) { background: var(--note-bg); }
+tbody td { padding: 5px 8px; vertical-align: top; }
+
+/* ── BLOCKQUOTE ──────────────────────────────────────────── */
+blockquote {
+  background: var(--note-bg);
+  border-left: 3px solid var(--accent);
+  padding: 6px 10px;
+  margin: 5px 0 7px;
+  font-size: 14px;
+  border-radius: 0 4px 4px 0;
+}
+blockquote p { margin-bottom: 2px; }
+
+/* ── INLINE CODE ─────────────────────────────────────────── */
+code {
+  background: var(--note-bg);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  padding: 1px 4px;
+  font-size: 13px;
+  font-family: inherit;
+  font-weight: 600;
+}
+
+/* ── HR ──────────────────────────────────────────────────── */
+hr { border: none; border-top: 1px solid var(--rule); margin: 8px 0; }
+
+/* ── SEARCH HIGHLIGHT ────────────────────────────────────── */
+mark {
+  background: #ffe566;
+  color: inherit;
+  border-radius: 2px;
+  padding: 0 1px;
+}
+
+/* ── HIDDEN SECTIONS ─────────────────────────────────────── */
+details.section.search-hidden { display: none; }
+
+/* ── VERSION TOGGLE ──────────────────────────────────────── */
+.toggle-bar {
+  display: flex;
+  margin-top: 8px;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.2);
+}
+.toggle-current,
+.toggle-other {
+  flex: 1;
+  text-align: center;
+  padding: 6px 10px;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  line-height: 1;
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.toggle-current {
+  background: rgba(255,255,255,0.18);
+  color: #ffffff;
+  font-weight: 600;
+  cursor: default;
+}
+.toggle-other {
+  color: rgba(255,255,255,0.5);
+}
+.toggle-other:hover {
+  background: rgba(255,255,255,0.08);
+  color: rgba(255,255,255,0.8);
+}
+
+/* ── PRINT ───────────────────────────────────────────────── */
+@media print {
+  .sticky-header { position: static; }
+  details.section[open], details.section { display: block; }
+  .section-body { display: block !important; }
+  .search-wrap, .search-clear, .toggle-bar { display: none; }
+}
+</style>
+</head>
+<body>
+<header class="sticky-header">
+  <div class="masthead-row">
+    <span class="masthead-title">Roll for the Galaxy</span>
+    <span class="masthead-subtitle">Rules Reference</span>
+    <a class="back-link" href="index.html">&#8592; All Games</a>
+  </div>
+  <div class="toggle-bar"><span class="toggle-current">Full Rules</span><a class="toggle-other" href="roll-for-the-galaxy-rules-reference.html">Quick Reference</a></div>
+  <div class="search-wrap">
+    <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+         stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+         aria-hidden="true">
+      <circle cx="11" cy="11" r="8"/>
+      <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+    </svg>
+    <input type="text" id="search" placeholder="Search rules…"
+           autocomplete="off" spellcheck="false" autocorrect="off">
+    <button class="search-clear" id="search-clear" aria-label="Clear search">&#x2715;</button>
+  </div>
+</header>
+<main>
+<details class="section" open>
+  <summary><span>Overview</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>In <em>Roll for the Galaxy</em>, each player creates a galactic civilization by recruiting workers (represented by custom dice) to settle worlds and build developments (represented by game tiles), over several game rounds.</p>
+<p>Players start each round by secretly rolling their <em>workers</em> to see what their workers wish to do this round. Each player uses one worker to <em>select</em> one of the five possible phases, and then all players reveal their workers. All player-selected phases occur in numerical order.</p>
+<p>Workers that complete tasks go to their player’s <em>Citizenry</em>.</p>
+<p>After the phases, players manage their empires, spending Galactic Credits to <em>recruit</em> workers from their Citizenries back to their cups, to be rolled next round.</p>
+<p>The player who best manages his workers to create the greatest space empire of worlds, developments, and victory point chips, wins.</p>
+<ul>
+<li><strong>I</strong> Explore for new tiles or Galactic Credits</li>
+<li><strong>II</strong> Develop technologies for powers that modify play</li>
+<li><strong>III</strong> Settle worlds for more population and places to hold goods</li>
+<li><strong>IV</strong> Produce goods on worlds, in preparation for shipping</li>
+<li><strong>V</strong> Ship goods for Galactic Credits or victory points</li>
+</ul>
+<p><em>The 5 Phases of Roll for the Galaxy</em></p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Setup</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">1. Put in Center of Play Area</span>
+<p>55 game tiles
+(inside bag)
+all dice
+VP chips
+(common pool)
+phase tiles
+(X side up, in order)</p>
+<p>Use 12 VPs per player (in 1VP and 5VP chips):
+Players VPs
+2 24
+3 36
+4 48
+5 60</p>
+<p>Set all the 10VP chips aside for use only in the final round. Put the other VP chips away.</p>
+<span class="subsection-title">2. Give Each Player:</span>
+<ul>
+<li>a dice cup</li>
+<li>a credit marker</li>
+<li>a mat (put the marker on its 1 [$] space)</li>
+<li>a screen</li>
+<li>a phase strip</li>
+<li>initial tiles (see right)</li>
+</ul>
+<p>Give one faction tile and one home world tile (each chosen at random) to each player. Return the rest to the box. Each player puts these tiles face-up in front of his mat; these form the player's initial empire, represented by a <em>tableau</em> of tiles.</p>
+<p>Put any unused player components in the box.</p>
+<span class="subsection-title">3. Each Player Draws Game Tiles:</span>
+<p>Draw two tiles from the bag and place them in the <em>construction zone</em> on the mat. Put one tile development-side-up [diamond icon] on the left and one tile world-side-up [circle icon] on the right.</p>
+<p>For your first game, place these <em>double-sided</em> tiles so that the <em>lowest-cost</em> development and the <em>lowest-cost</em> world are face up. In later games, <em>choose which of the two different ways you want to place your tiles.</em></p>
+<span class="subsection-title">4. Each Player Takes Dice:</span>
+<p>a. Put 3 Home (white) dice in your cup [cup icon].
+b. Put 2 Home dice in your Citizenry [person icon].
+c. Take all dice granted by worlds [circle icon] in your empire. Put them, as indicated, in the Citizenry [person icon], the dice cup [cup icon], or as a good [good icon] placed on that world.</p>
+<p>Do not take dice for the world in your construction zone; it will grant dice only when it is settled and moved into your tableau.</p>
+<span class="subsection-title">Fine Points</span>
+<ul>
+<li>Dice from your faction and home world are taken only during Setup.</li>
+<li>The home world <em>Doomed World</em> grants no dice; instead, its player starts with 8 Galactic Credits.</li>
+<li>The faction <em>Destroyed Colony</em> has two worlds; both of them grant dice.</li>
+</ul>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Game Structure & Phases</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">ROUNDS</span>
+<p><em>Roll for the Galaxy</em> is played in rounds (usually 11-14). Each round consists of 5 steps:</p>
+<ul>
+<li>Roll</li>
+<li>Assign</li>
+<li>Reveal</li>
+<li>Do Phases — resolve the <em>selected</em> phases in order</li>
+<li>Manage Empire</li>
+</ul>
+<p>Each step is done simultaneously by all players.</p>
+<p>Repeat rounds until one or both <em>game end conditions</em> are met: all initial VP chips have been earned, or at least one player has 12 or more tile squares in his tableau. Finish that round and then total each player's VPs.</p>
+<p>Phase I: Explore
+Phase II: Develop
+Phase III: Settle
+Phase IV: Produce
+Phase V: Ship</p>
+<span class="subsection-title">ROLL</span>
+<p>Players simultaneously roll all workers (dice in their cups) behind their screens.</p>
+<span class="subsection-title">ASSIGN</span>
+<p>Initially, <em>assign</em> workers to phases by placing them below the <em>phase strip</em> in columns, matching each die face rolled with the phase symbol.</p>
+<p><em>In these rules and the tiles' power icons, [icon] refers to any worker assigned to a phase.</em></p>
+<p>All [icon] faces are <em>wild</em>. These workers can be assigned to any phase (multiple wild dice can go under the same or different columns).</p>
+<p>[icon] <strong>Phase Selection.</strong> Each player selects a phase by taking <em>one</em> worker and placing it on <em>any</em> space on the phase strip. Only selected phases occur (see Phases, page 4).</p>
+<p><em>This assigns this worker to the selected phase. The player now ignores this die's face and instead treats it as if its face was the selected phase.</em></p>
+<p>[icon] <strong>Reassign.</strong> Some developments have powers that allow a player to <strong>Reassign</strong> workers to other phases, placing those dice in other columns below the phase strip ( [icon] ).</p>
+<p>All players have one "built-in" <strong>Reassign</strong> power, <strong>Dictate</strong>, shown on the phase strip.</p>
+<p>To <strong>Dictate</strong>, place any worker to the right of the phase strip (the Dictate area) and then <strong>Reassign</strong> another worker to a different column. The worker in the Dictate area will be returned to the cup (see Reveal, page 4).</p>
+<p>Each <strong>Reassign</strong> power can be used at most once per round. Many powers are optional, as indicated by "may" in their descriptions.</p>
+<p>When all players are done assigning their workers and using any <strong>Reassign</strong> powers, proceed to the next step.</p>
+<p><em>Players who do the phases at different speeds should pause at this point until all players are ready. Adopting a house rule to show when players are ready, such as turning dice cups a certain way, may be useful.</em></p>
+<p>LOCAL SUBSIDIES power
+LOCAL SUBSIDIES
+You may <strong>Reassign</strong> one Home (white) worker to any phase.</p>
+<p><em>Tip:</em> Move a <strong>Reassigned</strong> worker to its new column without rotating it to show a new face. This makes it easier to "undo" a power's use before screens are lifted.</p>
+<span class="subsection-title">REVEAL</span>
+<p>Each player lifts his screen to reveal his assigned workers, announcing the phase he has selected. Flip the matching phase tile from its “X” side to its black side.</p>
+<p>2-Player Game: roll a spare Home (white) die. If the rolled face is a phase that wasn’t selected by either player, flip that phase tile over as well. This phase will also occur this round.</p>
+<p>Return to players’ cups any workers assigned to “X” phases and any workers next to the Dictate area.</p>
+<span class="subsection-title">PHASES</span>
+<p>Simultaneously, players do all selected phases in numeric order. To do a phase, use all workers assigned to it, including any worker that selected it.</p>
+<p>Do not perform any phase not selected this round.</p>
+<p>A worker does a task, depending on which phase it is assigned to:</p>
+<p>Explorer
+scout for a new tile and, optionally, replace tiles in the construction zone ( )
+or
+stock to gain 2 Galactic Credits ( )</p>
+<p>Developer
+develop the topmost development ( ) on the construction zone stack (move a completed development into your tableau)</p>
+<p>Settler
+settle the topmost world ( ) on the construction zone stack (move a completed world into your tableau)</p>
+<p>Producer
+produce a good ( ) on a non-gray world ( ) in your tableau</p>
+<p>Shipper
+trade a good to gain 3-6 Galactic Credits ( )
+or
+consume a good, earning 1-3 VP chips</p>
+<p>In each phase, all workers must be used (if possible). They are used one at a time and may be used in any order. For Explore and Ship, complete one worker’s task before deciding which task the next worker will do.</p>
+<p>As they complete tasks, return used workers to the Citizenry ( ).</p>
+<p>During Manage Empire (see page 8), Galactic Credits ( ) are spent to recruit dice from the Citizenry into the cup to become workers for the next round.</p>
+<p>Galactic Credits ( ) are gained in various phases. Powers use the $ symbol to indicate credits (e.g., “+$2”). Track credits on the mat by shifting the Galactic Credit marker. A player may never have more than $10 at a time; any excess credits are lost.</p>
+<p>If, after completing all possible tasks, a player has spare workers for a phase, return them to the cup.</p>
+<p>Most developments have a power. Powers can affect a phase or how a worker does a task.</p>
+<span class="subsection-title">EXPLORE</span>
+<p>Use each explorer to either Scout ( ) or Stock ( ). Put it in the Citizenry ( ) after using it.</p>
+<p>To Scout — after possibly abandoning some tiles from your construction zone — draw 1 or more tiles from the bag and examine them. Then, in any order, choose whether each tile will be a development ( ) or world ( ) and put it under its construction zone stack.</p>
+<p>Draw 1 more tile than the number of tiles abandoned.</p>
+<p>You may simply draw 1 tile; you need not abandon tiles.</p>
+<p>If the bag ever runs out of tiles, see page 10, Fine Points: Explore.</p>
+<p>Tiles can be abandoned from any position in your construction zone stacks. Put abandoned tiles under the Explore phase tile.</p>
+<p>You may abandon tiles every time you Scout, including tiles that you drew in earlier Scout tasks (see diagram below).</p>
+<p>At the end of the Explore phase, return all abandoned tiles to the bag.</p>
+<p>During Explore, developers and settlers on construction zone stacks stay on top of their stacks, even if a stack is emptied due to abandoning tiles.</p>
+<p>The rule that both construction zone stacks must have one tile applies only during setup, not during play.</p>
+<p>To Stock, add 2 Galactic Credits ( ) to your total.</p>
+<span class="subsection-title">DEVELOP</span>
+<p>Put each <em>developer</em>, one at a time, on the <em>top-most</em> tile in the development construction zone ( ) stack.</p>
+<p>Once the number of developers equals the top-most development’s <em>cost</em> (the number in the ), the development is <em>complete</em>. Move its tile to the tableau and put the developers who completed it in the Citizenry.</p>
+<p>Use any remaining developers to build the next tile in the stack. A player may complete more than one development in a Develop phase.</p>
+<p>If any developers are left after completing all developments in the construction zone — the stack is empty — return them to the cup.</p>
+<p>Occasionally, due to Explore powers or Scouting, the topmost development might be complete during an Explore phase. <em>Do not</em> move its tile to the tableau or return its developers until a Develop phase occurs. At the start of the next Develop phase, resolve completed developments, choosing which developers to return to the Citizenry.</p>
+<p>Most developments grant a <em>power</em> once built, usable either during the Assign step, or in the phase(s) shown. Powers are mandatory, unless their text includes “may”, and are used, if applicable, in a phase that occurs even if you have no workers assigned to it.</p>
+<p>3 developments have “<em>immediate effects</em>” instead, similar to worlds (see below).</p>
+<p>GALACTIC RECYCLING
++$1 from 2 GALACTIC RECYCLING’s power
+(after completing 1 ADVANCED LOGISTICS)
+current phase
+GALACTIC RECYCLING
+Develop, Settle: +$1 after completing each
+development or world, not including this one.</p>
+<span class="subsection-title">SETTLE</span>
+<p>Put each <em>settler</em>, one at a time, on the <em>top-most</em> tile in the world construction zone ( ) stack.</p>
+<p>Once the number of settlers equals the top-most world’s <em>cost</em> (the number in the ), the world is <em>complete</em>. Move its tile to the tableau and put the settlers who completed it in the Citizenry.</p>
+<p>Use any remaining settlers to build the next tile in the stack. A player may complete more than one world in a Settle phase.</p>
+<p>If any settlers are left after completing all worlds in the construction zone — the stack is empty — return them to the cup.</p>
+<p>Occasionally, due to Scouting or development powers, the topmost world might be complete during an Explore phase. <em>Do not</em> move its tile to the tableau or return its settlers until a Settle phase occurs. At the start of the next Settle phase, resolve completed worlds, choosing which settlers to return to the Citizenry.</p>
+<p>Each world has an <em>immediate effect</em>, shown on its tile. It occurs <em>once</em>, upon placing the tile. All worlds grant dice. Some worlds also give Galactic Credits. For immediate effects that involve removing one of your dice, return it from any location to the center.</p>
+<p>Gain $2 and an Alien Technology (yellow) good on this world when you place it.
++$2</p>
+<p><em>Tip: To get more dice, settle more worlds. Avoid “locking up” too many workers trying to build expensive tiles.</em></p>
+<span class="subsection-title">PRODUCE</span>
+<p>Each <em>producer</em> creates a <em>good</em> on a non-gray world in the player’s tableau.</p>
+<p>The producer die becomes the good; put it on the world.</p>
+<p>Any producer die (of any color) can become a good on any non-gray world. Matching a good’s color with the world’s color matters only if the good will be Consumed, not if it will be Traded (see below).</p>
+<p>Each world can have at most 1 good (unless the player owns the <em>Galactic Reserves</em> development).</p>
+<p>Return any excess producers to the cup.</p>
+<span class="subsection-title">SHIP</span>
+<p>Each <em>shipper</em> takes a <em>good</em> from a world in the player’s tableau and either Traded or Consumes it. Put <em>both</em> dice (the shipper and the good) in the Citizenry.</p>
+<p>Each <em>Trade</em> earns a player Galactic Credits according to the color of the good’s <em>world</em> (not the color of the dice):</p>
+<p>Novelty : 3
+Rare Elements : 4
+Genes : 5
+Alien Technology : 6</p>
+<p>Some powers further increase these amounts.</p>
+<p>+$5</p>
+<p><em>Tip: Do early Trades to recruit more workers for future rounds.</em></p>
+<p>Each <em>Consume</em> earns the shipping player 1 to 3 VP chips:</p>
+<p>1 VP chip (always);
++1 VP chip if the good’s color matches the world it is on;
++1 VP chip if the shipper’s color matches the color of the good’s <em>world</em>.</p>
+<p>A Consumption (purple) die, used as either the good or the shipper, matches <em>all</em> colors and always earns +1 VP.</p>
+<p>Using 2 Consumption dice, for <em>both</em> the good and the shipper, will always earn both VP bonuses.</p>
+<p>Some powers further increase the number of VP chips earned or even earn the player Galactic Credits.</p>
+<p>If the initial pool of VP chips runs out, add the set-aside 10 VP chips to the VP pool. Use them to continue earning VP chips for Consume tasks.</p>
+<p><em>Emptying the initial pool of VP chips is one of two ways to trigger game end, ending the game after completing the entire round.</em></p>
+<p><em>Tip: Use Consumption dice to gain extra VPs when you consume.</em></p>
+<p>End of Phase. Return any excess shippers to the cup.</p>
+<span class="subsection-title">MANAGE EMPIRE</span>
+<p>Recruit. Recruit workers by selecting dice from the Citizenry, putting them in your cup, and decreasing your Galactic Credits by 1 ( ) for each die recruited. Do this until either your Citizenry is empty or your credits run out. After recruiting, if your credits are at “0”, shift the token to “1” (as shown on the player mat).</p>
+<p>If you have fewer credits than dice in Citizenry, you freely choose which dice to recruit.</p>
+<p>Recall. You may <em>recall</em> any developers, settlers (from their construction zone stacks) and goods (from their worlds). Put them in your cup.</p>
+<p><em>Recalling dice, unlike recruiting, does not cost Galactic Credits.</em></p>
+<p>If you have no dice in your cup (after recruiting), you must recall at least one die.</p>
+<p>Reset. Flip all phase tiles to their “X” sides.</p>
+<p>Check Game End. If either the VP chip pool was exhausted (see Ship, page 7) or any player has 12 or more tile squares in his tableau (counting his double-sized faction tile as 2 tile squares), the game is over (see Winning, below).</p>
+<p><em>Tip: Recall dice when you have too many dice tied up in construction stacks or more goods than you expect to ship.</em></p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Winning</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>Total each player’s score:</p>
+<p>• VP chips.
+• VPs equal to the costs of all developments and worlds (the numbers in and ). <em>Do</em> include both numbers from a faction tile. <em>Do not</em> include any tiles in the construction zone.
+• bonus VPs for 6-cost developments (beyond the 6 VPs for the development itself), as indicated on those tiles. When figuring these bonuses, round any fraction <em>up</em> to the next whole number.</p>
+<p><em>Some 6-cost developments count towards their own bonuses; such as Galactic Federation (see scoring example at right).</em></p>
+<p>The player with the most VPs wins!</p>
+<p>If two or more players tie, each tied player adds:</p>
+<p>• the number of dice in his cup.
+• his Galactic Credits.</p>
+<p>The player with the highest total among the tied players wins. If there is still a tie, all the tied players win.</p>
+<p>Add one-third of your total base development cost (rounded up).</p>
+<p>+2 VP per 3 Military (red) dice you own (rounded up).</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Timing</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>Most play can and should be done simultaneously. However, there are a few cases where player order can matter, such as:</p>
+<ul>
+<li>when a player might build to 12 or more tile squares (triggering game end), or</li>
+<li>when the VP chip pool might be exhausted (triggering game end).</li>
+</ul>
+<p>When a need for strict timing occurs, do the phase in clockwise player order, starting with the player with the lowest numbered faction tile.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Etiquette</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>Existing and newly drawn tiles beneath the top tile of each construction zone stack are secret. A player may look at tiles in his own stacks at any time. When asked, he must tell other players the size of each stack.</p>
+<p>Tiles abandoned during the Explore phase — under the Explore phase tile — are secret.</p>
+<p>The only other secret information in the game is the workers rolled behind screens during a round's Roll and Assign steps.</p>
+<p><em>As there is no way to verify players’ actions behind screens, this game relies on players taking care to not make mistakes.</em></p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>For Race for the Galaxy Players</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>Here are some Roll for the Galaxy rules that differ from Race for the Galaxy:</p>
+<ul>
+<li>The phase order is different; Ship (this game’s version of Consume) occurs after, not before, Produce.</li>
+<li>There is no “bonus” for selecting a phase (though you do guarantee that it will occur).</li>
+<li>Players are not limited to one tile constructed per “build” phase.</li>
+<li>All developments are unique.</li>
+<li>The minimum number of workers to place a tile is 1, not 0, even if discounts would reduce it below 1.</li>
+<li>Tiles’ VPs are equal to their cost (except “6+” developments).</li>
+<li>There is no direct military conquest. Instead, “Military” dice are biased towards Develop and Settle, representing the military preference for expansion.</li>
+<li>Trade prices are $1 higher. For example, a Genes good trades for $5, not 4 cards.</li>
+<li>A player may Trade multiple goods in a Ship phase (as many as you have shipper-good pairs).</li>
+</ul>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Fine Points</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>Q: What is the difference between dice terms such as: workers, shippers, and goods?
+A: Workers are dice in a player's cup, below a player's phase strip, or being used to select a phase. Dice that are unowned, in a player's Citizenry, or in Dictate areas are not workers. Based on the phase they are assigned to, workers become explorers, developers, settlers, producers, or shippers. Producers put onto worlds become goods.</p>
+<p>Q: Why do the Produce icons vary on differently colored dice?
+A: This is an aid for color-blind players.</p>
+<p>Q: Why do green world tiles have a small dot in their upper-left corners?
+A: Only Genes (green) worlds have them, as an aid to help color-blind players distinguish between Genes (green) and Rare elements (brown) worlds.</p>
+<span class="subsection-title">Setup</span>
+<p>Q: Must I choose my two start tiles so that their lower costs are face-up?
+A: No (this is just for your first game).</p>
+<p>Q: Can I put both start tiles in the same construction zone stack?
+A: No.</p>
+<p>Q: Can I recall goods from my starting tableau at the beginning of the game?
+A: No. You may only recall dice during the Manage Empire step.</p>
+<span class="subsection-title">Assign</span>
+<p>Q: Must die faces match the phases they are assigned to?
+A: No. A die might not match its phase due to <strong>Reassign</strong> powers, or by it being used to select a phase.</p>
+<p>Q: Can I assign workers that show wild faces after phase selections are revealed?
+A: No. All workers should be assigned to phases before Reveal.</p>
+<p>Q: Must I select a phase before using <strong>Reassign</strong> powers?
+A: Yes.</p>
+<span class="subsection-title">Explore</span>
+<p>Q: Must I use all my explorers during an Explore phase?
+A: Yes (each explorer must either Scout or Stock).</p>
+<p>Q: Must I declare in advance what all my explorers will do?
+A: No; you do each task one after the other, deciding which task — Trade or Consume — each explorer does as you do it.</p>
+<p>Q: What happens if a player doing a Scout task needs to draw more tiles than are in the bag?
+A: After drawing all the tiles in the bag, he finishes this Scout task by taking all the abandoned tiles under the Explore phase tile, putting them in the bag, and drawing the rest of the needed tiles.</p>
+<p>Q (very rare): What happens if there are still not enough tiles after doing the above?
+A: The Scouting player places all the tiles he has drawn so far in his construction zone. Then, each player with at least 3 tiles in his construction zone, which can include the Scouting player, must abandon 1 tile into the bag. The Scouting player then draws tiles to finish the task.</p>
+<p><em>When the bag is low on tiles, players may wish to do the entire Explore phase in player order, using the timing rules on page 9.</em></p>
+<span class="subsection-title">Develop and Settle</span>
+<p>Q: Must I use all my developers (or settlers)?
+A: Yes. Developers (or settlers) must be put, one at a time, on the top tile of your construction zone if you have any developments (or worlds) there.</p>
+<p>Q: Must I use all applicable discounts I have (such as <em>Replicant Robots</em>)?
+A: Yes.</p>
+<p>Q: Can I have more than 12 tile squares in my tableau?
+A: Yes. A player can end with more than 12 tile squares by building several tiles during the final round.</p>
+<span class="subsection-title">Produce and Ship</span>
+<p>Q: Must producers match the color of a world in order to produce there?
+A: No. Any color producer can produce on any non-gray world, becoming a good there.</p>
+<p>Q: Is a good's Trade value determined by its <em>world's</em> color (instead of the good's color)?
+A: Yes.</p>
+<p>Q: Must I declare in advance what all my shippers will do?
+A: No; you do each task one after the other, deciding which task — Trade or Consume — each shipper does as you do it.</p>
+<p>Q: Do wild faces provide extra VP chips when used in Consume?
+A: No (only the <em>colors</em> of the dice involved — not their symbols — matter for Consume).</p>
+<p>Q: Can I deliberately mismatch goods and shippers to earn fewer VP chips when I Consume?
+A: Yes (occasionally, this can make strategic sense).</p>
+<span class="subsection-title">Manage Empire</span>
+<p>Q: Must I recruit as many dice as I can afford from my Citizenry?
+A: Yes.</p>
+<p>Q: Is there any reason to recall workers on the final round?
+A: Yes; the tie-breaking rule (see Winning, page 8) includes dice in the cup, but not workers in the construction zone or goods.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Immediate Effects</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>Q: When removing a die as part of an immediate effect, can I remove <em>any</em> of my dice?
+A: Yes.
+Q: Does removing a die from my cup, phase strip, construction zone, or any of my worlds have any effects (beyond its removal)?
+A: No. (If you remove the only die used to select a phase, that phase still occurs.)</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Development Powers</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>Q: When can I use a development's power?
+A: <strong>Reassign</strong> powers can be used only during the Assign step. All other powers specify the phase(s) in which they can be used (exception: <em>Galactic Reserves</em>, see boxed section below).
+Q: How many times per phase can a power be used?
+A: As many times as it is "triggered."
+Q: Do I need workers assigned to a phase to trigger powers that occur in it?
+A: No.
+Q: Can I use a development's power in the phase I build it?
+A: Yes (see example above).
+Q: Can I <strong>Reassign</strong> a die in the Dictate area?
+A: No.
+Q: Can a <strong>Reassign</strong> power that assigns multiple workers assign them to different columns?
+A: Yes.</p>
+<p>Q: Can I use <strong>Reassign</strong> powers to affect workers that show wild faces?
+A: Yes (though it rarely makes sense to do so).
+Q: Can a <strong>Reassign</strong> power assign a die without a given phase symbol (on any of its faces) to that phase?
+A: Yes (only a die's <em>column</em>, not its faces, determines which of the five possible workers it is).
+Q: Some powers refer to an <em>Alien explorer</em> – how can I have an Alien explorer when Alien dice have no Explore faces?
+A: Use a <strong>Reassign</strong> power to put an Alien die in the Explore column, or use an Alien die to select Explore, or assign a wild <em>Alien</em> die to Explore.
+Q: Can powers affect dice assigned to a phase whose faces don't match the <strong>symbols</strong> shown on the dice in the power's icon?
+A: Yes (only a die's <em>column</em>, not its faces, determines which of the five possible workers it is).
+Q: Do Consumption (purple) dice count as other die colors when evaluating powers or during Game End scoring?
+A: No. They match colors only for earning VP chips during Consume.
+Q: What does "round up" mean (for development powers)?
+A: Treat <em>any partial amount</em> as "one full unit."</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Individual Power Clarifications</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p><strong>Advanced Logistics:</strong> Use this power as many times as you wish during Explore, but not after a tile draw by <em>Alien Research Team</em>. When doing Explore with strict timing, you may only use this power during your turn to Explore.
+<strong>Alien Archaeology:</strong> See the Alien explorer and symbols questions in the Development Powers section.
+<strong>Alien Research Ship:</strong> One of its extra Explorers being a Alien die matters only for a few Explore powers.
+<strong>Alien Research Team:</strong> Draw its extra tile(s) after all players have done their tasks, <em>before</em> returning any abandoned tiles to end the phase. Also see the Alien explorer and symbols questions in the Development Powers section.
+<strong>Biological Adaptation:</strong> This is not a <strong>Reassign</strong> power (even though it contains the "Reassign" keyword).
+<strong>Conscription:</strong> See the Immediate Effects section.
+<strong>Executive Power:</strong> See the <strong>Reassign</strong> questions under Development Powers.
+<strong>Former Penal Colony:</strong> See the Immediate Effects section.
+<strong>Free Trade Zone:</strong> For example, a 3-cost or 4-cost gray world would cost 2 (unless you also had <em>Replicant Robots</em> in tableau, in which case either of these would cost 1).
+<strong>Galactic Mandate:</strong> See the <strong>Reassign</strong> questions under Development Powers.</p>
+<p><strong>Galactic Reserves:</strong> This power has a <em>continuing effect</em>; once built, you may ignore the restriction that each (non-gray) world can have at most one good. Instead, each of your (non-gray) worlds can have up to two goods (of either the same or different colors). Each good still requires 1 shipper to Ship.
+<strong>Genetics Lab:</strong> This power counts only the number of your Genes dice used as goods, <em>not</em> the number of goods on your Genes worlds.
+<strong>Information Tech:</strong> See the Immediate Effects section.
+<strong>Isolation Policy:</strong> See the <strong>Reassign</strong> questions under Development Powers.
+<strong>Mad Scientists:</strong> If no one has any Novelty worlds, this <em>does</em> count as "tying for most," so you may use this power to <strong>Reassign</strong> 1 die.
+<strong>Nanotechnology:</strong> See the <strong>Reassign</strong> questions under Development Powers.
+<strong>Organic Shipyards:</strong> One of its extra shippers being a Genes die matters only if you use it to Consume a good from a Genes world.
+<strong>Rebel Miners:</strong> See the Immediate Effects section.
+<strong>Rebel Warrior Race:</strong> See the Immediate Effects section.
+<strong>Space Marines:</strong> See the Immediate Effects section.
+<strong>Space Tourism:</strong> If there are multiple worlds tied for highest cost, you get the extra $1 only if you own <em>all</em> of them. Use only the <em>printed</em>, not discounted, costs when determining the highest-cost world.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Frequently Overlooked Rules</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<ul>
+<li>Play is <em>simultaneous</em> (there are no separate player turns).</li>
+<li>The die placed on the phase strip (to select a phase) is still a worker.</li>
+<li>Each player may select only <em>one</em> phase. Each Reassigned worker — including one assigned by Dictate — goes <em>below</em> the phase strip.</li>
+<li>All workers perform their tasks sequentially, one-at-a-time. Players do not have to declare in advance what tasks their workers will do.</li>
+<li>Workers that complete tasks go to the Citizenry (not the cup).</li>
+<li>Unused workers return to the cup (not the Citizenry).</li>
+<li>Abandoned tiles go under the Explore phase tile.</li>
+<li>Each Consumption (purple) die, as either a good or shipper during Consume, earns +1 VP.</li>
+<li>Each player's faction and home world tiles together count as 3 tile squares towards the 12 needed to trigger game end.</li>
+</ul>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Dice Face and Tile Distributions</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>Same color dice have identical face distributions.
+Each type specializes in different phases(s):</p>
+<p>Home: Explore
+Military: Develop, Settle
+Consumption: Ship (x3)
+Novelty: Produce, Ship
+Rare Elements: Develop
+Genes: Settle, Wild
+Alien: Wild (x3)</p>
+<p>This information is also presented (in a different form) on the right side of the player screens.</p>
+<p>Each of the 55 game tiles has a world on one side and a development on the other with costs ranging from 1 to 6.
+This table shows the distribution of tile types by cost:</p>
+<p>15 Novelty Worlds
+13 Rare Elements Worlds
+9 Genes Worlds
+7 Alien Tech. Worlds
+11 Other Worlds
+18 Dev. with Reassign powers
+34 Dev. with other powers
+3 Dev. with Immediate Effects</p>
+  </div>
+</details>
+  <p id="no-results">No sections match your search.</p>
+</main>
+<script>
+(function () {
+  var searchEl  = document.getElementById('search');
+  var clearBtn  = document.getElementById('search-clear');
+  var noResults = document.getElementById('no-results');
+  var sections  = Array.from(document.querySelectorAll('details.section'));
+
+  // Snapshot each section body's original HTML so we can restore it
+  // before applying a new round of highlights.
+  sections.forEach(function (s) {
+    var body = s.querySelector('.section-body');
+    if (body) body.dataset.original = body.innerHTML;
+  });
+
+  var timer;
+
+  searchEl.addEventListener('input', function () {
+    var term = this.value.trim();
+    clearBtn.classList.toggle('visible', term.length > 0);
+    clearTimeout(timer);
+    timer = setTimeout(function () { applySearch(term); }, 180);
+  });
+
+  clearBtn.addEventListener('click', function () {
+    searchEl.value = '';
+    clearBtn.classList.remove('visible');
+    applySearch('');
+    searchEl.focus();
+  });
+
+  function escapeRe(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlightTextNodes(container, re) {
+    var walker = document.createTreeWalker(
+      container, NodeFilter.SHOW_TEXT, null, false
+    );
+    var nodes = [];
+    var n;
+    while ((n = walker.nextNode())) {
+      if (n.nodeValue.trim()) nodes.push(n);
+    }
+    nodes.forEach(function (textNode) {
+      re.lastIndex = 0;
+      if (!re.test(textNode.nodeValue)) return;
+      re.lastIndex = 0;
+      var span = document.createElement('span');
+      span.innerHTML = textNode.nodeValue.replace(
+        re, function (m) { return '<mark>' + m + '</mark>'; }
+      );
+      textNode.parentNode.replaceChild(span, textNode);
+    });
+  }
+
+  function applySearch(term) {
+    var re = term ? new RegExp(escapeRe(term), 'gi') : null;
+    var visibleCount = 0;
+
+    sections.forEach(function (section) {
+      var body    = section.querySelector('.section-body');
+      var summary = section.querySelector('summary');
+
+      // Restore original HTML before each search pass
+      if (body) body.innerHTML = body.dataset.original;
+
+      if (!re) {
+        section.classList.remove('search-hidden');
+        section.open = false;
+        return;
+      }
+
+      var titleText = summary ? summary.textContent : '';
+      var bodyText  = body    ? body.textContent    : '';
+
+      re.lastIndex = 0;
+      var inTitle = re.test(titleText);
+      re.lastIndex = 0;
+      var inBody  = re.test(bodyText);
+      re.lastIndex = 0;
+
+      if (inTitle || inBody) {
+        section.classList.remove('search-hidden');
+        section.open = true;
+        if (body) highlightTextNodes(body, new RegExp(escapeRe(term), 'gi'));
+        visibleCount++;
+      } else {
+        section.classList.add('search-hidden');
+      }
+    });
+
+    noResults.style.display = (re && visibleCount === 0) ? 'block' : 'none';
+  }
+})();
+</script>
+</body>
+</html>

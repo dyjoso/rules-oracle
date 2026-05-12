@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>The Hunger — Rules Reference</title>
+<style>
+:root {
+  --bg:            #f2ede6;
+  --text:          #1a1a1a;
+  --header-bg:     #55392d;
+  --section-bg:    #55392d;
+  --subsection-bg: #223445;
+  --rule:          #b0a898;
+  --accent:        #223445;
+  --table-head:    #55392d;
+  --note-bg:       #e8e0d4;
+  --body-bg:       #ffffff;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 15px;
+  line-height: 1.55;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* ── STICKY HEADER ───────────────────────────────────────── */
+.sticky-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--header-bg);
+  padding: 10px 14px 12px;
+  padding-top: max(10px, env(safe-area-inset-top));
+  padding-left: max(14px, env(safe-area-inset-left));
+  padding-right: max(14px, env(safe-area-inset-right));
+  box-shadow: 0 2px 12px rgba(0,0,0,0.4);
+}
+
+.masthead-row {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 9px;
+}
+
+.masthead-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  line-height: 1.1;
+  flex-shrink: 0;
+}
+
+.masthead-subtitle {
+  font-size: 11px;
+  color: rgba(255,255,255,0.45);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.back-link {
+  margin-left: auto;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+  text-decoration: none;
+  flex-shrink: 0;
+  padding-left: 12px;
+  white-space: nowrap;
+}
+.back-link:hover {
+  color: rgba(255,255,255,0.85);
+}
+
+.search-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-icon {
+  position: absolute;
+  left: 10px;
+  width: 15px;
+  height: 15px;
+  color: rgba(255,255,255,0.4);
+  pointer-events: none;
+  flex-shrink: 0;
+}
+
+#search {
+  width: 100%;
+  padding: 8px 36px 8px 32px;
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 8px;
+  font-size: 15px;
+  background: rgba(255,255,255,0.12);
+  color: #fff;
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+#search::placeholder { color: rgba(255,255,255,0.38); }
+
+#search:focus {
+  background: rgba(255,255,255,0.2);
+  border-color: rgba(255,255,255,0.3);
+}
+
+.search-clear {
+  position: absolute;
+  right: 6px;
+  background: rgba(255,255,255,0.18);
+  border: none;
+  border-radius: 50%;
+  color: rgba(255,255,255,0.8);
+  font-size: 14px;
+  line-height: 1;
+  width: 22px;
+  height: 22px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  flex-shrink: 0;
+}
+
+.search-clear.visible { display: flex; }
+
+/* ── MAIN ────────────────────────────────────────────────── */
+main {
+  padding: 10px 12px 48px;
+  padding-left: max(12px, env(safe-area-inset-left));
+  padding-right: max(12px, env(safe-area-inset-right));
+  padding-bottom: max(48px, env(safe-area-inset-bottom));
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+/* ── NO RESULTS ──────────────────────────────────────────── */
+#no-results {
+  display: none;
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--text);
+  opacity: 0.5;
+  font-size: 14px;
+}
+
+/* ── COLLAPSIBLE SECTIONS ────────────────────────────────── */
+details.section {
+  margin-bottom: 6px;
+  border-radius: 6px;
+  overflow: hidden;
+  scroll-margin-top: 130px;
+}
+
+details.section > summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  min-height: 44px;
+  background: var(--section-bg);
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  list-style: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+details.section > summary::-webkit-details-marker { display: none; }
+
+.chevron {
+  width: 12px;
+  height: 12px;
+  opacity: 0.65;
+  flex-shrink: 0;
+  margin-left: 8px;
+  transition: transform 0.18s ease;
+}
+
+details.section[open] > summary .chevron {
+  transform: rotate(90deg);
+}
+
+.section-body {
+  background: var(--body-bg);
+  padding: 10px 12px 12px;
+  border: 1px solid var(--rule);
+  border-top: none;
+  border-radius: 0 0 6px 6px;
+}
+
+/* ── HEADINGS WITHIN SECTIONS ────────────────────────────── */
+.subsection-title {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: #fff;
+  background: var(--subsection-bg);
+  padding: 4px 12px;
+  margin: 10px -12px 7px;
+}
+
+.label-title {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--section-bg);
+  border-bottom: 1.5px solid var(--rule);
+  padding-bottom: 3px;
+  margin: 10px 0 5px;
+}
+
+.inline-title {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 8px 0 3px;
+}
+
+/* ── BODY TEXT ───────────────────────────────────────────── */
+p { margin-bottom: 7px; }
+b, strong { font-weight: 600; }
+em, i { font-style: italic; }
+
+/* ── LISTS ───────────────────────────────────────────────── */
+ul, ol { padding-left: 20px; margin-bottom: 6px; }
+ul { list-style-type: disc; }
+ol { list-style-type: decimal; }
+ul ul { list-style-type: circle; }
+li { margin-bottom: 3px; }
+li > ul, li > ol { margin-top: 2px; margin-bottom: 0; }
+
+/* ── TABLES ──────────────────────────────────────────────── */
+.table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin-bottom: 6px;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  min-width: 260px;
+}
+thead tr { background: var(--table-head); color: white; }
+thead th {
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  padding: 5px 8px;
+  text-align: left;
+  white-space: nowrap;
+}
+tbody tr:nth-child(even) { background: var(--note-bg); }
+tbody td { padding: 5px 8px; vertical-align: top; }
+
+/* ── BLOCKQUOTE ──────────────────────────────────────────── */
+blockquote {
+  background: var(--note-bg);
+  border-left: 3px solid var(--accent);
+  padding: 6px 10px;
+  margin: 5px 0 7px;
+  font-size: 14px;
+  border-radius: 0 4px 4px 0;
+}
+blockquote p { margin-bottom: 2px; }
+
+/* ── INLINE CODE ─────────────────────────────────────────── */
+code {
+  background: var(--note-bg);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  padding: 1px 4px;
+  font-size: 13px;
+  font-family: inherit;
+  font-weight: 600;
+}
+
+/* ── HR ──────────────────────────────────────────────────── */
+hr { border: none; border-top: 1px solid var(--rule); margin: 8px 0; }
+
+/* ── SEARCH HIGHLIGHT ────────────────────────────────────── */
+mark {
+  background: #ffe566;
+  color: inherit;
+  border-radius: 2px;
+  padding: 0 1px;
+}
+
+/* ── HIDDEN SECTIONS ─────────────────────────────────────── */
+details.section.search-hidden { display: none; }
+
+/* ── VERSION TOGGLE ──────────────────────────────────────── */
+.toggle-bar {
+  display: flex;
+  margin-top: 8px;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.2);
+}
+.toggle-current,
+.toggle-other {
+  flex: 1;
+  text-align: center;
+  padding: 6px 10px;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  line-height: 1;
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.toggle-current {
+  background: rgba(255,255,255,0.18);
+  color: #ffffff;
+  font-weight: 600;
+  cursor: default;
+}
+.toggle-other {
+  color: rgba(255,255,255,0.5);
+}
+.toggle-other:hover {
+  background: rgba(255,255,255,0.08);
+  color: rgba(255,255,255,0.8);
+}
+
+/* ── PRINT ───────────────────────────────────────────────── */
+@media print {
+  .sticky-header { position: static; }
+  details.section[open], details.section { display: block; }
+  .section-body { display: block !important; }
+  .search-wrap, .search-clear, .toggle-bar { display: none; }
+}
+</style>
+</head>
+<body>
+<header class="sticky-header">
+  <div class="masthead-row">
+    <span class="masthead-title">The Hunger</span>
+    <span class="masthead-subtitle">Rules Reference</span>
+    <a class="back-link" href="index.html">&#8592; All Games</a>
+  </div>
+  <div class="toggle-bar"><span class="toggle-current">Full Rules</span><a class="toggle-other" href="the-hunger-rules-reference.html">Quick Reference</a></div>
+  <div class="search-wrap">
+    <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+         stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+         aria-hidden="true">
+      <circle cx="11" cy="11" r="8"/>
+      <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+    </svg>
+    <input type="text" id="search" placeholder="Search rules…"
+           autocomplete="off" spellcheck="false" autocorrect="off">
+    <button class="search-clear" id="search-clear" aria-label="Clear search">&#x2715;</button>
+  </div>
+</header>
+<main>
+<details class="section" open>
+  <summary><span>GOAL OF THE GAME</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>You have exactly 15 turns to hunt your prey, collect as many Victory Points as possible, and come back to the Castle.</p>
+<p>Before you start, choose if you want to play the Rookie Mode or the Elder Mode. The option you choose will modify the setup, the way you collect Mission tiles and the risk of being burned to ashes at the end of the game:</p>
+<ul>
+<li>ROOKIE MODE: You must come back to the Castle or at least be in the Cemetery or the Mountains to score your Victory Points.</li>
+<li>ELDER MODE: This is the regular game and all rules refer to this mode. When you play the Elder Mode you must come back to the Castle or at least the Cemetery to score your Victory Points.</li>
+</ul>
+  </div>
+</details>
+<details class="section">
+  <summary><span>SETUP</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<ol>
+<li>Place the game board (Rookie: Side A; Elder: Side B) in the middle of the table and the Hunt Track to the right. Assemble the Hunt Track based on the number of players: You must have 1 more row than the number of players (ex: 4 rows in a 3-player game).</li>
+<li>Each player chooses a Vampire and takes their sheet, starting deck, Vampire token and Score token, which they place on the "0" space of the Score Track.</li>
+<li>Shuffle the Hunt cards (without the Roses) and place them face down to create a Hunt deck near the Hunt Track.
+      <strong>ROOKIE MODE:</strong> This option allows beginners to start with more Vampire Powers and Familiars for the first two turns. Gather the Human, Familiar and Power cards marked 'A'. Shuffle them and take 2 + 2 per player, setting them aside without looking at them. Shuffle the rest of the cards back into the deck, and put the cards that were set aside on top of the deck.</li>
+</ol>
+<span class="subsection-title">Organizing the Board</span>
+<ol start="4">
+<li>Shuffle the Bonus tokens face down and place 1 face down on every Chest space. Store the rest of the tokens in the box without looking at them. Reveal the tokens that are on the open Chests.</li>
+<li>Place the 3 Rose cards face up on the Labyrinth.</li>
+<li>Draw 3 cards from the Hunt deck (from bottom on Rookie mode) and place them face down on the Tavern without looking at them.</li>
+<li>Place the Moon token on the first space of the Turn Track.</li>
+<li>Place Castle tokens on the Castle depending on the number of players:
+      2-players &gt; 10/6
+      3-players &gt; 10/6/4
+      4-players &gt; 10/8/6/4
+      5/6-players &gt; 10/8/6/4/2</li>
+</ol>
+<span class="subsection-title">Prepare the Missions</span>
+<p>If you are playing a 2- to 4-player game, put the Missions marked "5+" back into the box.</p>
+<ol start="9">
+<li>Mix the Missions with the beige background and place 2 chosen at random on the Public Mission spaces face up (In Rookie mode, take them from the ones with a white title). Then shuffle all of the remaining Missions together.</li>
+<li>Each player draws 2 Missions, chooses 1 and discards the other back into the box without showing it.</li>
+<li>Place the corresponding number of Missions on each Crypt space: Mountains (6), Plains (5), and Forest (4). Put the remaining Missions back in the box without looking at them.</li>
+</ol>
+<span class="subsection-title">Prepare Your 1st Turn</span>
+<ol start="12">
+<li>Each player shuffles their deck and draws 3 cards.</li>
+<li>The first turn's playing order depends on the Vampires' Speeds: Each player adds up the Speeds on their cards. Vampires with the lowest Speed will play first and the fastest will play last. In case of a tie between Vampires, the oldest player will play first. Place your Vampire tokens on the Castle in turn order, with the slowest Vampire on top.</li>
+<li>Prepare the Hunt Track: Draw 1 card for each row and place it face up in column 3.</li>
+</ol>
+  </div>
+</details>
+<details class="section">
+  <summary><span>HOW TO PLAY</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>In <em>The Hunger</em>, players take turns one after the other. Each player must resolve the effects of all cards in their playing area before play passes to the next player.</p>
+<span class="subsection-title">A. Determine Turn Order</span>
+<p>The <strong>turn order</strong> depends on the <strong>position</strong> of the players on the board.</p>
+<p>For the first turn, the order is determined by the Vampires' Speeds (see Setup). <strong>Stack the Vampire tokens on the Castle</strong> with the first player on top and the last one on the bottom.</p>
+<p>In later turns, it's always the <strong>Vampire on their active side furthest from the Castle</strong> who plays first.</p>
+<p>When you finish your turn, flip your Vampire token face down (to the "resting" side) to avoid any confusion.</p>
+<p>Active
+Resting</p>
+<blockquote>
+<p><strong>TURN ORDER PRIORITY PER REGION:</strong>
+If the Vampires are not in the same region:
+*   Vampires in the Forest play first,
+*   then Vampires on the Plains
+*   then Vampires in the Mountains,
+*   and finally Vampires in the Cemetery.</p>
+<p><strong>TURN ORDER PRIORITY IN THE SAME REGION:</strong>
+If several Vampires are in the same region, they take turns depending on the path they are on:
+*   Vampires on the Road play first,
+*   Then Vampires on the Railroad,
+*   and finally Vampires on the Boat path.
+If several Vampires are in the same region and on the same path, the Vampires closest to the Labyrinth play first.</p>
+<p><strong>A Vampire whose token is on top of another Vampire plays first.</strong></p>
+</blockquote>
+<span class="subsection-title">B. It's Open Season</span>
+<p>The <strong>first player</strong> completes all their actions, then the next player plays, until everybody has had a turn.</p>
+<p>On your turn, you must play all of the cards in your hand to your playing area, and then resolve <strong>all of them</strong>, one at a time, in any order you choose. You can use an effect to discard a card before you resolve it, if you don't want to use that card's effect.</p>
+<p>You never have to spend all your Speed, but you can't move after you have triggered a board effect or after you have started to hunt. Any unspent Speed is lost at the end of your turn.</p>
+<blockquote>
+<p><strong>Beware!</strong> If the Moon token is on the '15' space you are playing your last turn.</p>
+</blockquote>
+<p><strong>Your turn is divided into 3 steps:</strong>
+1- Activate your discard/draw effects
+2- Calculate your Speed and spend it to</p>
+<pre><code>  *   Move your Vampire
+  *   and/or Hunt one time
+</code></pre>
+<p>3- End of turn</p>
+<span class="subsection-title">1. ACTIVATE YOUR DISCARD/DRAW EFFECTS</span>
+<p>Discard effect
+Draw effect</p>
+<p>You must always activate your discard and draw effects before doing anything else.</p>
+<p>You can activate them in any order to optimize your play. You must complete all of each card effect before activating the next one.</p>
+<p>You can discard only cards you have not activated. If you discard a card before you activate its effect, that effect is ignored. Also, do not add or subtract its Speed.</p>
+<blockquote>
+<p><strong>Note:</strong> If you need to draw a card but your deck is empty, shuffle your discard pile to create a new deck.</p>
+</blockquote>
+<span class="subsection-title">2. CALCULATE AND SPEND YOUR SPEED</span>
+<p>Add the Speed on all of the cards in your playing area (including the Speed on your Permanent cards).</p>
+<p>The total is your <strong>Speed</strong> for this turn, which you will be able to use to <strong>Move</strong> and <strong>Hunt</strong>.</p>
+<span class="subsection-title">3. END OF TURN</span>
+<ul>
+<li>Flip your Vampire token to its resting side.</li>
+<li>Discard all cards other than Permanent cards from your playing area.</li>
+<li>Activate any End of Turn effects.</li>
+<li>Draw 3 cards. If your deck is empty, shuffle your discard pile to create a new deck, then finish drawing cards.</li>
+<li>Now it’s time for the next player to play. If you are the last player, proceed to Prepare for the Next Turn.</li>
+<li>Draw Hunt cards (unless you are on turn 15), 1 for each space in column 3 of the Hunt Track. You don’t draw new Hunt cards on turn 15.</li>
+<li>Add 1 card to the Tavern, face down, if there are no Vampires and less than 3 cards there.</li>
+</ul>
+<span class="subsection-title">Prepare for the Next Turn</span>
+<p>After all players have played their turns, carry out the following tasks:</p>
+<ul>
+<li>Move the Moon one space to the right. If you are already on the last space (15), the game is over. Vampires with a Parasol can play another turn without hunting.</li>
+<li>Flip all Vampire tokens to their active side (face up).</li>
+<li>Move all remaining cards on the Hunt Track 1 column to the right. Cards in column 1 don’t move and are stacked together to create a pile of cards. You can always check a pile of cards before hunting them.</li>
+</ul>
+  </div>
+</details>
+<details class="section">
+  <summary><span>BOARD EFFECTS</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Castle</span>
+<p>You can’t hunt in the Castle. Each Vampire who comes back to the Castle takes the highest remaining Victory Point tile and immediately scores that many points. You can’t leave the Castle after you come back. You can’t push a Vampire out of the Castle. There is a Well in the Castle (for Spicy or Mist effect)</p>
+<span class="subsection-title">Cemetery</span>
+<p>You can’t hunt Humans in the Cemetery. You can’t push a Vampire who is in the Cemetery.</p>
+<span class="subsection-title">Chest</span>
+<p>Take the Bonus token if any are left (see Bonus Tokens for their effects). Add it to your player sheet face up and immediately score . There is no limit to the number of Bonus tokens you can have.</p>
+<span class="subsection-title">Crypt</span>
+<p>Gain a Mission.</p>
+<span class="subsection-title">Labyrinth</span>
+<p>Hunt 1 Rose of your choice at no cost. This counts as a hunt, which means you may not also hunt on the Hunt track this turn.</p>
+<span class="subsection-title">Market, Church, Mansion, Barracks</span>
+<p>You can digest a Human card of the corresponding Human type from your discard pile or your playing area (it can be a Human you hunted this turn).</p>
+<span class="subsection-title">Ship</span>
+<p>You can’t hunt on a ship.</p>
+<span class="subsection-title">Tavern</span>
+<p>You can hunt all the cards in the Tavern for 2 instead of hunting on the Hunt track (don’t look at the cards until someone hunts them). If you hunt them you must take all of the cards.</p>
+<span class="subsection-title">Well</span>
+<p>You have an extra hunt this turn, but it can only be used on the 1 Column of the Hunt Track.</p>
+<span class="subsection-title">Missions</span>
+<p>Take all available Missions from the space into your hand then replace all but one. You can replace one or more, even all, of your previously unused Missions this way and take that many new Missions from the stack. You can’t discuss or mention the content of the remaining Missions.</p>
+<p><strong>Rookie Mode:</strong> Look at the available Missions and pick 1. Put the rest back on the board. You may only return the Missions that you were just looking at, never ones that you had previously.</p>
+<span class="subsection-title">Move your Vampire</span>
+<ul>
+<li>You are never forced to move unless a card’s effect states otherwise.</li>
+<li>If your total Speed is 0 or negative, you can’t move. You don’t trigger or benefit from the space you stay on.</li>
+<li>If your total Speed is positive, you can use all or part of it to move your Vampire in one direction. You can change paths when you pass an intersection but you can’t move forward and come back on the same path.</li>
+<li>If you move, trigger the board effect only on the space where you finish your movement.</li>
+<li>If you land on a space occupied by 1 or more Vampires, you may push them one at a time (starting with the one on top) to an adjacent space. They don’t have to be pushed to the same space. Pushed Vampires don’t push, they simply go on top of any Vampires that are already in the space.</li>
+</ul>
+<blockquote>
+<p><strong>Note:</strong> You can’t push a Vampire who is in the Cemetery or the Castle.</p>
+</blockquote>
+<span class="subsection-title">Hunt</span>
+<ul>
+<li>If you have any Speed left after moving you may now hunt one time, taking 1 card or pile of cards from the Hunt Track.</li>
+<li>To hunt, choose 1 card or pile of cards on one space of the Hunt Track. You must be able to spend the required Speed indicated on the Hunt Track. Hunting costs you 1, 2, or 3. Hunting a Rose is free.</li>
+<li>You must take all of the cards from the space you have chosen and place them in your discard pile.</li>
+<li>All unspent Speed is lost. You can’t move after you have hunted.</li>
+</ul>
+<span class="subsection-title">Humans</span>
+<ul>
+<li>Each Human is worth a number of Victory Points that you score as soon as you hunt them plus a bonus depending on the region you hunted them in. Gain:</li>
+<li>+1 for every Human you hunt on the Plains.</li>
+<li>+2 for every Human you hunt in the Forest.</li>
+</ul>
+  </div>
+</details>
+<details class="section">
+  <summary><span>TYPES OF CARDS</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>HUMANS are your main objectives. There are ones for every taste and Vampires love them. But some may leave you with a bad taste in your mouth, or have unexpected effects on hungry Vampires. You will need to hunt with subtlety, collecting the ones who give you the most points or who match your Missions.</p>
+<p>Vampires often have FAMILIARS to help them in their hunt. Once you get them they will stay in your playing area and give your their benefit each turn.</p>
+<p>You may gain new POWERS, to transform into a bat, to blend into darkness, or gain Speed and strength. Powers are great to optimize your deck, but don’t lose sight of your objectives.</p>
+<p>Vampires are undying romantics, and are enamored by the short-lived beauty of ROSES. You can run for the Labyrinth to pick one of the Roses and gain its benefit every turn.</p>
+<span class="subsection-title">Different types of cards</span>
+<ul>
+<li>Human Villager</li>
+<li>Human Religious</li>
+<li>Human Military</li>
+<li>Human Noble</li>
+<li>Starting Power</li>
+<li>Power</li>
+<li>Familiar</li>
+<li>Item</li>
+</ul>
+  </div>
+</details>
+<details class="section">
+  <summary><span>END OF THE GAME AND FINAL SCORING</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>Dawn triggers the end of the game. Any Vampire with a Parasol can play a final turn without hunting.</p>
+<span class="subsection-title">Safe ?</span>
+<p>Depending on the difficulty level you chose at the beginning of the game, check to see who made it:</p>
+<p><strong>Plains or Forest:</strong> Vampires here are burned to ashes by the sun. They can count their Victory Points but just for the glory of it.</p>
+<p><strong>Mountains (only in Rookie Mode):</strong> Vampires here are burned by the sun but manage to take cover and come back to the Castle. They lose the number of Victory Points indicated by the space they are on. Mountains (Elder Mode): Vampires here are burned to ashes by the sun.</p>
+<p><strong>Cemetery:</strong> Vampires here take cover in the nearest vault. They each lose 5.</p>
+<p><strong>Castle:</strong> Vampires here are safe.</p>
+<span class="subsection-title">Card Bonuses</span>
+<p>Add Victory Points from cards with an End of the Game effect.</p>
+<p>Hunters give you as many as you have Humans of the same type (including themselves).</p>
+<p>The Wolf Echo gives you as many as you have Wolves (including himself).</p>
+<p><strong>Cyrana</strong>
+Gain 1 at the end of the game if you have Roxane.</p>
+<p><strong>Veres</strong>
+Gain 1 at the end of the game for each you have hunted.</p>
+<p><strong>Echo</strong>
+Ready. Permanent. Gain 1 at the end of the game for each Wolf you have.</p>
+<span class="subsection-title">Mission Scoring</span>
+<p>• Each player gains the points shown on the Public Missions if they met their requirements.
+• Each player reveals their own Missions and scores them.
+Note: Majority Missions require you to have more than each of the other Vampires, not equal to any of them.
+If you reach 100 Victory Points, flip your Score token to the 100 side and start over from 0.</p>
+<span class="subsection-title">Winner</span>
+<p>• The Vampire with the most Victory Points wins the game.
+• In case of a tie, the tied Vampire who got to the Castle first or is the closest to the Castle (if none of them got there) wins the game.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>EFFECT ICONS</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Discard 1 card</span>
+<p><strong>Discard 1 card:</strong> Take another card from your playing area and place it in your discard pile. You can use this effect to discard a card before activating it if you want to avoid that card's effects. You can discard a Permanent card. Some cards ask you to discard them to trigger their effect.</p>
+<span class="subsection-title">Familiar</span>
+<p><strong>Familiar:</strong> Familiars stay in your playing area when played as they are Permanent.</p>
+<span class="subsection-title">Rose</span>
+<p><strong>Rose:</strong> Roses are Items. You don't have to race for a Rose but they really give you a great advantage. To take a Rose is free but counts as a hunt.</p>
+<span class="subsection-title">End of the Game effect</span>
+<p><strong>End of the Game effect:</strong> You score these points at the end of the game. You still get the region bonus when you hunt this card if it is a Human.</p>
+<span class="subsection-title">Effect on the Hunt Track</span>
+<p><strong>Effect on the Hunt Track:</strong> This triggers either while the card is on the Hunt Track or when it is hunted.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>BONUS TOKENS</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>Each token gives you 2 when you pick it up. You can play them on your turn. When you do, flip them to their Chest side to remember that you have used them.</p>
+<span class="subsection-title">Church, Military, Villager, Noble</span>
+<p><strong>Church, Military, Villager, Noble:</strong> Each of these tokens counts as 1 Human of the corresponding type as if you had hunted them for Missions and majorities.</p>
+<span class="subsection-title">Human Type choice</span>
+<p><strong>Human Type choice:</strong> This token counts as 1 extra Human of the type of your choice (choose at the end of the game). It can be used to score multiple Missions but you can't change the type after choosing.</p>
+<span class="subsection-title">1 or 2</span>
+<p>1 or 2: You can spend this token to add 1 or 2 to your Speed for the turn.</p>
+<span class="subsection-title">+1 Hunt</span>
+<p><strong>+1 Hunt:</strong> You can hunt 1 extra time this turn.</p>
+<span class="subsection-title">Discard 1 card then draw 1 card</span>
+<p><strong>Discard 1 card</strong> then draw 1 card.</p>
+<span class="subsection-title">Draw 1 card and add it to your playing area</span>
+<p><strong>Draw 1 card</strong> and add it to your playing area.</p>
+<span class="subsection-title">Gain 1 Mission</span>
+<p><strong>Gain 1 Mission:</strong> Choose from a stack of Missions as if you were on its space.</p>
+<span class="subsection-title">Parasol</span>
+<p><strong>Parasol:</strong> You can play 1 turn after the last turn but without hunting. You can play only 1 extra turn, even if you have several Parasols.</p>
+<span class="subsection-title">Velvet Clothing</span>
+<p><strong>Velvet Clothing:</strong> Immediately gain an extra 2 when you pick up this token for a total of 4.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>CARD EFFECTS</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">CONFUSE</span>
+<p><strong>CONFUSE:</strong> Before you calculate your Speed, you must move your Vampire 4 spaces toward the Labyrinth (don't trigger the board space where you land or push any Vampires). After this move, you play as usual. The effect is not cumulative: if you have 2 Confuse cards you don't move 8 spaces. You can't go further than the Labyrinth.</p>
+<span class="subsection-title">DIGEST</span>
+<p><strong>DIGEST:</strong> Place 1 Human from your playing area or discard pile in your Digestion zone. This card still counts for Missions and End of the Game effects, but it won't be shuffled back into your deck.</p>
+<span class="subsection-title">FAST</span>
+<p><strong>FAST:</strong> A pile of cards with one or more Fast cards in it costs you +1 Speed to hunt.</p>
+<span class="subsection-title">GREGARIOUS</span>
+<p><strong>GREGARIOUS:</strong> Gain 1 extra card when you hunt a Gregarious Human. Take the first card from the Hunt deck, add it to your discard pile, and gain its Victory Points (including region bonus and card effects) if it is a Human.</p>
+<span class="subsection-title">HOLY WATER</span>
+<p><strong>HOLY WATER:</strong> You can't hunt when you have a Human with Holy Water in your playing area.</p>
+<span class="subsection-title">INSPIRING</span>
+<p><strong>INSPIRING:</strong> Pick 1 Mission stack and take a Mission as if you were on its space.</p>
+<span class="subsection-title">PERMANENT</span>
+<p><strong>PERMANENT:</strong> You don't discard Permanent cards, unless you use an effect to do so. They stay in your playing area and you benefit from their effect and Speed every turn.</p>
+<span class="subsection-title">READY</span>
+<p><strong>READY:</strong> When you hunt or gain a card which is Ready, you may place it on top of your deck or in your discard pile (your choice).</p>
+<span class="subsection-title">SLOW</span>
+<p><strong>SLOW:</strong> Slow Humans are placed directly in the 2 Column when you add them to the Hunt Track (possibly creating a pile of cards).</p>
+<span class="subsection-title">SPICY</span>
+<p><strong>SPICY:</strong> You must use your Speed to go to the closest Well (even if it is behind you or on a different path). Spend as much Speed as you need to get there. If you don't have enough Speed, spend all of it to move and keep this card in your playing area until you reach a Well. When you reach a Well you must stop and you may hunt if you have any Speed left. If you are exactly between two Wells, choose the one you want to reach. If you are already on a Well, you don't move this turn but you can hunt.</p>
+<span class="subsection-title">UNIQUE</span>
+<p><strong>UNIQUE:</strong> You can't have more than one Unique card of the same type and category in your deck. Roses are the only Unique cards for the moment.</p>
+  </div>
+</details>
+  <p id="no-results">No sections match your search.</p>
+</main>
+<script>
+(function () {
+  var searchEl  = document.getElementById('search');
+  var clearBtn  = document.getElementById('search-clear');
+  var noResults = document.getElementById('no-results');
+  var sections  = Array.from(document.querySelectorAll('details.section'));
+
+  // Snapshot each section body's original HTML so we can restore it
+  // before applying a new round of highlights.
+  sections.forEach(function (s) {
+    var body = s.querySelector('.section-body');
+    if (body) body.dataset.original = body.innerHTML;
+  });
+
+  var timer;
+
+  searchEl.addEventListener('input', function () {
+    var term = this.value.trim();
+    clearBtn.classList.toggle('visible', term.length > 0);
+    clearTimeout(timer);
+    timer = setTimeout(function () { applySearch(term); }, 180);
+  });
+
+  clearBtn.addEventListener('click', function () {
+    searchEl.value = '';
+    clearBtn.classList.remove('visible');
+    applySearch('');
+    searchEl.focus();
+  });
+
+  function escapeRe(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlightTextNodes(container, re) {
+    var walker = document.createTreeWalker(
+      container, NodeFilter.SHOW_TEXT, null, false
+    );
+    var nodes = [];
+    var n;
+    while ((n = walker.nextNode())) {
+      if (n.nodeValue.trim()) nodes.push(n);
+    }
+    nodes.forEach(function (textNode) {
+      re.lastIndex = 0;
+      if (!re.test(textNode.nodeValue)) return;
+      re.lastIndex = 0;
+      var span = document.createElement('span');
+      span.innerHTML = textNode.nodeValue.replace(
+        re, function (m) { return '<mark>' + m + '</mark>'; }
+      );
+      textNode.parentNode.replaceChild(span, textNode);
+    });
+  }
+
+  function applySearch(term) {
+    var re = term ? new RegExp(escapeRe(term), 'gi') : null;
+    var visibleCount = 0;
+
+    sections.forEach(function (section) {
+      var body    = section.querySelector('.section-body');
+      var summary = section.querySelector('summary');
+
+      // Restore original HTML before each search pass
+      if (body) body.innerHTML = body.dataset.original;
+
+      if (!re) {
+        section.classList.remove('search-hidden');
+        section.open = false;
+        return;
+      }
+
+      var titleText = summary ? summary.textContent : '';
+      var bodyText  = body    ? body.textContent    : '';
+
+      re.lastIndex = 0;
+      var inTitle = re.test(titleText);
+      re.lastIndex = 0;
+      var inBody  = re.test(bodyText);
+      re.lastIndex = 0;
+
+      if (inTitle || inBody) {
+        section.classList.remove('search-hidden');
+        section.open = true;
+        if (body) highlightTextNodes(body, new RegExp(escapeRe(term), 'gi'));
+        visibleCount++;
+      } else {
+        section.classList.add('search-hidden');
+      }
+    });
+
+    noResults.style.display = (re && visibleCount === 0) ? 'block' : 'none';
+  }
+})();
+</script>
+</body>
+</html>

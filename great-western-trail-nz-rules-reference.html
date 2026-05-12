@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Great Western Trail - NZ — Rules Reference</title>
+<style>
+:root {
+  --bg:            #f2ede6;
+  --text:          #1a1a1a;
+  --header-bg:     #0f3938;
+  --section-bg:    #0f3938;
+  --subsection-bg: #728eb1;
+  --rule:          #b0a898;
+  --accent:        #728eb1;
+  --table-head:    #0f3938;
+  --note-bg:       #e8e0d4;
+  --body-bg:       #ffffff;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 15px;
+  line-height: 1.55;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* ── STICKY HEADER ───────────────────────────────────────── */
+.sticky-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--header-bg);
+  padding: 10px 14px 12px;
+  padding-top: max(10px, env(safe-area-inset-top));
+  padding-left: max(14px, env(safe-area-inset-left));
+  padding-right: max(14px, env(safe-area-inset-right));
+  box-shadow: 0 2px 12px rgba(0,0,0,0.4);
+}
+
+.masthead-row {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 9px;
+}
+
+.masthead-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  line-height: 1.1;
+  flex-shrink: 0;
+}
+
+.masthead-subtitle {
+  font-size: 11px;
+  color: rgba(255,255,255,0.45);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.back-link {
+  margin-left: auto;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+  text-decoration: none;
+  flex-shrink: 0;
+  padding-left: 12px;
+  white-space: nowrap;
+}
+.back-link:hover {
+  color: rgba(255,255,255,0.85);
+}
+
+.search-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-icon {
+  position: absolute;
+  left: 10px;
+  width: 15px;
+  height: 15px;
+  color: rgba(255,255,255,0.4);
+  pointer-events: none;
+  flex-shrink: 0;
+}
+
+#search {
+  width: 100%;
+  padding: 8px 36px 8px 32px;
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 8px;
+  font-size: 15px;
+  background: rgba(255,255,255,0.12);
+  color: #fff;
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+#search::placeholder { color: rgba(255,255,255,0.38); }
+
+#search:focus {
+  background: rgba(255,255,255,0.2);
+  border-color: rgba(255,255,255,0.3);
+}
+
+.search-clear {
+  position: absolute;
+  right: 6px;
+  background: rgba(255,255,255,0.18);
+  border: none;
+  border-radius: 50%;
+  color: rgba(255,255,255,0.8);
+  font-size: 14px;
+  line-height: 1;
+  width: 22px;
+  height: 22px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  flex-shrink: 0;
+}
+
+.search-clear.visible { display: flex; }
+
+/* ── MAIN ────────────────────────────────────────────────── */
+main {
+  padding: 10px 12px 48px;
+  padding-left: max(12px, env(safe-area-inset-left));
+  padding-right: max(12px, env(safe-area-inset-right));
+  padding-bottom: max(48px, env(safe-area-inset-bottom));
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+/* ── NO RESULTS ──────────────────────────────────────────── */
+#no-results {
+  display: none;
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--text);
+  opacity: 0.5;
+  font-size: 14px;
+}
+
+/* ── COLLAPSIBLE SECTIONS ────────────────────────────────── */
+details.section {
+  margin-bottom: 6px;
+  border-radius: 6px;
+  overflow: hidden;
+  scroll-margin-top: 130px;
+}
+
+details.section > summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  min-height: 44px;
+  background: var(--section-bg);
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  list-style: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+details.section > summary::-webkit-details-marker { display: none; }
+
+.chevron {
+  width: 12px;
+  height: 12px;
+  opacity: 0.65;
+  flex-shrink: 0;
+  margin-left: 8px;
+  transition: transform 0.18s ease;
+}
+
+details.section[open] > summary .chevron {
+  transform: rotate(90deg);
+}
+
+.section-body {
+  background: var(--body-bg);
+  padding: 10px 12px 12px;
+  border: 1px solid var(--rule);
+  border-top: none;
+  border-radius: 0 0 6px 6px;
+}
+
+/* ── HEADINGS WITHIN SECTIONS ────────────────────────────── */
+.subsection-title {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: #fff;
+  background: var(--subsection-bg);
+  padding: 4px 12px;
+  margin: 10px -12px 7px;
+}
+
+.label-title {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--section-bg);
+  border-bottom: 1.5px solid var(--rule);
+  padding-bottom: 3px;
+  margin: 10px 0 5px;
+}
+
+.inline-title {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 8px 0 3px;
+}
+
+/* ── BODY TEXT ───────────────────────────────────────────── */
+p { margin-bottom: 7px; }
+b, strong { font-weight: 600; }
+em, i { font-style: italic; }
+
+/* ── LISTS ───────────────────────────────────────────────── */
+ul, ol { padding-left: 20px; margin-bottom: 6px; }
+ul { list-style-type: disc; }
+ol { list-style-type: decimal; }
+ul ul { list-style-type: circle; }
+li { margin-bottom: 3px; }
+li > ul, li > ol { margin-top: 2px; margin-bottom: 0; }
+
+/* ── TABLES ──────────────────────────────────────────────── */
+.table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin-bottom: 6px;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  min-width: 260px;
+}
+thead tr { background: var(--table-head); color: white; }
+thead th {
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  padding: 5px 8px;
+  text-align: left;
+  white-space: nowrap;
+}
+tbody tr:nth-child(even) { background: var(--note-bg); }
+tbody td { padding: 5px 8px; vertical-align: top; }
+
+/* ── BLOCKQUOTE ──────────────────────────────────────────── */
+blockquote {
+  background: var(--note-bg);
+  border-left: 3px solid var(--accent);
+  padding: 6px 10px;
+  margin: 5px 0 7px;
+  font-size: 14px;
+  border-radius: 0 4px 4px 0;
+}
+blockquote p { margin-bottom: 2px; }
+
+/* ── INLINE CODE ─────────────────────────────────────────── */
+code {
+  background: var(--note-bg);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  padding: 1px 4px;
+  font-size: 13px;
+  font-family: inherit;
+  font-weight: 600;
+}
+
+/* ── HR ──────────────────────────────────────────────────── */
+hr { border: none; border-top: 1px solid var(--rule); margin: 8px 0; }
+
+/* ── SEARCH HIGHLIGHT ────────────────────────────────────── */
+mark {
+  background: #ffe566;
+  color: inherit;
+  border-radius: 2px;
+  padding: 0 1px;
+}
+
+/* ── HIDDEN SECTIONS ─────────────────────────────────────── */
+details.section.search-hidden { display: none; }
+
+/* ── VERSION TOGGLE ──────────────────────────────────────── */
+.toggle-bar {
+  display: inline-flex;
+  margin-top: 8px;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.2);
+}
+.toggle-current,
+.toggle-other {
+  padding: 6px 14px;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  line-height: 1;
+  text-decoration: none;
+  white-space: nowrap;
+  -webkit-tap-highlight-color: transparent;
+}
+.toggle-current {
+  background: rgba(255,255,255,0.18);
+  color: #ffffff;
+  font-weight: 600;
+  cursor: default;
+}
+.toggle-other {
+  color: rgba(255,255,255,0.5);
+}
+.toggle-other:hover {
+  background: rgba(255,255,255,0.08);
+  color: rgba(255,255,255,0.8);
+}
+
+/* ── PRINT ───────────────────────────────────────────────── */
+@media print {
+  .sticky-header { position: static; }
+  details.section[open], details.section { display: block; }
+  .section-body { display: block !important; }
+  .search-wrap, .search-clear, .toggle-bar { display: none; }
+}
+</style>
+</head>
+<body>
+<header class="sticky-header">
+  <div class="masthead-row">
+    <span class="masthead-title">Great Western Trail - NZ</span>
+    <span class="masthead-subtitle">Rules Reference</span>
+    <a class="back-link" href="index.html">&#8592; All Games</a>
+  </div>
+  <div class="toggle-bar"><span class="toggle-current">Quick Reference</span><a class="toggle-other" href="great-western-trail-nz-rules-refined.html">Full Rules</a></div>
+  <div class="search-wrap">
+    <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+         stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+         aria-hidden="true">
+      <circle cx="11" cy="11" r="8"/>
+      <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+    </svg>
+    <input type="text" id="search" placeholder="Search rules…"
+           autocomplete="off" spellcheck="false" autocorrect="off">
+    <button class="search-clear" id="search-clear" aria-label="Clear search">&#x2715;</button>
+  </div>
+</header>
+<main>
+<details class="section" open>
+  <summary><span>Game Setup</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Board Setup</span>
+<span class="label-title">Main Board Placement</span>
+<p>Place the <strong>game board</strong> in the center of the table and the <strong>sea routes board</strong> above it. Shuffle the <strong>harbourmaster tiles</strong> and place one face-up on each of the five <strong>harbourmaster spaces</strong> on the sea routes board. Return the remaining harbourmaster tiles to the box. Place the <strong>neutral building tiles</strong> face-up on the eight <strong>neutral spaces</strong> on the game board. Place the <strong>bonus tiles market token</strong> on the top dashed round space in the <strong>bonus tiles market</strong>. Place the <strong>neutral buildings overview tile</strong> next to the game board.</p>
+<span class="label-title">Market &amp; Supply Placement</span>
+<p>Sort the <strong>worker tiles</strong>, <strong>hazard tiles</strong>, and <strong>bonus tiles</strong> by the letters on their backs and place them into their corresponding <strong>Wellington supply</strong> bags next to the game board. Place the <strong>market sheep cards</strong> as a face-down <strong>market stack</strong> beneath the lower right of the game board. Shuffle the <strong>objective cards</strong> and place them as a face-down stack to the right of the game board. Reveal four cards from this stack and display them face-up in the <strong>general objective display</strong>. Place the <strong>deck-building supply</strong> cards on the left side of the game board. Place the <strong>bonus cards supply</strong> next to the sea routes board according to set numbers. Place coins and <strong>exchange tokens</strong> within reach of all players as the <strong>bank</strong>.</p>
+<span class="subsection-title">Player Setup</span>
+<span class="label-title">Component Distribution</span>
+<p>Each player chooses a <strong>player colour</strong> and places the corresponding <strong>player board</strong> in front of them. Place the <strong>player count tile</strong> and <strong>fee tile</strong> in the Phase A box of the player board, with the fee tile showing the two coins with -1 and -2. Place the ten <strong>private building tiles</strong> above the player board in ascending order of required craftsmen. All players must use the same side for each numbered tile. Place sixteen <strong>discs</strong> on the coloured disc spaces, ten <strong>storehouses</strong> on the coloured square spaces, one <strong>ship</strong> on a starting water-space on the sea routes board, one <strong>certificate marker</strong> on the top space of the certificate track, one <strong>gold marker</strong> on the second space of the gold track, and one <strong>runholder</strong> next to the player board.</p>
+<span class="label-title">Deck &amp; Starting Resources</span>
+<p>Shuffle the fourteen <strong>player sheep cards</strong> to form the <strong>flock deck</strong> and place it as a face-down <strong>draw stack</strong> to the left of the player board. Determine a starting player. Receive starting capital, one <strong>exchange token</strong>, and draw cards to hand according to player order. At the beginning of your very first turn, discard cards from your hand until you have only four remaining. Discarded cards go to your personal <strong>discard pile</strong>. Place one of your player discs from a disc space with white corners onto space 0 of the <strong>pathfinder track</strong>. Place your <strong>runholder</strong> onto any neutral building tile and continue directly with Phase B.</p>
+<span class="subsection-title">Player Count Variations</span>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Component / Rule</th>
+<th>2 Players</th>
+<th>3 Players</th>
+<th>4 Players</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Wellington supply</strong> draws for job market &amp; hazard sections</td>
+<td>12 tiles</td>
+<td>13 tiles</td>
+<td>14 tiles</td>
+</tr>
+<tr>
+<td><strong>Bonus tiles market</strong> size</td>
+<td>3 tiles</td>
+<td>5 tiles</td>
+<td>7 tiles</td>
+</tr>
+<tr>
+<td><strong>Sheep market</strong> initial draw</td>
+<td>9 cards</td>
+<td>11 cards</td>
+<td>14 cards</td>
+</tr>
+<tr>
+<td><strong>Bonus cards supply</strong> per set</td>
+<td>3 cards</td>
+<td>5 cards</td>
+<td>6 cards</td>
+</tr>
+<tr>
+<td><strong>Pathfinder step tiles</strong> placement</td>
+<td>Next to space 4</td>
+<td>Next to space 4</td>
+<td>Next to space 6</td>
+</tr>
+<tr>
+<td>Starting capital &amp; cards</td>
+<td>1st: 7£/4 cards, 2nd: 8£/5 cards, 3rd: 9£/6 cards, 4th: 10£/7 cards</td>
+<td>Same</td>
+<td>Same</td>
+</tr>
+</tbody>
+</table></div>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Turn Structure</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Phase A: Move Runholder</span>
+<span class="label-title">Movement Rules</span>
+<p>Move your <strong>runholder</strong> from its current location along the trail to another location. Movement is measured in <strong>steps</strong>, with each <strong>location</strong> taking one step. Empty spaces are not locations. You must always move forward along the trail arrows. You cannot pass over <strong>Wellington</strong>. Multiple runholders may occupy the same location. You must move at least one step and cannot exceed your current <strong>step limit</strong>. The location where movement ends is used in Phase B.</p>
+<span class="label-title">Fee Payment Trigger</span>
+<p>If your runholder moves to or passes over a location with a green or black hand, you must immediately pay a fee. Black hands cost one pound to the <strong>bank</strong>. Green hands cost two pounds to the player who owns the private building tile. Fee payment rules are detailed in the <strong>Fees &amp; Movement Hands</strong> section.</p>
+<span class="subsection-title">Phase B: Resolve Location</span>
+<span class="label-title">Location Resolution Flow</span>
+<p>Determine the type of location reached to resolve actions. If you land on a <strong>neutral building tile</strong> or your own <strong>private building tile</strong>, you may perform the local actions of that tile or perform one single <strong>auxiliary action</strong>. If you land on an opponent's <strong>private building tile</strong> or a <strong>hazard tile</strong>, you may only perform one single <strong>auxiliary action</strong>. If you land on <strong>Wellington</strong>, you must carry out all four <strong>Wellington subphases</strong> in succession.</p>
+<span class="label-title">Local Action Rules</span>
+<p>Most building tiles show two different local actions separated by dividers. You may perform each local action once in any order. You are not required to perform all available actions. If an action shows a cost or requirement, you must pay or meet it completely to gain the reward. Some tiles show two actions separated by a white slash; you may only perform one of those. Risk actions attached to trail spaces become part of the tile's local actions.</p>
+<span class="label-title">Auxiliary Action Rules</span>
+<p>If you do not perform any local actions on a neutral or own building tile, you may perform one single <strong>auxiliary action</strong> instead. Auxiliary actions are found on the left side of your player board. At the start of the game, only two are available. Additional actions unlock when you clear their associated <strong>disc spaces</strong>.</p>
+<span class="subsection-title">Phase C: Draw to Hand Limit</span>
+<span class="label-title">Hand Management</span>
+<p>Each player starts with a <strong>hand limit</strong> of four cards, which can increase up to six. If you have fewer cards in hand than your current limit, draw cards from your <strong>draw stack</strong> to reach the limit. You may not play any <strong>deck-building</strong> or <strong>bonus cards</strong> during this phase. Hand limit increases are linked to clearing specific <strong>disc spaces</strong>.</p>
+<span class="label-title">Deck Reshuffling</span>
+<p>When you must draw a card but have no cards left in your <strong>draw stack</strong>, pick up your <strong>discard pile</strong>, shuffle it thoroughly, and place it as your new face-down <strong>draw stack</strong>. Then continue drawing as usual.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Wellington Process</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Subphase 1: Income</span>
+<span class="label-title">Reveal &amp; Calculate</span>
+<p>Reveal as many sheep of <strong>different types</strong> as you like from your hand. Calculate their <strong>total breeding value</strong> by summing the breeding values of each revealed type. You may reveal each type only once. Ignore victory points or wool values. You cannot reveal <strong>deck-building</strong> or <strong>bonus cards</strong> that are not sheep.</p>
+<span class="label-title">Certificates &amp; Payment</span>
+<p>Increase the <strong>total breeding value</strong> by adding certificates. <strong>Temporary certificates</strong> are available based on your <strong>certificate marker</strong> position; move the marker backward to use them. <strong>Permanent certificates</strong> are cleared <strong>disc spaces</strong> and harbourmaster tile bonuses. Take pounds from the <strong>bank</strong> equal to the final <strong>total breeding value</strong>. Discard all revealed cards to your <strong>discard pile</strong>. Keep unrevealed cards in hand.</p>
+<span class="subsection-title">Subphase 2: Delivery</span>
+<span class="label-title">Trading Post Selection</span>
+<p>Deliver sheep to a <strong>trading post</strong> whose <strong>trading post value</strong> is equal to or lower than your <strong>total breeding value</strong>. You cannot choose a trading post that already has one of your discs, except for local trading post 0 and terminal local trading post 21. Place one of your <strong>discs</strong> on the chosen <strong>trading post space</strong>.</p>
+<span class="label-title">Disc Placement &amp; Clearing</span>
+<p>Take the disc from any <strong>disc space</strong> on your player board. Discs from spaces with <strong>white corners</strong> can be placed on any trading post space. Discs from spaces with <strong>dark corners</strong> can only be placed on trading post spaces that also have <strong>dark corners</strong>. Clearing a disc space unlocks its ability, which may include step limit increases, hand limit increases, auxiliary action unlocks, certificate limit increases, permanent wool unlocks, or permanent certificate unlocks. Some clearing actions grant immediate pounds or require immediate payment.</p>
+<span class="label-title">Delivery Actions &amp; Costs</span>
+<p>Placing a disc may trigger a delivery action, such as gaining pounds or adding a specific card to your <strong>discard pile</strong>. For each disc placed on trading post 0, immediately gain six pounds. Pay any <strong>transport costs</strong> for the delivery, which generally apply to <strong>dark corner</strong> disc spaces. If you cannot pay combined costs, choose a different disc or trading post.</p>
+<span class="subsection-title">Subphases 3 &amp; 4: Foresight &amp; Market Refill</span>
+<span class="label-title">Foresight Tile Placement</span>
+<p>Choose one tile from the foresight spaces next to spot 3 and one from spot 4. Move each tile to its corresponding section. <strong>Worker tiles</strong> go to the most expensive free space in their column in the <strong>job market</strong>. <strong>Hazard tiles</strong> go to the empty space with the lowest number in their section. <strong>Bonus tiles</strong> go to the next free space in the <strong>bonus tiles market</strong> row where the token is located, filling left to right.</p>
+<span class="label-title">Market Refill Triggers</span>
+<p>When placing a bonus tile on the space with the <strong>bonus tiles market token</strong>, move the token along the arrow to the next row. If the token moves along a yellow or turquoise arrow, trigger a refill. A yellow arrow triggers a <strong>sheep market</strong> refill. A turquoise arrow triggers flipping the four <strong>neutral building tiles</strong> with the 11 icon to their back.</p>
+<span class="label-title">Refill Procedures</span>
+<p>For a <strong>sheep market</strong> refill, draw from the <strong>market stack</strong> to restore the initial number of cards for your player count. Sort by colour and place face-up. If the stack is empty, add no cards. For the <strong>neutral building</strong> flip, runholders on flipped tiles remain and continue movement. The front side actions become inaccessible, and modified options apply for the rest of the game.</p>
+<span class="subsection-title">Post-Wellington Steps</span>
+<span class="label-title">Turn Completion</span>
+<p>Move your <strong>runholder</strong> to the start of the trail by placing it on the <strong>horseman space</strong> in the lower left corner. Refill each empty <strong>foresight space</strong> with tiles drawn from the <strong>Wellington supply</strong>, matching the letter on the tile back to the space letter. End your turn.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Actions Lookup</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Core Local Actions</span>
+<span class="label-title">Hire One Worker</span>
+<p>Choose one <strong>worker tile</strong> from the <strong>job market</strong>, pay the hiring cost modified by the action icon, and place it in the leftmost free space of its type row on your player board. If the space depicts an immediate action, perform it or forfeit it. Full rows cannot accept more workers. Workers on the fifth space are worth four victory points at game end.</p>
+<span class="label-title">Buy Sheep From Sheep Market</span>
+<p>Acquire sheep cards from the <strong>sheep market</strong> based on your <strong>shepherd</strong> count and pounds spent. With one shepherd, buy one Dorset Horn for 3 pounds, one Corriedale or Lincoln for 5 pounds, or one Hampshire or Ryeland for 9 pounds. With two shepherds, buy one Dorset Horn for 1 pound, one Corriedale or Lincoln for 2 pounds, or one Suffolk and one exchange token for 10 pounds. With three shepherds, pay 3 pounds for two sheep with 2 VP each. With four shepherds, pay 4 pounds for one Suffolk and one exchange token. Unused shepherds may draw two cards from the <strong>market stack</strong> to add to the <strong>sheep market</strong>. Acquired cards go to your <strong>discard pile</strong>. You may buy fewer than allowed.</p>
+<span class="label-title">Place Private Building</span>
+<p>Choose a <strong>private building tile</strong> from above your player board. Place it on an empty building space or replace an existing one. You must have enough <strong>craftsmen</strong> and pay two pounds per craftsman needed. Replacing requires only the difference in craftsmen and cost. Building spaces require specific <strong>pathfinder track</strong> advancement. The neutral building tile B is the only one that allows placing your own building tiles on the trail.</p>
+<span class="label-title">Move Ship &amp; Upgrade Harbour</span>
+<p>Move your <strong>ship</strong> up to spaces equal to your <strong>sailor</strong> count in any direction. Movement ends when you choose to stop or upgrade a harbour. Upgrading requires paying the cost and placing a <strong>storehouse</strong> or <strong>disc</strong>. Small harbours grant a card and may unlock bonuses. Medium harbours grant a card and allow <strong>harbourmaster</strong> acquisition. Large harbours require no cost, grant a card, and unlock foreign trading posts. Reset ship to start if upgrading the final small harbour on a route.</p>
+<span class="label-title">Shear Sheep</span>
+<p>Reveal up to as many <strong>different</strong> sheep cards as you have <strong>shearers</strong>. Sum wool values and add <strong>permanent wool</strong>. Take pounds equal to the total. Discard revealed cards. Unused shearers may draw one card and immediately discard one. You may place a disc on a <strong>wool trading post</strong> if your total wool value meets the requirement. Wool trading post 13 allows repeated delivery.</p>
+<span class="label-title">Gain Objective Card</span>
+<p>Choose one <strong>objective card</strong> from the <strong>general objective display</strong> or draw the top card from the objective stack. Place it face-up on your <strong>discard pile</strong>. Refill the display if needed. Objective cards can be played before Phase A or before/after any single action in Phase B. Playing triggers an immediate action. Tasks are scored at game end.</p>
+<span class="label-title">Advance Pathfinder</span>
+<p>Advance your disc on the <strong>pathfinder track</strong>. Spaces 3 and 8 grant gold. Spaces 4 or 6 grant step tiles. Spaces 2, 4, and 7 unlock building spaces. Space 11 allows flipping a step tile to +2 or flipping the <strong>fee tile</strong> to ignore hands. Space 16 grants pounds for further advancement. Victory points are scored at the highest reached value.</p>
+<span class="label-title">Remove Hazard</span>
+<p>Remove one <strong>hazard tile</strong> from any section, place it face-up, and take the associated <strong>deck-building</strong> card. Pay the cost if shown. Rockfall hazards grant a <strong>Sheepdog</strong> card. Flood hazards grant a <strong>Ferry</strong> card. Gain victory points at game end.</p>
+<span class="label-title">Move Runholder Forward</span>
+<p>Move your <strong>runholder</strong> forward up to the white number in the icon. Perform Phase B again on the new location without replenishing hand cards.</p>
+<span class="subsection-title">Auxiliary Actions</span>
+<span class="label-title">Single vs Double Actions</span>
+<p>Auxiliary actions unlock when at least one of their two <strong>disc spaces</strong> is cleared. If only one space is cleared, perform a single action. If both are cleared, you may perform a double action, doubling requirements and rewards. Single actions: Gain 1 pound. Draw 1 card then discard 1. Pay 2 pounds to move certificate marker 1 space. Pay 1 pound to move ship 1 space or upgrade harbour. Pay 1 pound to advance pathfinder disc 1 space. Double actions: Gain 2 pounds. Draw 2 cards then discard 2. Pay 4 pounds to move certificate marker up to 2 spaces. Pay 2 pounds to move ship up to 2 spaces or upgrade harbour. Pay 2 pounds to advance pathfinder disc 2 spaces.</p>
+<span class="subsection-title">Special &amp; Free Actions</span>
+<span class="label-title">Gain Exchange Token</span>
+<p>Gain one <strong>exchange token</strong> from the <strong>bank</strong>. Tokens can be used at any time, even mid-action or on other turns. Return a token to the <strong>bank</strong> to draw up to two cards and immediately discard the same number. Combine two tokens to remove a <strong>Shropshire</strong> sheep from your deck and move your <strong>gold marker</strong> forward one space.</p>
+<span class="label-title">Collect Gold &amp; Spend</span>
+<p>Use available gold during Phase A or B to buy <strong>bonus cards</strong> from the <strong>bonus cards supply</strong>. Pay 3 gold for steering wheel/barrel cards, 4 gold for bell cards, and 5 gold for compass cards. Place purchased cards face-up on your <strong>discard pile</strong>.</p>
+<span class="label-title">Immediate &amp; Triggered Actions</span>
+<p>Immediate actions on worker rows, harbourmaster tiles, or objective cards must be performed or forfeited when triggered. Deck-building or bonus cards that are not sheep or objectives require drawing a card after performing or forfeiting their effect.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Core Mechanics</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Disc Spaces &amp; Clearing</span>
+<span class="label-title">Placement Rules</span>
+<p><strong>Disc spaces</strong> have either <strong>white corners</strong> or <strong>dark corners</strong>. Discs from <strong>white corner</strong> spaces can be placed on any trading post or harbour space. Discs from <strong>dark corner</strong> spaces can only be placed on spaces that also have <strong>dark corners</strong>. If you must place a disc on a <strong>white corner</strong> space but only have <strong>dark corner</strong> discs left, you may place a <strong>dark corner</strong> disc. If you cannot place a disc due to lack of discs or payment, remove one from a medium harbour and place it instead.</p>
+<span class="label-title">Clearing Effects</span>
+<p>Clearing a <strong>disc space</strong> unlocks its ability. Effects include increasing <strong>step limit</strong>, increasing <strong>hand limit</strong>, unlocking <strong>auxiliary actions</strong>, increasing <strong>temporary certificate limit</strong> to five, unlocking <strong>permanent wool</strong>, or unlocking <strong>permanent certificates</strong>. Some spaces grant immediate pounds or require immediate payment. Failure to pay clearing costs requires choosing a different space.</p>
+<span class="subsection-title">Fees &amp; Movement Hands</span>
+<span class="label-title">Payment Rules</span>
+<p>Fees are triggered when moving to or passing over locations with hands. Black hands cost one pound to the <strong>bank</strong>. Green hands cost two pounds to the building owner. Pay fees immediately during movement. If you cannot pay some or all fees, pay as much as possible and continue movement. You never pay fees retroactively. All other costs must be paid in full. Reaching space 11 on the <strong>pathfinder track</strong> allows flipping the <strong>fee tile</strong> to ignore all hands.</p>
+<span class="subsection-title">Markers (Gold &amp; Certificates)</span>
+<span class="label-title">Certificate Track</span>
+<p>The <strong>certificate marker</strong> starts at zero. The number indicates available <strong>temporary certificates</strong>. Move the marker backward to use them. The limit starts at three and increases to five when clearing the corresponding <strong>disc space</strong>. Moving the marker from 0 or 1 to 2 or higher also moves the <strong>gold marker</strong> forward one space.</p>
+<span class="label-title">Gold Track</span>
+<p>The <strong>gold marker</strong> starts at one. The limit is five. Excess gold is lost. Move the marker backward to spend gold. Gold is gained through immediate actions, bonus tiles, and pathfinder spaces.</p>
+<span class="subsection-title">Flock Deck &amp; Hand Management</span>
+<span class="label-title">Deck Composition</span>
+<p>The <strong>flock deck</strong> consists of the <strong>draw stack</strong>, <strong>hand</strong>, and <strong>discard pile</strong>. Start with a <strong>hand limit</strong> of four. Draw to limit in Phase C. Reshuffle <strong>discard pile</strong> into <strong>draw stack</strong> when empty. You may look at your <strong>discard pile</strong> at any time. You may not look at your <strong>draw stack</strong>.</p>
+<span class="label-title">Card Restrictions</span>
+<p>You may not play <strong>deck-building</strong> or <strong>bonus cards</strong> during Phase C. Objective cards can be played before Phase A or before/after single actions in Phase B. Revealing cards for income or shearing is a snapshot; you cannot use exchange tokens or draw cards during the reveal.</p>
+<span class="subsection-title">Trading Posts &amp; Harbours</span>
+<span class="label-title">Trading Post Rules</span>
+<p><strong>Local trading posts</strong> are available from the start. <strong>Foreign trading posts</strong> unlock by placing <strong>storehouses</strong> on the sea routes board. <strong>Wool trading posts</strong> are available locally or unlock via large harbours. You cannot deliver to a post that already has your disc, except for local post 0, local post 21, and wool post 13. Delivery actions add cards to your <strong>discard pile</strong>.</p>
+<span class="label-title">Harbour Upgrades</span>
+<p><strong>Small harbours</strong> require paying a cost and placing a <strong>storehouse</strong>. They grant a card and may unlock player board bonuses. <strong>Medium harbours</strong> require paying a cost and placing a <strong>disc</strong>. They grant a card and allow <strong>harbourmaster</strong> acquisition by moving a worker from the rightmost space of its row. <strong>Large harbours</strong> require no cost, place a <strong>storehouse</strong>, grant a card, and unlock foreign trading posts. Upgrading the final small harbour on a route resets your <strong>ship</strong> to the start.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>End Game & Scoring</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Game End Trigger</span>
+<span class="label-title">Trigger Condition</span>
+<p>The game ends when the <strong>bonus tiles market token</strong> moves along the red arrow out of the <strong>bonus tiles market</strong>. Immediately take the token and place it in front of you. Refill any empty <strong>foresight spaces</strong> at the end of your turn. This is your last turn.</p>
+<span class="subsection-title">Final Turns</span>
+<span class="label-title">Modified Turn Rules</span>
+<p>Each remaining player takes one final turn. Move the <strong>runholder</strong> and resolve the location. Players reaching <strong>Wellington</strong> carry out all four subphases. If a player chooses a bonus tile from <strong>foresight space B</strong> during subphase 4, remove it from the game. Do not carry out Phase C on final turns. Refill empty <strong>foresight spaces</strong> after Phase B. The game ends after the last player finishes Phase B.</p>
+<span class="subsection-title">Scoring Categories</span>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Category</th>
+<th>Calculation</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Pounds</td>
+<td>1 VP per 5 pounds owned</td>
+<td>Count all pounds in front of you.</td>
+</tr>
+<tr>
+<td>Private Buildings</td>
+<td>Sum of VP on tiles on the game board</td>
+<td>Only count tiles currently placed on the trail.</td>
+</tr>
+<tr>
+<td>Trading Posts</td>
+<td>Sum of VP on trading post crests</td>
+<td>Includes local, foreign, and wool posts. Subtract negative VP.</td>
+</tr>
+<tr>
+<td>Harbours</td>
+<td>Sum of VP on small and medium harbours</td>
+<td>Count discs and storehouses on the sea routes board.</td>
+</tr>
+<tr>
+<td>Pathfinder</td>
+<td>VP at highest reached space</td>
+<td>Maximum 15 VP. Count value next to or below disc.</td>
+</tr>
+<tr>
+<td>Hazards &amp; Bonus Tiles</td>
+<td>Sum of VP on collected tiles</td>
+<td>Count tiles in front of you.</td>
+</tr>
+<tr>
+<td>Deck Cards</td>
+<td>Sum of VP on sheep and bonus cards</td>
+<td>Search draw stack, hand, and discard pile. Exclude bonus objectives.</td>
+</tr>
+<tr>
+<td>Objective Cards</td>
+<td>Sum of fulfilled tasks, subtract unfulfilled</td>
+<td>Score cards in objective area. Decide for deck cards.</td>
+</tr>
+<tr>
+<td>Harbourmaster Tasks</td>
+<td>Sum of individual task VP</td>
+<td>Independent of objective cards. See Harbourmaster Tasks.</td>
+</tr>
+<tr>
+<td>Hand Limit Disc</td>
+<td>3 VP</td>
+<td>Awarded if the specific disc space was cleared.</td>
+</tr>
+<tr>
+<td>Workers &amp; Storehouses</td>
+<td>4 VP per worker on 5th space, 2/4 VP for cleared storehouse pairs</td>
+<td>Count workers in worker section.</td>
+</tr>
+<tr>
+<td>Market Token</td>
+<td>5 VP</td>
+<td>Awarded if you hold the bonus tiles market token.</td>
+</tr>
+</tbody>
+</table></div>
+<span class="subsection-title">Harbourmaster Tasks</span>
+<span class="label-title">Task Checklist</span>
+<p>Gain 1 VP for every certificate you have, permanent or temporary. Gain 1 VP for each objective card in your objective area, fulfilled or not. Gain 1 VP for each hazard tile collected. Gain 2 VP per 5 spaces advanced on the pathfinder track. Gain 1 VP for every 2 storehouses placed on the sea routes board. Gain 1 VP for each private building tile on the game board. Gain 1 VP for each card in your deck showing a ferry. Gain 1 VP for every 2 worker tiles in your worker section, including printed ones.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Reference Tables</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Action Icons &amp; Modifiers</span>
+<span class="label-title">Icon Reference</span>
+<p>Requirements are indicated by red arrows or numbers. Rewards are indicated by green arrows or white numbers. Discarding cards means placing them face-up on your discard pile. Gaining pounds means taking them from the bank. Paying pounds means returning them to the bank. Cost modifiers on hire/invest icons: -0 means no change. -3 means cost increases by 3. -2 means cost decreases by 2. Certificate marker movement icons indicate spaces to move forward. You cannot exceed your temporary certificate limit. Gold marker movement follows the same forward movement rules, with a hard limit of 5.</p>
+<span class="label-title">Marker Movement Trigger</span>
+<p>Moving the certificate marker from 0 or 1 to 2 or higher automatically moves the gold marker forward one space.</p>
+<span class="subsection-title">Component Glossary</span>
+<span class="label-title">Key Terms</span>
+<p><strong>Runholder</strong>: Your movement piece that travels the trail to perform actions and reach Wellington. <strong>Flock Deck</strong>: Your personal deck comprising sheep, deck-building, bonus, and objective cards, split into draw stack, hand, and discard pile. <strong>Trading Post</strong>: Spaces on the board or sea routes where you deliver sheep or wool to gain victory points and trigger actions. <strong>Harbourmaster</strong>: A tile acquired by upgrading a medium harbour, granting immediate/permanent bonuses and end-game scoring tasks. <strong>Foresight</strong>: Spaces in Wellington holding tiles that refill the job market, hazard sections, or bonus market during your turn. <strong>Exchange Token</strong>: A special token used to draw and discard cards or remove specific sheep from your deck. <strong>Wellington Supply</strong>: Bags containing worker, hazard, and bonus tiles sorted by letter, used to refill board sections. <strong>Pathfinder Track</strong>: A progress track that grants step tiles, gold, building unlocks, and victory points. <strong>Disc Spaces</strong>: Spaces on your player board holding discs; clearing them unlocks abilities, limits, or actions. <strong>Bank</strong>: The general supply of pounds and exchange tokens available to all players. Money and exchange tokens are considered unlimited. If the objective stack runs out, vacant spaces in the general objective display are not refilled. If the display is empty, no new objective cards can be gained. The same applies to deck-building card stacks and the bonus cards supply. If you replace a building while your runholder is on it, you cannot immediately use the new building's local actions if you already used an action from the replaced building. If you remove a hazard tile with runholders on it, leave those runholders on the empty space.</p>
+  </div>
+</details>
+  <p id="no-results">No sections match your search.</p>
+</main>
+<script>
+(function () {
+  var searchEl  = document.getElementById('search');
+  var clearBtn  = document.getElementById('search-clear');
+  var noResults = document.getElementById('no-results');
+  var sections  = Array.from(document.querySelectorAll('details.section'));
+
+  // Snapshot each section body's original HTML so we can restore it
+  // before applying a new round of highlights.
+  sections.forEach(function (s) {
+    var body = s.querySelector('.section-body');
+    if (body) body.dataset.original = body.innerHTML;
+  });
+
+  var timer;
+
+  searchEl.addEventListener('input', function () {
+    var term = this.value.trim();
+    clearBtn.classList.toggle('visible', term.length > 0);
+    clearTimeout(timer);
+    timer = setTimeout(function () { applySearch(term); }, 180);
+  });
+
+  clearBtn.addEventListener('click', function () {
+    searchEl.value = '';
+    clearBtn.classList.remove('visible');
+    applySearch('');
+    searchEl.focus();
+  });
+
+  function escapeRe(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlightTextNodes(container, re) {
+    var walker = document.createTreeWalker(
+      container, NodeFilter.SHOW_TEXT, null, false
+    );
+    var nodes = [];
+    var n;
+    while ((n = walker.nextNode())) {
+      if (n.nodeValue.trim()) nodes.push(n);
+    }
+    nodes.forEach(function (textNode) {
+      re.lastIndex = 0;
+      if (!re.test(textNode.nodeValue)) return;
+      re.lastIndex = 0;
+      var span = document.createElement('span');
+      span.innerHTML = textNode.nodeValue.replace(
+        re, function (m) { return '<mark>' + m + '</mark>'; }
+      );
+      textNode.parentNode.replaceChild(span, textNode);
+    });
+  }
+
+  function applySearch(term) {
+    var re = term ? new RegExp(escapeRe(term), 'gi') : null;
+    var visibleCount = 0;
+
+    sections.forEach(function (section) {
+      var body    = section.querySelector('.section-body');
+      var summary = section.querySelector('summary');
+
+      // Restore original HTML before each search pass
+      if (body) body.innerHTML = body.dataset.original;
+
+      if (!re) {
+        section.classList.remove('search-hidden');
+        section.open = false;
+        return;
+      }
+
+      var titleText = summary ? summary.textContent : '';
+      var bodyText  = body    ? body.textContent    : '';
+
+      re.lastIndex = 0;
+      var inTitle = re.test(titleText);
+      re.lastIndex = 0;
+      var inBody  = re.test(bodyText);
+      re.lastIndex = 0;
+
+      if (inTitle || inBody) {
+        section.classList.remove('search-hidden');
+        section.open = true;
+        if (body) highlightTextNodes(body, new RegExp(escapeRe(term), 'gi'));
+        visibleCount++;
+      } else {
+        section.classList.add('search-hidden');
+      }
+    });
+
+    noResults.style.display = (re && visibleCount === 0) ? 'block' : 'none';
+  }
+})();
+</script>
+</body>
+</html>

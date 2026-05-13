@@ -6,7 +6,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<title>CO2 - Second Chance — Rules Reference</title>
+<title>CO2 Second Chance — Rules Reference</title>
 <style>
 :root {
   --bg:            #f2ede6;
@@ -373,7 +373,7 @@ details.section.search-hidden { display: none; }
 <body>
 <header class="sticky-header">
   <div class="masthead-row">
-    <span class="masthead-title">CO2 - Second Chance</span>
+    <span class="masthead-title">CO2 Second Chance</span>
     <span class="masthead-subtitle">Rules Reference</span>
   </div>
   <div class="toggle-back-row"><div class="toggle-bar"><span class="toggle-current">Quick Reference</span><a class="toggle-other" href="co2-second-chance-rules-refined.html">Full Rules</a></div><a class="back-link" href="../index.html">&#8592; All Games</a></div>
@@ -390,13 +390,345 @@ details.section.search-hidden { display: none; }
   </div>
 </header>
 <main>
-<p>It appears that the <strong>Structural Recommendations</strong> and <strong>Original Rules Document</strong> sections in your message contain placeholder text asking for the content, rather than the actual content itself.</p>
-<p>To proceed, please provide:</p>
+<details class="section" open>
+  <summary><span>Setup</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>Place the gameboard in the center of the table with the cooperative side face up. Identify the cooperative icon around the globe on the board.</p>
 <ol>
-<li><strong>The Structural Recommendations:</strong> The specific heading hierarchy, merge/split instructions, and formatting guidelines you want applied.</li>
-<li><strong>The Original Rules Document:</strong> The full text of the rules you want rewritten.</li>
+<li>Each player chooses a color and takes the matching player board, a 2-piece player aid, and all wooden pieces in that color: <strong>Infrastructure tokens</strong>, <strong>discs</strong>, <strong>Control markers</strong>, <strong>Control cubes</strong>, and an <strong>Action marker</strong>.</li>
+<li>Stack 3 <strong>discs</strong> on the <strong>Executive action</strong> stack space (marked "3") of your player board.</li>
+<li>Place the pentagonal <strong>Action marker</strong> on the <strong>Main action</strong> space (marked "1") of your player board.</li>
+<li>Take 1 <strong>scientist</strong> of your color. Place the remaining 3 <strong>scientists</strong> in the recruitment pool.</li>
+<li>Take 2 <strong>Carbon Emission Permits (CEPs)</strong> and 2 <strong>Tech cubes</strong>.</li>
+<li>The player who most recently planted a tree takes the <strong>Start Player token</strong> and goes first.</li>
+<li>Place the <strong>Cooperative Score marker</strong> on space 0 of the score track on the gameboard.</li>
+<li>Place the <strong>Decade marker</strong> on the first decade (2010).</li>
+<li>Place the <strong>Phase marker</strong> on the leftmost space of the <strong>Phase track</strong>.</li>
+<li>Create a bank outside the board. Distribute money in clockwise order starting with the <strong>Start Player</strong>: 1st player receives $3, 2nd and 3rd players receive $4, 4th player receives $5. Money is public information.</li>
+<li>Place the remaining <strong>Tech cubes</strong> on their designated space on the gameboard to form the general pool. All components except money are limited to the existing amount.</li>
+<li>Separate <strong>projects</strong> by type and place them on their appropriate spaces on the board with the proposed side up. Sort with level-1 projects on top and level-2 projects on the bottom.</li>
+<li>Separate <strong>green power plants</strong> by type and place each type near the board next to the matching <strong>project tiles</strong>.</li>
+<li>Shuffle the <strong>Energy Summit tiles</strong> to form a face-down deck. Place 1 face-up <strong>Energy Summit tile</strong> in each designated space on the board.</li>
+<li>Place 1 random <strong>Regional Agenda tile</strong> on each region's space. Return the remaining tiles to the box.</li>
+<li>Shuffle the <strong>Environmental Goal tiles</strong> in the bag. Fill the 21 goal spaces as follows: place 8 random <strong>Power Plant goal tiles</strong> (green) face up in the first group, 5 random <strong>Knowledge goal tiles</strong> (pink) face up in the second group, and 8 random <strong>Summit goal tiles</strong> (blue) face up in the third group. Return the bag to the box.</li>
+<li>Shuffle both <strong>UN Goal card</strong> decks separately. Create a face-up display near the board. The number of cards in the display depends on the player count per the matching Configuration card. Return the unused Configuration card to the box.</li>
+<li>Give 2 secret <strong>Cooperative Private Goal cards</strong> to each player. Return the rest to the box. Players may not discuss cards in their hands during the game.</li>
+<li>Shuffle all <strong>Lobbyist cards</strong> and give 5 to each player. Return the rest to the box. Players may not discuss cards in their hands during the game.</li>
+<li>For a 3-player game, return 6 Gas ("20") <strong>Fossil Fuel Power Plant tiles</strong> to the box. Shuffle the remaining <strong>Fossil Fuel Power Plant tiles</strong> and form face-down stacks next to the board. Place the <strong>Global CO2 Pollution Level marker</strong> on the 400 ppm space of the <strong>CO2 track</strong>. Place 1 <strong>CEP</strong> in each marked space in every region. Pile the remaining <strong>CEPs</strong> near the board as a <strong>CEP bank</strong>. Place 2 <strong>CEPs</strong> in the middle of the <strong>CEP Market</strong>. Place the <strong>CEP Price marker</strong> on the "3" space of the <strong>CEP Market</strong>.</li>
 </ol>
-<p>Once you paste these, I will immediately generate the complete rewritten markdown document following all your constraints.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Game Flow & Phase Order</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>A cooperative game lasts 4 decades. Each decade is divided into 5 phases played in the following order:</p>
+<ol>
+<li><strong>Operations phase</strong></li>
+<li><strong>Income phase</strong></li>
+<li><strong>Environmental Goals phase</strong></li>
+<li><strong>Energy Supply phase</strong></li>
+<li><strong>End of Decade phase</strong></li>
+</ol>
+<p>Advance the <strong>Phase marker</strong> along the <strong>Phase track</strong> after completing each phase. The game ends after the 4th decade unless a loss condition is triggered earlier. See <strong>Game End &amp; Scoring</strong> for resolution steps.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Player Turn & Actions</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>The <strong>Operations phase</strong> consists of multiple rounds. The number of rounds depends on player count: 1–2 players play 4 rounds, 3 players play 3 rounds, and 4 players play 2 rounds. Starting with the <strong>Start Player</strong> and proceeding clockwise, every player takes 1 turn per round.</p>
+<p>On your turn, you must take exactly 1 <strong>Main action</strong>. You may take any number of <strong>Executive actions</strong>, but you may only take each <strong>Executive action</strong> once per turn. You may perform actions in any order. At the end of your turn, check whether any <strong>Energy Summits</strong> have been completed, then reset the <strong>Action markers</strong> on your player board before the next player begins.</p>
+<span class="subsection-title">Executive Actions</span>
+<p>You may perform the following <strong>Executive actions</strong> during your turn. Each may be taken only once per turn.</p>
+<span class="label-title">Move a Scientist</span>
+<p>Move 1 of your <strong>scientists</strong> according to the movement rules. See <strong>Scientists &amp; Knowledge Tracks</strong> for detailed movement paths and knowledge gain triggers.</p>
+<span class="label-title">Visit the CEP Market</span>
+<p>Buy or sell <strong>CEPs</strong> according to market rules. See <strong>CEP Market &amp; CO2 Pollution</strong> for pricing, restocking, and transaction procedures.</p>
+<span class="label-title">Play a Lobbyist Card or Claim a UN Goal Card</span>
+<p>Play 1 <strong>Lobbyist card</strong> from your hand or claim 1 <strong>UN Goal card</strong> from the display if requirements are met. See <strong>Card &amp; Tile Reference Tables</strong> for card effects and claim conditions.</p>
+<span class="subsection-title">Main Actions</span>
+<p>You must perform exactly 1 <strong>Main action</strong> during your turn.</p>
+<span class="label-title">Propose a Project</span>
+<p>Place a <strong>project</strong> tile in a region according to project rules. See <strong>Core Mechanics &amp; Reference Rules</strong> for knowledge and infrastructure interactions.</p>
+<span class="label-title">Prepare Infrastructure</span>
+<p>Place an <strong>Infrastructure token</strong> in a region. See <strong>Region Control &amp; Infrastructure</strong> for placement rules and scientist movement interactions.</p>
+<span class="label-title">Build a Power Plant</span>
+<p>Construct a <strong>power plant</strong> in a region. See <strong>Core Mechanics &amp; Reference Rules</strong> for knowledge requirements, <strong>Tech cube</strong> costs, and region control effects.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Phase Details</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Income Phase</span>
+<p>Move the <strong>Phase marker</strong> to the <strong>Income phase</strong> space.</p>
+<span class="label-title">Income Distribution</span>
+<p>In turn order, resolve income for each energy source. Players with <strong>discs</strong> in the two stacks furthest along a <strong>knowledge track</strong> receive income. In a 2-player game, only the player in the furthest stack receives income. Each eligible player receives income as indicated by the column. When receiving income, choose how much to take as money and how much as victory points. Money cannot be shared between players.</p>
+<span class="label-title">Victory Point Management</span>
+<p>You may spend victory points required by later phases before choosing your income split to simplify calculations. See <strong>Environmental Goals / Events Phase</strong> and <strong>Energy Supply Phase</strong> for spending requirements.</p>
+<span class="subsection-title">Environmental Goals / Events Phase</span>
+<p>Move the <strong>Phase marker</strong> to the <strong>Environmental Goals phase</strong> space.</p>
+<span class="label-title">Goal Resolution</span>
+<p>Flip any achieved <strong>Environmental Goal tiles</strong> face down. For each remaining face-up <strong>Environmental Goal tile</strong>, the group loses victory points equal to the current decade value: 2010 costs 1 point, 2020 costs 2 points, 2030 costs 3 points, and 2040 costs 4 points.</p>
+<span class="label-title">Loss Condition Check</span>
+<p>If the group's victory point total falls below zero at the end of this phase, the game ends and all players lose. You may flip <strong>Environmental Goal tiles</strong> face down immediately upon achievement to simplify tracking.</p>
+<span class="subsection-title">Energy Supply Phase</span>
+<p>Move the <strong>Phase marker</strong> to the <strong>Energy Supply phase</strong> space.</p>
+<span class="label-title">Fossil Fuel Placement</span>
+<p>For each region whose energy requirements are not met by green power plants, place 1 random <strong>Fossil Fuel Power Plant tile</strong> from the face-down stacks. The region must pay 1 <strong>CEP</strong> to the bank. If the region cannot pay a <strong>CEP</strong>, the controlling player must pay a fine. See <strong>CEP Market &amp; CO2 Pollution</strong> for fine resolution.</p>
+<span class="label-title">CO2 Pollution Tracking</span>
+<p>Advance the <strong>Global CO2 Pollution Level marker</strong> on the <strong>CO2 track</strong> by the total amount depicted on the newly placed <strong>Fossil Fuel Power Plant tiles</strong>.</p>
+<span class="label-title">Pollution Reduction</span>
+<p>After pollution increases, you may reduce the <strong>CO2 pollution level</strong> by spending victory points. You must reduce pollution to 500 ppm or lower. The cost per 10 ppm reduction depends on the decade: 2010 costs 1 point, 2020 costs 2 points, 2030 costs 3 points, and 2040 costs 4 points.</p>
+<span class="label-title">Loss Condition Check</span>
+<p>If the group's victory point total falls below zero or the <strong>CO2 pollution level</strong> exceeds 500 ppm at the end of this phase, the game ends and all players lose.</p>
+<span class="subsection-title">End of Decade Phase</span>
+<p>Move the <strong>Phase marker</strong> to the <strong>End of Decade phase</strong> space.</p>
+<span class="label-title">Cleanup Steps</span>
+<p>Advance the <strong>Decade marker</strong> to the next decade. Pass the <strong>Start Player token</strong> to the player on the right (counterclockwise). Check game end conditions.</p>
+<span class="label-title">3-Player Cooperative Adjustment</span>
+<p>Place the 3-Player Co-Op token on the 4th decade space during setup. When the 4th decade begins, flip and move the token to cover the 3rd <strong>Operations</strong> space on the <strong>Phase track</strong>. Play only 2 <strong>Operations</strong> rounds in the final decade.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Core Mechanics & Reference Rules</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">CEP Market &amp; CO2 Pollution</span>
+<span class="label-title">Market Transactions</span>
+<p>Every <strong>CEP</strong> that enters play is taken from the <strong>CEP Market</strong>. When the <strong>CEP Market</strong> empties, move 2 <strong>CEPs</strong> from the <strong>CEP bank</strong> to the market and increase the <strong>CEP Price marker</strong> by 1. Every <strong>CEP</strong> paid or sold goes to the <strong>CEP bank</strong>.</p>
+<span class="label-title">Paying CEPs</span>
+<p>When you need to pay a <strong>CEP</strong>, you may take it from any region you control or from your hand. If you do not have any <strong>CEPs</strong> to pay, you cannot take the action. You may only sell a <strong>CEP</strong> from your hand. You cannot sell a <strong>CEP</strong> from a region, even if you control it.</p>
+<span class="label-title">Fines</span>
+<p>If you must pay a fine, take 1 <strong>CEP</strong> from the <strong>CEP Market</strong> in exchange for victory points equal to the current market price.</p>
+<span class="label-title">Knowledge Track CEP Movement</span>
+<p>Certain spaces on the <strong>knowledge tracks</strong> allow you to move 1 <strong>CEP</strong> from the <strong>CEP Market</strong> to a region of your choice, provided the region's <strong>CEP</strong> spaces are not full.</p>
+<span class="subsection-title">Scientists &amp; Knowledge Tracks</span>
+<span class="label-title">Scientist Movement</span>
+<p>Your <strong>scientist</strong> may move from your player board to any unoccupied proposed <strong>project</strong> or any unoccupied <strong>Lobbyist card</strong> played by any player. From a proposed <strong>project</strong>, your <strong>scientist</strong> may move to any unoccupied empty proposed <strong>project</strong>, any unoccupied <strong>Lobbyist card</strong>, any unoccupied <strong>Energy Summit</strong> talk of the same type, or back to your player board.</p>
+<span class="label-title">Knowledge Gain Triggers</span>
+<p>You earn 1 point of knowledge in an energy type of your choice when you recruit a <strong>scientist</strong> or reach the generic energy icon on a <strong>knowledge track</strong>. You earn 1 point of knowledge in a specific energy type when you propose a <strong>project</strong> to a region, 1 of your <strong>scientists</strong> leaves a proposed <strong>project</strong> for any reason, or you reach an energy type icon on the <strong>knowledge track</strong>. When a <strong>Summit</strong> is completed at the end of a turn, you earn 2 points of knowledge in any energy type matching the summit topics for each of your participating <strong>scientists</strong>.</p>
+<span class="label-title">Knowledge Benefits</span>
+<p>Players with <strong>discs</strong> in the 1st and 2nd stacks of each energy type receive money and/or victory points during the <strong>Income phase</strong>. You must have sufficient knowledge in an energy source to build a matching <strong>power plant</strong>. Knowledge serves as a tiebreaker when determining region control. When your knowledge <strong>disc</strong> covers specific spaces on the track, you gain the indicated bonus.</p>
+<span class="subsection-title">Region Control &amp; Infrastructure</span>
+<span class="label-title">Control Determination</span>
+<p>Control of a region's energy supply is checked only when a <strong>power plant</strong> is built.</p>
+<span class="label-title">Control Effects</span>
+<p>When you control a region, you may spend its <strong>CEPs</strong> as your own, though you cannot sell them. If the region builds a <strong>Fossil Fuel Power Plant</strong>, you must pay the required <strong>CEP</strong> or pay a fine. Some goal cards require region control to be achieved.</p>
+<span class="label-title">Infrastructure Preparation</span>
+<p>If you have your own <strong>scientist</strong> on a <strong>project</strong> and decide to prepare <strong>Infrastructure</strong> in that region, you do not need to use your <strong>Executive action</strong> to move the <strong>scientist</strong> out. The movement is mandatory and free. You may still use your <strong>Executive action</strong> to move the same or a different <strong>scientist</strong>.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Game End & Scoring</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>The cooperative game ends at the conclusion of the 4th decade.</p>
+<span class="label-title">Loss Conditions</span>
+<p>The group loses if the group does not finish the 4th decade, any player has completed neither of their <strong>Cooperative Private Goal cards</strong>, or more than 3 <strong>UN Goal cards</strong> remain unclaimed.</p>
+<span class="label-title">Victory Resolution</span>
+<p>If no loss condition is met, the group wins. Refer to the Configuration card to determine your victory epithet based on final performance.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Competitive Variant</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>Apply the following changes for competitive play. All base rules remain unchanged unless explicitly modified here.</p>
+<span class="subsection-title">Setup Changes</span>
+<p>Use the competitive side of the board. Place 1 <strong>disc</strong> of your color on space 0 of the score track to track individual victory points. Replace <strong>Cooperative Private Goal cards</strong> with <strong>Company Private Goal cards</strong>. Each player receives 2 random secret <strong>Company Private Goal cards</strong>, immediately chooses 1, and discards the other to the box. Remove cards marked with the 2-player symbol in a 2-player game. Place the <strong>Global CO2 Pollution Level marker</strong> on 50 ppm. Replace <strong>Environmental Goal tiles</strong> with <strong>Event tiles</strong>. Shuffle all <strong>Event tiles</strong> into a face-down deck on the orange circle. Reveal the top tile to the white circle, then flip a new tile from the deck so 2 events are visible. Create a display of 10 face-up <strong>UN Goal cards</strong> near the board: 5 cards depicting 2 energy types from one deck, and 5 cards depicting 3 energy types from the other deck.</p>
+<span class="subsection-title">Phase Order &amp; Structure</span>
+<p>A competitive game lasts 5 decades. The <strong>Environmental Goals phase</strong> is replaced by an <strong>Events phase</strong>. The <strong>Energy Supply phase</strong> becomes the first phase of each decade. The phase order is: 1. <strong>Energy Supply phase</strong>, 2. <strong>Operations phase</strong>, 3. <strong>Income phase</strong>, 4. <strong>Events phase</strong>, 5. <strong>End of Decade phase</strong>. If the <strong>CO2 pollution level</strong> exceeds 500 ppm at any time, all players immediately lose.</p>
+<span class="subsection-title">Action &amp; Phase Modifications</span>
+<p>During your turn, you may discard your <strong>Company Private Goal card</strong> face-down to receive $8. In the first decade <strong>Energy Supply phase</strong>, no green power plants exist on the board. All regions receive 1 random <strong>Fossil Fuel Power Plant tile</strong>, each region pays 1 <strong>CEP</strong> to the bank, and the <strong>CO2 marker</strong> advances by the total amount depicted. During the <strong>Energy Supply phase</strong>, you cannot spend victory points to reduce pollution. Fines are deducted from the specific player responsible. If the <strong>CO2 level</strong> exceeds 500 ppm, all players lose immediately. When claiming a <strong>UN Goal card</strong>, place it next to your player board. You receive no immediate points; scoring occurs at game end. When building a <strong>power plant</strong>, you may use 1 <strong>Tech cube</strong> from the region to help cover the cost if the region has any. During the <strong>Income phase</strong>, each player earns their own points in turn order.</p>
+<span class="label-title">Events Phase Resolution</span>
+<p>Move the <strong>Phase marker</strong> to the <strong>Events phase</strong> space. Discard 1 <strong>Tech cube</strong> from each region that has any to the bank. Trigger the <strong>Event tile</strong> on the white circle. Each player without a <strong>power plant</strong> or <strong>Infrastructure</strong> supporting a <strong>power plant</strong> in the affected region must contribute 1 <strong>Tech cube</strong> to the region and pay 1 <strong>CEP</strong> on its behalf, or pay a fine. Players unable to provide a <strong>Tech cube</strong> lose 2 victory points. You cannot choose to keep the <strong>Tech cube</strong> and lose points instead. If the <strong>CO2 pollution level</strong> is at or above 400 ppm, also trigger the face-up <strong>Event tile</strong> in the orange circle using the same procedure. Discard triggered <strong>Event tiles</strong>. Reveal the top tile from the deck to the white circle, then flip the next deck tile face up so 2 events remain visible.</p>
+<span class="subsection-title">Scoring &amp; End Game</span>
+<p>If the <strong>CO2 level</strong> exceeds 500 ppm, all players lose immediately. Otherwise, the game ends after the 5th decade. Perform final scoring in the following order: collect all <strong>CEPs</strong> from regions whose energy supplies you control. Sell all your <strong>CEPs</strong> at the current <strong>CEP Market</strong> price without reducing the price. If you have not discarded your <strong>Company Goal card</strong>, discard it now for $8 or reveal it to gain the indicated victory points. Gain 1 victory point for each $2 you hold. The player with the most <strong>Tech cubes</strong> gains 3 victory points. Tied players each receive the 3 victory points. Gain victory points for claimed <strong>UN Goal cards</strong>: 1 card grants 6 points, 2 cards grant 10 points, 3 cards grant 15 points, and 4 or more cards grant 21 points. The player with the most victory points wins. Tiebreakers are applied in order: most <strong>UN Goal cards</strong>, most green <strong>power plants</strong> built, most <strong>Infrastructures</strong> prepared, most money. If a tie remains, tied players share the victory.</p>
+<span class="label-title">Lobbyist Draft Variant</span>
+<p>Once familiar with the game, draft your initial hand of <strong>Lobbyist cards</strong>. Choose 2 of your 5 <strong>Lobbyist cards</strong> and pass the remaining 3 to the player on your right. From the 3 received, take 1 and pass 2 to the right. From the 2 received, take 1 and pass 1 to the right.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Card & Tile Reference Tables</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Environmental Goal Tiles</span>
+<p>These tiles are used only in the cooperative version. Unachieved goals penalize the group based on the current decade. If 2 tiles with the same goal are displayed, both must be accomplished separately.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th style="text-align: left;">Goal Type</th>
+<th style="text-align: left;">Tile Count</th>
+<th style="text-align: left;">Condition</th>
+<th style="text-align: left;">Tile Count</th>
+<th style="text-align: left;">Condition</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Power Plant Goals</td>
+<td style="text-align: left;">12 tiles</td>
+<td style="text-align: left;">Build a power plant in the depicted region.</td>
+<td style="text-align: left;">10 tiles</td>
+<td style="text-align: left;">Build a power plant of the depicted type.</td>
+</tr>
+<tr>
+<td style="text-align: left;">Knowledge Goals</td>
+<td style="text-align: left;">5 tiles</td>
+<td style="text-align: left;">Reach the top of the Knowledge track of the depicted energy type.</td>
+<td style="text-align: left;">5 tiles</td>
+<td style="text-align: left;">Reach the pink space (halfway point) of the Knowledge track of the depicted energy type.</td>
+</tr>
+<tr>
+<td style="text-align: left;">Summit Goals</td>
+<td style="text-align: left;">5 tiles</td>
+<td style="text-align: left;">Complete a Summit of the indicated size.</td>
+<td style="text-align: left;">10 tiles</td>
+<td style="text-align: left;">Complete a Summit with a topic of the depicted energy type.</td>
+</tr>
+</tbody>
+</table></div>
+<span class="subsection-title">Lobbyist Cards</span>
+<p>Major effects are used in both versions and may only be played using an <strong>Executive action</strong>. Minor effects include: take a <strong>CEP</strong> from the market, take a <strong>Tech cube</strong>, take $2, or move a <strong>scientist</strong>.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th style="text-align: left;">Card Range</th>
+<th style="text-align: left;">Effect</th>
+<th style="text-align: left;">Card Range</th>
+<th style="text-align: left;">Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">01-06</td>
+<td style="text-align: left;">Propose a Project in the depicted region, then take $3.</td>
+<td style="text-align: left;">07-09</td>
+<td style="text-align: left;">Propose a Project in the grant space depicted, then take $3, take 2 Tech cubes, or move a scientist.</td>
+</tr>
+<tr>
+<td style="text-align: left;">10-14</td>
+<td style="text-align: left;">Prepare Infrastructure of the depicted energy type, then take $3, take 2 Tech cubes, or take 2 cubes or $2.</td>
+<td style="text-align: left;">15-19</td>
+<td style="text-align: left;">Prepare Infrastructure of the depicted energy type, then gain one knowledge in the same type of energy.</td>
+</tr>
+<tr>
+<td style="text-align: left;">20-24</td>
+<td style="text-align: left;">Build a power plant of the depicted energy type, then take $3. You can use that money to pay for the build.</td>
+<td style="text-align: left;">25-29</td>
+<td style="text-align: left;">Build a power plant of the depicted energy type, then gain one knowledge in the same type of energy.</td>
+</tr>
+<tr>
+<td style="text-align: left;">30-34</td>
+<td style="text-align: left;">Send a scientist to a Summit of the depicted energy type, then gain one knowledge in the same type of energy.</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;">35</td>
+<td style="text-align: left;">Sell a CEP, then take an additional $3.</td>
+<td style="text-align: left;">36</td>
+<td style="text-align: left;">Buy a CEP, then earn 2 points.</td>
+</tr>
+</tbody>
+</table></div>
+<span class="subsection-title">Cooperative Private Goal Cards</span>
+<p>Used only in the cooperative version. Each player receives 2 random cards during setup. Each player must accomplish at least 1 card to win. Cards remain secret until game end, except card 03, which must be revealed immediately upon completion.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th style="text-align: left;">01</th>
+<th style="text-align: left;">02</th>
+<th style="text-align: left;">03</th>
+<th style="text-align: left;">04</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Have at least 6 CEPs in your hand.</td>
+<td style="text-align: left;">Control a region with at least 4 CEPs in it.</td>
+<td style="text-align: left;">Complete a 2-topic summit by yourself.</td>
+<td style="text-align: left;">Have at least 3 Tech cubes.</td>
+</tr>
+<tr>
+<td style="text-align: left;">05</td>
+<td style="text-align: left;">06</td>
+<td style="text-align: left;">07</td>
+<td style="text-align: left;">08</td>
+</tr>
+<tr>
+<td style="text-align: left;">Have all 4 scientists hired.</td>
+<td style="text-align: left;">Have at least $10 in your hand.</td>
+<td style="text-align: left;">Maximize your knowledge in at least 2 types of energy.</td>
+<td style="text-align: left;">Control at least the number of regions depicted at the bottom of the card.</td>
+</tr>
+<tr>
+<td style="text-align: left;">09</td>
+<td style="text-align: left;">10</td>
+<td style="text-align: left;">11</td>
+<td style="text-align: left;">12</td>
+</tr>
+<tr>
+<td style="text-align: left;">Prepare at least the number of same-type Infrastructures depicted at the bottom of the card.</td>
+<td style="text-align: left;">Prepare at least the number of different-type Infrastructures depicted at the bottom of the card.</td>
+<td style="text-align: left;">Prepare at least the number of Infrastructures in a single region depicted at the bottom of the card.</td>
+<td style="text-align: left;">Prepare at least the number of Infrastructures in different regions depicted at the bottom of the card.</td>
+</tr>
+<tr>
+<td style="text-align: left;">13</td>
+<td style="text-align: left;">14</td>
+<td style="text-align: left;">15</td>
+<td style="text-align: left;">16</td>
+</tr>
+<tr>
+<td style="text-align: left;">Build at least the number of same-type power plants depicted at the bottom of the card.</td>
+<td style="text-align: left;">Build at least the number of different-type power plants depicted at the bottom of the card.</td>
+<td style="text-align: left;">Build at least the number of power plants in a single region depicted at the bottom of the card.</td>
+<td style="text-align: left;">Build at least the number of power plants in different regions depicted at the bottom of the card.</td>
+</tr>
+</tbody>
+</table></div>
+<span class="subsection-title">Company Private Goal Cards</span>
+<p>Used only in the competitive version. Score at game end or discard at any time for $8. Cards remain secret until game end, even if discarded. Remove cards marked with the 2-player symbol in a 2-player game.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th style="text-align: left;">01</th>
+<th style="text-align: left;">02</th>
+<th style="text-align: left;">03</th>
+<th style="text-align: left;">04</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">2 points for each CEP in hand and in regions you control. Maximum of 16 Points.</td>
+<td style="text-align: left;">4 points for each knowledge track you lead. Ties count as leads. Maximum of 16 Points.</td>
+<td style="text-align: left;">3 points for each UN Goal card you have scored. Maximum of 15 Points.</td>
+<td style="text-align: left;">4 points for each region you control. Maximum of 16 Points.</td>
+</tr>
+<tr>
+<td style="text-align: left;">05</td>
+<td style="text-align: left;">06</td>
+<td style="text-align: left;">07</td>
+<td style="text-align: left;">08</td>
+</tr>
+<tr>
+<td style="text-align: left;">3 points for each region in which you have at least 1 power plant. Maximum of 15 Points.</td>
+<td style="text-align: left;">3 points for each different energy source of power plants you have built. Maximum of 15 Points.</td>
+<td style="text-align: left;">3 points for each power plant you have built beyond the first one. Maximum of 15 Points.</td>
+<td style="text-align: left;">3 points for each region in which you have at least 1 Infrastructure. Maximum of 15 Points.</td>
+</tr>
+<tr>
+<td style="text-align: left;">09</td>
+<td style="text-align: left;">10</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;">3 points for each Infrastructure you have prepared from a different energy source. Maximum of 15 Points.</td>
+<td style="text-align: left;">3 points for each Infrastructure you prepared beyond the first one. Maximum of 15 Points.</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+</tbody>
+</table></div>
+  </div>
+</details>
   <p id="no-results">No sections match your search.</p>
 </main>
 <script>

@@ -6,7 +6,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<title>SETI INSTRUCTION MANUAL — Rules Reference</title>
+<title>SETI — Rules Reference</title>
 <style>
 :root {
   --bg:            #f2ede6;
@@ -79,11 +79,18 @@ body {
   color: rgba(255,255,255,0.45);
   text-decoration: none;
   flex-shrink: 0;
-  padding-left: 12px;
+  padding-left: 14px;
   white-space: nowrap;
 }
 .back-link:hover {
   color: rgba(255,255,255,0.85);
+}
+
+/* ── TOGGLE + BACK ROW ───────────────────────────────────── */
+.toggle-back-row {
+  display: flex;
+  align-items: center;
+  margin-top: 7px;
 }
 
 .search-wrap {
@@ -324,22 +331,20 @@ details.section.search-hidden { display: none; }
 
 /* ── VERSION TOGGLE ──────────────────────────────────────── */
 .toggle-bar {
-  display: flex;
-  margin-top: 8px;
+  display: inline-flex;
   border-radius: 6px;
   overflow: hidden;
   border: 1px solid rgba(255,255,255,0.2);
 }
 .toggle-current,
 .toggle-other {
-  flex: 1;
-  text-align: center;
-  padding: 6px 10px;
+  padding: 6px 14px;
   font-size: 11px;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   line-height: 1;
   text-decoration: none;
+  white-space: nowrap;
   -webkit-tap-highlight-color: transparent;
 }
 .toggle-current {
@@ -368,11 +373,10 @@ details.section.search-hidden { display: none; }
 <body>
 <header class="sticky-header">
   <div class="masthead-row">
-    <span class="masthead-title">SETI INSTRUCTION MANUAL</span>
+    <span class="masthead-title">SETI</span>
     <span class="masthead-subtitle">Rules Reference</span>
-    <a class="back-link" href="../index.html">&#8592; All Games</a>
   </div>
-  <div class="toggle-bar"><span class="toggle-current">Full Rules</span><a class="toggle-other" href="seti-instruction-manual-rules-reference.html">Quick Reference</a></div>
+  <div class="toggle-back-row"><div class="toggle-bar"><span class="toggle-current">Full Rules</span><a class="toggle-other" href="seti-rules-reference.html">Quick Reference</a></div><a class="back-link" href="../index.html">&#8592; All Games</a></div>
   <div class="search-wrap">
     <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
          stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"

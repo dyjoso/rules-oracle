@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Arcadia Quest — Rules Reference</title>
+<style>
+:root {
+  --bg:            #f2ede6;
+  --text:          #1a1a1a;
+  --header-bg:     #144650;
+  --section-bg:    #144650;
+  --subsection-bg: #c76642;
+  --rule:          #b0a898;
+  --accent:        #c76642;
+  --table-head:    #144650;
+  --note-bg:       #e8e0d4;
+  --body-bg:       #ffffff;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 15px;
+  line-height: 1.55;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* ── STICKY HEADER ───────────────────────────────────────── */
+.sticky-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--header-bg);
+  padding: 10px 14px 12px;
+  padding-top: max(10px, env(safe-area-inset-top));
+  padding-left: max(14px, env(safe-area-inset-left));
+  padding-right: max(14px, env(safe-area-inset-right));
+  box-shadow: 0 2px 12px rgba(0,0,0,0.4);
+}
+
+.masthead-row {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 9px;
+}
+
+.masthead-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  line-height: 1.1;
+  flex-shrink: 0;
+}
+
+.masthead-subtitle {
+  font-size: 11px;
+  color: rgba(255,255,255,0.45);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.back-link {
+  margin-left: auto;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+  text-decoration: none;
+  flex-shrink: 0;
+  padding-left: 14px;
+  white-space: nowrap;
+}
+.back-link:hover {
+  color: rgba(255,255,255,0.85);
+}
+
+/* ── TOGGLE + BACK ROW ───────────────────────────────────── */
+.toggle-back-row {
+  display: flex;
+  align-items: center;
+  margin-top: 7px;
+}
+
+.search-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-icon {
+  position: absolute;
+  left: 10px;
+  width: 15px;
+  height: 15px;
+  color: rgba(255,255,255,0.4);
+  pointer-events: none;
+  flex-shrink: 0;
+}
+
+#search {
+  width: 100%;
+  padding: 8px 36px 8px 32px;
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 8px;
+  font-size: 15px;
+  background: rgba(255,255,255,0.12);
+  color: #fff;
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+#search::placeholder { color: rgba(255,255,255,0.38); }
+
+#search:focus {
+  background: rgba(255,255,255,0.2);
+  border-color: rgba(255,255,255,0.3);
+}
+
+.search-clear {
+  position: absolute;
+  right: 6px;
+  background: rgba(255,255,255,0.18);
+  border: none;
+  border-radius: 50%;
+  color: rgba(255,255,255,0.8);
+  font-size: 14px;
+  line-height: 1;
+  width: 22px;
+  height: 22px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  flex-shrink: 0;
+}
+
+.search-clear.visible { display: flex; }
+
+/* ── MAIN ────────────────────────────────────────────────── */
+main {
+  padding: 10px 12px 48px;
+  padding-left: max(12px, env(safe-area-inset-left));
+  padding-right: max(12px, env(safe-area-inset-right));
+  padding-bottom: max(48px, env(safe-area-inset-bottom));
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+/* ── NO RESULTS ──────────────────────────────────────────── */
+#no-results {
+  display: none;
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--text);
+  opacity: 0.5;
+  font-size: 14px;
+}
+
+/* ── COLLAPSIBLE SECTIONS ────────────────────────────────── */
+details.section {
+  margin-bottom: 6px;
+  border-radius: 6px;
+  overflow: hidden;
+  scroll-margin-top: 130px;
+}
+
+details.section > summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  min-height: 44px;
+  background: var(--section-bg);
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  list-style: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+details.section > summary::-webkit-details-marker { display: none; }
+
+.chevron {
+  width: 12px;
+  height: 12px;
+  opacity: 0.65;
+  flex-shrink: 0;
+  margin-left: 8px;
+  transition: transform 0.18s ease;
+}
+
+details.section[open] > summary .chevron {
+  transform: rotate(90deg);
+}
+
+.section-body {
+  background: var(--body-bg);
+  padding: 10px 12px 12px;
+  border: 1px solid var(--rule);
+  border-top: none;
+  border-radius: 0 0 6px 6px;
+}
+
+/* ── HEADINGS WITHIN SECTIONS ────────────────────────────── */
+.subsection-title {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: #fff;
+  background: var(--subsection-bg);
+  padding: 4px 12px;
+  margin: 10px -12px 7px;
+}
+
+.label-title {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--section-bg);
+  border-bottom: 1.5px solid var(--rule);
+  padding-bottom: 3px;
+  margin: 10px 0 5px;
+}
+
+.inline-title {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 8px 0 3px;
+}
+
+/* ── BODY TEXT ───────────────────────────────────────────── */
+p { margin-bottom: 7px; }
+b, strong { font-weight: 600; }
+em, i { font-style: italic; }
+
+/* ── LISTS ───────────────────────────────────────────────── */
+ul, ol { padding-left: 20px; margin-bottom: 6px; }
+ul { list-style-type: disc; }
+ol { list-style-type: decimal; }
+ul ul { list-style-type: circle; }
+li { margin-bottom: 3px; }
+li > ul, li > ol { margin-top: 2px; margin-bottom: 0; }
+
+/* ── TABLES ──────────────────────────────────────────────── */
+.table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin-bottom: 6px;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  min-width: 260px;
+}
+thead tr { background: var(--table-head); color: white; }
+thead th {
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  padding: 5px 8px;
+  text-align: left;
+  white-space: nowrap;
+}
+tbody tr:nth-child(even) { background: var(--note-bg); }
+tbody td { padding: 5px 8px; vertical-align: top; }
+
+/* ── BLOCKQUOTE ──────────────────────────────────────────── */
+blockquote {
+  background: var(--note-bg);
+  border-left: 3px solid var(--accent);
+  padding: 6px 10px;
+  margin: 5px 0 7px;
+  font-size: 14px;
+  border-radius: 0 4px 4px 0;
+}
+blockquote p { margin-bottom: 2px; }
+
+/* ── INLINE CODE ─────────────────────────────────────────── */
+code {
+  background: var(--note-bg);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  padding: 1px 4px;
+  font-size: 13px;
+  font-family: inherit;
+  font-weight: 600;
+}
+
+/* ── HR ──────────────────────────────────────────────────── */
+hr { border: none; border-top: 1px solid var(--rule); margin: 8px 0; }
+
+/* ── SEARCH HIGHLIGHT ────────────────────────────────────── */
+mark {
+  background: #ffe566;
+  color: inherit;
+  border-radius: 2px;
+  padding: 0 1px;
+}
+
+/* ── HIDDEN SECTIONS ─────────────────────────────────────── */
+details.section.search-hidden { display: none; }
+
+/* ── VERSION TOGGLE ──────────────────────────────────────── */
+.toggle-bar {
+  display: inline-flex;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.2);
+}
+.toggle-current,
+.toggle-other {
+  padding: 6px 14px;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  line-height: 1;
+  text-decoration: none;
+  white-space: nowrap;
+  -webkit-tap-highlight-color: transparent;
+}
+.toggle-current {
+  background: rgba(255,255,255,0.18);
+  color: #ffffff;
+  font-weight: 600;
+  cursor: default;
+}
+.toggle-other {
+  color: rgba(255,255,255,0.5);
+}
+.toggle-other:hover {
+  background: rgba(255,255,255,0.08);
+  color: rgba(255,255,255,0.8);
+}
+
+/* ── PRINT ───────────────────────────────────────────────── */
+@media print {
+  .sticky-header { position: static; }
+  details.section[open], details.section { display: block; }
+  .section-body { display: block !important; }
+  .search-wrap, .search-clear, .toggle-bar { display: none; }
+}
+</style>
+</head>
+<body>
+<header class="sticky-header">
+  <div class="masthead-row">
+    <span class="masthead-title">Arcadia Quest</span>
+    <span class="masthead-subtitle">Rules Reference</span>
+  </div>
+  <div class="toggle-back-row"><div class="toggle-bar"><span class="toggle-current">Quick Reference</span><a class="toggle-other" href="arcadia-quest-rules-refined.html">Full Rules</a></div><a class="back-link" href="../index.html">&#8592; All Games</a></div>
+  <div class="search-wrap">
+    <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+         stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+         aria-hidden="true">
+      <circle cx="11" cy="11" r="8"/>
+      <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+    </svg>
+    <input type="text" id="search" placeholder="Search rules…"
+           autocomplete="off" spellcheck="false" autocorrect="off">
+    <button class="search-clear" id="search-clear" aria-label="Clear search">&#x2715;</button>
+  </div>
+</header>
+<main>
+<details class="section" open>
+  <summary><span>Turn Sequence & Core Flow</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>Arcadia Quest is played over a series of <strong>Player Turns</strong> in clockwise order. The first player to take a turn at the start of a scenario is the player sitting to the left of the player who won the previous scenario. During the very first scenario of a campaign, the first player is chosen randomly.</p>
+<p>When a player takes their turn, they must choose exactly one of two mutually exclusive options: <strong>Activate</strong> a Hero or <strong>Rest</strong> their Guild. A player may never perform both actions in the same turn.</p>
+<p>The scenario ends immediately when a player fulfills the required number of <strong>Quests</strong>. In a three or four player game, the first Guild to accomplish three Quests wins, provided at least one of those Quests is a <strong>Player vs. Environment</strong> quest. In a two player game, victory is achieved by fulfilling only two Quests. Once the victory condition is met, the scenario concludes and the winning player is determined.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Player Turn: Activation & Rest</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Activate a Hero</span>
+<p>The player chooses a single one of their Heroes to activate. Activating the same Hero across multiple turns is permitted. The active Hero may perform their <strong>Movement</strong> and one <strong>Attack</strong>, or one <strong>Attack</strong> and then their <strong>Movement</strong>, in any order. The Movement cannot be interrupted by the Attack and then resumed afterwards. It must be performed entirely either before or after the Attack. The Hero may also choose to perform only their Attack or only their Movement.</p>
+<span class="subsection-title">Rest Your Guild</span>
+<p>Instead of activating a Hero, a player may spend their turn allowing their Heroes to Rest. During a Rest turn, none of the Guild's Heroes are activated and they may not perform any Movement or Attacks. The resting player may perform the following actions:</p>
+<p>Unexhaust Cards: Remove all Guild tokens from all cards in the Guild's dashboard. All cards are unexhausted and ready to be used in following turns.</p>
+<p>Reorganize Items: The player may move any number of Upgrade cards among their Heroes. Death Curse cards cannot be moved. Exploration tokens may be moved among Heroes, but Quest tokens cannot be moved and must remain with the Hero that collected them.</p>
+<p>Resurrect Heroes: Any killed Hero may be resurrected. Remove all Wound tokens from that Hero and place their figure back on the board. The resurrected Hero may be placed on the Guild's Starting Area or Close to any allied Hero that was already on the board at the beginning of the turn.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Movement & Board Interaction</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Movement Points &amp; Moving Spaces</span>
+<p>All Heroes have three <strong>Movement points</strong> available during each activation. For each Movement point spent, a Character may move one Space, use a portal, or open or close a door at the edge of their Space. A Character does not need to use all available Movement points, but any remaining points do not carry over to the next activation.</p>
+<p>Moving one Space means taking the active figure from its current Space to one of the four Close spaces that share an edge with it. Diagonal movement is not allowed. If a wall or a closed door exists between the Hero and the Space they wish to enter, that move is impossible.</p>
+<span class="subsection-title">Doors &amp; Portals</span>
+<p>Portals allow Characters to teleport across the board. A Character standing in a Space containing a portal may spend one Movement point to immediately place their figure in any other Space containing a portal of the same color. If the destination Space is Blocked to the Character, they cannot use that portal. If the Space is merely Full, the portal may be used, though the Character must be able to end their Movement in a free Space. Using a portal does not trigger a Guard Reaction from a Close Monster.</p>
+<p>Door tokens may be flipped to their closed or open position by spending one Movement point. The manipulated door must be at the edge of the Space occupied by the active Character. Closed doors function exactly like walls, blocking Movement and Line of Sight. Open doors create a Space-wide passage between two Spaces, allowing both Movement and Line of Sight.</p>
+<span class="subsection-title">Space Status: Full &amp; Blocked</span>
+<p>Each Space may contain a maximum of two Characters at a time. A Space containing up to one Character is considered free, as other Characters may enter it and shoot through it normally.</p>
+<p>A Space with two Characters is considered <strong>Full</strong>. No other Character may end their Movement inside a Full Space. If at least one of those two Characters is an ally of the active Character, the active Character may move through the Space without ending their Movement inside it, and the Space does not block their Line of Sight.</p>
+<p>A Space with two enemies of the active Character is considered <strong>Blocked</strong>. The active Character cannot move through a Blocked Space, and it blocks their Line of Sight.</p>
+<span class="subsection-title">Line of Sight</span>
+<p>Ranged attacks require a clear <strong>Line of Sight</strong> to the target. There is no distance limitation for Ranged attacks. To check Line of Sight, draw an imaginary line from the center of the active Character's Space to the center of the target's Space. Line of Sight is free if this line is not interrupted by a wall, a closed door, or a Blocked Space.</p>
+<p>Line of Sight is not blocked if it only skims a blocking corner, passing at a forty-five degree angle exactly through the intersection of four Spaces where only one side is blocked. If both sides of the intersection are blocked, Line of Sight is blocked. Line of Sight can never cross an area that is not part of the board. If the line leaves the tiles, it is blocked.</p>
+<span class="subsection-title">Close Definition</span>
+<p>Many rules and cards refer to targets or effects being <strong>Close</strong>. To be Close to something means to be either sharing the same Space, or to be on any of the four orthogonal Spaces that share an open edge with it. A Space that is diagonal is not Close. A Space whose shared edge is blocked by a wall or closed door is not Close.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Combat Resolution</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">1. Select &amp; Exhaust Attack Card</span>
+<p>The player chooses an Attack card located in the active Hero's inventory to use. Before resolving the attack, the player must exhaust the Attack card by placing one of their Guild tokens on top of it. An exhausted card cannot be used again to perform an attack until it is unexhausted.</p>
+<span class="subsection-title">2. Confirm Target &amp; Type</span>
+<p>The player selects a target, ensuring the chosen Attack card can reach it. Attacks are either Melee or Ranged, as indicated on the card. A Melee attack may only target Enemies situated in a Space Close to the active Character. A Ranged attack may target Enemies on any Space on the board, provided the active Character has a clear Line of Sight to it.</p>
+<span class="subsection-title">3. Build Dice Pools</span>
+<p>The attacking player gathers a number of black Attack dice equal to the number indicated on the Attack card. Any extra Attack dice granted by bonus cards are added to the pool. If the targeted Character has Defense listed on their card, the controlling player gathers a number of white Defense dice equal to that Defense rating. All Defense dice from a Hero's cards are added to the pool, whether those cards are exhausted or not.</p>
+<span class="subsection-title">4. Roll &amp; Resolve</span>
+<p>Roll the Attack and Defense dice simultaneously. The symbol matching the attack type scores a successful hit. The Defense symbol scores a successful save. The CRIT symbol always counts as a success regardless of roll type. Each CRIT result allows an extra die to be rolled, adding its result to the total. This chain continues if additional CRITs are rolled. CRITs may also activate special effects listed on the card.</p>
+<p>Compare the number of hits scored by the attacker with the number of saves obtained by the target's Defense. Each save cancels one hit. Any remaining hits become Wounds. Place that number of Wound tokens on the targeted Hero's card or next to the Monster figure.</p>
+<span class="subsection-title">5. Apply Damage &amp; Special Effects</span>
+<p>Special effects listed on Attack cards take effect according to their parameters. Some effects trigger automatically whenever the card is used. Others require specific circumstances, such as scoring hits, rolling CRITs, or inflicting a Wound.</p>
+<span class="subsection-title">6. Handle Kills, Rewards &amp; Overkill</span>
+<p>A Character is killed when they suffer Wounds equal to their Life rating. A killed Monster is removed from the board and placed in the first available slot in the Spawn Tile. A killed Hero is placed on their Hero card. Kill credit always goes to the Character that inflicts the final Wound, regardless of how many Wounds others previously inflicted.</p>
+<p>When a Hero kills a Monster, their Guild immediately receives the number of coins listed on that Monster's card. When a Hero kills an enemy Hero, their Guild receives one coin. When a Monster kills a Hero, all other Guilds receive one coin. If a Hero is killed by traps or other neutral circumstances, all other Guilds also receive one coin.</p>
+<p>When a Hero is killed, any Exploration tokens or Quest tokens they were carrying are placed on the Space they occupied. If killed by an enemy Hero, that enemy Hero may automatically take one of those tokens and place it on their own Hero card, regardless of distance. Place a Death token on the killed Hero's card to mark the death. Death tokens remain until the next Upgrade Phase.</p>
+<p>If a Hero's attack deals Wounds equal to or higher than a Monster's <strong>Overkill</strong> rating, the Monster is immediately removed from the board without triggering its Payback Reaction. This applies regardless of how many Wounds the Monster already sustained. A single attack must meet or exceed the Overkill rating to trigger this effect.</p>
+<p>Villains are powerful Monsters marked on their cards. Any Hero who inflicts a Wound on a Villain places a Guild token on that Villain's card. If the Villain is eventually killed, all Guilds with a token on its card receive the full Coin reward. Kill credit for Quest purposes still goes only to the Hero who inflicts the final Wound.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Monster Reactions & Spawning</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Trigger Conditions</span>
+<p>Monsters lack independent turns and act only as passive agents. They are activated exclusively as reactions to Hero actions. All Monster activations are controlled by the player sitting to the right of the active player.</p>
+<span class="label-title">Guard Reaction</span>
+<p>Every Monster guards all Spaces Close to itself. A Guard Reaction is triggered when a Hero occupying a Close Space moves to another Space. The Monster immediately attacks the active Hero using its listed attack attributes. The Monster does not move. Entering a Close Space does not trigger a Guard Reaction. Only moving away from a Close Space triggers it, regardless of direction.</p>
+<p>When a move would trigger one or more Guard Reactions, the controlling player must resolve all Monster attacks before the Hero executes the move. After all attacks and Defense rolls are resolved, the Hero performs the intended move. Multiple consecutive Guard Reactions may occur if each move leaves a different guarded Space. Using a portal does not trigger a Guard Reaction.</p>
+<p>A Guard Reaction is also triggered when a Hero performs an attack that does not target any Close Monsters. After the Hero's attack fully resolves, all Close Monsters attack the active Hero. If the Hero's attack targets a Close Monster directly or via a special effect, no Guard Reaction is triggered.</p>
+<span class="label-title">Payback Reaction</span>
+<p>Attacking a Monster triggers its Payback Reaction. After the Hero's attack fully resolves, the targeted Monster is activated and may immediately strike back. Unlike Guard Reactions, a Monster activating via Payback Reaction may move up to its full Movement rating before attacking. It cannot move after attacking. The controlling player follows standard Movement rules and may choose not to move or attack. Any attack made must target the active Hero.</p>
+<p>If a Hero's attack targets multiple Monsters simultaneously, the controlling player chooses which single Monster activates.</p>
+<span class="subsection-title">Monster Attack Rules</span>
+<p>Monster attacks follow the same resolution pipeline as Hero attacks. All attack information is contained on the Monster's card. Monsters do not exhaust cards to attack and are always ready when activated. Melee and Ranged Monster attacks are subject to the same proximity and Line of Sight parameters as Hero attacks. Monster Abilities function identically to Hero Natural Abilities.</p>
+<span class="subsection-title">Spawning Procedure</span>
+<p>When a Monster is killed, it is placed in the first available slot of the Spawn Tile. When the Spawn Tile is full with five Monsters, the active player must perform a Monster Spawn immediately after finishing their turn. Starting with the Monster in the first slot, roll two attack dice. Compare the result to the symbols on the Spawn Tokens on the board to find a matching token. The Spawn roll is not subject to normal dice mechanics like Rerolls or extra dice.</p>
+<p>If no matching Spawn Token exists on the board, or if the matching Space is Full, the Monster is returned to the game box. If the matching Space is free, place the Monster there. Repeat this procedure for all Monsters in the Spawn Tile. Once the Spawn Tile is empty, the next player begins their turn. If multiple Monsters are killed in the same turn and no slots remain, excess Monsters are immediately returned to the box.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Quests & Scenario Victory</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Quest Types &amp; Completion Tracking</span>
+<p>Each scenario features specific Quest cards divided into <strong>Player vs. Player</strong> and <strong>Player vs. Environment</strong> types. PvP Quests involve defeating enemy Heroes. PvE Quests involve scenario-specific feats like defeating certain Monsters or completing tasks. When a player accomplishes a Quest's task, they place a Guild token on the Quest card to mark completion. Each player may fulfill each Quest only once per scenario, though multiple players may accomplish the same Quest.</p>
+<span class="subsection-title">First Bonus &amp; Reward Cards</span>
+<p>The first player to place a Guild token on any Quest immediately receives a <strong>First Bonus</strong> of one coin. Subsequent players accomplishing the same Quest do not receive this bonus. Some Quests have associated <strong>Reward cards</strong>. When a player accomplishes such a Quest, their Guild immediately receives one available Reward card. The card is placed in a Hero's inventory. If inventory is full, the player may discard an Upgrade card to make room. If all Reward cards for a Quest have already been taken, the player receives nothing.</p>
+<span class="subsection-title">Victory Conditions</span>
+<p>In a three or four player game, the first Guild to accomplish three Quests wins the scenario, provided at least one is a PvE Quest. The scenario ends immediately upon fulfillment. A player with three PvP Quests must still complete a PvE Quest to win. Combinations of two PvE and one PvP, or two PvP and one PvE, are valid. In a two player game, victory requires fulfilling only two Quests. It is impossible for a player to complete the PvP Quest related to killing a Hero of their own Guild.</p>
+<span class="subsection-title">Coin Accounting</span>
+<p>Guilds earn coins through various deeds. A Guild receives the listed coin amount when a Hero kills a Monster. A Guild receives one coin when a Hero kills an enemy Hero. When a Hero is killed by a Monster or neutral element, all other Guilds receive one coin. The first Guild to accomplish each Quest receives one coin. At the end of the scenario, each Guild receives one coin for every Quest they accomplished. Each Treasure Chest token in a Hero's possession grants its listed coin value at scenario end. All coin rewards stack cumulatively.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Between Scenarios: Upgrade & Campaign Progression</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Death Curses</span>
+<p>At the start of every Upgrade Phase, any Hero carrying a Death Curse card from a previous scenario returns it to the deck. The Death Curse deck is reshuffled. Each Hero who received Death tokens during the previous scenario draws a number of Death Curse cards equal to their Death tokens. The Hero keeps only the card with the highest value, discarding the rest along with their Death tokens. Death Curse effects afflict the Hero throughout the next scenario. Some cards are placed next to the Hero card, while others occupy an inventory slot. Cards under an occupying Death Curse remain inaccessible until the curse is removed. A Death Curse may only be removed early by using a Healing Potion token.</p>
+<span class="subsection-title">Card Drafting &amp; Purchasing</span>
+<p>Shuffle the Upgrade deck corresponding to the level of the scenario just completed. Deal six cards to each player. Each player keeps two cards face down and passes the remainder to the left. Repeat this drafting process. After drafting, each player has six cards. They may purchase a maximum of three cards using their Guild's coins, based on each card's listed cost. Return all unpurchased cards to the box and spent coins to the common pile. A player may save exactly one unspent coin for the next Upgrade Phase. Any additional unspent coins are returned to the common pile.</p>
+<p>Distribute all purchased Upgrade cards among the Heroes, allowing complete rearrangement of the Guild's inventory. If a Guild possesses more than twelve Upgrade cards, they must discard the excess.</p>
+<span class="subsection-title">Campaign Sheet Tracking</span>
+<p>The Campaign Sheet is a two-sided tracking document. The front side displays a map of Arcadia to record the order of played scenarios and a detailed list to log Achievements. Achievements include Most Coins, Won Reward, Won Title, Winner, and Least Deaths. Ties for an Achievement are awarded to all tied Guilds. The reverse side tracks Guild inventories, recording Hero selections, Upgrade card codes, and active Death Curses. Update the reverse side after the Upgrade Phase. Record any saved coins on the sheet.</p>
+<span class="subsection-title">Titles &amp; Scenario Selection</span>
+<p>Certain Quests reward the completing Guild with a <strong>Title</strong>. Record the Title on the Campaign Sheet. Titles have no effect on the current scenario but grant advantages in subsequent scenarios that specifically benefit from them. Scenario descriptions specify which Quest awards which Title, the advantage provided, and which future scenarios utilize it.</p>
+<p>The winner of the previous scenario chooses the next scenario, following campaign progression rules. The campaign consists of three stages. The Outer Circle requires completing three of six available scenarios. The Inner Circle requires completing two of four available scenarios. The Final Showdown is the mandatory sixth and final scenario. The first scenario is chosen collectively by all players.</p>
+<span class="subsection-title">Campaign Finale</span>
+<p>After the Final Showdown scenario concludes, the campaign ends. The Guild that wins the last scenario is the overall victor. Award Medals based on campaign Achievements. Tally the entire campaign to determine which Guild won each Achievement type the most times. Award the corresponding Medal to the leading Guild. All tied Guilds receive the associated Medal.</p>
+<span class="subsection-title">Onwards!</span>
+<p>Before beginning the next scenario, remove all tokens from the Heroes, including Wound tokens and Exploration tokens. Prepare the board according to the new scenario's setup instructions.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Component & Card Reference</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Hero &amp; Monster Cards</span>
+<p>Hero cards display Defense, indicating the number of Defense dice the Hero rolls. Life indicates the Wounds required to kill the Hero. The Name identifies the Hero. The Ability is the Hero's Natural Ability, which is always in effect according to its text.</p>
+<p>Monster cards display the Name, Level, Life, Overkill, Reward, Attack Type, Attack Dice, Attack Name, Movement, Villain Status, Defense, Ability, and Reroll. The Level must match the scenario number being played. Overkill is the Wound threshold for instant removal. Reward is the coin value awarded upon killing. Attack Type indicates Melee or Ranged. Attack Dice is the number of dice rolled. Movement is the points available during Payback Reactions. Villain Status marks powerful Monsters that reward all wounding Guilds. Defense is the number of Defense dice rolled. Ability is a passive trait always in effect. Reroll indicates the number of dice the controlling player may reroll during attacks or defense.</p>
+<span class="subsection-title">Upgrade Cards</span>
+<p>Upgrade cards are divided into Attack, Boost, and Permanent types. Anatomy includes Name, Cost, Type and Group, Attack dice, Special Effect, and Code. The Code is used for logging on the Campaign Sheet.</p>
+<p>Boost cards cannot be used alone. They accompany Attack cards. When declaring an attack, a Hero may exhaust one or more Boost cards alongside the Attack card. Boost effects are added to the attack. Some Boost cards only function with specific Attack types. Boost cards remain exhausted until unexhausted.</p>
+<p>Permanent cards function like Natural Abilities. They provide a constant effect according to their text. Permanent cards are never exhausted. If a Permanent card effect applies to an attack, it must be declared before rolling dice.</p>
+<p>Cards with Extra Defense icons grant additional Defense dice. These are always added to the Defense pool, regardless of exhaustion status. Cards with Extra Life icons increase the Hero's total Life. This is always active, regardless of exhaustion. Attack cards allow Heroes to attack. A Hero with no Attack cards generally cannot attack. Multiple Attack cards provide options and allow attacks across multiple turns before Resting. Each attack uses only one Attack card.</p>
+<p>Bombs are restricted to one per Guild. When a Bomb attack scores hits, place a Guild token in the target's Space and all Close Spaces. If an enemy Hero enters a Space with an enemy Guild token, they suffer an attack identical to the original Bomb. The token is removed. If the Hero dies, the token's Guild gets kill credit. Exploration tokens drop to the Space. If a Hero enters a Space with their own Guild's token, nothing happens. If a Hero enters a Space with multiple enemy tokens, all explode simultaneously. Dice are pooled into a single attack. All involved Guilds share kill credit if a Hero dies.</p>
+<p>Cards with Reroll icons allow rerolling the indicated number of dice after the initial roll. The new result replaces the original. All Reroll icons add to the pool, exhausted or not. The full pool is available for any Attack or Defense roll.</p>
+<p>Some cards require exhausting the Hero. Place a Guild token on the Hero card. The Hero cannot use other effects requiring Hero exhaustion until unexhausted. The Hero suffers no other penalties and may activate, move, and attack normally. Natural Abilities still function unless they require Hero exhaustion.</p>
+<p>Daze leaves a Character unable to roll Defense dice. Lay the figure on its side to indicate Daze. The Character acts normally otherwise. A dazed Hero recovers when their Guild Rests. Stand the figure upright to indicate recovery.</p>
+<p>Self Sacrifice abilities require the active Hero to take Wounds before rolling dice. The Hero cannot activate the ability if the Wounds would kill them.</p>
+<p>Critical Effects listed after a CRIT symbol only activate if the associated roll scores at least one CRIT. Multiple CRITs do not multiply the effect unless stated otherwise.</p>
+<span class="subsection-title">Dice Symbols</span>
+<p>The Melee hit symbol scores a success on Melee Attack rolls. The Ranged hit symbol scores a success on Ranged Attack rolls. The Defense save symbol scores a success on Defense rolls. The CRIT symbol always counts as a success. CRITs grant an extra die roll and may trigger card effects.</p>
+<span class="subsection-title">Exploration Tokens</span>
+<p>Exploration tokens are collected automatically when an active Hero stands in the same Space with no Enemies present. No Movement points or actions are required. Reveal the token and place it on the Hero's card.</p>
+<p>Quest tokens function according to scenario instructions. Healing Potions may be discarded during a turn to recover all Life, removing Wound tokens and Death Curse cards. They cannot be used during attack resolution. Refreshing Potions may be discarded during a turn to unexhaust all cards for that Hero. Extra Turn Potions may be discarded at the end of a turn to immediately perform another full turn. Treasure Chests grant their listed coin value at scenario end. Traps cause an automatic Wound upon collection and are discarded.</p>
+<p>All Exploration tokens are returned to the game at scenario end. No Hero begins a scenario possessing Exploration tokens.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Glossary & Key Terms</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p><strong>Ally</strong>: For a Hero, another Hero of the same Guild. For a Monster, any other Monster.</p>
+<p><strong>Blocked</strong>: A Space containing two enemies of the active Character. The active Character cannot move through it, and it blocks Line of Sight.</p>
+<p><strong>Character</strong>: A Hero or a Monster.</p>
+<p><strong>Close</strong>: Sharing the same Space, or occupying any of the four orthogonal Spaces that share an open edge with it. Diagonal Spaces are not Close. Spaces separated by a wall or closed door are not Close.</p>
+<p><strong>Daze</strong>: A condition where a Character cannot roll Defense dice. Indicated by laying the figure on its side. The Character may otherwise act normally. A dazed Hero recovers when their Guild Rests.</p>
+<p><strong>Enemy</strong>: For a Hero, any Hero from a different Guild and any Monster. For a Monster, any Hero.</p>
+<p><strong>Exhaust Hero</strong>: Placing a Guild token on a Hero card to activate certain effects. The Hero cannot use other effects requiring Hero exhaustion until unexhausted. The Hero suffers no other penalties and may be activated, move, and attack normally. Natural Abilities function unless they require Hero exhaustion.</p>
+<p><strong>Full</strong>: A Space containing two Characters. No other Character may end Movement inside it. If at least one Character is an ally, the active Character may move through the Space without ending inside it, and it does not block Line of Sight.</p>
+<p><strong>Reroll Pool</strong>: A pool of dice that may be rerolled after an initial roll. The new result replaces the original. All cards with Reroll icons contribute to the pool, regardless of exhaustion status. Available for any Attack or Defense roll.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Optional: Episodic Mode</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>If playing Episodic Mode, modify the following core rules to allow disconnected scenario play without campaign progression.</p>
+<p>Create Guilds normally by selecting a color, choosing three Heroes, and distributing the five Starter deck cards.</p>
+<p>Choose a Level between one and six collectively. Higher levels feature stronger Monsters but grant access to more Upgrade cards.</p>
+<p>Deal Upgrade Cards from all decks corresponding to levels below the chosen level. For each deck, deal six cards to each player. Each player keeps two cards and discards the rest. Cards are not purchased with coins. Repeat for all accessed decks. If a Guild ends with more than twelve Upgrade cards, discard the excess.</p>
+<p>Play any scenario from the Campaign Book or create a custom scenario. Use Monster cards matching the chosen level.</p>
+<p>Determine the Winner by coin count at scenario end. Each Guild receives standard coins for completed Quests. Subtract one coin for each Death Token in the Guild. The Guild that finishes the scenario by completing three Quests receives an extra five coins. Tally all coins. The Guild with the highest total wins.</p>
+  </div>
+</details>
+  <p id="no-results">No sections match your search.</p>
+</main>
+<script>
+(function () {
+  var searchEl  = document.getElementById('search');
+  var clearBtn  = document.getElementById('search-clear');
+  var noResults = document.getElementById('no-results');
+  var sections  = Array.from(document.querySelectorAll('details.section'));
+
+  // Snapshot each section body's original HTML so we can restore it
+  // before applying a new round of highlights.
+  sections.forEach(function (s) {
+    var body = s.querySelector('.section-body');
+    if (body) body.dataset.original = body.innerHTML;
+  });
+
+  var timer;
+
+  searchEl.addEventListener('input', function () {
+    var term = this.value.trim();
+    clearBtn.classList.toggle('visible', term.length > 0);
+    clearTimeout(timer);
+    timer = setTimeout(function () { applySearch(term); }, 180);
+  });
+
+  clearBtn.addEventListener('click', function () {
+    searchEl.value = '';
+    clearBtn.classList.remove('visible');
+    applySearch('');
+    searchEl.focus();
+  });
+
+  function escapeRe(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlightTextNodes(container, re) {
+    var walker = document.createTreeWalker(
+      container, NodeFilter.SHOW_TEXT, null, false
+    );
+    var nodes = [];
+    var n;
+    while ((n = walker.nextNode())) {
+      if (n.nodeValue.trim()) nodes.push(n);
+    }
+    nodes.forEach(function (textNode) {
+      re.lastIndex = 0;
+      if (!re.test(textNode.nodeValue)) return;
+      re.lastIndex = 0;
+      var span = document.createElement('span');
+      span.innerHTML = textNode.nodeValue.replace(
+        re, function (m) { return '<mark>' + m + '</mark>'; }
+      );
+      textNode.parentNode.replaceChild(span, textNode);
+    });
+  }
+
+  function applySearch(term) {
+    var re = term ? new RegExp(escapeRe(term), 'gi') : null;
+    var visibleCount = 0;
+
+    sections.forEach(function (section) {
+      var body    = section.querySelector('.section-body');
+      var summary = section.querySelector('summary');
+
+      // Restore original HTML before each search pass
+      if (body) body.innerHTML = body.dataset.original;
+
+      if (!re) {
+        section.classList.remove('search-hidden');
+        section.open = false;
+        return;
+      }
+
+      var titleText = summary ? summary.textContent : '';
+      var bodyText  = body    ? body.textContent    : '';
+
+      re.lastIndex = 0;
+      var inTitle = re.test(titleText);
+      re.lastIndex = 0;
+      var inBody  = re.test(bodyText);
+      re.lastIndex = 0;
+
+      if (inTitle || inBody) {
+        section.classList.remove('search-hidden');
+        section.open = true;
+        if (body) highlightTextNodes(body, new RegExp(escapeRe(term), 'gi'));
+        visibleCount++;
+      } else {
+        section.classList.add('search-hidden');
+      }
+    });
+
+    noResults.style.display = (re && visibleCount === 0) ? 'block' : 'none';
+  }
+})();
+</script>
+</body>
+</html>

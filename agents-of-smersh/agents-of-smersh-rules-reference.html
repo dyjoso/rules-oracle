@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Agents of Smersh — Rules Reference</title>
+<style>
+:root {
+  --bg:            #f2ede6;
+  --text:          #1a1a1a;
+  --header-bg:     #1a2a3a;
+  --section-bg:    #1a2a3a;
+  --subsection-bg: #c8873a;
+  --rule:          #b0a898;
+  --accent:        #c8873a;
+  --table-head:    #1a2a3a;
+  --note-bg:       #e8e0d4;
+  --body-bg:       #ffffff;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 15px;
+  line-height: 1.55;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* ── STICKY HEADER ───────────────────────────────────────── */
+.sticky-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--header-bg);
+  padding: 10px 14px 12px;
+  padding-top: max(10px, env(safe-area-inset-top));
+  padding-left: max(14px, env(safe-area-inset-left));
+  padding-right: max(14px, env(safe-area-inset-right));
+  box-shadow: 0 2px 12px rgba(0,0,0,0.4);
+}
+
+.masthead-row {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 9px;
+}
+
+.masthead-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  line-height: 1.1;
+  flex-shrink: 0;
+}
+
+.masthead-subtitle {
+  font-size: 11px;
+  color: rgba(255,255,255,0.45);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.back-link {
+  margin-left: auto;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+  text-decoration: none;
+  flex-shrink: 0;
+  padding-left: 14px;
+  white-space: nowrap;
+}
+.back-link:hover {
+  color: rgba(255,255,255,0.85);
+}
+
+/* ── TOGGLE + BACK ROW ───────────────────────────────────── */
+.toggle-back-row {
+  display: flex;
+  align-items: center;
+  margin-top: 7px;
+}
+
+.search-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-icon {
+  position: absolute;
+  left: 10px;
+  width: 15px;
+  height: 15px;
+  color: rgba(255,255,255,0.4);
+  pointer-events: none;
+  flex-shrink: 0;
+}
+
+#search {
+  width: 100%;
+  padding: 8px 36px 8px 32px;
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 8px;
+  font-size: 15px;
+  background: rgba(255,255,255,0.12);
+  color: #fff;
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+#search::placeholder { color: rgba(255,255,255,0.38); }
+
+#search:focus {
+  background: rgba(255,255,255,0.2);
+  border-color: rgba(255,255,255,0.3);
+}
+
+.search-clear {
+  position: absolute;
+  right: 6px;
+  background: rgba(255,255,255,0.18);
+  border: none;
+  border-radius: 50%;
+  color: rgba(255,255,255,0.8);
+  font-size: 14px;
+  line-height: 1;
+  width: 22px;
+  height: 22px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  flex-shrink: 0;
+}
+
+.search-clear.visible { display: flex; }
+
+/* ── MAIN ────────────────────────────────────────────────── */
+main {
+  padding: 10px 12px 48px;
+  padding-left: max(12px, env(safe-area-inset-left));
+  padding-right: max(12px, env(safe-area-inset-right));
+  padding-bottom: max(48px, env(safe-area-inset-bottom));
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+/* ── NO RESULTS ──────────────────────────────────────────── */
+#no-results {
+  display: none;
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--text);
+  opacity: 0.5;
+  font-size: 14px;
+}
+
+/* ── COLLAPSIBLE SECTIONS ────────────────────────────────── */
+details.section {
+  margin-bottom: 6px;
+  border-radius: 6px;
+  overflow: hidden;
+  scroll-margin-top: 130px;
+}
+
+details.section > summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  min-height: 44px;
+  background: var(--section-bg);
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  list-style: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+details.section > summary::-webkit-details-marker { display: none; }
+
+.chevron {
+  width: 12px;
+  height: 12px;
+  opacity: 0.65;
+  flex-shrink: 0;
+  margin-left: 8px;
+  transition: transform 0.18s ease;
+}
+
+details.section[open] > summary .chevron {
+  transform: rotate(90deg);
+}
+
+.section-body {
+  background: var(--body-bg);
+  padding: 10px 12px 12px;
+  border: 1px solid var(--rule);
+  border-top: none;
+  border-radius: 0 0 6px 6px;
+}
+
+/* ── HEADINGS WITHIN SECTIONS ────────────────────────────── */
+.subsection-title {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: #fff;
+  background: var(--subsection-bg);
+  padding: 4px 12px;
+  margin: 10px -12px 7px;
+}
+
+.label-title {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--section-bg);
+  border-bottom: 1.5px solid var(--rule);
+  padding-bottom: 3px;
+  margin: 10px 0 5px;
+}
+
+.inline-title {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 8px 0 3px;
+}
+
+/* ── BODY TEXT ───────────────────────────────────────────── */
+p { margin-bottom: 7px; }
+b, strong { font-weight: 600; }
+em, i { font-style: italic; }
+
+/* ── LISTS ───────────────────────────────────────────────── */
+ul, ol { padding-left: 20px; margin-bottom: 6px; }
+ul { list-style-type: disc; }
+ol { list-style-type: decimal; }
+ul ul { list-style-type: circle; }
+li { margin-bottom: 3px; }
+li > ul, li > ol { margin-top: 2px; margin-bottom: 0; }
+
+/* ── TABLES ──────────────────────────────────────────────── */
+.table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin-bottom: 6px;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  min-width: 260px;
+}
+thead tr { background: var(--table-head); color: white; }
+thead th {
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  padding: 5px 8px;
+  text-align: left;
+  white-space: nowrap;
+}
+tbody tr:nth-child(even) { background: var(--note-bg); }
+tbody td { padding: 5px 8px; vertical-align: top; }
+
+/* ── BLOCKQUOTE ──────────────────────────────────────────── */
+blockquote {
+  background: var(--note-bg);
+  border-left: 3px solid var(--accent);
+  padding: 6px 10px;
+  margin: 5px 0 7px;
+  font-size: 14px;
+  border-radius: 0 4px 4px 0;
+}
+blockquote p { margin-bottom: 2px; }
+
+/* ── INLINE CODE ─────────────────────────────────────────── */
+code {
+  background: var(--note-bg);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  padding: 1px 4px;
+  font-size: 13px;
+  font-family: inherit;
+  font-weight: 600;
+}
+
+/* ── HR ──────────────────────────────────────────────────── */
+hr { border: none; border-top: 1px solid var(--rule); margin: 8px 0; }
+
+/* ── SEARCH HIGHLIGHT ────────────────────────────────────── */
+mark {
+  background: #ffe566;
+  color: inherit;
+  border-radius: 2px;
+  padding: 0 1px;
+}
+
+/* ── HIDDEN SECTIONS ─────────────────────────────────────── */
+details.section.search-hidden { display: none; }
+
+/* ── VERSION TOGGLE ──────────────────────────────────────── */
+.toggle-bar {
+  display: inline-flex;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.2);
+}
+.toggle-current,
+.toggle-other {
+  padding: 6px 14px;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  line-height: 1;
+  text-decoration: none;
+  white-space: nowrap;
+  -webkit-tap-highlight-color: transparent;
+}
+.toggle-current {
+  background: rgba(255,255,255,0.18);
+  color: #ffffff;
+  font-weight: 600;
+  cursor: default;
+}
+.toggle-other {
+  color: rgba(255,255,255,0.5);
+}
+.toggle-other:hover {
+  background: rgba(255,255,255,0.08);
+  color: rgba(255,255,255,0.8);
+}
+
+/* ── PRINT ───────────────────────────────────────────────── */
+@media print {
+  .sticky-header { position: static; }
+  details.section[open], details.section { display: block; }
+  .section-body { display: block !important; }
+  .search-wrap, .search-clear, .toggle-bar { display: none; }
+}
+</style>
+</head>
+<body>
+<header class="sticky-header">
+  <div class="masthead-row">
+    <span class="masthead-title">Agents of Smersh</span>
+    <span class="masthead-subtitle">Rules Reference</span>
+  </div>
+  <div class="toggle-back-row"><div class="toggle-bar"><span class="toggle-current">Quick Reference</span><a class="toggle-other" href="agents-of-smersh-rules-refined.html">Full Rules</a></div><a class="back-link" href="../index.html">&#8592; All Games</a></div>
+  <div class="search-wrap">
+    <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+         stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+         aria-hidden="true">
+      <circle cx="11" cy="11" r="8"/>
+      <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+    </svg>
+    <input type="text" id="search" placeholder="Search rules…"
+           autocomplete="off" spellcheck="false" autocorrect="off">
+    <button class="search-clear" id="search-clear" aria-label="Clear search">&#x2715;</button>
+  </div>
+</header>
+<main>
+<details class="section" open>
+  <summary><span>Game Objective</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>Agents of SMERSH is a cooperative game wherein players portray UN Secret Service spies in an international effort to stop SMERSH from world domination. Players must have between 3 and 5 successful encounters with <strong>Henchmen</strong> at locations with <strong>Location Tokens</strong> AND have the correct <strong>Intel</strong> in the <strong>Intel Pool</strong> to win the game. <strong>Intel</strong> in the Pool must match the <strong>Intel</strong> symbols at the last position of <strong>Dr. Lobo’s</strong> pawn on his track. Players also immediately win if they defeat all 4 <strong>Henchmen</strong>. Players lose immediately once <strong>Dr. Lobo’s</strong> track reaches “9.” If the Players reach the requisite number on the <strong>Location Track</strong> but do not reveal the correct symbols on the <strong>Yellow Intel Tokens</strong> in the <strong>Intel Pool</strong>, they are unable to defeat <strong>Dr Lobo</strong> and lose the game.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Setup</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Base Setup (3–4 Players)</span>
+<p>Place the map in a central location with the 4 <strong>Henchmen Cards</strong> on the right or left side of the map. Place a black cube on Level 1 for each <strong>Henchman</strong>. Players choose their <strong>Character Mats</strong> and place 5 white cubes on the starting numbers of the basic skills indicated by the stars. Take 1 additional white cube and place it on the starred number under <strong>Resolve</strong> on the right side of the <strong>Character Mat</strong>. Use the cubes to adjust all numbers as you play the game. Take any starting <strong>Status Cards</strong> and <strong>Advanced Skills</strong>. Each character starts with 2 <strong>Advanced Skills</strong> unless otherwise stated on the <strong>Character Card</strong>. Players pick <strong>Advanced Skills</strong>. Each player draws 2 <strong>Fate Cards</strong> from the top of the <strong>Fate Deck</strong> and slides these cards under location 1 and location 2 indicated at the top right of the <strong>Character Mat</strong>, with only the names of the cities visible. Place your player token on the starting city or region indicated at the bottom right of the <strong>Character Mat</strong>. Place the <strong>Close Airport</strong> tokens in a pile nearby. In a separate pile, place the <strong>Yellow Intel Tokens</strong> face down and mix them up. Do the same with the 4 <strong>Location Tokens</strong>. Keep <strong>Location</strong> and <strong>Intel Tokens</strong> shuffled at all times. Separate and shuffle the <strong>Encounter Decks</strong> by continent. There should be 6 decks in the core game. The last person to watch a spy film goes first.</p>
+<span class="subsection-title">Player Count Adjustments</span>
+<p>For 2 Players, place 2 random <strong>Yellow Intel Tokens</strong> on the board by revealing 2 random <strong>Fate Cards</strong>. Each player starts with an additional 2 <strong>UN Transport Tokens</strong>. If playing with Calli, she receives 1 additional <strong>UN Transport</strong> and 1 <strong>Top Secret Card</strong>. Choose one <strong>Henchman</strong> to start the game at Level 2. Remove the <strong>Villain Advancement Cards</strong> with Injury and [-1] inside the icon of the book on the <strong>Villain Advancement</strong> side. For 1 Player, add 3 random <strong>Intel Tokens</strong> to random locations on the board. Choose 2 <strong>Henchmen</strong> to start the game at Level 2. The other 2 start the game at Level 1. Your character starts the game with a total of 3 <strong>UN Transports</strong> and <strong>Top Secret cards</strong> combined. These are in addition to any your character normally receives. Calli may only choose 1 additional <strong>UN Transport</strong> and 2 <strong>Top Secret Cards</strong> OR 3 <strong>Top Secret Cards</strong>. Remove the <strong>Villain Advancement Cards</strong> with Injury and [-1] inside the icon of the book on the <strong>Villain Advancement</strong> side, as well as three more random cards with "1" inside the book icon.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Turn Structure</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>The turn order follows this sequence: <strong>Movement</strong> → <strong>Encounters</strong> → <strong>Villain Phase</strong> → Next Player. Taking a <strong>Rest</strong> action skips directly to the <strong>Villain Phase</strong>.</p>
+<span class="subsection-title">Phase 1: Movement</span>
+<span class="label-title">Movement Options</span>
+<span class="inline-title">Rest Action</span>
+<p>If a player has 2 or more <strong>Injury Tokens</strong> on their <strong>Character Card</strong>, they may take a <strong>Rest Action</strong> to Heal 2 Injuries. They skip their encounter phase and go directly to the <strong>Villain Phase</strong>. If playing solo, the player must also roll the <strong>BLUE Die</strong>. If you fail the roll, you must draw a <strong>Villain card</strong> and advance <strong>Dr Lobo's</strong> track by the number of steps shown.</p>
+<span class="inline-title">Standard Movement</span>
+<p>Players may move a maximum of 2 spaces but may choose to move only 1 space or remain in their previous location. Players must always stop if they move into an ocean location. Players may use maximum 1 <strong>Resolve</strong> each turn to gain an additional Movement point but cannot use <strong>Resolve</strong> to skip an ocean space.</p>
+<span class="inline-title">Train Travel</span>
+<p>The Trans-Siberian Railway in the Soviet Union can move a player from a city with a <strong>Train icon</strong> to any other city with a <strong>Train icon</strong> using only 1 Movement point. Players may move before using the train and after if they still have Movement points.</p>
+<span class="inline-title">Airplane Travel</span>
+<p>If traveling by airplane, players must already be on a city with an open airport and end on another city with an open airport. That is their full movement. After using an airport, a player may still choose to spend 1 <strong>Resolve</strong> to gain 1 Movement point.</p>
+<span class="inline-title">UN Transport</span>
+<p>Return a <strong>UN Transport token</strong> to the supply to move directly to any city or ocean location on the board.</p>
+<span class="subsection-title">Phase 2: Encounters</span>
+<span class="label-title">Token Priority &amp; Resolution</span>
+<span class="inline-title">No Token Encounters</span>
+<p>If a player stops on a city or ocean with no tokens, draw an <strong>Encounter Card</strong> from the appropriate deck. The encounter listed under the <strong>NO INTEL</strong> section should be read out to all players. Resolve any tests associated with the encounter. Unless the <strong>Encounter Card</strong> says otherwise, if players fail an encounter, players must ALWAYS draw a <strong>Villain Card</strong> and apply the <strong>Villain Advancement</strong> side of the card, adding the number to <strong>Dr. Lobo’s</strong> track. These cards stay in play next to <strong>Dr. Lobo</strong>. Encounters may also carry additional rewards or penalties listed in italics after the PASS or FAIL text.</p>
+<span class="inline-title">Yellow Intel Token Encounters</span>
+<p>If a player stops on a city or ocean with a <strong>Yellow Intel Token</strong>, the player must choose what to do with the token. The player may leave the token on the board and have a <strong>NO INTEL</strong> encounter. The player may move the <strong>Yellow Intel token</strong> into the <strong>Intel Pool</strong> and have an encounter using the <strong>WITH INTEL</strong> section. The player may exchange the <strong>Yellow Intel Token</strong> for a <strong>Green Location Token</strong>. The <strong>Yellow Intel Token</strong> is returned to the supply, and a face-down <strong>Green Location token</strong> is placed on a random city determined by drawing a <strong>Fate Card</strong>. The player then has an encounter using the <strong>WITH INTEL</strong> section.</p>
+<span class="inline-title">Green Location Token Encounters</span>
+<p>If a player stops on a city or ocean with a <strong>Green Location Token</strong>, flip the token to see which <strong>Henchman</strong> the player is to encounter. Take that <strong>Henchman's Card</strong> from next to the board and conduct the Test on his card according to the <strong>Henchman's</strong> level. If successful against the <strong>Henchman</strong>, advance 1 spot on the <strong>Location Track</strong>. The <strong>Henchman</strong> then Levels up 1 level. If the <strong>Henchman</strong> is defeated at Level 3, players flip his card and remove that <strong>Henchman's Green Location Token</strong> from the game. If the Player fails their Test, henchmen do not Level up, and the Villain is advanced in the same way as for a failed Encounter. Regardless of whether the encounter with the <strong>Henchman</strong> was successful or not, remove the <strong>Green Location token</strong> from the board and shuffle it face down with the others.</p>
+<span class="inline-title">Reading Protocol &amp; Secret Missions</span>
+<p>For added gameplay value, a player should not read their own encounters unless playing solo. The current player should not be able to see the PASS/FAIL results. Having another player read the encounter aloud lends to the suspense and cooperative play. If a player begins the <strong>Encounter</strong> phase on a Location that matches one of their <strong>Secret Mission</strong> locations, they may flip over the appropriate <strong>Fate card</strong> under their <strong>Character Mat</strong>. If both cards are flipped over, the player may claim a reward at the end of their current turn. It does not matter the order in which you visit the cities nor does it matter if you fail an encounter at those locations. If a space has more than one token, only one may be encountered per turn.</p>
+<span class="subsection-title">Phase 3: Villain Phase</span>
+<span class="label-title">End-of-Turn Checklist</span>
+<span class="inline-title">Villain Card Resolution</span>
+<p>Regardless of the result of the encounter, at the end of each player's turn, draw a <strong>Villain Card</strong> and read the <strong>End Of Turn Event</strong> side of the card, adding and removing <strong>Intel</strong> on the board. Be sure to close the Airport indicated on the card when drawing it as an <strong>End of Turn Event</strong>. Airports close and remain closed for the duration of the game. Airports with <strong>RED airplane icons</strong> never close for any reason. If a player rested during their turn, draw 2 <strong>Villain Cards</strong> and apply the <strong>End of Turn</strong> events one after the other.</p>
+<span class="inline-title">Secret Mission Rewards</span>
+<p>If the Player has flipped over both of their <strong>Secret Mission Fate cards</strong>, they may now claim one of the following rewards: 1 <strong>Top Secret Card</strong> drawn from the top of the deck, 1 <strong>Resolve</strong> (or 2 <strong>Resolve</strong> if playing solo), a <strong>UN Transport Token</strong>, or up any Basic Skill by 1. A negative <strong>Status Card</strong> can be discarded as a reward for completing a <strong>Secret Mission</strong>. Discard the <strong>Fate cards</strong> and draw two more for a new <strong>Secret Mission</strong>. After completing the <strong>Villain Phase</strong>, the next player in a clockwise direction starts their turn with the <strong>Movement Phase</strong>.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Resolving Tests & Dice</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Dice Pool &amp; Rolling</span>
+<span class="label-title">Core Mechanic Reference</span>
+<span class="inline-title">Pulling &amp; Committing</span>
+<p>The grey die with yellow icons is always in play. It never goes into the draw bag, and you must always roll it. Players blindly pull a number of dice from the bag determined by their basic skills. Players must roll all dice pulled from the bag, including the <strong>YELLOW Die</strong>. They cannot decide to not roll available dice. However, they may choose not to pull their allowed dice from the bag. The player must choose which Skill they want to test before pulling dice. You may draw as many dice as allowed from the bag, inspecting each as you draw them, as long as you have enough skill to draw them. If you still do not like your chances, you may spend a <strong>Resolve</strong> to add +1 and draw an additional die out of the bag. YOU MUST ROLL ALL DICE DRAWN, INCLUDING THE <strong>YELLOW DIE</strong>.</p>
+<span class="inline-title">Negative Skill Handling</span>
+<p>If your Test results in a negative number, you must factor in that negative number when using <strong>Resolve</strong> or adding +1 in any way to your Test. If a Test brings your skill level to -2, you must somehow add +3 to be able to pull 1 Die from the bag.</p>
+<span class="subsection-title">Success, Failure &amp; Injuries</span>
+<span class="label-title">Icon Values &amp; Consequences</span>
+<span class="inline-title">Passing &amp; Failing</span>
+<p>The <strong>YELLOW Die</strong> contains 1 Success, 1 Injury, 1 Heal Injury and 3 Failures. The Injury and Heal Injury sides are also considered failures, but players always receive the consequence. All symbols other than the Gun are considered failures as far as it concerns passing encounters. Injuries from dice are received even if you pass the encounter.</p>
+<span class="inline-title">Injury Thresholds</span>
+<p>Each time you are Injured, take an <strong>Injury Token</strong>. When you reach Injuries equal to or more than your <strong>Life Point Number</strong>, discard all <strong>Injury Tokens</strong> and immediately draw a <strong>Villain Advancement Card</strong> and advance <strong>Dr. Lobo's Track</strong>. You may then continue as normal even if in the middle of an encounter. Injury status does not affect pass or failure of the encounter. If you roll multiple dice on a skill test and roll 1 injury and 1 heal, they cancel each other out.</p>
+<span class="subsection-title">Resolve &amp; Test Modifiers</span>
+<span class="label-title">Spending Limits &amp; Options</span>
+<span class="inline-title">Resolve Usage</span>
+<p>Each player has a starting number of <strong>Resolve</strong>. <strong>Resolve</strong> generally allows you to add 1 Movement, reroll a single die or receive +1 to an <strong>Encounter Test</strong>. Be careful how you spend it since it is not easy to get back. Adding dice is not always the best option. You may want to roll and see if you can save your <strong>Resolve</strong>, spending it to reroll one of the dice if necessary. If you have not spent 1 <strong>Resolve</strong> to add +1 to your test, you may spend 1 <strong>Resolve</strong> to reroll 1 die. Unless you have a card or ability that states otherwise, YOU MAY ONLY SPEND MAX 1 <strong>RESOLVE</strong> PER TURN TO MANIPULATE DICE.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Board State & Token Management</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Intel Tokens &amp; Pool</span>
+<span class="label-title">Yellow Intel Rules</span>
+<span class="inline-title">Placement &amp; Pool Management</span>
+<p><strong>Intel</strong> in the Pool represents the UN's accumulating knowledge about <strong>Dr Lobo's</strong> intentions, and is essential to win the game. Players can never look at the icons under the <strong>Yellow Intel Tokens</strong> unless they have a card, power or encounter instruction that allows them to flip one over. Flipped up tokens remain flipped up even if placed back in the Supply. If you need to place new <strong>Intel</strong> on the board and the supply is empty, remove <strong>Intel</strong> from the <strong>Intel Pool</strong> to add to the Board. If you are instructed by a paragraph to add <strong>Intel</strong> to the <strong>Intel Pool</strong> and Supply is empty, you are out of luck.</p>
+<span class="subsection-title">Location Tokens &amp; Henchmen</span>
+<span class="label-title">Green Location Rules</span>
+<span class="inline-title">Henchman Encounters &amp; Tracking</span>
+<p>Encountering <strong>Green Location tokens</strong> is essential to move the <strong>Location Track</strong> and end the game. If you pass a <strong>Henchman Encounter</strong> due to a Book or Card Encounter, you do not advance the <strong>Location Intel Track</strong>, but you always advance the <strong>Henchman’s</strong> level after a successful <strong>Henchman</strong> test. If you defeat a <strong>Henchman</strong> at Level 3 as part of a Book or Card Encounter, you immediately remove the defeated <strong>Henchman’s</strong> token by flipping up all unrevealed <strong>Location Tokens</strong>. You then reshuffle all remaining unrevealed tokens and return a random token to each of the previous token locations except where the defeated <strong>Henchman</strong> was found.</p>
+<span class="subsection-title">Intel Overflow</span>
+<span class="label-title">Hard Limits &amp; Resolution</span>
+<span class="inline-title">Overflow Procedure</span>
+<p>There is a limit to how many <strong>Yellow Intel Tokens</strong> that can be present on the board. For 1–3 players, the maximum is 5 <strong>Yellow Intel Tokens</strong>. For 4+ players, the maximum is 4 <strong>Yellow Intel Tokens</strong>. If resolving the <strong>Villain End of Turn Event(s)</strong> takes the number of <strong>Yellow Intel Tokens</strong> over that limit, players must remove all <strong>Yellow Intel</strong> from the board. If there is more than 1 <strong>Location Token</strong>, remove the excess. There should be no <strong>Intel Tokens</strong> and 1 <strong>Location Token</strong> at most left on the board in the event of <strong>Intel Overflow</strong>. Removal comes before adding <strong>Intel</strong>. When an <strong>End of Turn event</strong> removes <strong>Intel</strong> from the board, it removes all <strong>Intel</strong> from that region.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Win & Loss Conditions</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<ul>
+<li>Win: <strong>Location Track</strong> reached + <strong>Intel Pool</strong> matches <strong>Dr. Lobo’s</strong> symbol, OR all 4 <strong>Henchmen</strong> defeated.</li>
+<li>Loss: <strong>Dr. Lobo</strong> track = 9, OR <strong>Intel</strong> mismatch at endgame.</li>
+</ul>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Quick Reference Tables</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Dice Icons &amp; Values</span>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Icon</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Gun</td>
+<td>Success</td>
+</tr>
+<tr>
+<td><strong>Dr. Lobo</strong> Eye</td>
+<td>Failure</td>
+</tr>
+<tr>
+<td>Injury</td>
+<td>Failure + take token</td>
+</tr>
+<tr>
+<td>Heal</td>
+<td>Failure + remove token</td>
+</tr>
+</tbody>
+</table></div>
+<span class="subsection-title">Common Rewards &amp; Penalties</span>
+<p>1 or 2 <strong>Intel</strong>: Take either 1 or 2 <strong>Intel</strong> from Supply and place it face down in Pool. Do not look at the <strong>Intel</strong> unless it is already flipped up.</p>
+<p><strong>Top Secret</strong>: Draw a <strong>Top Secret Card</strong>.</p>
+<p>1 or 2 <strong>Resolve</strong>: If possible, increase your <strong>Resolve</strong> by 1 or 2.</p>
+<p>Up Any Skill: Raise any one of the five skills on your <strong>Character Mat</strong> by 1.</p>
+<p>Up (Basic Skill): Raise the specified skill by 1, if possible.</p>
+<p><strong>UN Transport</strong>: Gain a <strong>UN Transport Token</strong>.</p>
+<p>Flip Up 1 or 2 <strong>Intel</strong> In Pool: If available, flip face up 1 or 2 <strong>Intel Tokens</strong> in <strong>Intel Pool</strong>.</p>
+<p>Flip Up 1 or 2 <strong>Intel</strong> Anywhere: Flip face up 1 or 2 <strong>Intel Tokens</strong> in either Pool, Map or Supply. Tokens flipped up remain flipped up the remainder of the game even if returned to Supply.</p>
+<p>Do Not Advance Villain: If you fail an encounter, this instructs you not to draw a <strong>Villain Advancement Card</strong>.</p>
+<p><strong>Advanced Skill</strong>: Take an <strong>Advanced Skill</strong> of your choice.</p>
+<p>(Specific) Skill: Take the named <strong>Advanced Skill</strong>, if available.</p>
+<p>Lose 1 or 2 <strong>Intel</strong> from Pool: If available, remove 1 or 2 <strong>Intel</strong> from Pool. Do not look at the <strong>Intel</strong> unless it is already flipped up.</p>
+<p>1 or 2 Injuries: Player is injured. Take 1 or 2 <strong>Injury Tokens</strong>.</p>
+<p>Lower (Basic Skill): Reduce by 1, if possible, the specified skill.</p>
+<p>V-1: Shuffle any <strong>Villain Advancement Cards</strong> in play on <strong>Dr. Lobo</strong>. Randomly remove 1 and discard. Adjust <strong>Dr. Lobo's</strong> track.</p>
+<p>Named <strong>Status Card</strong>: Take the appropriate card and follow the instructions.</p>
+<p>No Basic Skill or <strong>Resolve</strong> may be increased or decreased beyond the limits shown on the <strong>Character Mat</strong>.</p>
+<span class="subsection-title">Key Symbols &amp; Terms</span>
+<p>Heart: <strong>Life Points</strong>.</p>
+<p>Star: Base Skill.</p>
+<p>Book icon: <strong>Villain advancement</strong>.</p>
+<p>Red airplane: Never closes.</p>
+<p>Train icon: Trans-Siberian Railway movement.</p>
+<p><strong>Close Airport</strong> tokens: Used to mark closed airports.</p>
+<p><strong>Yellow Intel Tokens</strong>: Face-down knowledge tokens.</p>
+<p><strong>Green Location Tokens</strong>: Face-down <strong>Henchman</strong> encounter tokens.</p>
+<p><strong>Fate Cards</strong>: Used for <strong>Secret Missions</strong> and random city placement.</p>
+<p><strong>Villain Deck</strong>: Contains <strong>End of Turn Event</strong> and <strong>Villain Advancement</strong> sides.</p>
+<p><strong>Top Secret Deck</strong>: Powerful cards awarded by encounters or missions.</p>
+<p><strong>Encounter Deck</strong>: Contains encounters written directly on cards.</p>
+<p><strong>Status Deck</strong>: Gadgets, abilities, or third persons that help or hinder players.</p>
+<p>Regional areas and Islands: Starting spaces or encounter locations. Players cannot choose to stay on regional areas or islands. They must leave on the turn after their encounter there.</p>
+<p>If any deck is exhausted, shuffle to make a new draw pile.</p>
+<p>If you have been rewarded a positive <strong>Status Card</strong> and all copies are in play, you may gain a <strong>Top Secret Card</strong> or Gain 1 <strong>Resolve</strong> instead. If rewarded a negative <strong>Status Card</strong>, you must Lower Any Skill instead. Third Person <strong>Status Cards</strong> do not reward anything additional if gained a second time.</p>
+<p>Agents cannot trade cards. With the exception of some <strong>Status Cards</strong> that are common to all players, all cards are personal to the player.</p>
+<p>If you receive a penalty or reward that is not specifically listed, it will almost certainly be a <strong>Status Card</strong>. Search the <strong>Status Deck</strong> for the correct card.</p>
+<p>Cities in the USSR are also considered to be in Asia.</p>
+  </div>
+</details>
+  <p id="no-results">No sections match your search.</p>
+</main>
+<script>
+(function () {
+  var searchEl  = document.getElementById('search');
+  var clearBtn  = document.getElementById('search-clear');
+  var noResults = document.getElementById('no-results');
+  var sections  = Array.from(document.querySelectorAll('details.section'));
+
+  // Snapshot each section body's original HTML so we can restore it
+  // before applying a new round of highlights.
+  sections.forEach(function (s) {
+    var body = s.querySelector('.section-body');
+    if (body) body.dataset.original = body.innerHTML;
+  });
+
+  var timer;
+
+  searchEl.addEventListener('input', function () {
+    var term = this.value.trim();
+    clearBtn.classList.toggle('visible', term.length > 0);
+    clearTimeout(timer);
+    timer = setTimeout(function () { applySearch(term); }, 180);
+  });
+
+  clearBtn.addEventListener('click', function () {
+    searchEl.value = '';
+    clearBtn.classList.remove('visible');
+    applySearch('');
+    searchEl.focus();
+  });
+
+  function escapeRe(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlightTextNodes(container, re) {
+    var walker = document.createTreeWalker(
+      container, NodeFilter.SHOW_TEXT, null, false
+    );
+    var nodes = [];
+    var n;
+    while ((n = walker.nextNode())) {
+      if (n.nodeValue.trim()) nodes.push(n);
+    }
+    nodes.forEach(function (textNode) {
+      re.lastIndex = 0;
+      if (!re.test(textNode.nodeValue)) return;
+      re.lastIndex = 0;
+      var span = document.createElement('span');
+      span.innerHTML = textNode.nodeValue.replace(
+        re, function (m) { return '<mark>' + m + '</mark>'; }
+      );
+      textNode.parentNode.replaceChild(span, textNode);
+    });
+  }
+
+  function applySearch(term) {
+    var re = term ? new RegExp(escapeRe(term), 'gi') : null;
+    var visibleCount = 0;
+
+    sections.forEach(function (section) {
+      var body    = section.querySelector('.section-body');
+      var summary = section.querySelector('summary');
+
+      // Restore original HTML before each search pass
+      if (body) body.innerHTML = body.dataset.original;
+
+      if (!re) {
+        section.classList.remove('search-hidden');
+        section.open = false;
+        return;
+      }
+
+      var titleText = summary ? summary.textContent : '';
+      var bodyText  = body    ? body.textContent    : '';
+
+      re.lastIndex = 0;
+      var inTitle = re.test(titleText);
+      re.lastIndex = 0;
+      var inBody  = re.test(bodyText);
+      re.lastIndex = 0;
+
+      if (inTitle || inBody) {
+        section.classList.remove('search-hidden');
+        section.open = true;
+        if (body) highlightTextNodes(body, new RegExp(escapeRe(term), 'gi'));
+        visibleCount++;
+      } else {
+        section.classList.add('search-hidden');
+      }
+    });
+
+    noResults.style.display = (re && visibleCount === 0) ? 'block' : 'none';
+  }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,1106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Batman - The Dark Knight Returns — Rules Reference</title>
+<style>
+:root {
+  --bg:            #f2ede6;
+  --text:          #1a1a1a;
+  --header-bg:     #027eb1;
+  --section-bg:    #027eb1;
+  --subsection-bg: #0200bf;
+  --rule:          #b0a898;
+  --accent:        #0200bf;
+  --table-head:    #027eb1;
+  --note-bg:       #e8e0d4;
+  --body-bg:       #ffffff;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 15px;
+  line-height: 1.55;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* ── STICKY HEADER ───────────────────────────────────────── */
+.sticky-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--header-bg);
+  padding: 10px 14px 12px;
+  padding-top: max(10px, env(safe-area-inset-top));
+  padding-left: max(14px, env(safe-area-inset-left));
+  padding-right: max(14px, env(safe-area-inset-right));
+  box-shadow: 0 2px 12px rgba(0,0,0,0.4);
+}
+
+.masthead-row {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 9px;
+}
+
+.masthead-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  line-height: 1.1;
+  flex-shrink: 0;
+}
+
+.masthead-subtitle {
+  font-size: 11px;
+  color: rgba(255,255,255,0.45);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.back-link {
+  margin-left: auto;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+  text-decoration: none;
+  flex-shrink: 0;
+  padding-left: 14px;
+  white-space: nowrap;
+}
+.back-link:hover {
+  color: rgba(255,255,255,0.85);
+}
+
+/* ── TOGGLE + BACK ROW ───────────────────────────────────── */
+.toggle-back-row {
+  display: flex;
+  align-items: center;
+  margin-top: 7px;
+}
+
+.search-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-icon {
+  position: absolute;
+  left: 10px;
+  width: 15px;
+  height: 15px;
+  color: rgba(255,255,255,0.4);
+  pointer-events: none;
+  flex-shrink: 0;
+}
+
+#search {
+  width: 100%;
+  padding: 8px 36px 8px 32px;
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 8px;
+  font-size: 15px;
+  background: rgba(255,255,255,0.12);
+  color: #fff;
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+#search::placeholder { color: rgba(255,255,255,0.38); }
+
+#search:focus {
+  background: rgba(255,255,255,0.2);
+  border-color: rgba(255,255,255,0.3);
+}
+
+.search-clear {
+  position: absolute;
+  right: 6px;
+  background: rgba(255,255,255,0.18);
+  border: none;
+  border-radius: 50%;
+  color: rgba(255,255,255,0.8);
+  font-size: 14px;
+  line-height: 1;
+  width: 22px;
+  height: 22px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  flex-shrink: 0;
+}
+
+.search-clear.visible { display: flex; }
+
+/* ── MAIN ────────────────────────────────────────────────── */
+main {
+  padding: 10px 12px 48px;
+  padding-left: max(12px, env(safe-area-inset-left));
+  padding-right: max(12px, env(safe-area-inset-right));
+  padding-bottom: max(48px, env(safe-area-inset-bottom));
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+/* ── NO RESULTS ──────────────────────────────────────────── */
+#no-results {
+  display: none;
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--text);
+  opacity: 0.5;
+  font-size: 14px;
+}
+
+/* ── COLLAPSIBLE SECTIONS ────────────────────────────────── */
+details.section {
+  margin-bottom: 6px;
+  border-radius: 6px;
+  overflow: hidden;
+  scroll-margin-top: 130px;
+}
+
+details.section > summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  min-height: 44px;
+  background: var(--section-bg);
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  list-style: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+details.section > summary::-webkit-details-marker { display: none; }
+
+.chevron {
+  width: 12px;
+  height: 12px;
+  opacity: 0.65;
+  flex-shrink: 0;
+  margin-left: 8px;
+  transition: transform 0.18s ease;
+}
+
+details.section[open] > summary .chevron {
+  transform: rotate(90deg);
+}
+
+.section-body {
+  background: var(--body-bg);
+  padding: 10px 12px 12px;
+  border: 1px solid var(--rule);
+  border-top: none;
+  border-radius: 0 0 6px 6px;
+}
+
+/* ── HEADINGS WITHIN SECTIONS ────────────────────────────── */
+.subsection-title {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: #fff;
+  background: var(--subsection-bg);
+  padding: 4px 12px;
+  margin: 10px -12px 7px;
+}
+
+.label-title {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--section-bg);
+  border-bottom: 1.5px solid var(--rule);
+  padding-bottom: 3px;
+  margin: 10px 0 5px;
+}
+
+.inline-title {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 8px 0 3px;
+}
+
+/* ── BODY TEXT ───────────────────────────────────────────── */
+p { margin-bottom: 7px; }
+b, strong { font-weight: 600; }
+em, i { font-style: italic; }
+
+/* ── LISTS ───────────────────────────────────────────────── */
+ul, ol { padding-left: 20px; margin-bottom: 6px; }
+ul { list-style-type: disc; }
+ol { list-style-type: decimal; }
+ul ul { list-style-type: circle; }
+li { margin-bottom: 3px; }
+li > ul, li > ol { margin-top: 2px; margin-bottom: 0; }
+
+/* ── TABLES ──────────────────────────────────────────────── */
+.table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin-bottom: 6px;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  min-width: 260px;
+}
+thead tr { background: var(--table-head); color: white; }
+thead th {
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  padding: 5px 8px;
+  text-align: left;
+  white-space: nowrap;
+}
+tbody tr:nth-child(even) { background: var(--note-bg); }
+tbody td { padding: 5px 8px; vertical-align: top; }
+
+/* ── BLOCKQUOTE ──────────────────────────────────────────── */
+blockquote {
+  background: var(--note-bg);
+  border-left: 3px solid var(--accent);
+  padding: 6px 10px;
+  margin: 5px 0 7px;
+  font-size: 14px;
+  border-radius: 0 4px 4px 0;
+}
+blockquote p { margin-bottom: 2px; }
+
+/* ── INLINE CODE ─────────────────────────────────────────── */
+code {
+  background: var(--note-bg);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  padding: 1px 4px;
+  font-size: 13px;
+  font-family: inherit;
+  font-weight: 600;
+}
+
+/* ── HR ──────────────────────────────────────────────────── */
+hr { border: none; border-top: 1px solid var(--rule); margin: 8px 0; }
+
+/* ── SEARCH HIGHLIGHT ────────────────────────────────────── */
+mark {
+  background: #ffe566;
+  color: inherit;
+  border-radius: 2px;
+  padding: 0 1px;
+}
+
+/* ── HIDDEN SECTIONS ─────────────────────────────────────── */
+details.section.search-hidden { display: none; }
+
+/* ── VERSION TOGGLE ──────────────────────────────────────── */
+.toggle-bar {
+  display: inline-flex;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.2);
+}
+.toggle-current,
+.toggle-other {
+  padding: 6px 14px;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  line-height: 1;
+  text-decoration: none;
+  white-space: nowrap;
+  -webkit-tap-highlight-color: transparent;
+}
+.toggle-current {
+  background: rgba(255,255,255,0.18);
+  color: #ffffff;
+  font-weight: 600;
+  cursor: default;
+}
+.toggle-other {
+  color: rgba(255,255,255,0.5);
+}
+.toggle-other:hover {
+  background: rgba(255,255,255,0.08);
+  color: rgba(255,255,255,0.8);
+}
+
+/* ── PRINT ───────────────────────────────────────────────── */
+@media print {
+  .sticky-header { position: static; }
+  details.section[open], details.section { display: block; }
+  .section-body { display: block !important; }
+  .search-wrap, .search-clear, .toggle-bar { display: none; }
+}
+</style>
+</head>
+<body>
+<header class="sticky-header">
+  <div class="masthead-row">
+    <span class="masthead-title">Batman - The Dark Knight Returns</span>
+    <span class="masthead-subtitle">Rules Reference</span>
+  </div>
+  <div class="toggle-back-row"><div class="toggle-bar"><span class="toggle-current">Full Rules</span><a class="toggle-other" href="batman-the-dark-knight-returns-rules-reference.html">Quick Reference</a></div><a class="back-link" href="../index.html">&#8592; All Games</a></div>
+  <div class="search-wrap">
+    <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+         stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+         aria-hidden="true">
+      <circle cx="11" cy="11" r="8"/>
+      <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+    </svg>
+    <input type="text" id="search" placeholder="Search rules…"
+           autocomplete="off" spellcheck="false" autocorrect="off">
+    <button class="search-clear" id="search-clear" aria-label="Clear search">&#x2715;</button>
+  </div>
+</header>
+<main>
+<p>Each playthrough begins with Book 1. To set up, you will need all Standard S components and all Book 1 components listed on page 4. You can identify the cards and tokens you need by looking for an S or 1 on them. You can return all other components to the box for now.</p>
+<span class="subsection-title">1. Prepare Game Area:</span>
+<p>a. Place the game board in the middle of the table.
+b. Place the Doomsday tracker at 2 on the Doomsday Clock.
+c. Place your grit, health, and sanity trackers at 8 on their respective damage tracks.
+d. Place the turn tracker next to turn 1 at the top of the GCPD track.
+e. Place all adversary tokens (mutants, cops, and press), riot tokens, and Bat-Signal tokens in separate piles near the GCPD track.</p>
+<span class="subsection-title">2. Prepare Cards:</span>
+<p>a. Place the following cards in the matching slots along the left side of the board:</p>
+<ul>
+<li>Book 1 boss card (Two-Face)</li>
+<li>Book 1 enemy tokens card</li>
+<li>Book 1 ally card (Commissioner Gordon)</li>
+<li>Book 1 Batman card</li>
+<li>The cooldown card (with the 1 2 side faceup)
+b. Place the 3 goal cards with a 1 in the goal slots along the right side of the board with the "In Progress" side faceup.
+c. Place the 2 vehicle cards with a 1 in the vehicle slots along the top of the board. Place the matching vehicle figures on top of them. (Note: Don't place these in the "Available Vehicles" slot – you have to acquire them before you can use them!)
+d. Place the Book 1 round sequence card somewhere you can easily reference it. Place the Book 1 story card next to it with the Part 1 side faceup to reveal your objectives.</li>
+</ul>
+<span class="subsection-title">3. Prepare Action Deck:</span>
+<p>Shuffle the Standard action cards (marked with S) together with the Book 1 action cards. Place this deck facedown on the action deck area on the board.</p>
+<span class="subsection-title">4. Prepare Dice:</span>
+<p>a. Place the 6 Standard Batarang dice (blue) in your utility belt slot.
+b. Place Two-Face's 2 boss dice on his boss card.
+c. Place all mutant dice and cop dice on the enemy tokens card.</p>
+<span class="subsection-title">5. Prepare GCPD Track:</span>
+<p>a. With your marker, write "7" in the white box at the top of the GCPD track.
+b. Flip the 10 GCPD tokens with a 1 on them facedown and place 1 random token on each of the first 8 spaces on the track. Return the remaining 2 tokens to the box.
+c. Do the same with the 10 GCPD tokens with a 2 on them for the next 8 spaces of the track.
+d. Flip all 1 and 2 tokens on the track faceup.</p>
+<span class="subsection-title">6. Map Setup:</span>
+<p>a. Place the following figures and tokens at the locations (circles) on the map listed below. When placing a figure or token at a location, you may choose which of the 3 action spaces (pie slices) to place them on. You must choose a different action space for each figure and token you place.</p>
+<ul>
+<li>Place Commissioner Gordon at Gordon's House.</li>
+<li>Place Batman at Wayne Tower.</li>
+<li>Place Two-Face and 1 mutant at Arkham Asylum TF. Place Two-Face in the center of the location circle, rather than on one of its action spaces.</li>
+<li>Place 3 mutants in each district (area of 1 color) in locations of your choice.</li>
+<li>Place 3 cops in each region (Uptown, Midtown, and Downtown) in locations of your choice.</li>
+<li>Place 3 press in each region (Uptown, Midtown, and Downtown) in locations of your choice that each have at least 1 mutant or cop.</li>
+</ul>
+<span class="subsection-title">7. Place Clues:</span>
+<p>Flip the 8 clue tokens marked with 1 facedown and randomize them. Place 1 random clue on a mutant at Arkham Asylum TF. Then place each of the 7 other clues on a mutant of your choice in each other district. Mutants with clue tokens are referred to as guards in Book 1 (see "Book 1" on pg. 23 for details).</p>
+<hr/>
+<details class="section">
+  <summary><span>Glossary of Terms</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<ol>
+<li><strong>Doomsday Clock:</strong> The Doomsday Clock tells you how close the city is to being overrun. If it reaches 12, you lose.</li>
+<li><strong>Figures:</strong> Standees (or minis) such as Batman, allies, and vehicles occupy action spaces at locations. Only 1 figure can occupy each action space at a time.</li>
+<li><strong>Wayne Manor™:</strong> A separate region outside of Gotham. It has only 1 location and is only accessible to Batman.</li>
+<li><strong>Damage Tracks:</strong> These keep track of Batman's grit, health, and sanity. If any track reaches 0, you lose.</li>
+<li><strong>GCPD Track:</strong> This is your police scanner, which shows you where new adversaries will appear each turn. It also keeps track of the current turn and where you are in the round.<ul>
+<li>5.1 TURN TRACKER: Marks the current turn</li>
+<li>5.2 ADVERSARIES PER ROUND: Total number of adversaries added each round</li>
+<li>5.3 GCPD DISTRICT/REGION: District/region where adversaries are added this turn</li>
+<li>5.4 ADVERSARY TYPE: Type of adversary added this turn</li>
+<li>5.5 ADVERSARY NUMBER: Where you write how many adversaries are added this turn</li>
+</ul>
+</li>
+<li><strong>Enemy Tokens:</strong> The 3 different kinds of adversaries (mutants, cops, and press) cover action spaces and prevent you from using them. If a location is full of adversaries at the end of a round, they're replaced with a riot. (Adversaries and riots are collectively called enemy tokens.)</li>
+<li><strong>Deep Water:</strong> Dark blue region around the city. Paths may not be drawn here.</li>
+<li><strong>Printed Paths:</strong> Batman and other characters use these to travel around the map. Locations connected by paths are considered adjacent.</li>
+<li><strong>Regions:</strong> The map is divided into 3 regions: Uptown, Midtown, and Downtown.</li>
+<li><strong>Districts:</strong> Each region is divided into 2-3 colored districts. Each district has 4-6 location circles. (Note: The 2 light blue islands are part of the same district.)</li>
+<li><strong>Locations:</strong> Each location circle has 3 action spaces where figures and tokens can be placed. The colored ring around a location shows which district it belongs to.</li>
+<li><strong>Action Spaces:</strong> Moving to an action space lets you use the action printed on it (as long as it's not covered by an enemy token).</li>
+<li><strong>Bridges:</strong> Paths that lead out of Gotham to Wayne Manor. Only Batman can use them.</li>
+<li><strong>The Boss:</strong> Batman must discover and defeat the boss to complete each Book. The boss sits at the center of a location and does not occupy an action space.</li>
+</ol>
+<hr/>
+  </div>
+</details>
+<details class="section">
+  <summary><span>How to Lose</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>Batman : The Dark Knight Returns – The Game is not about winning, it’s about enduring. There are many ways to fail, but only one way to succeed: Persevere to the end of 4 grueling Books.</p>
+<p>You lose immediately if any of the following occur:</p>
+<ul>
+<li>Any of your damage tracks (grit, health, or sanity) reaches 0</li>
+<li>The Doomsday Clock reaches 12</li>
+<li>A 12th riot would be placed on the map</li>
+<li>The boss is not defeated by the end of round 4</li>
+</ul>
+<p>If you lose at any time during a playthrough, you must start over from the beginning of Book ①.</p>
+<hr/>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Book Objectives</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>While you’re attempting to survive, you also need to discover and defeat the boss. The rules booklet and story card for each Book explain the detective work you’ll need to do to accomplish this goal. Each time you manage to defeat a boss, you’ll progress to the next Book. (See “Your Mission” on pg. 20 for more detail.)</p>
+<hr/>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Round Sequence</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>Each Book is broken up into rounds, with each round made up of 4 turns. A Book can last no more than 4 rounds (16 turns total) – if you have not discovered and defeated the boss by the end of the 4th round, you lose!</p>
+<p>Each round has the following phases and steps:</p>
+<span class="subsection-title">1. Start of Round:</span>
+<p>1.1 Choose Action Cards: Deal the round deck, then choose which cards you’ll keep and which you’ll add to the event deck.
+1.2 Shuffle Decks: Shuffle the event deck and your fight deck.
+1.3 Write Adversary Numbers: Decide how many adversaries will appear at the end of each turn this round.</p>
+<span class="subsection-title">2. Batman Turns:</span>
+<p><em>Take 4 turns in a row, with the following steps.</em>
+2.1 Resolve Event: Draw and resolve an event card.
+2.2 Move Batman: Move to a location.
+2.3 Activate Ally: Command an ally to move and use one of their actions.
+2.4 Fight or Sneak: Fight or sneak past enemies.
+2.5 Use Action Space: Use the action printed on your space.
+2.6 Add Adversaries: Place new adversaries on the map.
+2.7 Advance Turn Tracker: Advance the turn tracker 1 space on the GCPD track.</p>
+<span class="subsection-title">3. End of Round:</span>
+<p>3.1 Place Riots: Check if any riots break out.
+3.2 Draw Path: Draw a new path between any 2 locations.
+3.3 Advance Doomsday: Advance the Doomsday tracker 1 space on the Doomsday Clock.</p>
+<hr/>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Phase 1: Start of Round</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>At the start of each round, you select action cards and prepare the event deck and GCPD track for the next 4 turns.</p>
+<span class="subsection-title">Step 1.1: Choose Action Cards</span>
+<p>First, deal the top 12 cards from the action deck in a facedown stack on the round deck slot at the bottom of the board.</p>
+<p>Next, flip the top 3 cards of the round deck and place them in the “faceup” slots next to it. Choose 2 of these cards to keep, and place the 3rd in a faceup pile on the event deck slot. When you choose to keep detective action cards, add them directly to your hand. When you choose to keep fight action cards, place them faceup near the fight deck area on the board.</p>
+<p>Repeat the above, revealing 3 cards and picking 2, until you’ve sorted all 12 cards in the round deck. When you are done, you should have kept 8 cards, and added 4 cards in the event deck.</p>
+<p><em>Important! There is no action card hand limit.</em></p>
+<span class="subsection-title">Step 1.2: Shuffle Decks</span>
+<p>Once you’ve sorted the round deck, shuffle the 4 cards in the event deck slot and place them back facedown. This is now the event deck for the coming round.</p>
+<p>Next, add all faceup fight cards you selected to your fight deck, shuffle it, and place it back facedown on the fight deck area. (Note: If your fight deck is empty, shuffle the cards you selected to create a new fight deck.)</p>
+<p><em>Important! You will need to draw fight cards from your fight deck before you can play them.</em></p>
+<span class="subsection-title">Step 1.3: Write Adversary Numbers</span>
+<p>The next step in setting up the round is to write an adversary number on the GCPD track for each of the 4 turns in the coming round. Each turn's adversary number determines how many adversary tokens will be added at the end of that turn.</p>
+<p>Each Book gives you a fixed number of adversaries that must be added each round, written in the white box at the top of the track. You must distribute these adversaries among the next 4 turns by writing a number between 1-4 in each turn's flame symbol. The total of the 4 numbers you write must equal the number in the box at the top of the track.</p>
+<p>Important! Do not actually place any new adversaries in this step! Adversaries aren't placed until the end of each turn (see "Step 2.6: Add Adversaries" on pg. 15).</p>
+<p><strong>Final Round</strong>
+In round 4, there are only 3 flame symbols for you to write adversary numbers. This is because no adversaries can be added at the end of the last turn of the game. When writing adversary numbers for round 4, you must treat the final turn as a 0, and the other 3 turns must still add up to the number at the top of the track.</p>
+<hr/>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Phase 2: Batman™ Turns</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>Turns are covered in detail in the next section (see pg. 10).</p>
+<hr/>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Phase 3: End of Round</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>At the end of each round, you first check whether riots break out anywhere, then you draw a new path connecting 2 locations on the map.</p>
+<span class="subsection-title">Step 3.1: Place Riots</span>
+<p>Check if there are any locations on the map where every undestroyed action space has an adversary (mutant, press, or cop) on it. You must place a riot on each of these locations, following the rules below.</p>
+<p>Rules for placing riots:</p>
+<ul>
+<li>When you place a riot (even if it is caused by a card or other effect), always remove all adversaries from the location and return them to the supply.</li>
+<li>Riots can never be placed in any location where there is a friendly figure (Batman, an ally, or a vehicle).</li>
+<li>Riots can be placed at the boss's location (but the boss doesn't occupy an action space, so they don't contribute to starting a riot; see "The Boss's Location" on pg. 20).</li>
+<li>Destroyed action spaces can't be occupied by adversaries, so they do not need to be filled for a riot to start. This means if a location has a destroyed space, it needs 1 fewer adversary for a riot to start there. (See "Action Space Modifiers" on pg. 21).</li>
+<li>When you place a riot at a location with a clue, place the clue on top of the riot (see "Investigating Crime" on pg. 20).</li>
+<li>If you are ever forced to place a 12th riot on the board (at any time) you immediately lose. (There are only 11 riot tokens, so if you run out and have to place a new one, you'll know you've lost.)</li>
+</ul>
+<p>Important! If a location fills up with adversaries during a round, you still have until the end of the round to prevent a riot there.</p>
+<p><strong>Dealing with Riots</strong>
+Once placed, riots occupy all action spaces at a location and block you from using any of them (see “Entering a Location” on pg. 13). Riots also add 1 enemy die when you fight adversaries in adjacent locations (see “Fights” on pg. 16). In order to remove riots, you must fight and defeat them.</p>
+<span class="subsection-title">Step 3.2: Draw Path</span>
+<p>At the end of each round, you may draw a new path connecting any 2 locations on the map, according to the rules below.</p>
+<p>Rules for drawing new paths:</p>
+<ul>
+<li>Use your marker to draw a path between 2 locations on the map. The locations may be any distance from each other.</li>
+<li>Drawn paths can’t cross over other drawn paths, printed paths, bridges, or locations.</li>
+<li>Drawn paths can’t pass through deep water or connect to Wayne Manor.</li>
+<li>Drawn paths can’t connect more than 2 locations or create “intersections” (unless a card effect allows this).</li>
+</ul>
+<p><strong>Using Drawn Paths</strong>
+Once a path is drawn between two locations, it connects them the same way that printed paths do, and they are considered adjacent for all purposes. Batman, allies, and enemies can all use drawn paths to travel between locations (see “Step 2.2: Move Batman” on pg. 11.)</p>
+<p><strong>Destroying Drawn Paths</strong>
+Certain card effects may destroy drawn paths. When a drawn path is destroyed, erase it from the map. You may then treat that area as empty, and draw other paths through it.</p>
+<p>Important! You may not destroy a drawn path unless an effect specifically tells you to.</p>
+<span class="subsection-title">Step 3.3: Advance Doomsday</span>
+<p>After you complete the other end of round steps, move the Doomsday tracker 1 space towards midnight on the Doomsday Clock. If the tracker reaches 12, you lose.</p>
+<p>Tip: If you get too close to midnight, you can move the Doomsday Clock backwards by using “Avert Doomsday” action spaces on the map (see “Step 2.5: Use Action Space” on pg. 15).</p>
+<hr/>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Batman™ Turn Sequence</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>You have 4 turns to act each round.</p>
+<p>Each turn has the following steps:
+2.1 Resolve Event: Draw and resolve an event card.
+2.2 Move Batman: Move to a location.
+2.3 Activate Ally: Command an ally to move and use one of their actions.
+2.4 Fight or Sneak: Fight or sneak past enemies.
+2.5 Use Action Space: Use the action printed on your space.
+2.6 Add Adversaries: Place new adversaries on the map.
+2.7 Advance Turn Tracker: Advance the turn tracker 1 space on the GCPD track.</p>
+<hr/>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Detective Cards</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>Each turn, you may play any number of detective cards from your hand to take special actions. If a card does not specify when it is played, it may be played at any time on your turn, except during a fight. After resolving a detective card, place it in the action card discard pile.</p>
+<p>There is no limit to the number of action cards you can have in your hand, and any cards you don’t use by the end of a round can be kept for the next one. (Some cards can even be kept for the next Book; see “Completing a Book” on pg. 22.)</p>
+<hr/>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Fights</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>Unless a special effect says otherwise, you may start one fight per turn, during the Fight or Sneak step of your turn. You may only start a fight with an enemy that is in the action space you occupy (or a boss at your location; see “Fighting the Boss” on pg. 20).</p>
+<p>At the start of each fight, you draw 1 fight card and determine how many enemy dice your opponents will roll. Then you resolve fight rounds until you either win, decide to end the fight, or die. At the end of the fight (if you didn’t die), you remove all enemy tokens you defeated and return all dice that were used. These steps are covered in detail in the sections below.</p>
+<span class="subsection-title">Fight Cards</span>
+<p>During a fight, you may play any number of fight cards from your hand to activate their special fight effects. Each fight card indicates when it may be played during a fight.</p>
+<p>After resolving a fight card, place it in the action card discard pile. (Once you’ve used a fight card, you won’t draw it again for the rest of the current Book, so it does not need to be kept separate from other discarded action cards.)</p>
+<p><em>Important!</em> You may not play detective cards during fights.</p>
+<span class="subsection-title">Preparing for a Fight</span>
+<span class="label-title">Draw 1 Fight Card</span>
+<p>At the start of each fight, draw 1 fight card from your fight deck and add it to your hand. You only draw 1 card for the entire fight, no matter how long it lasts. If your fight deck has no fight cards remaining when you start a fight, you don’t get to draw one.</p>
+<p><em>Important!</em> If you don’t play the fight card you drew during this fight, it stays in your hand and you can use it in any future fight. Remember that there is no hand limit.</p>
+<span class="label-title">Enemy Dice Pool</span>
+<p>Next, determine how many dice your enemies will roll in the fight. Take the appropriate dice from the enemy tokens card and place them in front of you.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th style="text-align: left;">Enemy Type</th>
+<th style="text-align: left;">Enemy dice pool</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Mutant</td>
+<td style="text-align: left;">1 mutant die per mutant in your location<br/>+1 mutant die per mutant or riot in adjacent locations<br/>+1 mutant die if the boss is in your location</td>
+</tr>
+<tr>
+<td style="text-align: left;">Cop</td>
+<td style="text-align: left;">1 cop die per cop in your location<br/>+1 cop die per cop or riot in adjacent locations<br/>+1 cop die if the boss is in your location</td>
+</tr>
+<tr>
+<td style="text-align: left;">Press</td>
+<td style="text-align: left;">(You can’t fight press.)</td>
+</tr>
+<tr>
+<td style="text-align: left;">Riot</td>
+<td style="text-align: left;">2 cop dice + 2 mutant dice<br/>(Do not add dice for adjacent adversaries, riots, or boss.)</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Important!</strong> When checking for adjacent enemy tokens, other locations are considered adjacent to yours if they are connected by a printed or drawn path (including one-way paths, regardless of the direction they point). They do not count as adjacent if they only are connected by a bridge (since enemies can’t use bridges).</p>
+<span class="label-title">Enemy Dice Limit</span>
+<p><em>Enemies can roll no more than 6 dice (total) in a fight. Even if the enemy dice pool adds up to more than 6, they still only roll 6 dice. (This also means you can’t defeat more than 6 adversaries in a single fight; see “Fight Cleanup” on pg. 17.)</em></p>
+<span class="subsection-title">Resolving Fight Rounds</span>
+<p>Once you've prepared the fight, begin by resolving the first fight round as follows.</p>
+<p><em>Fight round steps:</em></p>
+<ol>
+<li><strong>Batman Roll:</strong> Choose up to 3 Batman dice from your utility belt and roll them. If your active ally used an Assist Batman action this turn, you may also roll all ally dice on their card (this does not count towards your limit of 3).</li>
+<li><strong>Enemy Roll:</strong> Roll all dice in the enemy dice pool.</li>
+<li><strong>Rerolls and Flips:</strong> Resolve each Reroll and Flip you rolled, one at a time, in the order of your choice.</li>
+</ol>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th style="text-align: left;">REROLL</th>
+<th style="text-align: left;">Reroll 1 Batarang you rolled. You must use the new result.</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Flip</td>
+<td style="text-align: left;">Flip 1 Batarang you rolled to its opposite face.</td>
+</tr>
+</tbody>
+</table></div>
+<ol start="4">
+<li><strong>Blocks:</strong> Resolve each of your Blocks first, then each enemy Block.</li>
+</ol>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th style="text-align: left;">BLOCK</th>
+<th style="text-align: left;">Rolled by you</th>
+<th style="text-align: left;">Rolled by enemies</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Change an enemy die of your choice to a Miss.</td>
+<td style="text-align: left;">Change one of your Pows or Rams to a Miss. (Pows are always changed first).</td>
+</tr>
+</tbody>
+</table></div>
+<ol start="5">
+<li><strong>Pows and Rams:</strong> Resolve all Pows and Rams simultaneously.</li>
+</ol>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th style="text-align: left;"></th>
+<th style="text-align: left;">Rolled by you</th>
+<th style="text-align: left;">Rolled by enemies</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">POW</td>
+<td style="text-align: left;">Deal 1 damage (remove 1 enemy die from the pool).</td>
+<td style="text-align: left;">Take 1 damage of your choice</td>
+</tr>
+<tr>
+<td style="text-align: left;">RAM</td>
+<td style="text-align: left;">Deal 1 damage (remove 1 enemy die from the pool) AND take 1 damage of your choice.</td>
+<td style="text-align: left;"></td>
+</tr>
+</tbody>
+</table></div>
+<ol start="6">
+<li><strong>Cooldown:</strong> Place each Batman die or ally die you rolled that meets the cooldown condition onto the cooldown card. Dice on cooldown are not available for the rest of the fight.</li>
+<li><strong>End or Continue Fight:</strong> If there are no enemy dice left in the pool, proceed to cleanup. If there are enemy dice left in the pool, you may decide to either end the fight and proceed to cleanup, or continue to fight another round.</li>
+</ol>
+<span class="subsection-title">Dealing Damage</span>
+<p>For each point of damage you deal to enemies, remove 1 enemy die from the enemy dice pool and set it aside. Enemy dice that have been removed from the pool aren’t rolled again for the rest of the fight.</p>
+<p>When fighting riots, damage is always dealt to mutant dice first, and cop dice are only removed when there are no mutant dice left.</p>
+<span class="subsection-title">Taking Damage</span>
+<p>For each point of damage you take from enemies or special effects, move one of your damage markers down 1 space. Unless otherwise noted, you may choose which of your 3 damage tracks to apply the damage to (grit, health, or sanity). If you take more than 1 damage from a single source, you may split it between different damage tracks.</p>
+<p>If you take damage of a specific type (e.g. “-1 grit”), you must apply the damage to the indicated track. If any of your damage markers reaches 0, you lose.</p>
+<p>Important! Allies and vehicles can’t take damage.</p>
+<span class="subsection-title">Unblockable Attacks</span>
+<p>Some enemy attacks (such as special boss attacks) are unblockable. If a die face or other source of damage is unblockable, you can’t use Blocks or other effects to change it to a Miss or otherwise negate its damage.</p>
+<span class="subsection-title">Cooldown</span>
+<p>Placing your dice on the cooldown card represents running out of energy and weapons during a fight. Once a die is on cooldown, you don’t get it back until the end of the fight (see “Return Dice” on pg. 18). You can only fight off enemies for so long before you have to make a strategic withdrawal!</p>
+<p>COOLDOWN
+Cooldown Condition: At the end of each fight round, place all Batman and ally dice showing Pows or Pow x2s here.
+At the end of each fight, return all dice on cooldown.</p>
+<span class="subsection-title">Continuing a Fight</span>
+<p>If there are still enemy dice remaining at the end of a fight round, you can choose to continue the fight and resolve another fight round.</p>
+<p>In each fight round, you may choose a new set of up to 3 Batman dice, which may include any dice you rolled in the previous round that weren’t placed on cooldown, as well as any dice remaining in your utility belt. If you have fewer than 3 dice left, you may only roll the number of dice you have. If an ally is assisting you, you may also continue to roll all of their ally dice that aren’t on cooldown.</p>
+<p>Enemies only roll the dice remaining in their pool each fight round. Any dice you removed in previous rounds remain set aside until the end of the fight.</p>
+<span class="subsection-title">Fight Cleanup</span>
+<span class="label-title">Remove Defeated Enemies</span>
+<p>At the end of each fight, count how many enemy dice you removed to determine how many enemy tokens you defeated. The number of enemies you defeat at the end of a fight depends on the type of enemy you fought (see below). Whenever an enemy token is defeated, remove it from the map and return it to the supply.</p>
+<span class="label-title">Defeating Adversaries (Mutants or Cops)</span>
+<p>After fighting adversaries, if you removed at least 1 die, defeat the adversary under your figure. Then, for each additional die you removed, choose and defeat another 1 adversary of the same type in your location or an adjacent location.</p>
+<p>Important! Since enemies never roll more than 6 dice, you may never defeat more than 6 adversaries in a single fight.</p>
+<p>You can only defeat and remove adversaries of the type that’s in your action space. For instance, when you fight mutants, you can only defeat mutants, even if bosses or adjacent riots add extra dice to the fight (bosses and riots can only be defeated if you attack them directly).</p>
+<span class="label-title">Defeating Riots</span>
+<p>In order to defeat a riot, you must successfully remove all enemy dice during the fight. If you do, you may place your figure (and any ally figures in your location) on any empty action space(s) there.</p>
+<p>Important! If there are any enemy dice left after you fight a riot, it remains on your location and will roll all of its dice again the next time you fight it.</p>
+<span class="label-title">Return Dice</span>
+<p>Once you’ve removed defeated enemies, return all dice you used to the appropriate areas, including dice placed on the cooldown card.</p>
+<ul>
+<li>Return all enemy dice to the enemy tokens card.</li>
+<li>Return all Batman dice to your utility belt.</li>
+<li>Return all ally dice to their respective ally cards.</li>
+</ul>
+<span class="label-title">Special Die Faces</span>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th style="text-align: left;"></th>
+<th style="text-align: left;"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">POW x2</td>
+<td style="text-align: left;">Deal 2 damage (same as rolling 2 Pows). If a single Block is applied to a Pow x2, change it to a single Pow (rather than a Miss).</td>
+</tr>
+<tr>
+<td style="text-align: left;">BLOCK x2</td>
+<td style="text-align: left;">Change up to 2 opposing dice to Misses (same as rolling 2 Blocks).</td>
+</tr>
+<tr>
+<td style="text-align: left;">FLIP x2</td>
+<td style="text-align: left;">Flip up to 2 Batarangs you rolled to their opposite faces (same as rolling 2 Flips).</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Refer to the enemy tokens card for this Book.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Refer to the enemy tokens card for this Book.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Refer to the enemy tokens card for this Book.</td>
+</tr>
+</tbody>
+</table></div>
+<p>Other dice rules:</p>
+<ul>
+<li>Flip and Reroll dice can’t be used to flip or reroll themselves.</li>
+<li>Once a die has been resolved, it can’t be flipped or rerolled. (For example, once you’ve used a Flip on a die, you may not reroll that Flip die.)</li>
+<li>Whenever a Batarang die lands in a position where the result is unclear, immediately reroll it.</li>
+</ul>
+<hr/>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Your Mission</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Character and Reference Cards</span>
+<p>The cards placed around the board during setup give you information and unique rules for the current Book. Make sure to read each new card carefully before starting a Book.</p>
+<ul>
+<li>Story card: Tells you the setting and situation that Batman faces, as well as special rules for this Book and the clues you need to investigate to discover the boss.</li>
+<li>Batman card: Tells you any additional challenges and advantages Batman has for this Book.</li>
+<li>Ally cards: Tell you which allies are available and what they can do.</li>
+<li>Enemy tokens card: Tells you what special icons on enemy dice do and any special rules that apply to different types of enemy tokens.</li>
+<li>Boss card: Tells you the boss's special abilities in and out of combat.</li>
+<li>Round sequence card: Reminds you of the steps of each round, and includes any special steps unique to this Book.</li>
+<li>Goal cards: Tell you secondary objectives you can complete to earn rewards and get stronger.</li>
+<li>Vehicle cards: Tell you which powerful vehicles you can acquire from Wayne Manor and use once per Book.</li>
+</ul>
+<span class="subsection-title">Investigating Crime</span>
+<p>The boss may be on the map at the start of a mission, but you can't fight them until you do the detective work to discover their plans. The rules booklet and story card for each Book tell you how to find the clues you need to discover the boss and eventually defeat them.</p>
+<span class="subsection-title">The Boss's Location</span>
+<p>The boss does not count as an enemy token and does not occupy an action space. This means that if you move to the boss's location and there are no adversaries or riot there, you may land on any action space there.</p>
+<p>On the other hand, if there are adversaries or a riot at the boss's location, you must land on one of them. Whenever you fight mutants or cops at the boss's location, the boss adds +1 die to each fight, even if they have not yet been discovered.</p>
+<span class="subsection-title">Progressing the Story and Discovering the Boss</span>
+<p>At various points throughout the story, you will be instructed to flip the story card to the next part. Once you've flipped to a new story card, only the rules and objectives on the new card apply.</p>
+<p>When you successfully discover the boss, write the HP total shown on their boss card in the boss HP hex on the board. This indicates you can now start a fight with them.</p>
+<span class="subsection-title">Fighting the Boss</span>
+<p>Once the boss has been discovered, you may start a fight with them during the Fight or Sneak step of your turn. You must be on an action space at their location that does not contain an enemy token. (If you are on an enemy token, you'll need to either fight or sneak past them before you can fight the boss, and you will not be able to fight the boss until the Fight or Sneak step of the following turn.)</p>
+<p>Boss fights are resolved the same as fights with other enemies, with the following exceptions.</p>
+<p>Special boss fight rules:</p>
+<ul>
+<li>Each boss has unique boss dice. The boss rolls all their dice in each fight round (unless their card says otherwise).</li>
+<li>Dealing damage to the boss does not reduce the number of dice they roll. Instead, reduce their HP by the amount of damage you dealt and write the new total in their HP hex. If their HP reaches 0, you've defeated them and completed the Book.</li>
+<li>Enemy tokens in or adjacent to the boss's location do not add dice to boss fights, and can't take damage during boss fights.</li>
+<li>Additional special rules for each boss are listed on their boss card.</li>
+</ul>
+<span class="subsection-title">Goals</span>
+<p>Goal cards are secondary objectives you can complete to improve your gear and gain other advantages.</p>
+<p>Whenever you meet the conditions to complete a goal, flip it over and place it in front of you. You immediately gain the reward on the back of the card. These rewards are permanent and can be used for the rest of your playthrough.</p>
+<p>Each Book adds new goals you can complete, but any goals you didn’t complete in the previous Book remain in play and can still be completed. (However, partial progress towards goals does not carry over. You must start each goal fresh when you start the next Book; see “Completing a Book” on pg. 22)</p>
+<hr/>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Action Space Modifiers</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>Some card effects upgrade or destroy action spaces on the map. These effects are always permanent, and are only erased at the end of your playthrough.</p>
+<p>Unless a card effect says otherwise, you may only upgrade or destroy spaces that are empty (they do not contain a figure or token).</p>
+<span class="subsection-title">Upgrading an Action Space</span>
+<p>When you upgrade an action space, draw a “x2” on it. Whenever you use this space, you may take its action twice.</p>
+<p>A space that has already been upgraded can’t be upgraded again. If you can choose a space to upgrade, you may not choose Wayne Manor (unless a card effect says otherwise).</p>
+<span class="subsection-title">Destroying an Action Space</span>
+<p>When an action space is destroyed, cross out its icon. You and other figures may no longer move to or use this action space.</p>
+<p>Adversaries may not be added or moved to destroyed spaces. When determining whether a riot starts at a location, only spaces that are not destroyed must be filled with adversaries for a riot to start (see “Step 3.1: Place Riots” on pg. 9). If a space is already destroyed, it may not be destroyed again.</p>
+<hr/>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Wayne Manor™</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>Wayne Manor is a special location on the map that only you can access. Moving to Wayne Manor gives you a chance to recover, and gives you access to new vehicles. Allies, adversaries, and bosses can’t move to Wayne Manor, unless a special effect says otherwise.</p>
+<span class="subsection-title">Moving to Wayne Manor</span>
+<p>You can move to Wayne Manor by any bridge printed on the map. When you move to Wayne Manor, you must immediately end your move (you may not use another bridge to leave Wayne Manor until your next turn). Likewise, when you leave Wayne Manor, you must immediately end your move at the first location you reach (since you are entering a different district).</p>
+<span class="subsection-title">Wayne Manor Actions</span>
+<p>Unlike other locations, Wayne Manor has a single action space with 3 action icons. When you use this action space, you may take all 3 actions and regain 1 grit, 1 health, and 1 sanity.</p>
+<p>Additionally, each time you enter Wayne Manor, you may acquire 1 vehicle from the slots above it. Place the acquired vehicle card in the available vehicles slot on the left side of the board, along with the vehicle figure on it (see next section).</p>
+<hr/>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Vehicles</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>You can use vehicles to take powerful once-per-Book actions and prevent new adversaries or riots from being placed at important locations on the map.</p>
+<span class="subsection-title">Acquiring Vehicles</span>
+<p>In order to use a vehicle, you must visit Wayne Manor to acquire it. Once you’ve acquired a vehicle, it is moved to your available vehicles slot on the left side of the board.</p>
+<p>There is no limit to the number of vehicles you can have in your available vehicles slot. Vehicles you don’t use during a Book stay in your available vehicles slot and can be used at any time during the next Book.</p>
+<span class="subsection-title">Using Vehicles</span>
+<p>Each vehicle can be used once per Book. You may use available vehicles at any time on your turn, except during a fight. Resolve the vehicle’s effect as described on the card.</p>
+<blockquote>
+<p><strong>Tip:</strong> Once a vehicle has been placed, it can’t be moved for the rest of the Book. This means you can no longer move to the action space where you placed the vehicle in order to use it (see “One-Figure Rule” on pg. 13), but it also means a riot can never start at that location (see “Step 3.1: Place Riots” on pg. 9).</p>
+</blockquote>
+<hr/>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Completing a Book</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>When you successfully defeat the boss and complete a Book, you need to do some cleaning up before you can begin the next Book. This can be a good time to save your progress so you can pick up your playthrough at another time (or “rewind” if you lose).</p>
+<span class="subsection-title">End of Book Cleanup</span>
+<p>When you complete a Book, take the following steps:</p>
+<ol>
+<li>
+<p>Return the following components to the game box:
+    | Boss card(s) | Story card(s) |
+    | :--- | :--- |
+    | Boss figure | Round sequence card |
+    | Enemy tokens card | Batman card |</p>
+</li>
+<li>
+<p>Discard all Standard (S) action cards in your hand to the action card discard pile. (Do not discard any cards with a Book number icon. You may keep these in your hand to use in the next Book.)</p>
+</li>
+<li>Clear any tokens that are on in progress goals and return them to the supply. Discard any action cards that are underneath in progress goals to the action card discard pile.</li>
+<li>Gather together all action cards in the action deck, action card discard pile, event deck, and fight deck. Go through these cards and sort the Standard (S) cards from the cards with a Book number (1 / 2 / 3 / 4). Return all cards that have a Book number to the game box. Place all Standard (S) cards back on the action deck space (don’t bother shuffling them yet).</li>
+<li>Return all vehicle figures on the map to their vehicle cards, and return these cards to Wayne Manor. (Leave any vehicles you acquired but didn’t use in your available vehicles area.)</li>
+<li>Erase the number in the white box at the top of the GCPD track, as well as all adversary numbers and modifiers inside the flames on the track. Do not erase any modifiers outside the flames (see “Adversary Number Modifiers” on pg. 11).</li>
+<li>Erase the boss’s HP.</li>
+<li>Return all clue tokens to the game box.</li>
+<li>You’re now ready to start the next Book! Open the rules booklet for the next Book and follow its setup instructions.</li>
+</ol>
+<p><strong>Important!</strong> Do not clear, discard, or erase anything unless you are specifically told to do so! Many components and effects drawn on the map carry over to the next Book.</p>
+<span class="subsection-title">Saving Progress</span>
+<p>If you do not want to play all 4 Books in a single sitting, you can temporarily save your progress and start again later. You can either do this by taking photos of the game board and your available cards and dice, or writing the information you need on the board as described below.</p>
+<p>Steps for Saving Your Game (After Completing a Book):</p>
+<ol>
+<li>
+<p>Mark the following info on the game board with your marker:
+   a. Where Batman is located (write “Bat”)
+   b. Where each ally is located (write suitable initials)
+   c. Where each mutant is located (write “M”)
+   d. Where each cop is located (write “C”)
+   e. Where each press is located (write “P”)
+   f. Where each riot is located (write “R”)
+   g. Batman’s current grit, health, and sanity
+   h. The current position of the Doomsday tracker</p>
+</li>
+<li>
+<p>Store the following in a container labeled “Acquired”:
+   a. All action cards in your hand
+   b. All completed goal cards
+   c. All unused vehicles in your available vehicles area
+   d. All ally cards
+   e. All dice in your utility belt and on ally cards</p>
+</li>
+<li>
+<p>Store the following in a container labeled “Unlocked”:
+   a. All in progress goal cards
+   b. All unacquired vehicles at Wayne Manor (including vehicles you used in the last Book)</p>
+</li>
+<li>
+<p>Return all other components to general storage in the box.</p>
+</li>
+</ol>
+<p>To resume a saved game, unpack the components and lay them out as recorded above. Then follow the setup instructions for the next Book.</p>
+<p><em>Note: You do not need to track which action cards are left in your action deck, as you will construct a new deck at the start of each Book.</em></p>
+<span class="subsection-title">Pausing Mid-Book:</span>
+<p>To pause your game in the middle of a Book, follow the above steps, with the following additions:</p>
+<ol start="5">
+<li>Store clue tokens you’ve collected in your “Acquired” container.</li>
+<li>Store your fight deck in your “Unlocked” container.</li>
+<li>Store each completed goal with remaining Bat-Signal tokens in a separate container.</li>
+<li>Store each in progress goal and the tokens or cards on or under it in a separate container.</li>
+<li>Mark the following info on the game board:
+   a. Where the boss is located (write the boss’s name)
+   b. Where each vehicle on the map is located (write suitable initials)
+   c. Where each unrevealed clue token is located (write “clue”)
+   d. Which GCPD I/II token was on each space on the track (write the region/district initials on the token)
+   e. Where the turn tracker is on the GCPD track</li>
+</ol>
+<hr/>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Book 1: The Dark Knight™ Returns</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Setup</span>
+<p>All setup instructions for Book 1 are covered in “New Playthrough Setup” on pg. 5.</p>
+<span class="subsection-title">Story: The Search for Two-Face™</span>
+<p>You’re not the only one who has returned. After years of treatment and plastic surgery, Harvey Dent is released back into the world. But despite his normal appearance, his Two-Face persona quickly resurfaces. He threatens to blow up two of Gotham City’s buildings. It’s up to you to stop him before it’s too late!</p>
+<span class="subsection-title">Your Investigation</span>
+<p>Your goal is to find clues to Two-Face’s whereabouts by interrogating members of the Mutant Gang.</p>
+<p>In this Book, mutants with clue tokens represent guards with secret information. To reveal a clue, you must defeat its guard in a fight, and then use the action space where the clue is located. You may not remove guards by any means other than fighting them. (Note: You can defeat a guard if you start a fight with mutants at an adjacent location and deal more than 1 damage. Leave the clue facedown on the action space where you removed the guard until you’re able to move there and use it.)</p>
+<p>If a riot would be placed at a location with a guard, remove the guard as normal and place the clue on top of the riot. If you defeat the riot, you may reveal the clue. Like guards, riots with clues can only be removed by fighting them.</p>
+<span class="subsection-title">Discovering Two-Face</span>
+<p>Whenever you reveal a clue, if it is a Dead End, discard it to the game box. If it is a coin, place it at Wayne Manor.</p>
+<p>When you reveal a 4th coin, move Two-Face from Arkham Island to the location where you found the coin. Then discard all unrevealed clues and flip the story card to Part 2.</p>
+<span class="subsection-title">Batman™: Dead or Retired?</span>
+<p>They thought you were gone for good. They were wrong.</p>
+<span class="label-title">Movement</span>
+<p>Whenever you move through a location that has 2 or more adversaries or a riot, immediately take 1 damage of your choice. (Do not take damage if you start or end your movement at such a location.)</p>
+<span class="label-title">Fights</span>
+<p>At the start of each fight with cops, lose 1 grit.</p>
+<span class="subsection-title">Commissioner Gordon™: An Old Ally</span>
+<p>Commissioner Gordon can use his negotiation skills to disperse press and riots.</p>
+<span class="label-title">Ally Movement</span>
+<p>Commissioner Gordon may travel up to 3 paths in one movement. If you place him on top of a press token at the location he moves to, immediately remove it. Commissioner Gordon may use his movement to move to a different action space at his current location.</p>
+<span class="label-title">Ally Action: Quell Riot</span>
+<p>In order to use this action, both Gordon and Batman must be at the same location where there is a riot. You may spend 1 grit to remove the riot. Afterwards, move Gordon to any action space at GCPD Headquarters.</p>
+<span class="subsection-title">Vehicles</span>
+<span class="label-title">Batcopter™</span>
+<p>You can acquire the Batcopter by visiting Wayne Manor. Once you’ve acquired it, you may use it once per Book, at any time except during a fight.</p>
+<p>When you use the Batcopter, immediately move to Wayne Manor, then place the Batcopter on any empty action space in the location you left.</p>
+<p>Once you’ve placed the Batcopter, adversaries can’t be added or moved to the action space it occupies, and riots can’t start at that location.</p>
+<p>At the end of each Book, if the Batcopter is on the map, return its card and figure to Wayne Manor.</p>
+<span class="label-title">Remote Control Bat</span>
+<p>You can acquire the Remote Control Bat by visiting Wayne Manor. Once you’ve acquired it, you may use it once per Book, at any time except during a fight.</p>
+<p>When you use the Remote Control Bat, remove 1 mutant from each location adjacent to yours, then place the Remote Control Bat in an action space where you removed a mutant.</p>
+<p>Once you’ve placed the Remote Control Bat, adversaries can’t be added or moved to the action space it occupies, and riots can’t start at that location.</p>
+<p>At the end of each Book, if the Remote Control Bat is on the map, return its card and figure to Wayne Manor.</p>
+<span class="subsection-title">Enemies</span>
+<span class="label-title">Cops</span>
+<p>Special: At the start of each fight with cops, lose 1 grit.</p>
+<p>Counts as a Miss.
+Counts as a Miss.</p>
+<span class="label-title">Mutants</span>
+<p>Special: (none)</p>
+<p>Counts as a Miss.</p>
+<span class="label-title">Riots</span>
+<p>Special: (none)</p>
+<p>Counts as a Miss.
+Counts as a Miss.
+Counts as a Miss.</p>
+<span class="subsection-title">Two-Face™</span>
+<p>No amount of surgery could save Two-Face from insanity.
+Both Sides Match: If Two-Face rolls the same non-Miss result on both his dice, immediately lose 1 sanity (unblockable).
+See a Reflection: Each -1 Two-Face rolls deals 1 unblockable sanity damage.</p>
+  </div>
+</details>
+  <p id="no-results">No sections match your search.</p>
+</main>
+<script>
+(function () {
+  var searchEl  = document.getElementById('search');
+  var clearBtn  = document.getElementById('search-clear');
+  var noResults = document.getElementById('no-results');
+  var sections  = Array.from(document.querySelectorAll('details.section'));
+
+  // Snapshot each section body's original HTML so we can restore it
+  // before applying a new round of highlights.
+  sections.forEach(function (s) {
+    var body = s.querySelector('.section-body');
+    if (body) body.dataset.original = body.innerHTML;
+  });
+
+  var timer;
+
+  searchEl.addEventListener('input', function () {
+    var term = this.value.trim();
+    clearBtn.classList.toggle('visible', term.length > 0);
+    clearTimeout(timer);
+    timer = setTimeout(function () { applySearch(term); }, 180);
+  });
+
+  clearBtn.addEventListener('click', function () {
+    searchEl.value = '';
+    clearBtn.classList.remove('visible');
+    applySearch('');
+    searchEl.focus();
+  });
+
+  function escapeRe(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlightTextNodes(container, re) {
+    var walker = document.createTreeWalker(
+      container, NodeFilter.SHOW_TEXT, null, false
+    );
+    var nodes = [];
+    var n;
+    while ((n = walker.nextNode())) {
+      if (n.nodeValue.trim()) nodes.push(n);
+    }
+    nodes.forEach(function (textNode) {
+      re.lastIndex = 0;
+      if (!re.test(textNode.nodeValue)) return;
+      re.lastIndex = 0;
+      var span = document.createElement('span');
+      span.innerHTML = textNode.nodeValue.replace(
+        re, function (m) { return '<mark>' + m + '</mark>'; }
+      );
+      textNode.parentNode.replaceChild(span, textNode);
+    });
+  }
+
+  function applySearch(term) {
+    var re = term ? new RegExp(escapeRe(term), 'gi') : null;
+    var visibleCount = 0;
+
+    sections.forEach(function (section) {
+      var body    = section.querySelector('.section-body');
+      var summary = section.querySelector('summary');
+
+      // Restore original HTML before each search pass
+      if (body) body.innerHTML = body.dataset.original;
+
+      if (!re) {
+        section.classList.remove('search-hidden');
+        section.open = false;
+        return;
+      }
+
+      var titleText = summary ? summary.textContent : '';
+      var bodyText  = body    ? body.textContent    : '';
+
+      re.lastIndex = 0;
+      var inTitle = re.test(titleText);
+      re.lastIndex = 0;
+      var inBody  = re.test(bodyText);
+      re.lastIndex = 0;
+
+      if (inTitle || inBody) {
+        section.classList.remove('search-hidden');
+        section.open = true;
+        if (body) highlightTextNodes(body, new RegExp(escapeRe(term), 'gi'));
+        visibleCount++;
+      } else {
+        section.classList.add('search-hidden');
+      }
+    });
+
+    noResults.style.display = (re && visibleCount === 0) ? 'block' : 'none';
+  }
+})();
+</script>
+</body>
+</html>

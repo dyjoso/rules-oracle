@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Spirit Island - Jagged Earth — Rules Reference</title>
+<style>
+:root {
+  --bg:            #f2ede6;
+  --text:          #1a1a1a;
+  --header-bg:     #a3603c;
+  --section-bg:    #a3603c;
+  --subsection-bg: #78c7d2;
+  --rule:          #b0a898;
+  --accent:        #78c7d2;
+  --table-head:    #a3603c;
+  --note-bg:       #e8e0d4;
+  --body-bg:       #ffffff;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 15px;
+  line-height: 1.55;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* ── STICKY HEADER ───────────────────────────────────────── */
+.sticky-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--header-bg);
+  padding: 10px 14px 12px;
+  padding-top: max(10px, env(safe-area-inset-top));
+  padding-left: max(14px, env(safe-area-inset-left));
+  padding-right: max(14px, env(safe-area-inset-right));
+  box-shadow: 0 2px 12px rgba(0,0,0,0.4);
+}
+
+.masthead-row {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 9px;
+}
+
+.masthead-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  line-height: 1.1;
+  flex-shrink: 0;
+}
+
+.masthead-subtitle {
+  font-size: 11px;
+  color: rgba(255,255,255,0.45);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.back-link {
+  margin-left: auto;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+  text-decoration: none;
+  flex-shrink: 0;
+  padding-left: 14px;
+  white-space: nowrap;
+}
+.back-link:hover {
+  color: rgba(255,255,255,0.85);
+}
+
+/* ── TOGGLE + BACK ROW ───────────────────────────────────── */
+.toggle-back-row {
+  display: flex;
+  align-items: center;
+  margin-top: 7px;
+}
+
+.search-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-icon {
+  position: absolute;
+  left: 10px;
+  width: 15px;
+  height: 15px;
+  color: rgba(255,255,255,0.4);
+  pointer-events: none;
+  flex-shrink: 0;
+}
+
+#search {
+  width: 100%;
+  padding: 8px 36px 8px 32px;
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 8px;
+  font-size: 15px;
+  background: rgba(255,255,255,0.12);
+  color: #fff;
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+#search::placeholder { color: rgba(255,255,255,0.38); }
+
+#search:focus {
+  background: rgba(255,255,255,0.2);
+  border-color: rgba(255,255,255,0.3);
+}
+
+.search-clear {
+  position: absolute;
+  right: 6px;
+  background: rgba(255,255,255,0.18);
+  border: none;
+  border-radius: 50%;
+  color: rgba(255,255,255,0.8);
+  font-size: 14px;
+  line-height: 1;
+  width: 22px;
+  height: 22px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  flex-shrink: 0;
+}
+
+.search-clear.visible { display: flex; }
+
+mark { background: #ffe066; color: #1a1a1a; border-radius: 2px; padding: 0 1px; }
+mark.active { background: #ff9500; color: #fff; }
+
+.match-nav {
+  display: none;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 0 0;
+}
+.match-nav.visible { display: flex; }
+.match-count {
+  color: rgba(255,255,255,0.65);
+  font-size: 13px;
+  flex: 1;
+  text-align: center;
+}
+.match-btn {
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 6px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 15px;
+  line-height: 1;
+  padding: 6px 14px;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+.match-btn:active { background: rgba(255,255,255,0.25); }
+
+/* ── MAIN ────────────────────────────────────────────────── */
+main {
+  padding: 10px 12px 48px;
+  padding-left: max(12px, env(safe-area-inset-left));
+  padding-right: max(12px, env(safe-area-inset-right));
+  padding-bottom: max(48px, env(safe-area-inset-bottom));
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+/* ── NO RESULTS ──────────────────────────────────────────── */
+#no-results {
+  display: none;
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--text);
+  opacity: 0.5;
+  font-size: 14px;
+}
+
+/* ── COLLAPSIBLE SECTIONS ────────────────────────────────── */
+details.section {
+  margin-bottom: 6px;
+  border-radius: 6px;
+  overflow: hidden;
+  scroll-margin-top: 130px;
+}
+
+details.section > summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  min-height: 44px;
+  background: var(--section-bg);
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  list-style: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+details.section > summary::-webkit-details-marker { display: none; }
+
+.chevron {
+  width: 12px;
+  height: 12px;
+  opacity: 0.65;
+  flex-shrink: 0;
+  margin-left: 8px;
+  transition: transform 0.18s ease;
+}
+
+details.section[open] > summary .chevron {
+  transform: rotate(90deg);
+}
+
+.section-body {
+  background: var(--body-bg);
+  padding: 10px 12px 12px;
+  border: 1px solid var(--rule);
+  border-top: none;
+  border-radius: 0 0 6px 6px;
+}
+
+/* ── HEADINGS WITHIN SECTIONS ────────────────────────────── */
+.subsection-title {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: #fff;
+  background: var(--subsection-bg);
+  padding: 4px 12px;
+  margin: 10px -12px 7px;
+}
+
+.label-title {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--section-bg);
+  border-bottom: 1.5px solid var(--rule);
+  padding-bottom: 3px;
+  margin: 10px 0 5px;
+}
+
+.inline-title {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 8px 0 3px;
+}
+
+/* ── BODY TEXT ───────────────────────────────────────────── */
+p { margin-bottom: 7px; }
+b, strong { font-weight: 600; }
+em, i { font-style: italic; }
+
+/* ── LISTS ───────────────────────────────────────────────── */
+ul, ol { padding-left: 20px; margin-bottom: 6px; }
+ul { list-style-type: disc; }
+ol { list-style-type: decimal; }
+ul ul { list-style-type: circle; }
+li { margin-bottom: 3px; }
+li > ul, li > ol { margin-top: 2px; margin-bottom: 0; }
+
+/* ── TABLES ──────────────────────────────────────────────── */
+.table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin-bottom: 6px;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  min-width: 260px;
+}
+thead tr { background: var(--table-head); color: white; }
+thead th {
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  padding: 5px 8px;
+  text-align: left;
+  white-space: nowrap;
+}
+tbody tr:nth-child(even) { background: var(--note-bg); }
+tbody td { padding: 5px 8px; vertical-align: top; }
+
+/* ── BLOCKQUOTE ──────────────────────────────────────────── */
+blockquote {
+  background: var(--note-bg);
+  border-left: 3px solid var(--accent);
+  padding: 6px 10px;
+  margin: 5px 0 7px;
+  font-size: 14px;
+  border-radius: 0 4px 4px 0;
+}
+blockquote p { margin-bottom: 2px; }
+
+/* ── INLINE CODE ─────────────────────────────────────────── */
+code {
+  background: var(--note-bg);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  padding: 1px 4px;
+  font-size: 13px;
+  font-family: inherit;
+  font-weight: 600;
+}
+
+/* ── HR ──────────────────────────────────────────────────── */
+hr { border: none; border-top: 1px solid var(--rule); margin: 8px 0; }
+
+/* ── SEARCH HIGHLIGHT ────────────────────────────────────── */
+mark {
+  background: #ffe566;
+  color: inherit;
+  border-radius: 2px;
+  padding: 0 1px;
+}
+
+/* ── HIDDEN SECTIONS ─────────────────────────────────────── */
+details.section.search-hidden { display: none; }
+
+/* ── VERSION TOGGLE ──────────────────────────────────────── */
+.toggle-bar {
+  display: inline-flex;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.2);
+}
+.toggle-current,
+.toggle-other {
+  padding: 6px 14px;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  line-height: 1;
+  text-decoration: none;
+  white-space: nowrap;
+  -webkit-tap-highlight-color: transparent;
+}
+.toggle-current {
+  background: rgba(255,255,255,0.18);
+  color: #ffffff;
+  font-weight: 600;
+  cursor: default;
+}
+.toggle-other {
+  color: rgba(255,255,255,0.5);
+}
+.toggle-other:hover {
+  background: rgba(255,255,255,0.08);
+  color: rgba(255,255,255,0.8);
+}
+
+/* ── PRINT ───────────────────────────────────────────────── */
+@media print {
+  .sticky-header { position: static; }
+  details.section[open], details.section { display: block; }
+  .section-body { display: block !important; }
+  .search-wrap, .search-clear, .toggle-bar, .match-nav { display: none; }
+}
+</style>
+</head>
+<body>
+<header class="sticky-header">
+  <div class="masthead-row">
+    <span class="masthead-title">Spirit Island - Jagged Earth</span>
+    <span class="masthead-subtitle">Rules Reference</span>
+  </div>
+  <div class="toggle-back-row"><div class="toggle-bar"><span class="toggle-current">Quick Reference</span><a class="toggle-other" href="spirit-island-jagged-earth-rules-refined.html">Full Rules</a></div><a class="back-link" href="../index.html">&#8592; All Games</a></div>
+  <div class="search-wrap">
+    <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+         stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+         aria-hidden="true">
+      <circle cx="11" cy="11" r="8"/>
+      <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+    </svg>
+    <input type="text" id="search" placeholder="Search rules…"
+           autocomplete="off" spellcheck="false" autocorrect="off">
+    <button class="search-clear" id="search-clear" aria-label="Clear search">&#x2715;</button>
+  </div>
+  <div class="match-nav" id="match-nav">
+    <button class="match-btn" id="match-prev" aria-label="Previous match">↑</button>
+    <span class="match-count" id="match-count"></span>
+    <button class="match-btn" id="match-next" aria-label="Next match">↓</button>
+  </div>
+</header>
+<main>
+<details class="section" open>
+  <summary><span>Quick Reference: Turn Structure & Timing</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Phase Order &amp; Step Sequencing</span>
+<p>The game proceeds through a fixed sequence of phases and steps. Players perform their Spirit Phases simultaneously. The Invader Phase resolves in a strict order.</p>
+<p><strong>Spirit Phase</strong>
+Growth
+Gain Energy
+Choose and Pay for Powers</p>
+<p><strong>Invader Phase</strong>
+Blighted Island Effect
+Event Resolution
+Fear Effects
+Ravage
+Build
+Explore
+Advance Invader Cards</p>
+<p><strong>Time Passes</strong>
+Played Power Cards move to personal discards.
+Damage and Elements are cleared.
+If there is ever no Fear on the Spirit Island space, draw a new Blight Card. It comes into play already flipped.</p>
+<span class="subsection-title">Ravage Resolution Order</span>
+<p>Determine which pieces are participating in the Ravage Action. Resolve damage in the following sequence:</p>
+<ol>
+<li>Add together the Damage from each individual Invader. Apply modifiers to individual Invader Damage here. Remove one Disease token from each Invader that has one.</li>
+<li>If Invaders are dealing one or more Damage, increase it by any per-land modifiers.</li>
+<li>Lower Damage with Defend.</li>
+<li>Simultaneously deal this Damage to the land and deal this Damage to Dahan. If one or more Damage is done to Dahan, they take plus one Damage per City.</li>
+<li>Surviving Dahan deal Damage to Invaders. Modifiers happen in the same order as above. If one or more Damage is done to Invaders, they take plus one Damage per City.</li>
+</ol>
+<p>If the Damage of a particular Invader with Strife is boosted, Strife applies afterwards and cancels it. If the total Damage is boosted by an Event, it applies after Strife if the Invaders deal at least one Damage before Defend. If every Invader in a land is dealing zero Damage, they do not take additional Damage from Events that increase aggression.</p>
+<span class="subsection-title">Fast &amp; Slow Power Phases</span>
+<p>Card and innate powers resolve relative to the Invader Phase. Fast Powers resolve before the Invader Phase begins. Slow Powers resolve after the Invader Phase concludes. Effects that modify Invader Actions, such as skipping or altering steps, apply during their respective phases. Powers that cause Invader Actions trigger separate Invader Actions regardless of phase timing.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Setup</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Standard Setup</span>
+<p>Retrieve the Beasts, Wilds, Disease, Strife, and Badlands tokens and create a supply near the island. Shuffle the Event Deck and place it beside the Invader Board. Playing with a Blight Card is now required rather than optional. Place the entire shuffled stack of Blight Cards atop the Blight space and use the top one. During Setup, place one Beasts token and one Disease token on each Island Board. The Beasts token goes in the lowest-numbered land with no printed Setup icons. The Disease token goes in land number two with the City. The number of Blight is not limited by the number of components. If you run out, use Energy Markers or convenient pieces from another game to indicate additional Blight.</p>
+<span class="subsection-title">Thematic Board Adjustments</span>
+<p>Sometimes a Spirit Setup instructions will not work for all six Thematic Boards. You can either not start that Spirit on that board, or follow the instructions as best you can by choosing freely when no lands match the criteria given. The Thematic Boards from the base game did not have Badlands Setup icons. If playing on the Thematic Boards with Badlands tokens, add one Badlands token to the Northwest board land seven, two Badlands tokens to the West board land nine, and one Badlands token to the East board land six.</p>
+<span class="subsection-title">Optional Layout Setup</span>
+<p>You may arrange boards into archipelagos or add extra boards. See Play Options &amp; Variants for detailed setup instructions and difficulty adjustments. When playing with an extra board, set up Dahan, Blight, and Spirit tokens normally. Do not place any Invaders or Blight indicated by Adversary Setup instructions on the extra board. For other Invaders, place none for one player, initial Explore only for two players, Coastal City plus initial Explore for three players, Inland Town plus initial Explore for four players, and as normal for five players. Base the size of the Blight pool on the number of Island Boards rather than the number of players. Add plus one Fear Marker per player to the Fear pool. Each Board effects happen once per board. Each player effects happen once per player.</p>
+<span class="subsection-title">Board Pairing Advisory</span>
+<p>Board E shows no B and board F shows no D. You may wish to avoid using that pairing of boards in games with four or fewer Island Boards, as it will concentrate some terrains as good and others as bad, which can skew Difficulty depending on Invader Cards drawn. If you consider island variety more important than the potential for swinginess, ignore this advisory and use whatever boards you like.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Core Mechanics & Timing</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Actions &amp; Timing Definitions</span>
+<span class="label-title">Action Grouping &amp; Types</span>
+<p>An Action is a group of game instructions performed as a unit. Common Actions include one use of a Power, a Ravage Build or Explore in a single land, everything one Fear Card does, everything a Main Event does, everything a Token Event does, everything a Dahan Event does, and everything a flipped Blight Card does. Instructions that say Each board, Each land, Each player, or Each Spirit cause one Action per qualifying board, land, player, or Spirit. This replaces the imprecise effect terminology of the base game. The type of Action is only important if a game effect explicitly says so. Action types are based off of the game component the instructions are printed on unless something says otherwise. When a Fear or Event Card says Each player or Each Spirit, it is still a Fear Action or Event Action, not a Spirit Action. Adversary rules may modify how Invader Actions work, but otherwise when they do something it is an Adversary Action, not an Invader Action. Anything that causes a Ravage, Build, or Explore causes a separate Invader Action to happen. Not everything is an Action. Some game effects are just ongoing rules.</p>
+<span class="label-title">Invader Actions &amp; Card Resolution</span>
+<p>Invader Actions have several different parts. The Ravage Step is the part of the Invader Phase where you resolve all Ravage Cards. A Ravage Card is one Invader Card under Ravage. Resolving a Ravage Card causes one Ravage Action in each land that matches the card and has at least one Invader. A Ravage Action is a Ravage in a single land, including Dahan fighting back. Similarly, a Build Card causes a Build Action in every land that matches the card and has at least one Invader, and an Explore Card causes an Explore Action in every land that matches the card and is adjacent to a source of Invaders. If something other than an Invader Card causes an Invader Action, you do not check the if Invaders are present or if a source of Explorers is adjacent restrictions. If there are no cards on a space, that step of the Invader Phase will not do anything. If there is more than one card on a space, resolve each card separately. If order is important, the card which got there first goes first. If there is more than one card for Explore, reveal and fully resolve one Explore Card before revealing the next. When advancing Invader Cards, all the cards on a space move together. Several Power Cards say you may skip one Invader Action in the target land. You do not need to choose what Action you are skipping ahead of time. You can choose at the moment it would happen.</p>
+<span class="label-title">Repeats &amp; Triggered Actions</span>
+<p>Each Repeat of a Power is a new basic Action. It may be used any time the Power it is Repeating could be used. Powers instructing Repeat this Power mean After Resolving this Power and all Actions triggered by it, Repeat it. Some things set up triggered Actions, Actions that happen when certain conditions are met. Triggered Actions usually use the phrasing After X, do Y, which means After each Action that does X at least once, do Y exactly once. The triggered Action is associated with whatever set it up. Triggers can fire more than once in a turn unless they explicitly say otherwise. To avoid infinite loops, triggered Actions cannot trigger themselves directly or indirectly. Non-triggered Actions may be referred to as basic Actions. Some things modify Actions, changing how they work. Modifying usually uses the phrase When X then Y or When X then instead Y. Modifications happen right away. Things like Skip all Invader Actions are also a form of modification. A few things can initiate basic Actions in the middle of other Actions. In cases like this, pause the current Action, Resolve the entire new Action tree, then return to the original Action. This most commonly happens when the Blight Card flips and has an immediate effect, or when a Choice Event includes Each Board or Each Spirit instructions.</p>
+<span class="subsection-title">Token Mechanics</span>
+<span class="label-title">Beasts, Wilds, &amp; Disease</span>
+<p>Beasts tokens represent wild animals that are numerous, dangerous, or aggressive enough to be a problem for the Invaders. They do not have an intrinsic effect. Many Powers which add Beasts have a second effect which only works on lands with Beasts, and many Event Cards have Token Events for Beasts. Wilds tokens represent lands that are perilous to explore. When Invaders would Explore into a land with Wilds, instead Remove one Wilds token from that land. Disease tokens represent maladies and poor health. When Invaders would Build in a land with Disease, instead Remove one Disease token from that land. There is no limit to how many tokens can be in a land.</p>
+<span class="label-title">Strife</span>
+<p>Strife tokens represent internal turmoil and discord within the Invader ranks. Unlike the other four token types, Strife is added to a specific Invader rather than the land as a whole. When you add a Strife in a particular land, you choose which Invader it is added to and place the Strife token beneath that Invader piece. If there are no Invaders, you cannot add Strife. Whenever Invaders Damage the Dahan and or the land, each attacking Invader with any number of Strife deals exactly zero Damage and Removes one Strife. Using the Strife is required. You cannot save it for later, even if the Invader is already doing zero Damage due to Defend. If the Invader is Damaging multiple things simultaneously, the Strife affects all of them. If Invaders Damage other Invaders, Strife has no effect and is not Removed. Even if Damage is reduced to zero, the Dahan still fight back. Dahan remain complacent if something cancels or skips the Ravage Action entirely. If an Invader with Strife moves, the Strife moves with it. If it is Removed or Destroyed, return the Strife token to the supply. If it is Replaced with another Invader, the Strife stays. If it is Replaced with something else, the Strife goes away.</p>
+<span class="label-title">Badlands</span>
+<p>Badlands are lands very difficult for humans to live in. Each Badlands token boosts Damage to Invaders by plus one, and boosts Damage to Dahan by plus one. These bonuses are mandatory, and apply exactly once per Action. If a single Power deals damage to Invaders multiple times, you choose when to apply each Badlands token. Restrictions on what types of pieces can be Damaged affect the bonus Damage too. If Damage is reduced to zero, Badlands tokens are not relevant. If a Power Damage is capped at some maximum, bonus Damage from Badlands does not count against that maximum. Actions Damaging each Invader or each Dahan in a land do not get the bonus Damage for each piece, just one total per Badlands token. You can decide how to distribute it. Actions dealing Damage in multiple lands add bonus Damage in each land according to how many Badlands tokens are there. Badlands tokens only boost Damage. They do not change Destroy effects. Badlands tokens are active as soon as they are added to the board. Each Badlands token can only boost damage once per Action, even if the token is moved to another land mid-Action. Badlands tokens stay on the board unless explicitly Removed.</p>
+<span class="subsection-title">Isolate &amp; Movement Restrictions</span>
+<span class="label-title">Isolate Effects &amp; Adjacency</span>
+<p>Some new Powers tell you to Isolate a land, representing the Invaders being mired, trapped, or otherwise incapable of traveling. Invaders do not Explore Isolated lands and Isolated lands are not a source of Explorers. As far as Invader pieces are concerned, an Isolated land is not adjacent to anything unless you want it to be. Isolate does not affect Blight cascades. Blight is not an Invader piece, so is not impacted. Isolate does not change whether a land is Coastal. Coastal is a land type defined by the land adjacency to the Ocean. Invader-specific adjacency changes do not affect that. Like all effects not marked by a change to the board, Isolate only lasts for the current turn. You can let Invaders in an Isolated land use some or all adjacencies for a given Action, if you like. Isolate is not a very strong effect, since you do not know where the Invaders are going to Explore. Occasionally you can obtain guaranteed results if a whole bunch of lands are only Explorable due to a single land with a specific terrain, or if an Adversary rule predictably moves Invaders or depends on adjacency. More often, it will be speculative. Powers with Isolate often do other things as well.</p>
+<span class="label-title">Ocean Isolation</span>
+<p>If Oceans are in play, Isolating an Ocean does not affect whether lands are Coastal, but does prevent it from being a source of Explorers.</p>
+<span class="subsection-title">Ravage Participation &amp; Damage Modifiers</span>
+<span class="label-title">Participation Checks &amp; Exclusions</span>
+<p>Check which Invaders and Dahan are participating in Ravage when determining which lands Invaders Ravage in, and when resolving each Ravage Action. You do not have to choose specific pieces ahead of time, and can even make different choices each time you check. An Invader or Dahan that does not participate in Ravage neither deals nor takes Damage in Ravage Actions, does not cause a land to Ravage, and is ignored for modifiers to Ravage Actions. Pieces that do not participate in Ravage still exist for all other purposes, including checking for Victory or Defeat, any Actions triggered by a Ravage Action, and any Immediately Blight Actions. In lands with Temporary Truce, Invaders and Dahan do not participate in Ravages. During the Ravage Step, for Temporary Caution, On Each Board, skip one Ravage Action in a land where Dahan outnumber Invaders.</p>
+<span class="label-title">Health, Damage, &amp; Modifiers</span>
+<p>When Spirit Powers Damage the Dahan, you may choose how that Damage is allocated, just like when you Damage Invaders. When Events or Invaders Damage the Dahan, you must Destroy Dahan as efficiently as possible. You cannot choose to hurt an undamaged Dahan to spare a wounded one. Some effects increase or decrease the Health of Invaders or Dahan. These effects never reduce a piece Health below one. If an Invader or Dahan has already taken Damage equal to or greater than their new Health, it is immediately Destroyed. If there are Damage modifiers to both individual Invaders and to Invaders as a whole, apply the individual modifiers first, then the land-wide modifiers. Some Fear Cards say For the rest of this turn, Invaders have minus one Health per Blight. This is a general rule that applies across the game for that turn. Whenever an Invader gains or loses Blight, they acquire or lose the minus one Health penalty along with it. Similarly, if an Adversary is granting a Health bonus in a land without Blight, if it is Pushed into a land with Blight it will lose its Health bonus. A few effects can prevent Dahan or Invaders from being Destroyed. If a Dahan or Invader takes enough Damage to Destroy it but that Destruction is prevented, clear all Damage it has at that moment. Once a Dahan or Invader is saved from Destruction, that action cannot apply any further Damage or Destroy instructions to that piece. When using a Power, the origin land is the land with your Presence from which you are targeting the Power or measuring Range. When you use a Power at Range zero, the origin and target are the same land. A few effects say something like, Beasts also count as Badlands. So long as this effect is active, each Beasts token in the affected area is also treated as a Badlands. One per Beasts or Badlands on a land with one Beasts would still only do one Fear. It means one per piece that is Beasts or Badlands, and a piece that is both of those things is still only one piece. If the effect is optional, you may decide both per Action and per piece. With Fear and Event Cards, you get to see the card text before making the decisions.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>New Components & Items</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Spirits &amp; Growth Mechanics</span>
+<span class="label-title">Growth Options &amp; Costs</span>
+<p>Spirits with Growth Pick number may choose the indicated number of Growth options, in any order. They cannot choose the same option twice in a single turn, and one Growth option must be completed before starting the next. Some Spirits have a Growth option that costs Energy to pick. If the Spirit does not have the required amount of Energy, they cannot choose that option. If the Spirit has multiple Growth choices, they can use Energy gained from the first choice to help pay for a later one. Growth option refers to the entire group of icons, not just the leftmost. Some Aspects and new Spirits can change the board during the Spirit Phase in ways other than adding or moving Presence. To avoid confusion, say Growth or Presence Action while making changes of this nature. The Actions within a Growth option may be Resolved in the order of your choice.</p>
+<span class="label-title">Presence Track Bonuses</span>
+<p>Some Spirits have bonuses on their Presence Tracks other than Elements and Reclaim One. Elements and static bonuses are constantly in effect, and cannot be turned off. Spaces which say plus two Energy or plus one Card Play modify your normal Energy income or Card Plays available. Everything else is an optional Action you may take once per turn during the Spirit Phase.</p>
+<span class="label-title">Power Costs &amp; Thresholds</span>
+<p>The Energy cost of a Power can never go below zero unless it is explicitly specified that a rebate is possible. Some Powers have a cost to use listed at the top of their effects. To use the Power effects, you must pay that cost. If you Repeat such a Power, you either pay the cost again, or the Repeat does nothing. Some Powers have thresholds with an Energy cost listed alongside the Elements. You only need to pay the cost if you want to use that particular threshold. You may decline to pay and skip that specific threshold. If you Repeat such a Power, you either pay the cost again, or skip that threshold effect during the Repeat. To use the second level of Powered by the Furnace of the Earth, the player must pay two Energy. The Unique Power The Past Returns Again requires both extra Energy and extra Time to use the effect. Each time the Power is used, the cost must be paid. You can always play the card for Elements and not pay the extra cost or use the effect.</p>
+<span class="subsection-title">Aspects &amp; Element Markers</span>
+<p>Aspect Cards provide new ways to play familiar Spirits, portraying some facet of that Spirit nature more strongly or in a different fashion. The back of an Aspect Card shows which Spirit it is for and the front shows how to use it, providing a new Special Rule or Innate Power. To keep the Spirit balanced, an Aspect may replace an existing Special Rule or Innate Power or require other changes during Setup. These changes are indicated at the top of the card. The use of Aspects is entirely optional. Decide whether to use one and which to use when choosing Spirits. Use at most one Aspect per Spirit. Aspects may change a Spirit play style or complexity. If playing a Spirit for the first time, either do not use an Aspect, or use one that decreases complexity. Element markers are primarily a player convenience, for tracking Elements from non-usual sources. Two Spirits and one Scenario do make use of them in other ways. Each one provides its own rules for how to use the Element Markers. They are not limited by available components.</p>
+<span class="subsection-title">Blight Cards &amp; Reminder Cards</span>
+<p>Two of the new Blight Cards say Still Healthy on the opposite side and have a small Blight pool. When this Blight pool runs out, you do not lose. Instead, following the instructions there, you draw a new Blight Card and go straight to its reverse side. Blight Cards are meant to provide some uncertainty. Beyond that, the exact set of cards to pick from is not tremendously important. If there are a couple of Blight Cards your group finds too extreme, too sedate, or just un-fun, feel free to simply not include them. A handful of Adversaries, Events, Major Powers, and Play Options have enduring effects which last for the rest of the game. Small Reminder Cards are included for these, to put by the board. Red-background cards are for Play Options or Adversaries chosen during Setup. Yellow-background cards are for global effects that arise during the game. If your playgroup greatly dislikes ongoing effects, you can omit the referenced cards from the Event and Major Power Decks with minimal balance impact. Reminder Cards which go in the deck are not considered Invader Cards. They are a convenience for players to track things happening at a particular point in time. Effects which alter the Invader Deck ignore Reminder Cards and do not move them around. A Reminder Card depth in the Invader Deck will be changed when Invader Cards are added to or Removed from the top of the deck, but otherwise remains constant.</p>
+<span class="subsection-title">Events &amp; Choice Events</span>
+<span class="label-title">Event Resolution &amp; Timing</span>
+<p>In the core game, the Invaders are perfectly predictable, save for what lands they will next be interested in. To represent unanticipated actions, each Invader Phase, after any Blighted Island effect and before Resolving any Earned Fear Cards, draw and resolve one Event Card. On the first turn of the game, draw an Event Card, but do not resolve it. Just place it in the discard pile. Most cards show two possible primary Events, both detrimental. Which you perform will depend on either the Health of the Island, the Terror Level, or the Stage of Invasion. The current stage is shown by the top card of the Invader Deck. If playing against Brandenburg-Prussia Level two or higher, treat the early Stage three Card as if it were Stage two. Most Event Cards also have two potentially helpful Events: a Token Event and a Dahan Event. Just like with other effects, when Resolving Events, unless otherwise specified, perform as much of the card instructions as you can, moving from top to bottom and skipping anything inapplicable or impossible. Effects which do not change pieces on the board last only until the end of the current turn. Pieces only affect their own land unless explicitly specified. Players make any necessary decisions. When an Event says, On Each Board, you may select differently on each board. You are permitted to read the entire Event Card before making any decisions. Like other effects, when Events deal Damage, unless otherwise specified, the Damage is done only to Invaders. Some Events modify Invader Damage, or do Damage to the Dahan. When an Event says, On each board, Gather or On each board, Push, on each board refers to the land Gathered into or Pushed from.</p>
+<span class="label-title">Choice Events &amp; Aided Costs</span>
+<p>Some cards contain Choice Events. These describe a situation and give the Spirits multiple courses of action to take with differing consequences. Usually, the choice is a joint decision, and players must reach consensus over which path to take. If no consensus can be reached, the first listed option is always the default. Often, a choice has a cost: usually some amount of Energy per player in the game. The cost is paid jointly however the Spirits like. It does not need to be evenly divided. It could be paid entirely by one player. If a cost says it is Aided by a particular Element it means that Spirits count plus one Energy towards the cost for each of that Element they have in play. They may discard one or more Power Cards with that Element to count plus two Energy towards the cost per discarded card. They may Forget one or more Power Cards with that Element to count plus four Energy towards the cost per Forgotten card. A Power Card may only be used for one of these bonuses. If you discard a Power Card, you cannot also Forget it. Also, a Power Card Forgotten from play no longer provides any Elements. The Aided by Energy is only for the purposes of paying the cost. You cannot get real Energy out of it.</p>
+<span class="subsection-title">Adversaries</span>
+<p>The Tsardom of Russia is the newest colonial power in Europe, having recently emerged as a fledgling naval power. Given their control of a massive population as well as the vast lands of Siberia, Russia has no need for additional population or land. Instead, the early Russian colonies have focused on the rapid exploitation of natural resources that require minimal infrastructure to extract, notably furs and ivory. This Adversary is notably easier for Spirits that can prevent Explorers from entering the game, or for Spirits with good Explorer control and each Invader Damage. This Adversary is notably harder for Spirits that have a hard time controlling Explorers. The Habsburg Monarchy colonies are newer than those of any European power save Russia but have grown quickly due to their focus on nomadic herding rather than farming and infrastructure. Habsburg control of Belgium allows easy access to Atlantic trading routes but puts the Habsburg fleets in direct competition with those of England, Scotland, and France. This Adversary is notably easier for Spirits that tend to let lots of Blight get added, or for Spirits that can Isolate lands. This Adversary is notably harder for Spirits that are hamstrung by Blight, or with Scenarios that involve keeping the Invaders from reaching a given place. If you are accustomed to playing against mid-to-high level Adversaries, the new Adversaries may feel harder than you would expect from their Difficulty. This is because you are very familiar with the tactics and strategies for handling the existing Adversaries, but have not yet learned how to best cope with the new ones. Starting at a high Adversary level can also mean internalizing many new rules at once. If this proves troublesome, combine a lower level of the new Adversary with one you are familiar with.</p>
+<span class="subsection-title">Component Replacement Advisory</span>
+<p>The Major Power Card, Sea Monsters, from Branch &amp; Claw has been updated to resolve balance issues with Many Minds Move as One. If you own Branch &amp; Claw, replace its copy of the Power Card with the one included here. If you do not own Branch &amp; Claw, this Power should be omitted.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Play Options & Variants</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Board Layout Variants</span>
+<p>You may arrange boards into archipelagos or add extra boards. When a lower Coastal land is not adjacent to another board, Blight cascades in that corner can get bad very quickly due to limited adjacencies. Some layouts may make it easier to set up a safe zone where the Invaders do not Explore. Compact or connected layouts are useful for both the Spirits and for the Invaders. Strung-out layouts behave the opposite way. They also make it a bit easier to focus on one part of the island. Instead of laying the Island Boards out as a single island, you can create two or more smaller islets. Each islet may be as small as a single board. Orient each islet so at least one of its Oceans roughly faces an Ocean on another islet, and so all islets are Ocean-connected together. Coastal lands on boards with facing Oceans are considered to be Range two away from each other. The Oceans proper are not lands or in play unless something else makes them so. Even then, facing Oceans are still Range two from each other. Spirit-targeting Powers work normally when targeting a Spirit that shares an islet with you. Targeting a Spirit with whom you do not share an islet costs one Energy per Ocean jump you have to make, paid when the Power is used. This may make the game a bit harder, depending on configuration. However, it will make Scenarios that require gathering many Dahan extremely difficult, and Adversaries that focus their forces become more dangerous. Archipelagos are very good at dividing up what board elements a given player most needs to pay attention to, and can make larger games much easier for players to scan and think about. If you want to play with a larger island, you can give yourself an extra board to defend, with no Spirit starting on it. One additional board adds approximately plus two to four Difficulty. The higher Difficulty the game already is, the more Difficulty another board will add. As a very rough rule of thumb, consider it plus two at Difficulty zero, plus three at Difficulty three, and plus four at Difficulty six. Spirits with very spatially-local areas of strength will have a harder time handling the additional territory. At low player counts, Spirits good at controlling the Explore-Build cycle may have an easier time. There is also some variance from other factors, including Invader Card order on smaller islands.</p>
+<span class="subsection-title">Adversary Combination Rules</span>
+<p>You can combine two Adversaries for a hybrid challenge, incorporating aspects of both. Decide on two Adversaries, and a Level for each. Use all game changes from both of them, with the following exceptions. For each Terror Level, use three Fear Cards plus the extra cards added or subtracted by each Adversary. Choose one Adversary to be leading. Its Escalation Effect applies normally. The other Adversary is supporting and applies its Escalation Effect on all Stage three Invader Cards. If the Escalation is specific to a terrain, choose one of the terrains randomly. If both Adversaries modify the Invader Deck, first follow all of the instructions on the supporting Adversary, in order, and then follow all of the instructions on the leading Adversary, in order. Follow instructions as much as you can, but if you encounter an impossible instruction, skip it. If it is ever ambiguous which card you are supposed to Remove, Remove the top-most applicable card in the deck. If it is ever ambiguous which card you are supposed to move, move the bottom-most applicable card in the deck. Treat Brandenburg-Prussia Level two effect as Move the bottom-most Stage three card just below the bottom-most Stage one card. The combined Difficulty of two Adversaries is roughly equal to the higher of the two Difficulties plus fifty to seventy-five percent of the lower. If the other Adversary Setup instructions would add a City to a Coastal land other than land number two, instead add the City to an adjacent Inland land. If playing versus France Level two or higher, increase the pool of available Wilds by one per player for each level of the other Adversary being played.</p>
+<span class="subsection-title">Rule Simplification Options</span>
+<p>Events serve several purposes, but some players strongly prefer the simplicity and near-perfect predictability of the base game. To play without Events, but keep Beasts tokens relevant, leave the Event Deck in the box. Add tokens to each board per the usual rules. Add one extra Fear Card to Terror Level two of the Fear Deck. Add the two Command Beasts Reminder Cards to the Invader Deck: one before the first Stage two Card, the other before the first Stage three Card. Do not use a Blight Card where the Blighted Island side has two Blight per player or only immediate effects. Still-Healthy Island Cards are fine, though staying Healthy has less game impact. When reaching Invader Stage two and Invader Stage three, the Spirits earn the ability to command all Beasts on the island once. Take the Reminder Card from the Invader Deck once it appears on top. Commanding Beasts requires consensus from all Spirits during the phase. For each Beasts, choose one of the following: one Damage, Push the Beasts, or if Invaders are present, one Fear. Then flip the Reminder Card over to show that you have used it. You can use both Commands in the same Fast Power Phase if you have both available. Each land where one or more Beasts are Commanded is considered a separate Event Action. Some players may prefer not to learn the rules for all five token types at once, or may want to play without them in a game with new players. Decide at the start of the game which tokens to use. If a Spirit in the game is noted as making use of particular types of tokens, do not omit those tokens. After Setup, whenever you would add a token of a type you are not playing with, instead gain one Energy and generate one Fear. If it is not clear who would gain the Energy, players decide. If you get a Fear Effect that hinges entirely on a token type you are not using, you may replace it with a random Fear Card from the box. If the effect is merely lesser without that token, use it as written. This is intended as a reasonable one-off option to ease learning, not a well-balanced system for long-term play. Many token-adding Power Cards will become worse, and many Token Events will do nothing. A Spirit Power Cards do not simply define what a Spirit can do, they also define what a Spirit is. Most Spirits undergo significant transformation over the course of a game, and it is possible that the Dahan might call them by different names in the aftermath of the conflict. You might enjoy imagining their new name, looking at how their Power Cards have changed and recalling what their Spirit did during the game.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Clarifications & FAQs</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">General Mechanics</span>
+<p>The bad effects of Blight happen each time Blight is added to a land, regardless of the quantity of Blight. If you add more than one Blight to a land at once, it only Destroys one Presence from each Spirit, and only cascades once if there was already Blight in the land. For Powers, you choose a target land, then Resolve the Power text effects, ignoring anything irrelevant or impossible. For other game effects, like Event and Fear Actions, there is usually no notion of target land. They only work that way if they say Choose a land. Otherwise, you are obliged to actually follow the instructions, which means you cannot choose a land that makes the instructions irrelevant or impossible. If an Event says On each board, Push two Dahan from a land with Blight to a land without Blight, you cannot choose a land with Blight but no Dahan. You must Push two Dahan as specified, if possible. If you cannot, but it is possible to do so partially, do that instead. However, ongoing effects can still replace or modify these Actions. If an Event causes a Build in a land affected by A Year of Perfect Stillness, the Build is skipped. If you voluntarily Destroy Presence to prevent Blight being added to a board, that Presence could be saved by other effects. If an Event Pushes Invaders, you can use Isolate to keep the Pushed Invaders from being able to go anywhere. Invaders or Dahan left in illegal situations are moved to the closest legal land, if possible. In all other cases, pieces left in illegal situations remain physically where they are, but are considered out of the game until they are no longer in an illegal situation. With the exception of Brandenburg-Prussia early Stage three Card, the current Invader Stage is always shown by the top card of the Invader Deck. With some Adversaries, Spirits, or Events, it is possible the Invader Stage may jump around a bit rather than progressing in an orderly fashion. If the Invader Deck is empty, it is Stage three. Most game components are either in their supply or on the board, but Presence can be on a Spirit Panel, on the board, next to the board, or occasionally Removed from the game entirely. After Presence is Destroyed or Removed, it is put beside the Island Board, and considered Destroyed Presence from then on. The only difference between the cases is thematic and interaction with other effects. Destroyed Presence cannot be used in any way unless an effect explicitly says so. A specific rule may override this general one. If you need to Return Presence to your Presence Tracks, it comes from the island. You may choose which track it goes to, but it must cover a legal space. If there is no legal place to put it, the Presence is instead Destroyed. Some Power Cards move Blight. Moving Blight does not Destroy or trigger cascades. When an instruction affects a Sacred Site, it affects two Presence from that Spirit. If you are instructed to Push a Spirit Sacred Site, Push two Presence from that Spirit. If you entirely skip using the text effects of a Power, you do not target or use that Power. If you meet no thresholds for an Innate Power, you do not target or use that Power. Exception: If the Innate Power affects the game in some way even without hitting thresholds, you may target and use it anyhow. Whenever you need to resolve an Invader Card that happens to be face-down, you reveal it. It is not specifically part of the Explore Step. Escalation Effects happen when you resolve an Invader Card with a Fear icon for the first time. Some Branch &amp; Claw materials refer to normal Invader Actions. These are the usual Invader Steps, cards, and Actions during the Invader Phase. Normal does not apply to extra steps added by Adversaries, Invader Actions caused by an Event or Power, or if one normal Invader Step is entirely replaced with a different one by an Event. Players can perform their Spirit Phases in parallel with each other. However, when an Action during the Spirit Phase affects the island, those Actions should not interrupt each other partway through. It is also courteous to say Growth Action or Presence Track Action so that other players do not think you have started the phase.</p>
+<span class="subsection-title">Component-Specific Rulings</span>
+<p>Even if an Event changes the Ravage Step to a Build Step, Migratory Herders still activates as normal. When playing with Durable Invaders and Ocean Hungry Grasp, Drowning is a special form of Destroy, and only grants Energy if the Destruction succeeds. After you move a Town into an Ocean, the Town takes two Damage. If that is enough to Destroy it, then it Drowns normally. Otherwise, it washes ashore, Damaged, in an adjacent land. It cannot stay in the Ocean, so gets placed in the nearest legal land. If the land it washes ashore in has Blight, it will immediately be Destroyed, but Ocean Hungry Grasp will not gain Energy. If four undamaged Towns are pushed into the Ocean with a single Action, that results in eight Damage to Towns only, which you could distribute as you wished. If you used it to immediately Destroy two of the Towns, those Towns would be successfully Drowned and grant Energy. If a piece ends in an illegal situation due to not being Destroyed, move it to the nearest legal land. When Destroy effects become Damage, provide bonus Damage normally. Use a Scenario Marker to mark with two Damage and with three Damage. With one Damage can simply be tipped over. If Bringer of Dreams and Nightmares uses a Power that would Destroy Explorers, it can choose in which order to apply its Special Rule and The Tsardom of Russia A Sense For Impending Disaster. Usually, it will be more advantageous to take the Explorer Push plus one Fear first. Destroy two Presence refers to the Presence of the Spirit making the choice. This cannot restore Powers Forgotten prior to the start of play. Using this Power Card multiple times works in an additive way. If you have set aside a total of six Presence, Dahan within one of your Presence provide Defend six, and you gain six less Energy each turn. The Energy penalty affects all sources. The first X Energy you would gain during a turn, you do not. It does not drain Energy you already have. Covering up numbers on your Energy Track with spare pieces can be an easy reminder. Draw Towards a Consuming Void itself may be one of the Powers you Forget for the threshold. The execution of the Power continues uninterrupted. A random board selects from all unused boards. Ignore the do not use together play recommendations. Whether the origin land is your Sacred Site is checked when performing that instruction. If Thunderspeaker just moved all their Presence out along with the mushrooms, they no longer have a Presence there. If Many Minds Move as One uses this, may count your Presence as Beasts does not stack with its Special Rule. A land with two of their Presence can count as two Beasts via the Major Power or one via the Special Rule, but not three. While it is infrequently relevant, unlike most lands, the conjoined land is considered adjacent to itself. For land types based on contents or geography, check the contents or geography of the conjoined land normally. Whether a land is Coastal bases off of its geography, so joining a Coastal land with an Inland land results in one big Coastal land. For land types based on intrinsic information, the conjoined land has both types, even if this is normally impossible. If an Invader Card matches a conjoined land multiple times, you still only perform Invader Actions there once. If this Power comes up as a randomizer during Event resolution, it has no Elements, just as it appears. In the base-game Dahan Insurrection Scenario, the Military Response rule interacts oddly with Isolate. The simplest ruling is Military Response ignores Isolate. If you want a more thematic game, use The new Invader must be added to a non-Isolated land. Ignore Isolate effects when determining which lands are closest. If you use Isolate to make the shortest path to a board Ocean longer than usual, the Thieves will attempt that longer journey, even if it puts them onto another board. In that case, on future turns they will head towards that board Ocean. Still-Healthy Island Cards are not addressed by the rules for Blight continuation for the Second Wave. Either do not use them together, or follow these instructions. If you went past a Still-Healthy Island Card, after following the Blight instructions, put it original Healthy side up atop the stack of Blight Cards. If you reached but did not pass a Still-Healthy Island Card, treat it as a Blighted Island Card for the Blight instructions. In your next game, if you get past it to a new Blight Card, you will need to add new Blight from the box rather than from the pool by the side of the card. In The Great River, Towns can escape off the edge of the map. These escaped Towns go back into the pool of available Towns for France, as if they were Removed or Destroyed. The xN, do A or B Growth options represent N separate choices. Yes, Pour Time Sideways is useless in a one-board game. When you Pour Time Sideways, it affects each individual Invader Action. If they are Ravaging in Sands, on the board you move Presence to, each Sands with Invaders will Ravage twice. On the board you moved Presence from, each Sands with Invaders will Ravage zero times. It is phrased as one more time and one fewer time instead of twice and zero times purely so it works properly if the Power is Repeated. If you use a Power like Infestation of Venomous Spiders that lets you skip a number of Invader Actions in a land where they would Ravage twice, it has to skip each of the two individually. The phrase Each board Each land Actions refers to any Action which does something on each board or in each land, even if there are qualifiers. If you treat one of your Sacred Sites as Beasts in order to move it, you must move both Presence to the same land. Damaging pieces does not change which pieces are in a land unless it Destroys them. You can only earn one Element Marker per Action, no matter how many changes that Action makes to the land. If you entirely skip using the text effects of a Power, you never target that Power, and thus cannot use it to move your Presence. You can move your Presence to satisfy origin requirements like from a Sacred Site or from a particular land type. That is considered part of targeting. In the last level of Hold The Island Fast With a Bulwark of Will, When an Event or Blight Card directly Destroys means it uses the words Destroys rather than adding Blight that then happens to Destroy Presence. This Innate effect can be used even if the Presence Destruction was paying a cost or otherwise optional. The second level of Let Them Break Themselves Against the Stone modifies the triggered Action created by the first level. So, for instance, in a land with one Invader, only increase the retaliation Damage by one each time the Invaders deal Damage. Blight is not component-limited. Growth choices are made one at a time, so if you unlock a new Growth option by placing Presence, you can choose it immediately if you still have choices left. If you return Presence to a Growth row for some reason, you cannot use that Growth option until the row is unlocked again, and your selection of which Growth to cover remains. The Elements on Starlights Presence Tracks, once set, work exactly like Elements on other Spirits Presence Tracks. If Presence is returned onto an Element, leave the Element Marker in place. Each Major Power gained must be paid for by Forgetting one Power Card, and that card cannot be something you are Forgetting to pay for some other benefit. When you Destroy your own Presence for your Innate Explosive Eruption, it can be saved by effects like Flowing and Silent Forms Dart By, but then it does not count towards the eruption thresholds. It does deal Damage by Collapse in a Blast of Lava and Steam.</p>
+<span class="subsection-title">Backwards Compatibility &amp; Replacements</span>
+<p>The Event A Strange Madness Among the Beasts is on the swingy side already, and becomes exceptionally so when playing with Many Minds Move as One or against The Tsardom of Russia. Recommendation: Remove this Event Card from the Event Deck. The old version of Sea Monsters can be brokenly good with Many Minds Move as One. Replace with updated version. The Scenario Guard the Isle Heart is exceptionally difficult against The Habsburg Monarchy due to their constant migration. The Scenario Rituals of Terror is much easier with Stone Unyielding Defiance due to its ability to keep Dahan from leaving the land where the Ritual was performed. Vengeance of the Dead can no longer trigger itself, due to the rules about triggered Actions. Ocean Hungry Grasp Special Rule is a triggered Action. After moving Invaders or Dahan into the Ocean, Drown them. Bringer of Dreams and Nightmares Special Rule is a modifier. When your Power would Destroy Invaders, instead generate Fear and perhaps Push them. The Kingdom of England Level one rule works as it always has, but its text would now be better worded as Invader Build Cards affect matching lands without Invaders if they are adjacent to at least two Dahan. The fact that this ignores Dahan added during the current Build Card is automatic. The Event Fortification should now be read as After advancing Invader Cards, perform a Build Step for one terrain not shown under any Invader Action. Similarly for New Cash Crops Take Hold. The Scenario Dahan Insurrection works as it always has, but its text is incorrect with the new terminology. After each Action, first perform Constant Raiding if relevant, then Military Reprisal if relevant. Both are triggered Actions. If you own Branch &amp; Claw, you may notice that you have enough tokens for a six-player game. If you want, you can keep your Branch &amp; Claw tokens in case of shortage in a huge game. If you instead choose to dispose of them, please consider re-use or recycling. For similar reasons, this expansion contains enough Scenario Markers for a six player-game. They have a different shape than the Scenario Markers in Branch &amp; Claw, which permits combining two Scenarios that both require Scenario Markers. You should keep both types.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Glossary & Icon Key</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Term Definitions</span>
+<p><strong>Accelerate:</strong> Discard a card from the Invader Deck, the topmost card of the lowest Invader Stage still remaining therein.
+<strong>Action:</strong> A group of instructions performed together.
+<strong>Additional Cost:</strong> An extra cost to use a Power. Does not need to be paid until the Power is actually used. Each Repeat must pay the cost in order to work.
+<strong>Aided By Element:</strong> The Energy cost of a Choice Event is reduced by one for having this Element, two for Discarding a Power Card from hand which grants this Element, or by four for Forgetting a Power Card which grants this Element.
+<strong>Among:</strong> In any or all of a set of lands.
+<strong>Badlands Token:</strong> Lands that are harder for humans to live in. Increases Damage to Invaders Dahan by one. Once per Action.
+<strong>Basic Action:</strong> A non-triggered Action.
+<strong>Beasts Token:</strong> Dangerous Beasts. Harms Invaders erratically.
+<strong>Choice Event:</strong> An Event which offers the Spirits a choice of paths. The first choice is the default, if the Spirits cannot agree.
+<strong>Dahan Event:</strong> The portion of an Event Card in which the Dahan act on their own.
+<strong>Disease Token:</strong> Illness and plague. Prevents the next Build Action in its land and is then Removed.
+<strong>Distribute:</strong> Add the specified pieces in any arrangement to the lands specified.
+<strong>Does not participate in Ravage:</strong> Specifies pieces to be ignored during the Ravage Step and Ravage Actions.
+<strong>Durable Invader:</strong> An Invader with extra Health equal to its base Health. Destroy effects instead deal Damage to pieces of that type equal to their base Health, though Destroy All works normally.
+<strong>Event:</strong> An unforeseen development, resolved before Earned Fear Cards each Invader Phase after the first turn.
+<strong>Exactly Range away:</strong> A land is exactly some Range if it is that Range, and there is no shorter path to that land.
+<strong>Invader Action:</strong> One Ravage, Build, or Explore in one land.
+<strong>Invader Stage:</strong> The Stage shown on the top card of the Invader Deck. If playing against Brandenburg-Prussia Level two or higher, treat the early Stage three Card as if it were Stage two.
+<strong>Isolate:</strong> Represents a land hard to travel to, from, or through. Prevents Invader Explore Actions, and prevents Invader pieces from using adjacencies unless you let them.
+<strong>Normal Action:</strong> The normal Invader Actions taken each turn due to Invader Cards on one of the three Action spaces on the Invader Board.
+<strong>Origin:</strong> The land from which a Range is measured when targeting.
+<strong>Piece:</strong> A physical game piece placed on the island, except for reminders.
+<strong>Reclaim:</strong> Return all or the specified number of your Power Cards to your hand.
+<strong>Remove:</strong> Once Removed is off the board, it is kept with and considered part of a Spirit Destroyed.
+<strong>Return Presence:</strong> Take from the island and return it to a legal spot on your tracks.
+<strong>Resolve:</strong> Perform the effects of an Action or other game item, process, or rule.
+<strong>Showing Invader Card:</strong> An Invader Card that is face-up in any of the Invader Action spaces on the Invader Board, but not the discard.
+<strong>Skip:</strong> When you would perform the specified Action, instead do not.
+<strong>Skip one Invader Action:</strong> You do not need to choose which Action you are going to skip in advance. Once during this turn, when an Invader Action would happen in the affected land, you can skip it.
+<strong>Stage:</strong> See Invader Stage.
+<strong>Strife Token:</strong> Internal discord. Placed under an individual Invader. When an Invader with Strife deals Damage to Dahan and or the land, that Damage is blocked, and the Strife is then Removed.
+<strong>Target board:</strong> Shorthand for the board containing target land.
+<strong>Token Event:</strong> The portion of an Event Card with an effect centering around Beasts, Disease, or Strife tokens.
+<strong>Triggered Action:</strong> An Action that happens because certain conditions were met.
+<strong>Use:</strong> Perform the effects of an Action or other game item, process, or rule.
+<strong>Wilds Token:</strong> Dangerous wilderness. Prevents the next Explore Action in its land and is then Removed.</p>
+<span class="subsection-title">Icon &amp; Token Quick Reference</span>
+<p>Items with a plain mountain rely on no rules outside of the base game. Items with a smoking volcano rely on a rule, concept, or clarification introduced in this expansion, but nothing from Branch &amp; Claw. Items with an active volcano rely on rules or concepts from Branch &amp; Claw and possibly this expansion.
+Beasts: Harms Invaders and generates Fear as specified by Powers and Event Cards.
+Disease: Prevents the next Build and is then Removed.
+Wilds: Prevents the next Explore and is then Removed.
+Strife: Blocks a specific Invader Damage the next time they Damage Dahan and or the land, and is then Removed.
+Badlands: Increases Damage to Invaders Dahan by one. Once per Action.
+During Setup, put one Beasts and one Disease on each Island Board. The Beasts goes in the lowest-numbered land with no printed Setup icons. The Disease goes in land number two with the City. If playing on the Thematic Boards, instead add tokens according to the pre-printed icons, and add one Badlands to Northwest seven, two Badlands to West nine, and one Badlands to East six.</p>
+<span class="subsection-title">Action Type Reference</span>
+<p>Using one Growth icon: Spirit Action
+Gaining the Energy specified on your Presence Track: Spirit Action
+Playing all your Power Cards for the turn: Spirit Action
+Using a special Presence Track icon except for static Elements or bonuses: Spirit Action
+Using a Power. If the Power is Repeated by any means, each Repeat is a separate Action: Spirit Action
+A Special Rule which specifies After X, do Y: Spirit Action
+One Ravage, Build, or Explore in one land: Invader Action
+The effects of a Blight Card: Blight Card Action
+Everything one Fear Card does: Fear Action
+Everything a Main Event does: Event Action
+Everything a Token Event does: Event Action
+Everything a Dahan Event does: Event Action
+An Adversary Escalation effects except England, as it explicitly invokes a Build: Adversary Action
+Instructions on an Adversary to perform some effect. Does not include those which just change how Invader Actions work: Adversary Action</p>
+  </div>
+</details>
+  <p id="no-results">No sections match your search.</p>
+</main>
+<script>
+(function () {
+  var searchEl  = document.getElementById('search');
+  var clearBtn  = document.getElementById('search-clear');
+  var noResults = document.getElementById('no-results');
+  var sections  = Array.from(document.querySelectorAll('details.section'));
+  var matchNav   = document.getElementById('match-nav');
+  var matchCount = document.getElementById('match-count');
+  var matchPrev  = document.getElementById('match-prev');
+  var matchNext  = document.getElementById('match-next');
+
+  var allMarks = [];
+  var currentMark = -1;
+
+  // Snapshot each section body's original HTML so we can restore it
+  // before applying a new round of highlights.
+  sections.forEach(function (s) {
+    var body = s.querySelector('.section-body');
+    if (body) body.dataset.original = body.innerHTML;
+  });
+
+  var timer;
+
+  searchEl.addEventListener('input', function () {
+    var term = this.value.trim();
+    clearBtn.classList.toggle('visible', term.length > 0);
+    clearTimeout(timer);
+    timer = setTimeout(function () { applySearch(term); }, 180);
+  });
+
+  clearBtn.addEventListener('click', function () {
+    searchEl.value = '';
+    clearBtn.classList.remove('visible');
+    applySearch('');
+    searchEl.focus();
+  });
+
+  matchPrev.addEventListener('click', function () {
+    if (allMarks.length === 0) return;
+    navigateTo((currentMark - 1 + allMarks.length) % allMarks.length);
+  });
+
+  matchNext.addEventListener('click', function () {
+    if (allMarks.length === 0) return;
+    navigateTo((currentMark + 1) % allMarks.length);
+  });
+
+  function navigateTo(index) {
+    if (allMarks[currentMark]) allMarks[currentMark].classList.remove('active');
+    currentMark = index;
+    var mark = allMarks[currentMark];
+    mark.classList.add('active');
+    mark.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    matchCount.textContent = (currentMark + 1) + ' of ' + allMarks.length;
+  }
+
+  function escapeRe(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlightTextNodes(container, re) {
+    var walker = document.createTreeWalker(
+      container, NodeFilter.SHOW_TEXT, null, false
+    );
+    var nodes = [];
+    var n;
+    while ((n = walker.nextNode())) {
+      if (n.nodeValue.trim()) nodes.push(n);
+    }
+    nodes.forEach(function (textNode) {
+      re.lastIndex = 0;
+      if (!re.test(textNode.nodeValue)) return;
+      re.lastIndex = 0;
+      var span = document.createElement('span');
+      span.innerHTML = textNode.nodeValue.replace(
+        re, function (m) { return '<mark>' + m + '</mark>'; }
+      );
+      textNode.parentNode.replaceChild(span, textNode);
+    });
+  }
+
+  function applySearch(term) {
+    var re = term ? new RegExp(escapeRe(term), 'gi') : null;
+    var visibleCount = 0;
+
+    sections.forEach(function (section) {
+      var body    = section.querySelector('.section-body');
+      var summary = section.querySelector('summary');
+
+      // Restore original HTML before each search pass
+      if (body) body.innerHTML = body.dataset.original;
+
+      if (!re) {
+        section.classList.remove('search-hidden');
+        section.open = false;
+        return;
+      }
+
+      var titleText = summary ? summary.textContent : '';
+      var bodyText  = body    ? body.textContent    : '';
+
+      re.lastIndex = 0;
+      var inTitle = re.test(titleText);
+      re.lastIndex = 0;
+      var inBody  = re.test(bodyText);
+      re.lastIndex = 0;
+
+      if (inTitle || inBody) {
+        section.classList.remove('search-hidden');
+        section.open = true;
+        if (body) highlightTextNodes(body, new RegExp(escapeRe(term), 'gi'));
+        visibleCount++;
+      } else {
+        section.classList.add('search-hidden');
+      }
+    });
+
+    noResults.style.display = (re && visibleCount === 0) ? 'block' : 'none';
+
+    allMarks = Array.from(document.querySelectorAll('mark'));
+    currentMark = -1;
+
+    if (allMarks.length > 0) {
+      matchNav.classList.add('visible');
+      navigateTo(0);
+    } else {
+      matchNav.classList.remove('visible');
+      matchCount.textContent = '';
+    }
+  }
+})();
+</script>
+</body>
+</html>

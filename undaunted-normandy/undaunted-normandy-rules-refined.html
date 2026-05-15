@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Undaunted - Normandy — Rules Reference</title>
+<style>
+:root {
+  --bg:            #f2ede6;
+  --text:          #1a1a1a;
+  --header-bg:     #598344;
+  --section-bg:    #598344;
+  --subsection-bg: #50bf7b;
+  --rule:          #b0a898;
+  --accent:        #50bf7b;
+  --table-head:    #598344;
+  --note-bg:       #e8e0d4;
+  --body-bg:       #ffffff;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 15px;
+  line-height: 1.55;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* ── STICKY HEADER ───────────────────────────────────────── */
+.sticky-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--header-bg);
+  padding: 10px 14px 12px;
+  padding-top: max(10px, env(safe-area-inset-top));
+  padding-left: max(14px, env(safe-area-inset-left));
+  padding-right: max(14px, env(safe-area-inset-right));
+  box-shadow: 0 2px 12px rgba(0,0,0,0.4);
+}
+
+.masthead-row {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 9px;
+}
+
+.masthead-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  line-height: 1.1;
+  flex-shrink: 0;
+}
+
+.masthead-subtitle {
+  font-size: 11px;
+  color: rgba(255,255,255,0.45);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.back-link {
+  margin-left: auto;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+  text-decoration: none;
+  flex-shrink: 0;
+  padding-left: 14px;
+  white-space: nowrap;
+}
+.back-link:hover {
+  color: rgba(255,255,255,0.85);
+}
+
+/* ── TOGGLE + BACK ROW ───────────────────────────────────── */
+.toggle-back-row {
+  display: flex;
+  align-items: center;
+  margin-top: 7px;
+}
+
+.search-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-icon {
+  position: absolute;
+  left: 10px;
+  width: 15px;
+  height: 15px;
+  color: rgba(255,255,255,0.4);
+  pointer-events: none;
+  flex-shrink: 0;
+}
+
+#search {
+  width: 100%;
+  padding: 8px 36px 8px 32px;
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 8px;
+  font-size: 15px;
+  background: rgba(255,255,255,0.12);
+  color: #fff;
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+#search::placeholder { color: rgba(255,255,255,0.38); }
+
+#search:focus {
+  background: rgba(255,255,255,0.2);
+  border-color: rgba(255,255,255,0.3);
+}
+
+.search-clear {
+  position: absolute;
+  right: 6px;
+  background: rgba(255,255,255,0.18);
+  border: none;
+  border-radius: 50%;
+  color: rgba(255,255,255,0.8);
+  font-size: 14px;
+  line-height: 1;
+  width: 22px;
+  height: 22px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  flex-shrink: 0;
+}
+
+.search-clear.visible { display: flex; }
+
+mark { background: #ffe066; color: #1a1a1a; border-radius: 2px; padding: 0 1px; }
+mark.active { background: #ff9500; color: #fff; }
+
+.match-nav {
+  display: none;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 0 0;
+}
+.match-nav.visible { display: flex; }
+.match-count {
+  color: rgba(255,255,255,0.65);
+  font-size: 13px;
+  flex: 1;
+  text-align: center;
+}
+.match-btn {
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 6px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 15px;
+  line-height: 1;
+  padding: 6px 14px;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+.match-btn:active { background: rgba(255,255,255,0.25); }
+
+/* ── MAIN ────────────────────────────────────────────────── */
+main {
+  padding: 10px 12px 48px;
+  padding-left: max(12px, env(safe-area-inset-left));
+  padding-right: max(12px, env(safe-area-inset-right));
+  padding-bottom: max(48px, env(safe-area-inset-bottom));
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+/* ── NO RESULTS ──────────────────────────────────────────── */
+#no-results {
+  display: none;
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--text);
+  opacity: 0.5;
+  font-size: 14px;
+}
+
+/* ── COLLAPSIBLE SECTIONS ────────────────────────────────── */
+details.section {
+  margin-bottom: 6px;
+  border-radius: 6px;
+  overflow: hidden;
+  scroll-margin-top: 130px;
+}
+
+details.section > summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  min-height: 44px;
+  background: var(--section-bg);
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  list-style: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+details.section > summary::-webkit-details-marker { display: none; }
+
+.chevron {
+  width: 12px;
+  height: 12px;
+  opacity: 0.65;
+  flex-shrink: 0;
+  margin-left: 8px;
+  transition: transform 0.18s ease;
+}
+
+details.section[open] > summary .chevron {
+  transform: rotate(90deg);
+}
+
+.section-body {
+  background: var(--body-bg);
+  padding: 10px 12px 12px;
+  border: 1px solid var(--rule);
+  border-top: none;
+  border-radius: 0 0 6px 6px;
+}
+
+/* ── HEADINGS WITHIN SECTIONS ────────────────────────────── */
+.subsection-title {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: #fff;
+  background: var(--subsection-bg);
+  padding: 4px 12px;
+  margin: 10px -12px 7px;
+}
+
+.label-title {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--section-bg);
+  border-bottom: 1.5px solid var(--rule);
+  padding-bottom: 3px;
+  margin: 10px 0 5px;
+}
+
+.inline-title {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 8px 0 3px;
+}
+
+/* ── BODY TEXT ───────────────────────────────────────────── */
+p { margin-bottom: 7px; }
+b, strong { font-weight: 600; }
+em, i { font-style: italic; }
+
+/* ── LISTS ───────────────────────────────────────────────── */
+ul, ol { padding-left: 20px; margin-bottom: 6px; }
+ul { list-style-type: disc; }
+ol { list-style-type: decimal; }
+ul ul { list-style-type: circle; }
+li { margin-bottom: 3px; }
+li > ul, li > ol { margin-top: 2px; margin-bottom: 0; }
+
+/* ── TABLES ──────────────────────────────────────────────── */
+.table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin-bottom: 6px;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  min-width: 260px;
+}
+thead tr { background: var(--table-head); color: white; }
+thead th {
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  padding: 5px 8px;
+  text-align: left;
+  white-space: nowrap;
+}
+tbody tr:nth-child(even) { background: var(--note-bg); }
+tbody td { padding: 5px 8px; vertical-align: top; }
+
+/* ── BLOCKQUOTE ──────────────────────────────────────────── */
+blockquote {
+  background: var(--note-bg);
+  border-left: 3px solid var(--accent);
+  padding: 6px 10px;
+  margin: 5px 0 7px;
+  font-size: 14px;
+  border-radius: 0 4px 4px 0;
+}
+blockquote p { margin-bottom: 2px; }
+
+/* ── INLINE CODE ─────────────────────────────────────────── */
+code {
+  background: var(--note-bg);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  padding: 1px 4px;
+  font-size: 13px;
+  font-family: inherit;
+  font-weight: 600;
+}
+
+/* ── HR ──────────────────────────────────────────────────── */
+hr { border: none; border-top: 1px solid var(--rule); margin: 8px 0; }
+
+/* ── SEARCH HIGHLIGHT ────────────────────────────────────── */
+mark {
+  background: #ffe566;
+  color: inherit;
+  border-radius: 2px;
+  padding: 0 1px;
+}
+
+/* ── HIDDEN SECTIONS ─────────────────────────────────────── */
+details.section.search-hidden { display: none; }
+
+/* ── VERSION TOGGLE ──────────────────────────────────────── */
+.toggle-bar {
+  display: inline-flex;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.2);
+}
+.toggle-current,
+.toggle-other {
+  padding: 6px 14px;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  line-height: 1;
+  text-decoration: none;
+  white-space: nowrap;
+  -webkit-tap-highlight-color: transparent;
+}
+.toggle-current {
+  background: rgba(255,255,255,0.18);
+  color: #ffffff;
+  font-weight: 600;
+  cursor: default;
+}
+.toggle-other {
+  color: rgba(255,255,255,0.5);
+}
+.toggle-other:hover {
+  background: rgba(255,255,255,0.08);
+  color: rgba(255,255,255,0.8);
+}
+
+/* ── PRINT ───────────────────────────────────────────────── */
+@media print {
+  .sticky-header { position: static; }
+  details.section[open], details.section { display: block; }
+  .section-body { display: block !important; }
+  .search-wrap, .search-clear, .toggle-bar, .match-nav { display: none; }
+}
+</style>
+</head>
+<body>
+<header class="sticky-header">
+  <div class="masthead-row">
+    <span class="masthead-title">Undaunted - Normandy</span>
+    <span class="masthead-subtitle">Rules Reference</span>
+  </div>
+  <div class="toggle-back-row"><div class="toggle-bar"><span class="toggle-current">Full Rules</span><a class="toggle-other" href="undaunted-normandy-rules-reference.html">Quick Reference</a></div><a class="back-link" href="../index.html">&#8592; All Games</a></div>
+  <div class="search-wrap">
+    <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+         stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+         aria-hidden="true">
+      <circle cx="11" cy="11" r="8"/>
+      <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+    </svg>
+    <input type="text" id="search" placeholder="Search rules…"
+           autocomplete="off" spellcheck="false" autocorrect="off">
+    <button class="search-clear" id="search-clear" aria-label="Clear search">&#x2715;</button>
+  </div>
+  <div class="match-nav" id="match-nav">
+    <button class="match-btn" id="match-prev" aria-label="Previous match">↑</button>
+    <span class="match-count" id="match-count"></span>
+    <button class="match-btn" id="match-next" aria-label="Next match">↓</button>
+  </div>
+</header>
+<main>
+<ol>
+<li>
+<p><strong>Choose a scenario:</strong> Pick a scenario from the scenario book. We recommend that you play the scenarios in order, starting with scenario 1: La Raye, but they can be played in any order.</p>
+</li>
+<li>
+<p><strong>Place tiles:</strong> Find the tiles listed under the chosen scenario and place them as indicated. Each tile has an A and a B side, but the number is the same on both sides, so if you need to place tile 14B, it is on the other side of 14A. All unused tiles can be returned to the box.</p>
+</li>
+<li>
+<p><strong>Place objective markers:</strong> Place the objective markers as indicated in the scenario book. All unused objective markers can be returned to the box.</p>
+</li>
+<li>
+<p><strong>Place radio marker:</strong> If you are playing scenario 10: Critical Intelligence, place the radio marker as indicated. Otherwise, return it to the box.</p>
+</li>
+<li>
+<p><strong>Choose a side:</strong> Both players choose a side and take all the cards, combat counters, control markers, and spawn markers indicated in the scenario book for their chosen side.</p>
+</li>
+<li>
+<p><strong>Place tokens:</strong> Place all combat counters, control markers, and spawn markers on the spaces indicated in the scenario book. Make sure that all tokens are the correct side up. Any unused spawn markers can be returned to the box.</p>
+</li>
+<li>
+<p><strong>Take initiative:</strong> Give the initiative marker to the side indicated in the scenario book.</p>
+</li>
+<li>
+<p><strong>Assemble decks:</strong> Find the 'Starting Cards' table in the scenario book for your side, take all the cards marked <strong>D</strong>, shuffle them, and place the deck face down.</p>
+</li>
+<li>
+<p><strong>Assemble supplies:</strong> Find all the cards marked <strong>S</strong> for your side and place them nearby, face up. Sort the cards in your supply by card title. <strong>The content of your supply is open information.</strong></p>
+</li>
+<li>
+<p><strong>Return remaining cards:</strong> All leftover cards for your side can be returned to the box.</p>
+</li>
+</ol>
+<p>Play takes the form of a series of rounds, during which both players will play cards to move units, attack the opposing forces, and grab objectives. Each round consists of the following three phases:</p>
+<ol>
+<li>Draw cards</li>
+<li>Determine initiative</li>
+<li>Player turns.</li>
+</ol>
+<p>Once the last phase has been completed, the round is over and the next round begins. This continues until a player has won.</p>
+<details class="section">
+  <summary><span>DRAW CARDS</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>Both players draw four cards from their deck to form a hand.</p>
+<p>Whenever you need to draw a card and your deck is empty, shuffle your discard pile into a deck. Never shuffle cards in your play area into a deck.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>DETERMINE INITIATIVE</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>Both players secretly select one card from their hand and reveal it simultaneously. The player who selected the card with the highest initiative takes the initiative marker. That player will perform actions first this round.</p>
+<p>In the case of a tie, the player who has the initiative marker keeps the initiative.</p>
+<p>Both players discard their chosen card.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>PLAYER TURNS</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>The player with the initiative marker plays cards from their hand, one at a time, into a play area in front of them. Once they have no more cards in their hand that they can or wish to play, their turn ends. All cards left in their hand and all cards in the play area are moved into that player's discard pile. The player without the initiative then takes their turn in the same way.</p>
+<p>You cannot save cards in your hand for future rounds.</p>
+<p>Each card played can be used to do one of the following:</p>
+<ul>
+<li>Card action: choose one of the listed actions and perform it in full.</li>
+<li>Hunker down: return the card to your supply.</li>
+</ul>
+<span class="subsection-title">FOG OF WAR</span>
+<p>You cannot play Fog of War cards during your turn.</p>
+<p>You can select a Fog of War card when determining initiative.</p>
+<p>The only way to remove a Fog of War card from your deck is through a Scout's Recon action (see 'Support Actions').</p>
+<p>Normally a Fog of War card will stay in your hand until the end of your turn, when you will discard it as normal.</p>
+<span class="subsection-title">SUPPRESSED</span>
+<p>If a combat counter is face down – showing its suppressed side – that unit is suppressed and cannot perform actions.</p>
+<p>When you would have taken an action with a suppressed unit, flip that counter face up to its ready side, but don't take the action. Place the card in the play area as normal.</p>
+<p>Suppressed units can still hunker down, but doing so doesn't flip the counter to its ready side.</p>
+<span class="subsection-title">PLACING COMBAT COUNTERS</span>
+<p>When you would take a card action with a combat card and the corresponding combat counter is not on the board, immediately place the counter on the board on the space indicated by the relevant spawn marker. Then perform the action as normal.</p>
+<p>Do not place a combat counter when you hunker down.</p>
+<span class="subsection-title">HUNKER DOWN</span>
+<p>When you hunker down, return that card to your supply. It is then removed from the deck until you choose to take a Bolster action to add it to your deck again.</p>
+<p>Be careful when hunkering down with a card that has the Bolster action, as you may not be able to add it to your deck later!</p>
+<p>You cannot hunker down with Fog of War cards.</p>
+<p>When an action’s name is followed by <strong>X</strong>, that means the action will have a numerical value.</p>
+<p><strong>For example: Move 1.</strong></p>
+<p>When an action’s name is followed by <strong>XA</strong>, that means the action will have a numerical value and may also have a squad (A, B, or C).</p>
+<p><strong>For example: Bolster 3 or Bolster 1A,</strong></p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>MOVEMENT ACTIONS</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Move X</span>
+<p>Move the unit’s combat counter up to <strong>X</strong> tiles.</p>
+<p>The tile you move onto must be scouted or controlled by your side.</p>
+<p>If you move your Mortar combat counter, remove your target marker from the board.</p>
+<span class="subsection-title">Guide X</span>
+<p>Move any combat counter up to <strong>X</strong> tiles.</p>
+<p>The tile you move onto must be scouted or controlled by your side.</p>
+<p>If you move your Mortar combat counter, remove your target marker from the board.</p>
+<p>You cannot move a suppressed combat counter.</p>
+<span class="subsection-title">Scout X</span>
+<p>Move the unit’s combat counter up to <strong>X</strong> tiles.</p>
+<p>If either tile you move onto does not have one of your control markers on it, place a control marker there on its scouted side. For each control marker placed, take a Fog of War card from your supply and place it in your discard pile.</p>
+<p>If you need to take more Fog of War cards than are available in your supply, take as many as there are available.</p>
+<span class="subsection-title">Stalk X</span>
+<p>Move the unit’s combat counter up to <strong>X</strong> tiles.</p>
+<p>The tile you move onto does <strong>not</strong> need to be scouted or controlled by your side.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>SUPPORT ACTIONS</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Bolster X A</span>
+<p>Take up to X cards from your supply and add them to your discard pile.</p>
+<p>If the card specifies a squad, only cards from that squad in your supply may be taken.</p>
+<span class="subsection-title">Command X</span>
+<p>Draw up to X cards from your deck and add them to your hand. Those cards can be played as normal this turn.</p>
+<p>If your deck runs out of cards before you have finished drawing, shuffle your discard pile into a deck and continue drawing. Do not shuffle any cards in your play area into your deck.</p>
+<span class="subsection-title">Conceal</span>
+<p>Take a Fog of War card from the opponent's supply and place it in their discard pile.</p>
+<p>If there are no Fog of War cards in their supply, this action has no effect.</p>
+<span class="subsection-title">Control</span>
+<p>Take control of the tile that the unit's combat counter is on by flipping the control marker to the controlled side.</p>
+<p>If your opponent controls that tile, flip their control marker back to its scouted side.</p>
+<p><strong>You cannot take control of a tile that an enemy combat counter is on.</strong></p>
+<span class="subsection-title">Inspire X A</span>
+<p>Choose up to X cards from your play area and add them to your hand. Those cards can be played as normal this turn.</p>
+<p>If the card specifies a squad, only cards from that squad in your play area may be taken.</p>
+<span class="subsection-title">Recon</span>
+<p>Choose a Fog of War card from your hand and remove it from the game. Then draw a card from your deck. That card can be played as normal this turn.</p>
+<p>If your deck is empty, shuffle your discard pile into a deck and continue drawing. Do not shuffle any cards in your play area into your deck.</p>
+<p><strong>If you have no Fog of War cards in your hand, you cannot take this action.</strong></p>
+<span class="subsection-title">Target</span>
+<p>Place your target marker on a tile that is three or more tiles away from your Mortar combat counter.</p>
+<p>If your target marker is already on a tile, move it to another tile.</p>
+<p>If you move your Mortar combat counter, remove your target marker from the board.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>COMBAT ACTIONS</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Attack / Suppress / Blast</span>
+<p>When you perform any of the combat actions listed above, take the following steps:</p>
+<span class="label-title">1. CHOOSE TARGET</span>
+<p>Choose a target for the attack:</p>
+<p>For an <strong>Attack</strong> or <strong>Suppress</strong> action, choose any enemy combat counter on the board.</p>
+<p>For a <strong>Blast</strong> action, all combat counters on the tile with the target marker are targeted, including any of your own counters. Perform a separate attack against each combat counter on that tile, taking the steps below for each counter. If the target marker is not on the board, the Blast action cannot be taken.</p>
+<span class="label-title">2. DETERMINE TOTAL DEFENCE VALUE</span>
+<p>A combat counter's total defence value is the sum of its base defence, the tile's cover bonus, and the range bonus.</p>
+<p><strong>Base defence:</strong> the value printed on the combat counter.</p>
+<p><strong>Cover bonus:</strong> the value printed on the tile that the combat counter is on.</p>
+<p><strong>Range bonus:</strong> the number of tiles away from the attacking combat counter that the defender is, not including the attacker's tile.</p>
+<p>No range bonus is granted against a Blast action.</p>
+<span class="label-title">3. ROLL ATTACK DICE</span>
+<p>Roll the number of dice equal to the value of the Attack, Suppress, or Blast action.</p>
+<p>If any of the dice show a number equal to or greater than the defender's total defence value, the attack is successful.</p>
+<p>How many dice are successful does not matter.</p>
+<p>A die showing '0' is always successful, no matter how high the defender's total defence value.</p>
+<span class="label-title">4. DETERMINE CASUALTIES</span>
+<p>If the attack is successful, you have inflicted casualties on the selected unit!</p>
+<p>Your opponent must find a card from the attacked combat counter's unit and remove it from the game.</p>
+<ol>
+<li>If possible, they must remove the card from their <strong>hand</strong>.</li>
+<li>If they don't have a card of that unit in their hand, they must remove it from their <strong>discard pile</strong>.</li>
+<li>If they don't have a card of that unit in their discard pile, they must remove it from their <strong>deck</strong>. They must then shuffle their deck.</li>
+<li>If they don't have a card of that unit in their deck, they must instead remove the combat counter from the board.</li>
+</ol>
+<p>You only ever remove one card after an attack, no matter how many dice were successful.</p>
+<p>You can always check cards that you have removed from the game. You cannot check your opponent's removed cards.</p>
+<p><strong>If the attack was a Suppress action, no casualties are inflicted.</strong> Instead, flip the attacked combat counter to its suppressed side. If it is already suppressed, the attack has no effect.</p>
+<span class="label-title">HILLS</span>
+<p>Some tiles have ‘3/1’ listed as their cover bonus. These are hill tiles, and they have a variable cover bonus.</p>
+<p>If a combat counter on a hill tile is attacked by another combat counter on a hill tile (whether the tile is the same or different), or if the attack is a Blast action, the cover bonus is 1.</p>
+<p>Otherwise, the cover bonus is 3.</p>
+<span class="label-title">REMOVING COMBAT COUNTERS FROM THE BOARD</span>
+<p>As units suffer casualties, they may have their combat counters removed from the board. By bolstering them and later playing them, these units may return to the board.</p>
+<p>Remember that when a combat counter returns to the board, it is placed on the tile with the appropriate spawn marker, not the tile it was removed from.</p>
+<p>Each scenario in the scenario book specifies the victory condition each side must reach. As soon as the condition is reached, the game ends immediately, without completing the round. The possible victory conditions are capturing objectives or pinning your opponent's force.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Capturing Objectives</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>The scenario will specify the number of objective points required for victory. To claim this victory, the total objective points on all the tiles you control must equal or exceed the required total.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Pinning the Enemy</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>If your opponent has no Riflemen combat counters on the board, you have successfully pinned the enemy.</p>
+<p>If both sides are pinned but neither side has won, the game ends and the player with the most objective points wins. In the case of a tie, the player with the initiative marker wins.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Beyond All Hope</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>It is possible, but rare, that you can no longer win the scenario by scoring the required objective points. If this happens, you count as pinned.</p>
+<p>If your opponent's objective is to pin you, they immediately win.</p>
+<p>If your opponent's objective is to capture objectives, count how many objective points they currently control. If your opponent controls more than you, they immediately win. Otherwise, keep playing until your opponent controls more objective points than you (at which point they win) or until they are pinned, at which point the winner is decided in the same way as when both sides are pinned.</p>
+  </div>
+</details>
+  <p id="no-results">No sections match your search.</p>
+</main>
+<script>
+(function () {
+  var searchEl  = document.getElementById('search');
+  var clearBtn  = document.getElementById('search-clear');
+  var noResults = document.getElementById('no-results');
+  var sections  = Array.from(document.querySelectorAll('details.section'));
+  var matchNav   = document.getElementById('match-nav');
+  var matchCount = document.getElementById('match-count');
+  var matchPrev  = document.getElementById('match-prev');
+  var matchNext  = document.getElementById('match-next');
+
+  var allMarks = [];
+  var currentMark = -1;
+
+  // Snapshot each section body's original HTML so we can restore it
+  // before applying a new round of highlights.
+  sections.forEach(function (s) {
+    var body = s.querySelector('.section-body');
+    if (body) body.dataset.original = body.innerHTML;
+  });
+
+  var timer;
+
+  searchEl.addEventListener('input', function () {
+    var term = this.value.trim();
+    clearBtn.classList.toggle('visible', term.length > 0);
+    clearTimeout(timer);
+    timer = setTimeout(function () { applySearch(term); }, 180);
+  });
+
+  clearBtn.addEventListener('click', function () {
+    searchEl.value = '';
+    clearBtn.classList.remove('visible');
+    applySearch('');
+    searchEl.focus();
+  });
+
+  matchPrev.addEventListener('click', function () {
+    if (allMarks.length === 0) return;
+    navigateTo((currentMark - 1 + allMarks.length) % allMarks.length);
+  });
+
+  matchNext.addEventListener('click', function () {
+    if (allMarks.length === 0) return;
+    navigateTo((currentMark + 1) % allMarks.length);
+  });
+
+  function navigateTo(index) {
+    if (allMarks[currentMark]) allMarks[currentMark].classList.remove('active');
+    currentMark = index;
+    var mark = allMarks[currentMark];
+    mark.classList.add('active');
+    mark.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    matchCount.textContent = (currentMark + 1) + ' of ' + allMarks.length;
+  }
+
+  function escapeRe(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlightTextNodes(container, re) {
+    var walker = document.createTreeWalker(
+      container, NodeFilter.SHOW_TEXT, null, false
+    );
+    var nodes = [];
+    var n;
+    while ((n = walker.nextNode())) {
+      if (n.nodeValue.trim()) nodes.push(n);
+    }
+    nodes.forEach(function (textNode) {
+      re.lastIndex = 0;
+      if (!re.test(textNode.nodeValue)) return;
+      re.lastIndex = 0;
+      var span = document.createElement('span');
+      span.innerHTML = textNode.nodeValue.replace(
+        re, function (m) { return '<mark>' + m + '</mark>'; }
+      );
+      textNode.parentNode.replaceChild(span, textNode);
+    });
+  }
+
+  function applySearch(term) {
+    var re = term ? new RegExp(escapeRe(term), 'gi') : null;
+    var visibleCount = 0;
+
+    sections.forEach(function (section) {
+      var body    = section.querySelector('.section-body');
+      var summary = section.querySelector('summary');
+
+      // Restore original HTML before each search pass
+      if (body) body.innerHTML = body.dataset.original;
+
+      if (!re) {
+        section.classList.remove('search-hidden');
+        section.open = false;
+        return;
+      }
+
+      var titleText = summary ? summary.textContent : '';
+      var bodyText  = body    ? body.textContent    : '';
+
+      re.lastIndex = 0;
+      var inTitle = re.test(titleText);
+      re.lastIndex = 0;
+      var inBody  = re.test(bodyText);
+      re.lastIndex = 0;
+
+      if (inTitle || inBody) {
+        section.classList.remove('search-hidden');
+        section.open = true;
+        if (body) highlightTextNodes(body, new RegExp(escapeRe(term), 'gi'));
+        visibleCount++;
+      } else {
+        section.classList.add('search-hidden');
+      }
+    });
+
+    noResults.style.display = (re && visibleCount === 0) ? 'block' : 'none';
+
+    allMarks = Array.from(document.querySelectorAll('mark'));
+    currentMark = -1;
+
+    if (allMarks.length > 0) {
+      matchNav.classList.add('visible');
+      navigateTo(0);
+    } else {
+      matchNav.classList.remove('visible');
+      matchCount.textContent = '';
+    }
+  }
+})();
+</script>
+</body>
+</html>

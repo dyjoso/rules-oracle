@@ -1,0 +1,1494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Sails of Glory — Rules Reference</title>
+<style>
+:root {
+  --bg:            #f2ede6;
+  --text:          #1a1a1a;
+  --header-bg:     #be8d3f;
+  --section-bg:    #be8d3f;
+  --subsection-bg: #8bbf25;
+  --rule:          #b0a898;
+  --accent:        #8bbf25;
+  --table-head:    #be8d3f;
+  --note-bg:       #e8e0d4;
+  --body-bg:       #ffffff;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 15px;
+  line-height: 1.55;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* ── STICKY HEADER ───────────────────────────────────────── */
+.sticky-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--header-bg);
+  padding: 10px 14px 12px;
+  padding-top: max(10px, env(safe-area-inset-top));
+  padding-left: max(14px, env(safe-area-inset-left));
+  padding-right: max(14px, env(safe-area-inset-right));
+  box-shadow: 0 2px 12px rgba(0,0,0,0.4);
+}
+
+.masthead-row {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 9px;
+}
+
+.masthead-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  line-height: 1.1;
+  flex-shrink: 0;
+}
+
+.masthead-subtitle {
+  font-size: 11px;
+  color: rgba(255,255,255,0.45);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.back-link {
+  margin-left: auto;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+  text-decoration: none;
+  flex-shrink: 0;
+  padding-left: 14px;
+  white-space: nowrap;
+}
+.back-link:hover {
+  color: rgba(255,255,255,0.85);
+}
+
+/* ── TOGGLE + BACK ROW ───────────────────────────────────── */
+.toggle-back-row {
+  display: flex;
+  align-items: center;
+  margin-top: 7px;
+}
+
+.search-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-icon {
+  position: absolute;
+  left: 10px;
+  width: 15px;
+  height: 15px;
+  color: rgba(255,255,255,0.4);
+  pointer-events: none;
+  flex-shrink: 0;
+}
+
+#search {
+  width: 100%;
+  padding: 8px 36px 8px 32px;
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 8px;
+  font-size: 15px;
+  background: rgba(255,255,255,0.12);
+  color: #fff;
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+#search::placeholder { color: rgba(255,255,255,0.38); }
+
+#search:focus {
+  background: rgba(255,255,255,0.2);
+  border-color: rgba(255,255,255,0.3);
+}
+
+.search-clear {
+  position: absolute;
+  right: 6px;
+  background: rgba(255,255,255,0.18);
+  border: none;
+  border-radius: 50%;
+  color: rgba(255,255,255,0.8);
+  font-size: 14px;
+  line-height: 1;
+  width: 22px;
+  height: 22px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  flex-shrink: 0;
+}
+
+.search-clear.visible { display: flex; }
+
+mark { background: #ffe066; color: #1a1a1a; border-radius: 2px; padding: 0 1px; }
+mark.active { background: #ff9500; color: #fff; }
+
+.match-nav {
+  display: none;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 0 0;
+}
+.match-nav.visible { display: flex; }
+.match-count {
+  color: rgba(255,255,255,0.65);
+  font-size: 13px;
+  flex: 1;
+  text-align: center;
+}
+.match-btn {
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 6px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 15px;
+  line-height: 1;
+  padding: 6px 14px;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+.match-btn:active { background: rgba(255,255,255,0.25); }
+
+/* ── MAIN ────────────────────────────────────────────────── */
+main {
+  padding: 10px 12px 48px;
+  padding-left: max(12px, env(safe-area-inset-left));
+  padding-right: max(12px, env(safe-area-inset-right));
+  padding-bottom: max(48px, env(safe-area-inset-bottom));
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+/* ── NO RESULTS ──────────────────────────────────────────── */
+#no-results {
+  display: none;
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--text);
+  opacity: 0.5;
+  font-size: 14px;
+}
+
+/* ── COLLAPSIBLE SECTIONS ────────────────────────────────── */
+details.section {
+  margin-bottom: 6px;
+  border-radius: 6px;
+  overflow: hidden;
+  scroll-margin-top: 130px;
+}
+
+details.section > summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  min-height: 44px;
+  background: var(--section-bg);
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  list-style: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+details.section > summary::-webkit-details-marker { display: none; }
+
+.chevron {
+  width: 12px;
+  height: 12px;
+  opacity: 0.65;
+  flex-shrink: 0;
+  margin-left: 8px;
+  transition: transform 0.18s ease;
+}
+
+details.section[open] > summary .chevron {
+  transform: rotate(90deg);
+}
+
+.section-body {
+  background: var(--body-bg);
+  padding: 10px 12px 12px;
+  border: 1px solid var(--rule);
+  border-top: none;
+  border-radius: 0 0 6px 6px;
+}
+
+/* ── HEADINGS WITHIN SECTIONS ────────────────────────────── */
+.subsection-title {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: #fff;
+  background: var(--subsection-bg);
+  padding: 4px 12px;
+  margin: 10px -12px 7px;
+}
+
+.label-title {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--section-bg);
+  border-bottom: 1.5px solid var(--rule);
+  padding-bottom: 3px;
+  margin: 10px 0 5px;
+}
+
+.inline-title {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 8px 0 3px;
+}
+
+/* ── BODY TEXT ───────────────────────────────────────────── */
+p { margin-bottom: 7px; }
+b, strong { font-weight: 600; }
+em, i { font-style: italic; }
+
+/* ── LISTS ───────────────────────────────────────────────── */
+ul, ol { padding-left: 20px; margin-bottom: 6px; }
+ul { list-style-type: disc; }
+ol { list-style-type: decimal; }
+ul ul { list-style-type: circle; }
+li { margin-bottom: 3px; }
+li > ul, li > ol { margin-top: 2px; margin-bottom: 0; }
+
+/* ── TABLES ──────────────────────────────────────────────── */
+.table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin-bottom: 6px;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  min-width: 260px;
+}
+thead tr { background: var(--table-head); color: white; }
+thead th {
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  padding: 5px 8px;
+  text-align: left;
+  white-space: nowrap;
+}
+tbody tr:nth-child(even) { background: var(--note-bg); }
+tbody td { padding: 5px 8px; vertical-align: top; }
+
+/* ── BLOCKQUOTE ──────────────────────────────────────────── */
+blockquote {
+  background: var(--note-bg);
+  border-left: 3px solid var(--accent);
+  padding: 6px 10px;
+  margin: 5px 0 7px;
+  font-size: 14px;
+  border-radius: 0 4px 4px 0;
+}
+blockquote p { margin-bottom: 2px; }
+
+/* ── INLINE CODE ─────────────────────────────────────────── */
+code {
+  background: var(--note-bg);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  padding: 1px 4px;
+  font-size: 13px;
+  font-family: inherit;
+  font-weight: 600;
+}
+
+/* ── HR ──────────────────────────────────────────────────── */
+hr { border: none; border-top: 1px solid var(--rule); margin: 8px 0; }
+
+/* ── SEARCH HIGHLIGHT ────────────────────────────────────── */
+mark {
+  background: #ffe566;
+  color: inherit;
+  border-radius: 2px;
+  padding: 0 1px;
+}
+
+/* ── HIDDEN SECTIONS ─────────────────────────────────────── */
+details.section.search-hidden { display: none; }
+
+/* ── VERSION TOGGLE ──────────────────────────────────────── */
+.toggle-bar {
+  display: inline-flex;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.2);
+}
+.toggle-current,
+.toggle-other {
+  padding: 6px 14px;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  line-height: 1;
+  text-decoration: none;
+  white-space: nowrap;
+  -webkit-tap-highlight-color: transparent;
+}
+.toggle-current {
+  background: rgba(255,255,255,0.18);
+  color: #ffffff;
+  font-weight: 600;
+  cursor: default;
+}
+.toggle-other {
+  color: rgba(255,255,255,0.5);
+}
+.toggle-other:hover {
+  background: rgba(255,255,255,0.08);
+  color: rgba(255,255,255,0.8);
+}
+
+/* ── PRINT ───────────────────────────────────────────────── */
+@media print {
+  .sticky-header { position: static; }
+  details.section[open], details.section { display: block; }
+  .section-body { display: block !important; }
+  .search-wrap, .search-clear, .toggle-bar, .match-nav { display: none; }
+}
+</style>
+</head>
+<body>
+<header class="sticky-header">
+  <div class="masthead-row">
+    <span class="masthead-title">Sails of Glory</span>
+    <span class="masthead-subtitle">Rules Reference</span>
+  </div>
+  <div class="toggle-back-row"><div class="toggle-bar"><span class="toggle-current">Full Rules</span><a class="toggle-other" href="sails-of-glory-rules-reference.html">Quick Reference</a></div><a class="back-link" href="../index.html">&#8592; All Games</a></div>
+  <div class="search-wrap">
+    <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+         stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+         aria-hidden="true">
+      <circle cx="11" cy="11" r="8"/>
+      <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+    </svg>
+    <input type="text" id="search" placeholder="Search rules…"
+           autocomplete="off" spellcheck="false" autocorrect="off">
+    <button class="search-clear" id="search-clear" aria-label="Clear search">&#x2715;</button>
+  </div>
+  <div class="match-nav" id="match-nav">
+    <button class="match-btn" id="match-prev" aria-label="Previous match">↑</button>
+    <span class="match-count" id="match-count"></span>
+    <button class="match-btn" id="match-next" aria-label="Next match">↓</button>
+  </div>
+</header>
+<main>
+<details class="section" open>
+  <summary><span>NUMBER OF PLAYERS AND SHIPS</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>Sails of Glory requires at least two players, each controlling one or more ships.</p>
+<p>The setup instructions in the next page assume you will be playing a two-player game, with each player controlling two ships.</p>
+<p>Each player plots maneuvers, actions, and takes damage separately for each ship he controls.</p>
+<p>If you are playing with more than two players, divide the players as evenly as possible into two teams. This package supports up to four players, but you can easily play with more people, if you have enough space and you purchase additional Ship Packs.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>EXPLANATION OF THE SHIP CARD AND BASE CARD</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<ol>
+<li>Ship's Name</li>
+<li>Nationality</li>
+<li>Burden (Size)</li>
+<li>Maneuver Deck</li>
+<li>Veer (Maneuverability)</li>
+<li>Colored Borders (Attitude of the Ship)</li>
+<li>Firing Arcs</li>
+<li>Number of Guns</li>
+<li>Number of Crewmen</li>
+<li>Class / Type</li>
+</ol>
+<p>COURAGEUSE 1778 (1794)
+V - CONCORDE CLASS FRIGATE</p>
+<ol start="11">
+<li>The indicated year is the launch or capture year.
+The year in brackets (if present) indicates when the ship assumes the characteristics (and/or the name) it has in the game.</li>
+</ol>
+  </div>
+</details>
+<details class="section">
+  <summary><span>SETUP</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>To play Sails of Glory, you need a flat surface at least 90 x 70 cm (≈36 in. x 26 in.) to play on. A table, carpet, or floor section will all work as long as the boundaries are well defined. Before playing, you need to choose which scenario you want to play (see Scenarios, page 50). Follow the instructions provided by the scenario to select and setup the required ships.</p>
+<p>For each ship he controls, a player must insert the appropriate base card into the ship's base, then close it with the transparent lid and fix the ship's model on top. Base cards are double-sided: Choose the side matching the name of the ship you want to use.</p>
+<p>A player also takes a ship mat, the appropriate ship log and ship card for each ship, and the set of maneuver cards matching the maneuverability letter indicated by the ship card. Separate the cards with a blue or red border from the cards with a dark gray border; the dark gray border cards are only used when playing with the Advanced Rules (see page 28).</p>
+<p>Place the ship log in the appropriate area of a ship mat with the ship card next to it, to help players remember which ship is being controlled with that ship mat.</p>
+<p>Some components and optional rules only apply when playing Basic, Standard or Advanced Rules. This is indicated by the following symbols:
+{icon} Basic Rules
+{icon}{icon} Standard Rules
+{icon}{icon}{icon} Advanced Rules</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>EXPLANATION OF THE MANEUVER CARD</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<ol>
+<li>Normal Maneuver Card (blue border)</li>
+<li>Taken Aback Maneuver Card (red border)</li>
+<li>Broken Mast Maneuver Card (dark gray border) {icon}{icon}{icon}</li>
+<li>
+<p>Movement lines
+4A. Full sails {icon}{icon}{icon}
+4B. Battle sails
+4C. Backing sails {icon}{icon}{icon}</p>
+</li>
+<li>
+<p>Veer value {icon}{icon}</p>
+</li>
+</ol>
+<p>Divide the 5 five groups of damage counters according to the letter on the back. In the basic game you just need the A, B, and E counters. Place them into three different cups or groups, facedown on the table.</p>
+<p>Place the C and D counters back in the box. You only need them when playing with the Standard Rules (see page 22) or Advanced Rules (see page 28).</p>
+<p>Separate the crew loss special damage markers from the other markers. They are the only special damage markers used when playing with the Basic Rules.</p>
+<p>For each ship, take two ball ammunition counters. Place them on the left broadside and right broadside spaces of the ship mat, facedown, to indicate the cannons on both sides are loaded and ready to fire.</p>
+<p>In the basic game, the wind always comes from the right of the British side of the table (see Enemy in Sight! scenario, page 21). To show the wind direction, place the wind gauge on the gaming field, with its arrow parallel to the starting lines, pointing toward the right of the English fleet.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>EXPLANATION OF THE SHIP LOG AND SHIP MAT</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<ol>
+<li>Ship's Name and Year</li>
+<li>Burden (Size)</li>
+<li>Veer (Maneuverability)</li>
+<li>Top Row: Artillery Firepower / Ship Damage track</li>
+<li>Artillery Firepower: Stem (Forward), Full Broadside, Stern (Rear)</li>
+<li>Number of Crew Actions</li>
+<li>Bottom Row: Musketry Firepower / Crew Damage track</li>
+<li>"0" Tokens Box / Special Damage Box</li>
+<li>Broadside (Left/Right)</li>
+<li>Ammunition Storage (Left/Right)</li>
+<li>Sail Settings</li>
+<li>Full</li>
+<li>Battle</li>
+<li>Backing</li>
+<li>Struck Sails</li>
+<li>Planned Actions</li>
+<li>Unused Actions</li>
+</ol>
+<p>Ship Card
+1st Maneuver
+2nd Maneuver</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>THE GAME TURN</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>Each turn is composed of four phases:</p>
+<p>1) Planning
+2) Movement
+3) Combat
+4) Reloading</p>
+<p>All players perform each of these phases simultaneously. Conclude each phase before proceeding to the next one. After the Reloading phase is completed, start a new turn with a new Planning phase.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>PLANNING</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>During the Planning phase, all players select the maneuver cards used to move their ships.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>THE SHIP AND THE WIND</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>Before a player plans a ship's movement, it is important to understand the position of that ship with respect to the wind (the attitude to wind).
+— Red: Taken Aback
+— Orange: Beating
+— Green: Reaching
+— Orange: Running</p>
+<p>To read the wind, the player places an attitude indicator beside the ship, in the same direction shown by the wind gauge, so the tip of the indicator points toward the main mast of the ship. The player notes the color of the edge on the ship's base where it crosses the attitude indicator. The color determines whether the ship is beating/running (orange), reaching (green), or taken aback (red).</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>PLANNING THE MANEUVER</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>The player secretly chooses a maneuver card from his maneuver deck.
+— If the ship is beating, running, or reaching (orange or green), the player may select any normal maneuver card (with a blue border) to plan the ship's movement.
+— If the ship is taken aback (red), the player may only select a maneuver card with a red border to plan movement.</p>
+<p>If the attitude indicator passes exactly between two different colors, the player always chooses the most favorable (fastest) color of the two:
+— If it passes between red and orange, he chooses orange.
+— If it crosses between orange and green, he chooses green.</p>
+<p>Each player places the selected card, facedown, in the first space of the corresponding ship mat. The maneuver indicated by the card will be performed in the movement phase of this turn.</p>
+<p>It is forbidden to take measurements of any kind (for example, to check firing range) before planning. The only measurement allowed is to check the ship's wind attitude.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>MOVEMENT</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>After all players have planned their maneuvers, reveal the maneuver cards at the same time, and move the ships. To move a ship, each player takes the corresponding maneuver card and places it on the table.</p>
+<p>To facilitate movement, every ship base has two indents which must match the movement line, at the start and the end of the movement.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>MOVEMENT WITH A NORMAL MANEUVER CARD</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>Normal (blue border) maneuver cards are placed in the front of the ship, so the black line at the base of the middle arrow matches the little black line in front of the ship and the indent at the front of the base.</p>
+<p>Normal maneuver cards have three different movement lines – representing the ship's movement under full sails, battle sails or backing sails. Only the blue movement line (the middle one), representing battle sails, is used in the basic game.</p>
+<p>Each movement line has two movement arrows on it – an orange movement arrow, for beating/running ships, and a green movement arrow, for reaching ships.</p>
+<p>To move his ship, the player simply takes the base of his ship and moves it onto the maneuver card, so the black line behind the ship overlaps one of the two arrow tips (green or orange), depending on the attitude to wind of the ship. (To facilitate alignment after movement, the indent at the rear of the base must match the movement line, and the base of the ship must be aligned with the horizontal line at the bottom of the arrowhead.)</p>
+<p>After the ship has been moved, the maneuver card is removed from the table and placed back in the maneuver deck.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>MOVEMENT WITH A RED BORDER MANEUVER CARD</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>When the ship is taken aback (the attitude indicator crosses a red portion of the base), the player must use a movement card with a red border. Each red maneuver card has two movement lines – one with one sandglass and one with two sandglasses.</p>
+<p>In the basic game, only the movement line with two sandglasses is used. The maneuver card is placed with the arrow to the rear of the ship base, rather than to the front, showing the backing action of the wind.</p>
+<p>Then, the player moves the ship onto the maneuver card, matching the rear of the ship with the movement arrow in the same way as when using a normal maneuver card. When movement is completed, remove the maneuver card from the table and return it back to the maneuver deck.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>LEAVING THE GAME FIELD</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>If any part of a ship base exits the game field after a movement, the ship is eliminated and counts as surrendered.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>OVERLAPPING DURING MOVEMENT</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>If, due to their chosen maneuver, two or more ships would move so that, at the end of the movement, their bases overlap, movement is not executed in the normal way.</p>
+<p>Return all the ships involved in the overlapping to their original positions or leave them where they are at the start of the phase. Complete movement of all the ships not involved as normal. Then, move the overlapping ships using the following rules.</p>
+<p>Note: A special situation may arise when two ships are heading toward each other. If each of them may complete its maneuver so that, at the end of the movement, the two bases do not overlap, there is no collision, and the maneuver is resolved normally.</p>
+<span class="subsection-title">1) DETERMINING ORDER OF MOVEMENT</span>
+<p>When there is an overlapping, ships are not moved simultaneously. The overlapping ships move, one at a time, according to the following rules:</p>
+<p>1) Select the ship with the highest burden among the ones that would overlap. That ship moves first.
+2) If two or more ships have the same burden, first move the one with the best attitude (first green, then orange, and then red).
+3) Among ships with the same burden and same attitude, determine the movement order at random.
+4) After you determine the order, move the ships, one at a time.</p>
+<p>Note: The burden is the number close to the symbol of a hull section { }, both on the model base and on the ship log.</p>
+<span class="subsection-title">2) MOVING AND RESOLVING COLLISIONS</span>
+<p>During the sequence of movements described above, it may be impossible for a ship to normally complete its movement, because another ship is in the way. (It does not matter if the obstructing ship has already moved or not.) In this case, there is a collision. The player must slide the ship along the movement line, as far as possible, with the following rules:</p>
+<p>1) Place the maneuver card in front of the moving ship.
+2) Check if it is possible to place the ship on top of the maneuver card:
+    a) If yes, then do so. Then, slide the ship on the table so the black line on the rear of the base follows the path of the movement line on the card.
+    b) If no, just slide the ship so that the top of the line on the front of the ship's base follows the path of the arrow on the card.</p>
+<p>Stop movement as soon as the moving ship's base touches another ship's base. Then, proceed with the next ship involved in the collision, until all colliding ships have moved.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>COMBAT</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>After the movement phase is completed, players may check if any of their ships can attack. There are two types of attacks: artillery and musketry. After players have announced their attacks (in no specific order), all attacks are resolved simultaneously. Effects are applied at the same time, no matter the type of attack.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>ARTILLERY FIRE</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>A ship has two sets of guns, one on each side, called broadsides. These are indicated by two boxes on the ship mat.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>FIRING ARCS</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>Each of the two broadsides has 3 different firing arcs, each indicated by a red dot and two white lines bordering a colored angle.</p>
+<p>1) When there is a good alignment between the ship and the potential target, the central firing arc may be used. This represents the ship firing against the target with its full broadside, so the attack has maximum firepower (see Firepower and Range, page 16).
+2) If the alignment between the ship and its target is not as good, it may still be possible to use either the forward (stem) or rear (stern) firing arc. The attack has a reduced firepower, because only a portion of the guns may effectively fire against the target.</p>
+<p>To check if a target can be fired upon, the player takes the combat ruler and, after determining the firing arc, places the end of the combat ruler marked with the gun symbol on the red dot of that arc.</p>
+<p>If the combat ruler can reach any portion of the base of the target ship, while staying within the firing arc of that dot, the ship can shoot with the guns of that side's arc.</p>
+<p>Note: Sometimes, the target ship may be fired upon both from the central arc and the forward or rear arc. In this case, the player may choose which arc to use (in most cases, it's more convenient to use the central arc).</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>AMMUNITION</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>A ship may only fire a broadside if the guns on that side are loaded.</p>
+<p>At the start of the game, both broadsides of a ship are loaded. This is indicated by placing one ammunition counter, facedown, in each of the two broadside boxes.</p>
+<p>After a player fires from either side of a ship, he turns the ammunition counter faceup in the broadside box of that side, as a reminder that the ammunition is used.</p>
+<p>The guns of that side are now considered to be unloaded and cannot fire again until they are reloaded (see Reloading).</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>CHOOSING A TARGET</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>A ship may fire once on each side. If the guns on a ship's side have more than one target in sight (either in the same arc or in different arcs of that side), the controlling player must choose one of them.</p>
+<p>If a ship has targets on both sides, it may attack one target on each side, shooting with both broadsides.</p>
+<p>Shooting is never mandatory: A player may decide not to fire at a target – or to fire only one broadside even if both sides have a target in range.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>LINE OF SIGHT</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>A ship may not fire through the base of another ship, enemy or friendly. If it is impossible to reach a point of the target without the combat ruler crossing the base of another ship, the line of sight is blocked. The ship may choose another firing arc – or another target, if available.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>FIREPOWER AND RANGE</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>When a ship fires, the player must determine its firepower and range. The firepower determines how many damage counters the target must draw, while the range indicates the type of damage counters drawn.</p>
+<p>Firepower depends on the firing arc used and by damage suffered by the firing ship. Fire is simultaneous, so any damage a ship receives in the current turn will not modify its current firepower.</p>
+<p>The leftmost empty box on the top row of the ship log (with the “Ship” symbol) indicates the current firepower of that ship. There are three numbers in the box – the number in the middle is used when firing a full broadside (central arc), the number on the left is used when firing the forward broadside, and the number on the right is used when firing the rear broadside.</p>
+<p>Important: If a ship may be targeted within more than one arc, only the firepower of the chosen arc of fire is used, not the sum of the numbers in multiple arcs.</p>
+<p>Range is determined using the combat ruler, measuring from the dot on the firing arc to anywhere on the target's base:
+— If the target's base is reached by the first half of the combat ruler (indicated by the red/purple or orange color), the range is short and the target takes as many damage counters as indicated by the firepower of the attacking ship.
+— If the target's base is reached by the second half of the combat ruler (indicated by the yellow color), the range is long and the target takes as many damage counters as indicated by the firepower of the attacking ship.</p>
+<p>Note: It is possible the attack is at short range when measured within one fire arc and at long range when measured from a different arc. Remember that the attacker may choose which firing arc to use in the attack.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>MUSKETRY FIRE</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>If the ship base is at a distance from an enemy ship's base equal to the width of the combat ruler or less (in any direction), it is possible to attack with musketry fire.</p>
+<p>Musketry is in addition to artillery fire and is not mandatory. A ship may only attack a single target with musketry fire each turn.</p>
+<p>Players may select a different musketry target from the target of the artillery attack, if more targets are available.</p>
+<p>Musketry firepower is indicated by the bottom row of boxes on the ship log (with the “Crew” symbol). The number in the leftmost empty box on that row indicates the current musketry firepower of that ship. The target takes as many damage counters as indicated by the number.</p>
+<p>Musketry fire is always available and does not need reloading.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>DAMAGE</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>When a ship is the target of one or more attacks, the owner of the ship randomly draws the damage counters caused by the attacks (as determined above), and then shows them to his opponents.</p>
+<p>After all attacks are resolved and all players have drawn the damage counters for their ships, the counters are placed on the ship log of each damaged ship, accordingly to the following rules.
+— If a counter is a “0”, the player places it in the appropriate space of the ship log (rather than in the top row).
+— All the other numbered counters are placed in the boxes of the Ship Damage track (the top row of the ship log, with the “Ship” symbol). These counters represent damage to the ship itself.
+— If a counter shows a Crew Loss symbol, it is placed in the boxes of the Crew Damage track (the bottom row of the ship log, with the “Crew” symbol). These counters represent losses inflicted to the crew of the ship.
+— If a counter shows both a number and a Crew Loss symbol, it is placed in the Ship Damage track. Then, the player takes a Crew Loss special damage marker and places it in the Crew Damage track.
+— All other symbols on damage counters are ignored and are treated as numeric counters. The special damage represented by these symbols is not used with the Basic Rules.</p>
+<p>When placing damage counters, the player starts from the leftmost box of the appropriate track which is not full (see below).</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>DAMAGE TO THE SHIP</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>Numbered counters represent damage to the ship and are placed in the Ship Damage track (top row) of the ship log. When a player places numbered counters, he must always place them in order of their value, from the highest to the lowest.</p>
+<p>Each box of the Ship Damage track can hold one or more counters, until their total value matches or exceeds the burden of the ship.</p>
+<p>When the sum of the values of the counters in a box equals or exceeds the burden, that box is full. Turn the counters facedown to indicate the box is full. No additional counters may be placed in that box. The player must now start placing counters in the next box to the right.</p>
+<p>When a single counter has a value equal to, or higher than, the burden, the counter is placed directly in the leftmost completely empty box. This box is immediately considered full, and the counter is immediately turned facedown to indicate the fact. Further damage may still be added normally to a previous box, if it is not full yet.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>DAMAGE TO THE CREW</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>Damage to the crew is tracked in the Crew Damage track (bottom row) of the ship log. When a Crew Loss damage counter is drawn, the player must place it in a box on that row. Each box can hold only one counter.</p>
+<p>If the player draws a counter showing both a numeric and a Crew Loss, he must use a Crew Loss marker to keep track of the loss on the Crew Damage track and place the numbered counter on the Ship Damage track, following the normal rules.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>SURRENDERING OF A SHIP</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>If, at any time, all the boxes of either the Ship Damage track or the Crew Damage track are covered by a counter, the ship surrenders and is removed from the gaming table.</p>
+<p>All the damage counters on the ship log and ship mat, including the “0”s, are reshuffled together with the unused damage counters of the same type.</p>
+<p>Remember, as damage is resolved simultaneously, a ship that surrenders is still able to shoot in the phase in which it is eliminated.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>RELOADING</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>Guns of a broadside may be reloaded only during the turn following the one in which they fired, or any turn thereafter (so a broadside can, at most, fire every other turn).</p>
+<p>During the reloading phase, each player may move a facedown counter from an ammunition storage box to the corresponding empty broadside box (that is, one fired in a previous turn), keeping it facedown. This ammunition may be used to fire the corresponding broadside on that side, on the next turn.</p>
+<p>Then, players must move any faceup counter in a broadside box (that is, one fired in the current turn) to the corresponding ammunition storage box, flipping it facedown. This ammunition may be reloaded at the end of the next turn.</p>
+<p>Note: In a turn, the ship can reload both sides in a single turn, if both started the current turn unloaded.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>WINNING THE GAME</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>Victory conditions are indicated by the scenario you decide to play.</p>
+<hr/>
+<p>A set of rules meant to be added all together. Any previous rule that is not explicitly changed remains valid when playing with the Standard Rules.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>SETUP</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>In the Standard Rules, players may select different types of ammunition to load: ball, chain, and grapeshot (the double shot counters are used only with the Double Shot optional rule, see page 36).</p>
+<p>For each of his ships, a player takes two ammunition counters of each different kind and places one counter of each type, facedown, in both ammunition storage boxes of the ship mat. Each player then secretly moves one counter of his choice to each broadside box of the mat, facedown. This indicates the type of ammunition loaded into the guns. The type of ammunition is freely chosen for each broadside, and may differ between the left and right broadside.</p>
+<p>Finally, each player chooses and places one blue border maneuver card in the first space of the ship mat of each of his ships. This card is the maneuver that the ship will perform during the first turn.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>THE GAME TURN</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">PLANNING</span>
+<p>When playing with Standard Rules, players have to plan their maneuvers in advance (Time to React rule, see below) and to take into account the maneuverability of their ships (Veer rule, page 24).</p>
+<span class="subsection-title">TIME TO REACT</span>
+<p>The game starts with a maneuver card already planned.</p>
+<p>During the planning phase of each turn (including the first), players secretly choose an unused card with a blue border from the maneuver deck of each ship. This card is the maneuver the ship will perform during the next turn, after the maneuver already planned.</p>
+<p>Each player places the selected card, facedown, in the second space of the corresponding ship mat.</p>
+<p>The maneuver in the first space will be performed this turn; the card in the second space, which has just been placed, will be used next turn.</p>
+<p>Players may not check the attitude to the wind before choosing the maneuver card. They are only allowed to check the attitude during the movement phase.</p>
+<span class="subsection-title">VEER</span>
+<p>Each ship has a Veer (maneuverability) rating, indicated by the number beside the steering wheel symbol { } on the ship base, ship card, and ship log.</p>
+<p>Each maneuver card also has a veer value, in one of the upper corners, beside the steering wheel symbol.</p>
+<p>During the planning phase, a player may not select a maneuver card whose veer value is different (higher or lower) from the previous maneuver card by more than the ship's Veer rating.</p>
+<p>If an illegal maneuver is revealed, replace it with a straight maneuver (a maneuver with a veer value of 5 and a straight movement line).</p>
+<span class="subsection-title">MOVEMENT</span>
+<p>After all players have planned their maneuvers, they reveal the maneuver card in the first space (placed in the previous turn), and move the ships.</p>
+<p>Each player checks the current attitude to wind of his ship (see page 9).
+— If the ship is beating, running, or reaching (orange or green), the maneuver is performed normally, that is, in the same way as in the basic rules.
+— If the ship is taken aback (red), the revealed maneuver card must be replaced by a maneuver card with a red border. The player must choose the red border card appropriate to the veer value of the replaced maneuver: 4 or less, exactly 5, 6 or more.</p>
+<p>— On the first turn that the ship is taken aback, the line marked with one sandglass { } is used to move the ship. This movement is performed in the same way as the movement with a normal maneuver card, placing the card in front of the ship.
+— If the ship is taken aback for two or more consecutive turns, the line marked with two sandglasses { } is used to move the ship. In this case, the maneuver card is placed with the arrow to the rear of the ship base, rather than to the front, showing the backing action of the wind (same as in the Basic Rules).</p>
+<p>When movement with a red border card is completed, the card is left faceup on the maneuver deck, as a reminder that the ship was taken aback in this turn.</p>
+<p>After movement is completed, the facedown card in the second space of the ship mat is moved to the first space.</p>
+<span class="subsection-title">COLLISION BETWEEN FRIENDLY SHIPS</span>
+<p>If there is a collision (see Overlapping during Movement, page 12) between friendly ships (for example, two French ships), the involved ships take damage.</p>
+<p>Each ship takes a number of damage tokens matching the total burden of all other ships overlapping it.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>COMBAT</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">RAKING SHOTS</span>
+<p>A raking shot is a shot that travels down the length of a ship, rather than taking it in the more protected sides.</p>
+<p>The attacking player must trace a line of sight from the dot of the central firing arc to the main mast of the target ship.</p>
+<p>If the line passes through one of the short sides of the target base, the ship may fire a raking shot from its central firing arc – the broadside sweeps the deck of the target ship along its full length, dealing out additional damage.</p>
+<p>If the raking shot enters through the front side of the base, the target takes one additional damage counter for every three (rounding up) counters it should take.</p>
+<p>If the raking shot enters through the rear side of the base, the target takes one additional damage counter for every two (rounding up) counters it should take (since the stern is the most fragile part of the ship).</p>
+<span class="subsection-title">FIRING WITH SPECIAL AMMUNITION</span>
+<p>Three different kinds of ammunition may be used in the Standard Rules. The type of ammunition counter loaded is revealed when a ship fires a broadside, and its effect is applied, as indicated below.</p>
+<p>Ball is the “normal” ammunition. Ball has a longer range and normally causes more damage to the target ship’s hull than to its crew or sails.</p>
+<p>As in the Basic Rules, if the target’s base is reached by the first half of the combat ruler, the range is short and the target takes as many damage counters as indicated by the firepower of the attacking ship. If the target’s base is reached by the second half of the combat ruler, the range is long and the target takes as many damage counters as indicated by the firepower of the attacking ship.</p>
+<p>Chain is a special ammunition consisting of balls linked by a chain, which spins when fired. Chain has a shorter range than ball, and is used to wreak damage across the deck, masts, and sails of the target ship. When firing with chain ammunition, if the target’s base is reached by the red/purple part of the combat ruler (marked with C/D), the target takes as many damage counters as indicated by the firepower of the attacking ship. Beyond this range, the target is missed and takes no damage.</p>
+<p>Grapeshot is a mass of small balls and pieces of metal that scatter to inflict more damage to the crew than to the ship hull. It also has a shorter range than ball, and causes less damage to the ship's hull. When firing with grapeshot ammunition, if the target's base is reached by the red/purple part of the combat ruler (marked with C/D), the target takes as many damage counters as indicated by the firepower of the attacking ship. Beyond this range, the target is missed and takes no damage.</p>
+<p>When a ship fires a broadside, leave the used ammunition counter faceup in the broadside box, until the next reloading phase (when it will be moved to the ammunition box).</p>
+<span class="subsection-title">RELOADING</span>
+<p>Reloading is similar to Basic Rules, except that each time a broadside is reloaded, the player must decide whether he wants to load ball, chain, or grapeshot.</p>
+<p>During the reloading phase, each player may secretly choose one facedown ammunition counter from an ammunition storage box and move it to the corresponding empty broadside box (that is, one that fired in a previous turn), keeping it facedown. This ammunition may be used to fire the corresponding broadside on that side, on the next turn.</p>
+<p>Then, players must move any faceup counter in a broadside box (that is, one that was fired in the current turn) to the ammunition storage box, flipping it facedown. The broadside may be reloaded at the end of the next turn, with the same kind of ammunition or a different one.</p>
+<p>When ammunition is loaded, it cannot be changed. It is permitted to shoot even if there is no target in range, to empty the guns and then be able to reload them with different ammunition in a later turn.</p>
+<hr/>
+<p>A set of rules meant to be added all together. Any previous rule that is not explicitly changed remains valid when playing with the Advanced Rules.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>SETUP</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>In addition to the components introduced in the previous sections, each player must take a full set of action counters for each ship and place them in the unused action box of the ship mat.</p>
+<p>Reload the left broadside
+Reload the right broadside
+Fire the left broadside
+Fire the right broadside
+Musketry fire
+Increase sails
+Decrease sails
+Pump water
+Extinguish fire
+Repair damage</p>
+<p>The other action counters (Boarding, Blank, and Grog) are only used when playing with the appropriate optional rules.</p>
+<p>In addition, each player takes a sails status counter and places it on a position of his choice on the ship mat: full sails, battle sails or backing sails.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>THE GAME TURN</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>When playing with Advanced Rules, the turn sequence is extended by adding a new phase, the Action phase, to handle the resolution of actions:</p>
+<p>1) Planning
+2) Action phase
+3) Movement
+4) Combat
+5) Reloading</p>
+<span class="subsection-title">PLANNING</span>
+<p>When playing with Advanced Rules, the planning phase is modified by the planning of crew actions and by the possibility that a ship has struck sails.</p>
+<span class="label-title">PLANNING CREW ACTIONS</span>
+<p>Each ship log shows the number of crew actions for that ship, indicated by the number beside the “Hand” symbol.</p>
+<p>In addition to the choice of maneuvers, the player places as many action counters as he wants, facedown, in the planned action boxes of the ship mat, up to the number of crew actions for that ship.</p>
+<p>When a ship is damaged, use the leftmost symbol still uncovered by damage counters in both the Ship Damage and Crew Damage track.</p>
+<span class="label-title">STRUCK SAILS</span>
+<p>Any ship with struck sails (see Movement, page 32) may not plan a new maneuver card.</p>
+<span class="subsection-title">ACTION PHASE</span>
+<p>When all players have finished planning maneuvers and actions, all the actions planned are revealed at the same time, with the effects indicated below. Resolving the effect of an action is mandatory, unless indicated otherwise.</p>
+<p>If an illegal action is planned (shoot with unloaded guns, extinguish non-existing fires and so on), it has no effect, and the action counter is returned to the pool of available action counters for the next turn.</p>
+<span class="label-title">STANDARD ACTIONS</span>
+<p>These actions take effect during the Action phase, immediately after they are revealed, and are returned to the unused action box.</p>
+<p><strong>Increase sails:</strong> This action modifies the setting of the sails, to increase the speed of the ship. If a ship has struck sails they become backing sails; if it has backing sails they become battle sails; if it has battle sails they become full sails. There is no effect if the ship already has full sails. The player adjusts the sails status counter accordingly, moving it to the left.</p>
+<p><strong>Decrease sails:</strong> This action modifies the setting of the sails, to decrease the speed of the ship. If a ship has full sails they become battle sails; if it has battle sails they become backing sails; if it has backing sails they become struck sails. There is no effect if the ship already has struck sails. The player adjusts the sails status counter accordingly, moving it to the right.</p>
+<p><strong>Pump water:</strong> If the ship has any water damage tokens (see Special Damages, page 33), the player removes one. If the box occupied by the token is not the rightmost one with damage counters, all the counters shift to the left so that no damage box is left empty.</p>
+<span class="label-title">COMBAT ACTIONS</span>
+<p>These actions take effect during the Combat phase of the same turn they are revealed.</p>
+<p><strong>Fire the left (or right) broadside:</strong> A player may only plan this action if the appropriate broadside box is loaded. When this action is planned, the ship may fire the appropriate broadside once, following the normal rules (see page 14). Firing is not mandatory, even if the action is planned. After a player fires a broadside, he turns the ammunition counter faceup in the appropriate broadside box, as a reminder that the ammunition is used. The player returns the counter to the unused action box at the end of the combat phase, even if the ship does not fire the broadside.</p>
+<p><strong>Musketry fire:</strong> When this action is planned, the ship may attack once with musketry fire, following the normal rules (see page 17). Firing muskets is not mandatory. The player returns the counter to the unused action box at the end of the combat phase, even if the ship does not fire muskets.</p>
+<span class="label-title">RELOADING ACTIONS</span>
+<p>These actions take effect during the Reloading phase of the same turn they are revealed.</p>
+<p><strong>Reload the right (or left) broadside:</strong> A player may only plan this action if the broadside box is empty. When this action is planned, the player may move one ammunition counter of his choice, facedown, from the ammunition storage box to the broadside box. The player returns the counter to the unused action box at the end of the reloading phase.</p>
+<span class="label-title">DELAYED ACTIONS</span>
+<p>These actions, when revealed, are left, faceup, in the planned action box, until the Action phase of the next turn. They still count as planned actions in the next turn, so the player can plan fewer actions than those allowed by the crew action number.</p>
+<p><strong>Extinguish fire:</strong> If there is a fire on board (see Special Damages, page 32), the player leaves the action counter, faceup, in the planned action box, until the Action phase of the next turn. During the Action phase of the next turn, the action is resolved. The action counter is moved to the Special Damage box of the ship mat, to indicate the action is in progress. The action is completed at the end of the turn. The action counter and one fire on board marker are removed from the Special Damage box — the fire is extinguished, and the action becomes available again. Fire damage on the Ship Damage track is not removed. If there is more than one fire on board counter, the Extinguish fire action removes only one of them. The player must plan additional actions to extinguish the other fires.</p>
+<p><strong>Repair damage:</strong> The player leaves the action counter, faceup, in the planned action box, until the Action phase of the next turn. During the Action phase of the next turn, the action is resolved. At this point the player can decide to:
+— repair normal damage
+— repair a leak
+— repair a damaged rudder
+— repair a broken mast.</p>
+<span class="inline-title">REPAIRING NORMAL DAMAGE</span>
+<p>The player immediately moves all the counters in one damage box of the ship log to the “0 damage” box of the ship mat. If the damage box is not the last one, all the groups of counters shift to the left, so there are no gaps in the ship log. The player cannot remove water or fire damage counters using this action.</p>
+<p>Note: Any special damage caused by the removed damage counters continues to have effect, as before.</p>
+<span class="inline-title">REPAIRING A LEAK</span>
+<p>If the ship has a leak, the player may decide to repair it: he moves the action counter to the Special Damage box. The action is completed at the end of this turn: the action counter and one leak marker are removed from the Special Damage box– the leak is repaired, and the action counter becomes available again. Water damage on the Ship Damage track is not removed.</p>
+<span class="inline-title">REPAIRING A DAMAGED RUDDER</span>
+<p>If the ship has a damaged rudder, the player may decide to repair it: he moves the action counter to the Special Damage box. The action is completed at the end of this turn: the action counter and one rudder damage marker are removed from the Special Damage box– the rudder is repaired, and the action counter becomes available again.</p>
+<span class="inline-title">REPAIRING A BROKEN MAST</span>
+<p>If the ship has a broken mast, the player may decide to repair it: he moves the action counter to the Special Damage box. The action is completed at the end of this turn: the action counter and one broken mast damage marker are removed from the Special Damage box– the mast is repaired, and the action counter becomes available again.</p>
+<span class="subsection-title">LIMITATION TO REPAIRS</span>
+<p>During the game, a ship may use the Repair damage action to repair as many leaks and rudder damages as desired. However, normal damage and broken masts may only be repaired once per game. The removed damage counters or the broken mast marker must be left in the “0 damage” box as a reminder the action has been already used once for the stated purpose.</p>
+<span class="subsection-title">MOVEMENT</span>
+<span class="label-title">SAIL SETTING AND MOVEMENT</span>
+<p>When playing with Advanced Rules, each ship has a variable sail setting, as indicated by the sail status marker on the ship mat: full sails, battle sails, backing sails or struck sails.</p>
+<p>When a blue border maneuver card is used, the movement line used to move is different depending on the sail setting.</p>
+<p>Note: When a red border or dark gray border maneuver card is used, the sail setting does not modify the movement of the ship.</p>
+<span class="label-title">STRUCK SAILS</span>
+<p>When a ship has struck sails, maneuver cards are not planned anymore. Any maneuver card previously planned is executed using the backing sails movement line, then the ship stops where it is.</p>
+<p>The ship cannot use the increase sails action until it comes to a full stop.</p>
+<p>If, in a later turn, the ship uses the increase sails action, the sail status returns to backing sails.</p>
+<p>Starting in the Planning phase of the following turn, the ship may plan maneuver cards again, one per turn.</p>
+<p>As soon as both the maneuver card spaces on the ship mat are filled, the ship starts to move again normally.</p>
+<p>If a ship has only one programmed maneuver in a turn when it goes from backing sails to struck sails (because the ship went in a sequence from struck sails, to backing sails, then to struck again), the maneuver is not executed, and it is placed back in the maneuver deck instead.</p>
+<span class="subsection-title">COMBAT</span>
+<p>When playing with Advanced Rules, the Combat phase is modified by the need to plan and use crew actions to fire a broadside or muskets, and by the introduction of several types of special damage effect.</p>
+<span class="label-title">SPECIAL DAMAGES</span>
+<p>Some damage counters have, in addition or instead of a number, a symbol indicating they inflict special damage to the target ship.</p>
+<p>Counters with this symbol indicate the hit inflicts a crew loss to the ship. As in the Basic Rules, when a crew loss damage counter is drawn, the player must place it in a box in the Crew Damage track. Each box can hold only one counter. If the player draws a counter which shows both a numeric and a crew loss, he must use a crew loss marker to keep track of the loss in the Crew Damage track, and place the numbered counter in the Ship Damage track, following the normal rules.</p>
+<p>Counters with this symbol indicate the hit starts a fire on board. The player must place a fire marker in the Special Damage section of the ship mat as a reminder there is fire on board. At the beginning of each turn, before the planning phase, the ship takes one fire damage marker for each fire on board marker in the Special Damage box, and places it on an empty box of the Ship Damage track. The box is considered full and no other damage counters of any kind can be added to it. The fire on board ends its effect when the fire is extinguished (see Special Actions, Extinguish fire page 30).</p>
+<p>Counters with this symbol indicate the hit opens a leak in the hull. The player must place a water marker in the Special Damage section of the ship mat as a reminder there is a leak in the hull. At the beginning of each turn, before the planning phase, the ship takes a water damage marker for each leak marker in the Special Damage box and places it on an empty box in the Ship Damage track. The box is considered full and no other damage counters of any kind can be added to it. The leak ends its effect when it is repaired (see Special Actions, Repair damage page 31). The Pump water action (see page 29) counters the effect of a leak, but does not repair it.</p>
+<p>Counters with this symbol indicate the hit breaks one of the ship's masts. Starting with the next turn, the ship can only plan dark gray-border maneuver cards with one { 7 } or two { 11 } broken mast symbols. Any maneuver already planned is executed normally. Use the appropriate movement arrow (green or orange) depending on the attitude of the ship. If the ship is taken aback, the card is replaced randomly by one of the three red border cards.</p>
+<p>If a second mast is broken, only maneuver cards with the two broken mast symbol may be planned.</p>
+<p>If a third mast is broken, the ship surrenders. Masts may be repaired using the Repair damage action (see page 31) once per game.</p>
+<p>Counters with this symbol indicate the hit inflicts sail damage. The player must place a sail damage marker in the Special Damage section of the ship mat as a reminder. The first damage of this kind has no effect. When the ship takes a second sail damage marker, it may no longer use full sails. If the sails are full, they are immediately changed to battle sails. When the ship takes the fourth sail damage marker, the ship may only have backing sails. If the sails are battle sails, they are immediately changed to backing sails.</p>
+<p>When the ship takes the sixth sail damage marker, the ship is considered to have a broken mast (see above), which cannot be repaired. Further damage of this kind after the sixth does not have any additional effect.</p>
+<p>Counters with this symbol indicate the hit inflicts rudder damage. The player must place a rudder damage marker in the Special Damage section of the ship mat as a reminder. The veer rating of the ship is decreased by 1.</p>
+<p>Further damage of this kind is considered as a broken mast: The player must place one broken mast marker in the Special Damage box for each rudder damage beyond the first.</p>
+<p>Note: Remember the choice of maneuver is limited by the veer rating of the ship, and players must check if a maneuver is allowed when they reveal it. So a maneuver which was legal before the rudder is damaged might become prohibited when revealed because the rudder is damaged. A maneuver which was prohibited when planned, might become legal because, in the meantime, the rudder is repaired.</p>
+<hr/>
+<p>This section contains rules which add more details to the games. Players should agree on which optional rules they want to use before the game starts.</p>
+<p>If you are playing with the Basic Rules, you can only choose between the options marked with {✠}. With the Standard Rules, you can also use options marked with {✠✠}. With the Advanced Rules, you can also choose to use options marked with {✠✠✠}. The same code marks different effects an option may have when a different set of rules is in use.</p>
+<p>Several optional rules require players to determine randomly if an event happens. In these cases, an ■ damage counter is drawn and used as a randomizer. If the counter has a Crew Loss symbol, the event happens – (the counter does not inflict any damage). If the counter has a “0,” the event does not happen. In either case, the counter is reshuffled together with the unused ■ counters.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>PLANNING</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">LET THE MEN DRINK!</span>
+<p>In the historical period covered by this game, the distribution of alcoholic beverages to the ship's crew to raise morale was a common practice. To represent this, each ship receives a Grog counter. This action can be used only once in a game, during the Planning phase, and only if there are no enemy ships within the first half of the ruler. When it is used, the player moves one crew damage token from the Crew Damage track of the ship to the “0 damage” box.</p>
+<p>{✠✠✠} With Advanced Rules, the Grog counter is planned and used as a normal action. The effect is applied as soon as the action is revealed. The action can only be used once per game.</p>
+<span class="subsection-title">LACKING TRAINING</span>
+<p>Crews may have different levels of training, as indicated by the scenario or by players’ choice. If this rule is in use in a scenario, one or more ships can be handled by a crew lacking training.</p>
+<p>With Basic or Standard Rules, players may use the Gunners Lacking Training rule.</p>
+<p>With Advanced Rules, players may use the Gunners Lacking Training rule, the Sailors Lacking Training rule, or both.</p>
+<span class="subsection-title">GUNNERS LACKING TRAINING</span>
+<p>Gunners lacking training require one additional turn to fully load a broadside.</p>
+<p>During the Reloading phase after a broadside is fired, the ammunition counter is returned to the ammunition storage box, but is left faceup as a reminder the gunners take more time to reload.</p>
+<p>In the Reloading phase of the next turn, the faceup ammunition counter in the ammunition storage box is flipped facedown. The guns are still being reloaded and are not ready to fire yet.</p>
+<p>{✠✠} When playing with Standard Rules, no other ammunition counter which is facedown in the storage box may be reloaded from this storage box in this turn.</p>
+<p>In the Reloading phase of the following turn (the second one after firing), the player may reload the ammunition counter normally, moving it from the ammunition storage box to the corresponding broadside box. In the next turn, the broadside will be able to shoot again.</p>
+<p>If the Continuous Fire optional rule is in use, the drawn tokens are one third of the normal amount (round fractions down), instead of half.</p>
+<p>{🚢🚢🚢} When playing with Advanced Rules, ignore the above procedure. Use the normal rules for reloading, except Reload Broadside actions are considered delayed actions. When the Reload Broadside action is revealed, the player leaves the action counter, faceup, in the planned action box, until the Action phase of the next turn. During the Action phase of the next turn, move the action counter to the corresponding ammunition storage box. During the Reloading phase, the broadside can be reloaded and the action counter is returned to the unused action box.</p>
+<span class="subsection-title">SAILORS LACKING TRAINING</span>
+<p>Sailors lacking training are not as good at executing orders as more experienced sailors, and can miss the execution of one of the planned actions.</p>
+<p>Before revealing the actions planned for the ship, the player must draw one action counter at random among the ones planned this turn (do not include any delayed action planned in the previous turn).</p>
+<p>The player then shuffles the drawn action counter together with a Blank action counter, and randomly draws one of the two.</p>
+<p>If the action counter is drawn, the action is executed normally. If the Blank counter is drawn, the action is not executed and the action counter is returned to the unused action box.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>MOVEMENT</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">ENTANGLEMENT</span>
+<p>When two ships are at close distance, it is possible for their yards and rigging to become entangled, impeding further movement.</p>
+<p>Entanglement and disentangling are determined at the beginning of the Planning phase, before maneuver cards are planned.</p>
+<p>When the bases of two ships are in contact, the players must draw an 🚢 damage counter. If the counter has a Crew Loss symbol, the ships become entangled. If the counter is a “0,” nothing happens.</p>
+<p>Place an entanglement counter between the two ship models as a reminder.</p>
+<p>The two ships cannot move again until they are disentangled.</p>
+<p>🚢🚢 If playing with Basic Rules, do not plan any maneuver card until the ships are disentangled.</p>
+<p>🚢🚢 / 🚢🚢🚢🚢 If playing with Standard or Advanced Rules, discard the planned maneuver card of each ship: The ships will not move in this turn. Players can still plan a maneuver card to be executed next turn, in case the ships become disentangled in the meantime.</p>
+<p>Note: If multiple ships are in contact with each other, check for entanglement between each pair of ships separately.</p>
+<p>To disentangle, draw an 🚢 damage counter, at the beginning of each following Planning phase, for each pair of entangled ships.</p>
+<p>If the counter has a Crew Loss symbol, the two ships are disentangled and they start to plan and move again normally. If the counter is a “0,” the ships remain entangled, with the same effect indicated above.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>COMBAT</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">CONTINUOUS FIRE</span>
+<p>If this optional rule is in use, a broadside can shoot even when it is not loaded. In this case, the damage counters the target takes are halved, rounding fractions down. The broadside cannot be reloaded in the same turn it shoots with continuous fire.</p>
+<p>{ship icons} When playing with Standard Rules, in addition to the rules above:
+— The raking modifier (if applicable) is added before halving the damage.
+— Before resolving any fire, all players secretly choose the type of ammunition to use for each broadside shooting with continuous fire. The chosen ammunition counters are revealed simultaneously and fire is then resolved.
+— Double shot cannot be used with continuous fire.
+{ship icons} When playing with Advanced Rules, in addition to the Standard Rules listed above:
+— A player must plan a Fire Broadside action to use continuous fire (even if the broadside is not loaded).
+— A player may not plan a Reload Broadside action on the same broadside he planned a Fire Broadside action.</p>
+<span class="subsection-title">FIRST BROADSIDE</span>
+<p>The first broadside shot in battle was often more efficient, as the guns were carefully prepared for shooting before the heat of combat started.</p>
+<p>At the start of the game, place a Reload Broadside action counter in each broadside box of the mat, together with the chosen ammunition counter, as a reminder the first broadside has not been fired yet.</p>
+<p>The first time the ship shoots a broadside, the target takes one more damage token for every three (rounding up) that it should take.</p>
+<p>Then, move the Reload Broadside action counter to the available actions (or just discard the counter if playing with Basic or Standard Rules) as a reminder that the ship will now fire normally from that broadside.</p>
+<p>{ship icons} When playing with Standard Rules, calculate the effect of the Raking rule and the First Broadside rule independently.</p>
+<span class="subsection-title">FORCED AIM</span>
+<p>If this optional rule is in use, when a ship shoots with a broadside, it must shoot at the nearest target on that side (considering all the three firing arcs of the ship). The markings on the back of the combat ruler may be used to determine distance if necessary.</p>
+<p>If the nearest ship is a friendly one, that broadside cannot fire.</p>
+<span class="subsection-title">DOUBLE SHOT</span>
+<p>During setup, add two double shot ammunition counters (one for each broadside) with the possible ammunition types to choose.</p>
+<p>When a double shot is prepared, loading takes longer: it is not possible to shoot in the turn immediately after reloading, as usual, but in the following one (2 turns to load double shot).</p>
+<p>As a reminder, flip the double shot counter faceup in the ammunition storage box during the first turn it is reloaded. In the next turn, the counter is moved normally, and flipped facedown, to the broadside box.</p>
+<p>If a ship shoots with a double shot within half the ruler (red/purple or orange), the target takes both [icon] and [icon] tokens (for example, if the firepower is 3 it takes 3 [icon] tokens and 3 [icon] tokens). If the ship shoots at a longer distance, the target does not take any damage.</p>
+<span class="subsection-title">AIMING HIGH</span>
+<p>If this optional rule is in use, a player may decide to aim high, to inflict more damage to the masts and sails of the target ship, but less damage to the hull.</p>
+<p>Only a player shooting with ball (or double shot, if the Double Shot optional rule is in use) may decide to aim high.</p>
+<p>When a player aims high, he resolves artillery fire normally, except for the following change.</p>
+<p>All the damage counters drawn that have an underlined number (that is, those with a leak or rudder special damage, or 6 points of damage), and all the crew damage tokens without a number, are placed in the “0” damage box, and replaced with the same amount of damage tokens.</p>
+<p>In addition to the effects of the new counters drawn:
+— If the original replaced counter was a leak special damage, the target also takes a damage to the sails.
+— If the original replaced counter was a rudder special damage, the target also takes a damage to the mast.</p>
+<p>Take the appropriate damage marker for the additional special damage taken.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>BOARDING</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">BOARDING IN BASIC AND STANDARD RULES</span>
+<p>When the bases of two enemy ships are in contact at the beginning of the Planning phase, players must decide whether or not they want to board the enemy ship.</p>
+<span class="subsection-title">DECLARING A BOARDING</span>
+<p>Before planning maneuver cards, each player must take a Boarding action counter and a Blank action counter for each ship involved, to determine if ships are grappled and boarding is possible.</p>
+<p>The players secretly choose one of the two counters and place it, facedown, on the ship mat.</p>
+<p>Then, the players show the chosen counter.
+— If both counters are Blank, no boarding takes place and the turn proceeds normally.
+— If both counters are Boarding counters, a boarding takes place. The ships are grappled and cannot move. Place a counter (for example, a crew loss special damage counter) between the two ship models as a reminder.
+— If one counter is a Boarding counter and the other one is a Blank, shuffle them, and draw one at random.
+a) If the Blank is drawn, no boarding takes place and the turn proceeds normally.
+b) If the Boarding is drawn, a boarding takes place. The ships are grappled and cannot move. Place a counter (for example, a crew loss special damage counter) between the two ship models as a reminder of their status.</p>
+<span class="subsection-title">DURING A GRAPPLING</span>
+<p>When playing with Basic Rules, players may not plan a movement action for any ship involved in a boarding.</p>
+<p>When playing with Standard or Advanced Rules, the currently planned maneuver cards are discarded without effect. The ships will not move in this turn. Players must still normally plan the maneuver for the next turn, which will be executed in case grappling ends.</p>
+<span class="subsection-title">RESOLVING THE BOARDING</span>
+<p>Boarding is resolved after artillery and musketry fire are completed. If neither of the two involved ships surrendered because of artillery fire or musketry, players execute a boarding attack.</p>
+<p>Each ship inflicts a number of ■ damage counters equal to the Burden of the ship.</p>
+<p>Draw the counters one by one, drawing one counter for each ship and applying the effect of both counters at the same time.</p>
+<p>If one ship has a higher Burden than the other, all remaining counters are drawn at the end.</p>
+<p>As soon as one ship surrenders, the boarding attack stops: any remaining counters are not drawn.</p>
+<p>A boarding cannot end with two ships eliminating each other. If the counters drawn would inflict the last crew damage to each of them (and both ships would surrender), randomly choose one of the two ships to surrender.</p>
+<span class="subsection-title">ENDING A BOARDING</span>
+<p>If no ships surrenders because of the boarding, the ships remain grappled until the next turn.</p>
+<p>At the beginning of the Planning phase of the next turn, repeat the procedure to see if the boarding continues or not.</p>
+<span class="subsection-title">MULTIPLE BOARDINGS</span>
+<p>If a ship’s base is in contact with more than one enemy ship, grappling is determined independently for each pair of ships, based on their choice of counters.</p>
+<p>When a ship’s base is in contact with more than one enemy ship, players must first secretly decide for each ship (as explained above), if that ship tries to grapple one opponent, by choosing an appropriate counter (Boarding or Blank). Even if a ship is in contact with multiple enemy ships, only one counter is selected.</p>
+<p>Then, any player who chose a boarding counter declares which enemy ship he decides to grapple.</p>
+<p>Grapple declarations start with the ship with the lowest crew (use the number indicated on the ship card). In case of a tie, the ship with more crew losses declares first. If there is still a tie, determine randomly.</p>
+<p>Grappling is determined independently for each pair of ships, based on their choices:
+— If both ships declare to grapple each other, they are grappled.
+— If a ship declares to grapple a ship not grappling her, draw a counter. If the counter has a Crew Loss symbol, the two ships are grappled. If the counter is a “0,” grappling does not take place.
+— If neither ship tries to grapple, no grappling takes place.</p>
+<p>Mark each pair of grappled ships by placing a counter (for example, a crew loss special damage counter) between them.</p>
+<p>If a ship ends up grappled with more than one opponent, the boarding attacks of all ships are resolved together.</p>
+<p>Before drawing each counter, the ship grappled with multiple opponents must declare a target, then one counter is drawn for each ship involved. A ship may only inflict damage to the chosen opponent, but can receive damage from multiple opponents. If necessary, declarations are done in the same order indicated above (the ship with the smaller crew declares first).</p>
+<span class="subsection-title">BOARDING IN ADVANCED RULES</span>
+<p>When playing with Advanced Rules, the Boarding action represents preparing offensive or defensive boarding parties.</p>
+<p>Boarding between two ships in base contact is determined and resolved as indicated above, except the Boarding action must be planned just as any other action, and is revealed together with the other actions.</p>
+<p>Grappling and boarding are resolved in the same way as in the Basic and Standard Rules, with the following exceptions:
+— Boarding and grappling attempts are determined at the end of the Action phase, after actions are revealed, and are influenced by the choice of actions (see below). The boarding attack is still resolved at the end of the Combat phase.
+— Only a ship that planned a Boarding action may declare a boarding. It is not mandatory to do so – for example, a ship may plan a Boarding action, and then declare a Blank counter against the boarding attempt of an opponent.
+— If a ship succeeds in grappling and boarding an opponent, and the opponent does not have a boarding action planned, the boarding ship has an advantage over its opponent:
+— Before starting the boarding attack, the ship that did not choose the Boarding action receives a damage counter.
+— During the boarding, the effect of the damage counters drawn is not simultaneous. The damage inflicted by each counter drawn by the ship that planned the boarding action is applied first, then the damage inflicted by the other ship is applied.</p>
+<span class="subsection-title">BOARDING AND ENTANGLEMENT</span>
+<p>If the Entanglement optional rule (see page 35) is in use, first resolve the entanglement, then declare boardings. It is possible that two ships become both entangled (by coincidence) and grappled (by choice of at least one ship). In this case, the ships must become both disentangled and ungrappled before they can move again.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>OTHER RULES</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">FLAGSHIP</span>
+<p>One of the ships of each player may be designated as the flagship, as indicated by the scenario or by players’ choice.</p>
+<p>If the flagship surrenders, sinks, explodes, or is anyway eliminated from the game, all the other ships of that side take two crew special damage markers and place them on the Crew Damage track, representing the effect of the loss on the morale of the crew.</p>
+<p>All the ships of the opposing side remove a crew damage marker from their crew loss boxes (if they have any) and move it to the “0” damage box, representing the improvement in their morale. Any ship that shot artillery or musketry in the current turn against the eliminated flagship removes two markers, instead.</p>
+<p>If the flagship exits the gaming area, the effects are the same, unless the scenario rules indicate otherwise.</p>
+<span class="subsection-title">AMMUNITION EXPLOSION</span>
+<p>If a ship has a fire on board and it has already received two or more fire damage markers, the ammunition storage might explode.</p>
+<p>Each time the ship takes a new fire damage marker beyond the second, the player must shuffle three fire markers and one explosion marker together, and then randomly draw one of them.
+— If a fire damage marker is drawn, apply the fire damage normally.
+— If an explosion marker is drawn, fire reaches the ammunition storage and explodes. The ship is eliminated.</p>
+<p>Each ship in contact with the base of an exploding ship may be damaged and set on fire. Each ship in base contact must draw and apply a ■ damage counter.
+— If the counter is not a “0,” in addition to the damage indicated, a fire starts on the ship. Place a fire on board marker in the special damage box, to indicate the ship now has a fire on board.
+— If the ■ counter already indicates a fire special damage, place two fire on board markers in the special damage box instead of one.</p>
+<span class="subsection-title">SINKING SHIPS</span>
+<p>If a ship has a leak and it has already received two or more water damage markers, the hull might collapse and the ship may suddenly sink.</p>
+<p>Each time the ship takes a new water damage marker beyond the second, the player must shuffle three water damage markers and one sinking marker together, and then randomly draw one of them.
+— If a water damage marker is drawn, apply the water damage normally.
+— If a sinking marker is drawn, the hull gives way and the ship sinks. The ship is eliminated.</p>
+<span class="subsection-title">SPREADING FIRES</span>
+<p>If a ship fires a broadside against an enemy ship while their bases are in contact, and a fire starts on the enemy ship because of a fire on board special damage counter received, a fire starts on board of the firing ship, too.</p>
+<p>To avoid fire spreading to their own ship, crew sometimes alternated shooting guns with throwing buckets of water onto the enemy ship. To represent this, the firing ship may plan an Extinguish fire action, declaring, when the action is revealed, it is performing the action on the enemy ship. In this case, if the damage she inflicts on the target indicates a fire, the fire does not start on either ship.</p>
+<p>Fires caused by other ships firing or fires already started in the previous turns are ignored for the purpose of this rule.</p>
+<span class="subsection-title">SURRENDERED SHIPS</span>
+<p>If this optional rule is in use, when a ship surrenders, it is not removed from the game. The model remains on the gaming area as an obstacle to other ships.</p>
+<p>The ship executes the last planned maneuvers normally (if any), without planning new ones. Then it stops and is considered to be a wreck. The wreck remains still, without moving or taking any other action for the rest of the game.</p>
+<p>Damage tokens from the ship log are reshuffled together with the unused damage counters of the same type, as usual.</p>
+<p>Note: if the Boarding rules are in use, a surrendered ship cannot be grappled and boarded.</p>
+<p>After a ship surrenders, it still inflicts collision damage to friendly ships when it moves. When it stops and becomes a wreck, it inflicts collision damage to both friendly and enemy ships that collide with her.</p>
+<p>If a ship surrenders as the result of the Ammunition Explosion or Sinking Ships optional rules — or if it has an open leak or a fire on board when it surrenders — remove the ship model from the game instead of leaving it on the gaming area.</p>
+<span class="subsection-title">VARIABLE WIND DIRECTION</span>
+<p>During a battle, the direction or strength of the wind may change. This possibility is handled by the rules in this section.</p>
+<p>The direction of the wind at the start of the game may be indicated by the scenario, mutually agreed between the players, or determined randomly using the Wind Direction counters.</p>
+<p>Players place the Wind Gauge on the gaming table (aligned so that it is parallel to the side of the table), then rotate the wind arrow to point toward the determined direction.</p>
+<p>Shuffle all the direction change counters together and place them in an opaque cup or other container, or facedown in a stack.</p>
+<span class="label-title">CHANGE OF DIRECTION</span>
+<p>At the beginning of the Planning phase of each turn, draw one wind direction change counter.</p>
+<p>The wind direction changes only after the wind rotates twice in the same direction.</p>
+<p>Look at the wind direction change counter drawn:
+The first time the counter indicates a wind direction change, place it on the wind gauge. The direction of the wind does not change yet, but might change in the future.</p>
+<p>If the counter does not show any symbol, the wind remains the same. Reshuffle the counter with the unused wind direction change counters. If there is a wind direction change counter on the wind gauge from a previous turn, that counter stays there.</p>
+<p>If a counter indicating a wind direction change is drawn, while another counter is already on the wind gauge, compare the two counters:
+a) If the two counters indicate the same direction (either clockwise or counter-clockwise), the wind changes: Rotate the arrow on the Wind Gauge 45° clockwise (for example, North to North-East) or counter clockwise (for example, North to North-West).
+b) If the two counters indicate opposite directions, the wind does not change.</p>
+<p>In either case, reshuffle both counters with the unused direction change counters.</p>
+<p>If the direction of the wind changes, it influences the attitude of the ships immediately, with the Movement phase of the current turn.</p>
+<span class="label-title">VARIABLE WIND STRENGTH</span>
+<p>When playing with the Variable Wind Direction rule and with Advanced Rules, the wind may have different strengths, indicated on the strength track of the wind gauge.</p>
+<p>The intensity of the wind is normally medium (see Strength of the Wind, below) at the start of the game.</p>
+<p>A scenario may indicate a different initial strength.</p>
+<p>During setup, place the wind strength counter on the middle square of the track on the gauge, to indicate a medium strength.</p>
+<span class="inline-title">STRENGTH OF THE WIND</span>
+<p>The position of the strength counter on the wind gauge indicates the current strength of the wind:
+— If the wind strength is low { }, the sail setting of all ships is considered to be one step lower. Each ship with full sails uses the battle sails movement line; each ship with battle sails uses the backing sails movement line; each ship with backing sails is considered to have struck sails.
+— If the wind strength is medium { }, ships move normally.
+— If the wind strength is high { }, the sail setting of all ships is considered to be one step higher. Each ship with backing sails uses the battle sails movement line; each ship with battle sails uses the full sails movement line; each ship with struck sails is still considered to have struck sails.</p>
+<p>Each ship at full sails still uses the full sails movement arrow, but each time it moves, the player must draw an damage counter. If the counter has a Crew Loss symbol, the ship takes sail damage (see page 33). If the counter is a “0,” nothing happens.</p>
+<span class="inline-title">CHANGE OF STRENGTH</span>
+<p>At the beginning of the Planning phase of each turn, draw one wind strength change counter. The wind strength may change, depending on the counter drawn.</p>
+<p>The first time that the counter indicates a wind strength change (either an increase or a decrease), place it on the wind gauge. The strength of the wind does not change yet, but might change in the future.</p>
+<p>If a counter is already on the wind gauge, and a counter that indicates the opposite wind strength change is drawn, the wind does not change. Reshuffle both counters on the wind gauge with the unused wind strength change counters.</p>
+<p>If the wind strength counter drawn does not show any symbol, there are two possibilities:
+a) If there is not a wind strength counter on the wind gauge, the wind remains the same. Reshuffle the counter with the unused strength change counters.
+b) If there is a strength change counter on the wind gauge from a previous turn (either an increase or a decrease), the wind strength changes. If the strength decreases, move the wind strength counter on the gauge one step to the left (from medium to low, or from high to medium; if the wind is already at low strength, the strength does not change). If the strength increases, move the wind strength counter on the gauge one step to the right (from low to medium, or from medium to high; if the wind is already at high strength, the strength does not change).</p>
+<p>Reshuffle both counters on the wind gauge with the unused strength change counters.</p>
+<p>If the strength of the wind changes, it influences the movement of the ships immediately, with the Movement phase of the current turn.</p>
+<hr/>
+<p>The rules in this section introduce different types of terrain elements, which may be placed on the gaming field, to make the battle more interesting, or to create the setting for a specific scenario.</p>
+<p>Each terrain element is defined by a cardboard shape, indicating the part of the gaming area to which its effect applies.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>REEFS</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>A reef terrain element represents rocks, coral reefs, and other hard obstacles that emerge from the water or are submerged just beneath the surface.</p>
+<p>If, due to its chosen maneuver, a ship would move so that, at the end of the movement, its base overlaps a reef terrain element, movement is not executed in the normal way.</p>
+<p>Return the ship to its original position, and move it in the same way you move a ship when resolving an overlap with another ship (see page 12).</p>
+<p>Note: If necessary, because of the risk of overlapping with another ship, resolve this movement with the sequence of movements of overlapping ships (see page 12).</p>
+<p>The movement of the ship ends as soon as the moving ship's base touches the reef element. The ship takes a number of [square] damage tokens equal to its Burden.</p>
+<p>If, in a single turn, a ship takes more damage points from reefs than its Burden, it runs aground. A ship that ran aground cannot move again for the rest of the game (when playing with the Standard and Advanced Rules, any planned maneuver card is discarded). If the ship has a leak (see page 33), it does not take any more water damage because of the leak.</p>
+<p>{❀❀❀} When a ship collides with a reef element, all special damage symbols (except leak and rudder damage) on the damage counters drawn because of the collision are ignored — only the damage number is applied.</p>
+<p>Reefs do not have any effect on combat.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>SHOALS</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>A shoal terrain element represent sandbanks, sandbars and similar obstacles that, because of the shallow waters, are a hazard for navigation.</p>
+<p>If, due to its chosen maneuver, a ship would move so that, at the end of the movement, its base overlaps a shoal terrain element, the ship runs aground.</p>
+<p>A ship that runs aground cannot move again for the rest of the game (when playing with the Standard and Advanced Rules, any planned maneuver card is discarded).</p>
+<p>If the ship has a leak (see page 33) it does not take any more water damage because of the leak.</p>
+<p>{❀❀❀} If the Sinking Ships optional rule (see page 40) or the Surrendered Ships optional rule (see page 41) are in use, ships cannot sink on a shoal.</p>
+<p>Shoals do not have any effect on combat.</p>
+<p>Note: Shoal terrain elements are not included in this set, but are included in Terrain Packs.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>COAST AND ISLANDS</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>A scenario may indicate the presence of coasts or islands.</p>
+<p>Coast terrain elements are designed to place them at the edge of the gaming area and/or adjacent to another coast element.</p>
+<p>Islands are designed to be surrounded by water on all sides. Apart from this difference in the design, coast and islands use the same rules.</p>
+<p>Note: Coast terrain elements are not included in this set, but are included in Terrain Packs.</p>
+<span class="subsection-title">EFFECTS ON MOVEMENT</span>
+<p>The scenario indicates whether a coast (or island) element has a sandy coastline, rocky coastline, or neither of them. The scenario may also indicate the distance from the coastline which is dangerous to navigate:
+— Equal to the width of the ruler
+— Equal to the red/purple part of the ruler
+— None</p>
+<p>If, due to its chosen maneuver, a ship would move so that, at the end of the movement, its base is too close to the coastline (closer than the indicated distance), it may suffer damage or run aground.
+— If any part of the ship’s base is within the indicated distance from a sandy coastline, treat it as if it is overlapping a shoal.
+— If any part of the ship’s base is within the indicated distance from a rocky coastline or island, treat it as if it is overlapping a reef.</p>
+<p>The line of sight is blocked from the central firing arc but not from the front firing arc.
+— If both of the conditions above apply (for example, because a ship ends its movement between a sandy coast and a rocky island), apply both effects.
+— If any part of the ship’s base overlaps the coast or island element, treat it as overlapping a reef, but the ship receives twice as many damage tokens as the Burden and the ship always runs aground, no matter how many damage points it takes.</p>
+<p>The line of sight is completely blocked by the peninsula, so the ship cannot attack.</p>
+<p>A coast or island element may be designated as a harbor or be considered safe for navigation for other reasons. In this case, the rules above do not apply, and the ship may get close to the element without any negative effect. However, if the ship overlaps the terrain element, it still takes damage and runs aground.</p>
+<span class="subsection-title">EFFECTS ON COMBAT</span>
+<p>The presence of a coast or island element blocks the line of sight.</p>
+<p>A ship cannot fire through these terrain elements, if the line of sight for all firing arcs are blocked.</p>
+<p>When firing from or to a coast or island element, line of sight is not blocked by parts the element itself — a ship can shoot any target on a terrain element, unless there is a different element in-between (or there is another ship blocking the line of sight).</p>
+<p>Ships and coast batteries at sea and on land may shoot at each other, so may batteries on the same coast. The only exception is that it is forbidden to shoot if the ruler used to measure the distance goes across sea, then land and then sea again: if it is not possible to reach any part of the target, staying in the firing arc and without going across the sequence of sea, land, and sea, the aim is blocked and the ship must choose another target, if there is any available.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>COASTAL BATTERIES</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>A coast or island terrain element may feature a costal battery, indicated by the presence of one or more red dots and one or more firing arcs originating from them.</p>
+<p>Each battery has different characteristics, indicated by its battery log.</p>
+<p>The top row of the log is the Battery Damage track, and works similarly to the Ship Damage track of a ship log. This track indicates the firepower for all of its firing arcs. The damage capacity of each box is based on the Fortification Rating { } of the battery, which follows similar rules to the Burden of a ship.</p>
+<p>The bottom row of the battery log is the Crew Damage track, and works similarly to the Crew Damage track of a ship log.</p>
+<span class="subsection-title">EXPLANATION OF THE BATTERY LOG</span>
+<ol>
+<li>Fortification Rating</li>
+<li>Top Row: Artillery Firepower / Battery Damage track</li>
+<li>Artillery Firepower</li>
+<li>Number of Crew Actions { }</li>
+<li>Bottom Row: Musketry Firepower / Crew Damage track</li>
+<li>“0” Tokens Box / Special Damage Box { }</li>
+<li>Gun box</li>
+<li>Ammunition Storage box</li>
+<li>Planned Actions { }</li>
+<li>Unused Actions { }</li>
+</ol>
+<p>A coastal battery never moves or turns, so planning is never required (except planning actions when playing with Advanced Rules, see page 48).</p>
+<p>Note: Coastal batteries are not included in this set, but are included in Terrain Packs.</p>
+<span class="subsection-title">BATTERIES IN COMBAT</span>
+<p>In combat, batteries follow similar rules to ships: they shoot, reload and receive damage in exactly the same way.</p>
+<p>The leftmost empty box in the top row of the battery log (with the “Guns” symbol) indicates the current firepower of that battery. There are as many numbers in the box as there are arcs in the battery.</p>
+<p>A battery is handled in a similar way to one of the broadsides of a ship.
+— A battery may have one or more firing arcs, each indicated by a red dot and two white lines bordering a colored angle.
+— The battery may fire against a single target each turn.
+— The line of sight for the battery is determined in the same way as for ships: it may be blocked by a ship, or by an intervening terrain element different from the element where the battery is located.
+— If the target may be fired upon by more than one arc, the player may choose which arc to use (in case they have a variable firepower).
+— As the battery does not have a base like a ship, combat ranges are always measured to and from the red dot. If a target’s base is reached by the red/purple part of the combat ruler from one of the red dots, the battery can also attack it with musketry fire.</p>
+<p>{☠☠} When using Standard Rules, a battery inflicts raking damage against a ship when at least one of its firing arcs fulfills the requirements for raking.</p>
+<p>{☠☠☠} When using Advanced Rules, batteries ignore all special damages, except crew and fire special damages (if the Ammunition Explosion optional rule, page 40, is in use, it applies to batteries as well as to ships).</p>
+<p>It is possible for a battery to fire at an enemy target on a coast (such a situation may arise, for example, in a scenario simulating a siege). In this case, the line of sight is blocked only by a terrain element different from the attacker’s and the target’s element (or by an intervening ship).</p>
+<span class="subsection-title">ELIMINATING A BATTERY</span>
+<p>If, at any time, all the boxes of the Battery Damage track are covered by a counter, the battery is destroyed. If all boxes of Crew Damage track are covered by a counter, the battery surrenders. In either case, the effect is the same, the battery is eliminated from the game. (Scenario rules may indicate different effects for victory conditions).</p>
+<p>When a battery is eliminated, all of the damage counters on the battery, including the “0”s, are reshuffled together with the unused damage counters of the same type.</p>
+<p>Remember, as damage is resolved simultaneously, an eliminated battery is still able to fire in the phase in which it is destroyed or surrenders.</p>
+<span class="subsection-title">ACTIONS OF A BATTERY</span>
+<p>The player controlling a battery must plan actions for it just as he does for a ship, but the choice of actions is limited.</p>
+<p>Fire the guns
+Reload the guns
+Musketry fire
+Extinguish fire
+Repair damage</p>
+<p>The effect of each action is similar to the equivalent ship action (see pages 29–31), except that Repair damage repairs only normal damage.</p>
+<hr/>
+<p>A solitaire scenario may also involve one or more enemy ships moving across the table in a random way, while the player moves the ships sent to stop them.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>AUTOMATIC MOVEMENT</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>For each ship that moves randomly, prepare its maneuver deck by selecting the cards with a veer rating between 3 and 7, and shuffling them. Return the removed cards to the box since will not be used in the game.</p>
+<p>During the Movement phase, take the top card from the deck of each ship moving randomly. Used maneuver cards are placed in a discard pile for each ship, beside its maneuver deck.</p>
+<p>Any time the discard pile contains one sideslip (a maneuver with a veer of 5 which is not a straight line) to the right and one sideslip to the left, shuffle both cards back into the maneuver deck, together with any straights. If there is a third sideslip or if there are turns in the discard pile, leave them in the discard pile.</p>
+<p>Any time the discard pile contains one turn to the right and one to the left, whose values exactly equal 10, shuffle them back into the maneuver deck together with any straights, leaving the sideslips in the discard pile. If there are other turns in the discard pile, leave them there.</p>
+<p>❀❀ / ❀❀❀ When playing with Standard or Advanced Rules, ships that move randomly do not plan their movements one turn in advance.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>COMBAT AND ACTIONS</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>When playing with Basic or Standard Rules, the ships not controlled by the player fire using the following rules:</p>
+<p>They fire a broadside every time they are loaded with a target in range. They reload immediately as soon as they can, using the normal rules.</p>
+<p>If several targets are available, they always choose the target according to the Forced Aim rule (see page 36).</p>
+<p>If the Continuous Fire rule is in use, they fire if a target is available and reload only if no target is available.</p>
+<p>{🎲🎲} When playing with Standard or Advanced Rules, the ships not controlled by the player will shoot using the following rules:
+— They do not choose the type of ammunition when the guns are loaded. If a broadside shoots within the red/purple part of the ruler, the target takes [icon] damage counters. If it shoots at a longer distance, but within the first half of the ruler, the target takes [icon] damage counters. If the distance is longer, but within the ruler, the target takes [icon] damage counters.</p>
+<p>{🎲🎲} When playing with Advanced Rules, the actions of a ship are chosen following these priorities until the number of available actions is reached, or all the possibilities are finished.</p>
+<p>1) Fire musketry, if there is a target in range.
+2) Extinguish fire, if there is one.
+3) Repair a leak, if there is one.
+4) Fire a broadside, if it is loaded and there is a target in range (even when unloaded, if the Continuous Fire rule is in use).
+5) Reload a broadside, if it is unloaded.
+6) Repair damages, in this order:
+a) Damage points, if at least one damage box is completely filled by repairable damages, and the action has not been used in this game by that ship.
+b) A damaged mast, if one is broken and one has not been repaired before.
+c) A damaged rudder, if it is broken.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>COASTAL BATTERIES IN SOLITAIRE SCENARIOS</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>Coastal batteries are very suitable for use in solitaire scenarios, in which the player maneuvers one or more ships against coastal batteries shooting against the ship in an automatic way.</p>
+<p>Coastal batteries do not move. In combat, they are handled in the same way ships not controlled by the player are handled, except, when playing with Advanced Rules, their action priorities are different:</p>
+<p>1) Extinguish fire, if there is one;
+2) Fire the guns, if they are loaded and there is a target in range (when unloaded, if the Continuous Fire rule is in use).
+3) Fire musketry, if there is a target in range.
+4) Reload the guns, if they are unloaded.
+5) Repair damage, if at least one damage box is completely filled by repairable damages, and the action has not been used in this game by that battery.</p>
+<hr/>
+<p>The following pages introduce several different situations, called scenarios, you can play using the models included in this box and the ones available as Ship Packs.</p>
+<p>The lengths and widths listed in the description are suggested minimums for the playing area, but you can always adapt the playing area to your available table size.</p>
+<p>In alternative, if you use the official Sails of Glory Game Mat to play, each scenario indicates how many mats to use.</p>
+<p>When terrain elements are used in a scenario, an example of their placement is shown.</p>
+<p>Every scenario also states which additional rules are required. Other optional rules may be added if all the players agree to do so before the game begins.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>INVENTING NEW SCENARIOS</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>After you are familiar with the game, feel free to invent your own scenarios, using the ones presented here as examples. If you own multiple sets and Ship Packs, you can design far richer gaming situations.</p>
+<p>To create a balanced scenario, you can use the downloadable tournament rules and point system available for free from www.aresgames.eu.</p>
+<p>You may also create an unbalanced scenario. In this case you should take the uneven situation into consideration when designing the victory conditions.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>ENEMY IN SIGHT!</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p><strong>Players:</strong> 2–4, divided evenly into two teams. With 3 players, one player controls both the ships from one side, and each of the opponents takes one ship from the opposite side.
+<strong>Gaming Surface:</strong> Length: 90 cm (≈36 in.), width: 90 cm. (≈36 in.) or one game mat. French side is opposite to British side.
+<strong>French Player(s):</strong> Courageuse and Génereux, within half–ruler distance from the French side.
+<strong>British Player(s):</strong> HMS Terpsichore and HMS Defence, within half–ruler distance from the British side.
+<strong>Additional Rules Needed:</strong> None.
+<strong>Winning Conditions:</strong> The winner is the side with ships in play when all enemy ships exit the playing area or surrender.
+<strong>Variants:</strong>
+— You may vary the starting positions. For example, place the teams on adjacent sides or place one ship of each player on the same side of the table.
+— You may replace one or more ships with the ones on the back of the same ship card.
+— You may add one or more ships to each side, as long as the ships are balanced (for example, adding one 74–gun ship–of–the–line to both sides).
+— You may decide that French ships have Lacking Training (see page 34), and the wind comes from the French side.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>IN SHALLOW WATERS</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p><strong>Players:</strong> 2–4, divided evenly into two teams. With 3 players, one player controls both the ships from one side, and each of the opponents takes one ship from the opposite side.
+<strong>Gaming Surface:</strong> Length: 90 cm (≈36 in.), width: 90 cm. (≈36 in.) or one game mat.
+First, place an island at the center of the table. Consider it an island with a rocky coastline, dangerous within the width of a ruler.
+Then, players alternate placing one reef each, at least half a ruler from any other reef or island, until six reefs are placed.
+Finally determine at random which side of the table is British and which (different) side is French. If the two sides are opposite to each other, the wind comes from the right of the British player. If they are not opposite, randomly determine if the wind comes from the British side or the French side.
+<strong>French Player(s):</strong> Unité and Aquilon, within half-ruler distance from the French side.
+<strong>British Player(s):</strong> HMS Meleager and HMS Vanguard, within half-ruler distance from the British side.
+<strong>Additional Rules Needed:</strong> Reefs, Coast and Islands.
+<strong>Winning Conditions:</strong> The winner is the side with ships in play when all enemy ships exit the playing area or surrender.
+If ships from both sides run aground and the goal becomes impossible to reach, the winner is the player with more surviving ships, or with a surviving ship of the line if the opponent’s surviving ship is a frigate. If a ship survives from each side and they are of the same class, the game is a draw.
+<strong>Variants:</strong> Same as for Enemy In Sight! (page 51).</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>FORCE THE BLOCKADE</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p><strong>Players:</strong> 1–4. If 2 or 4 players, divide them evenly into two teams. With 3 players, one player controls both the ships from one side, and each of the opponents takes one ship from the opposite side. For solitaire play, see Variants, below.
+<strong>Gaming Surface:</strong> Length: 120 cm (≈48 in.), width: 90 cm (≈36 in.) or two game mats. The British side is one of the two short sides of the table, the French is the opposite side. Wind comes from the right of the British side.
+<strong>French Player(s):</strong> Courageuse and Généreux are placed first, within half-ruler distance from the British side and at least one ruler distance from both adjacent sides.
+<strong>British Player(s):</strong> HMS Terpsichore and HMS Defence are placed after, within half-ruler distance from the center of the table.
+<strong>Additional Rules Needed:</strong> None.
+<strong>Winning Conditions:</strong> The French win if both his ships exit on the French side. The British win if at least one of the French ships is eliminated or exits on the wrong side.
+<strong>Variants:</strong>
+— Swap sides: the British start from the French side and must go across the table without losses, while the French start from the center of the table and must stop them.
+— Play the game twice, swapping sides. The winner is the player who, in the fleeing role, exits more ships off the table on his own side. If it is a tie, the winner is the one with the most total undamaged boxes (hull and crew) on the ships he exited off of the table when in the fleeing role. If it still is a tie, the winner is the one who sunk more chasing ships. If it still is a tie, the winner is the one who inflicted more boxes of damage to the enemy chasing ships.
+<strong>Solo variant:</strong> The French ships move with automatic movement (see page 48). They start with the rear of the ship against the British side, front toward the French side, at one ruler of distance from each other, at the center of the British side of the table.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>AGAINST THE OUTPOST</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p><strong>Players:</strong> 2–4, divided evenly into two teams. With 3 players, one player controls both the ships from one side, and each of the opponents takes one ship from the opposite side.
+<strong>Gaming Surface:</strong> Length: 120 cm (≈48 in.), width: 90 cm (≈36 in.) or two game mats. British side is one of the two short sides of the table, French side is the opposite one. Wind comes from the right of the British side.
+<strong>French Player(s):</strong> The French player places an island (the one in the figure), at half-ruler distance from the French side of the table and at least one ruler from both adjacent sides. Consider it an island with a rocky coastline, dangerous within the width of a ruler. Then, he places two reefs, at half-ruler distance from the island, and at least half-ruler distance from each other and from the table sides. Courageuse and Généreux are placed, after the British ships, within half-ruler distance from the center of the table.
+<strong>British Player(s):</strong> HMS Terpsichore and HMS Defence are placed after the island and reefs, but before the French ships, anywhere within half-ruler distance from the British side.
+<strong>Additional Rules Needed:</strong> Reefs, Islands.
+<strong>Special Rules:</strong> The British can fire upon the brown building on the island aiming at any part of its drawing. The building surrenders if it suffers 8 points of damage, 4 crew damages, or the French fleet is defeated (that is, both French ships surrender or exit the table while there are still British ships on the table), unless all remaining British ships are aground.
+<strong>Winning Conditions:</strong> The game ends when all British ships surrender or run aground, or when the building surrenders and both French ships surrender or run aground. The British player scores 8 points if the building surrenders; 4 points if the building is damaged with at least 1 point of damage or 1 crew damage but it does not surrender, -4 points if the building is undamaged at the end of the battle. Each player also scores 5 points for each enemy frigate surrendered or exited from the table; 9 points for each enemy ship of the line surrendered or exited from the table; 3 points for each enemy frigate run aground, and 5 points for each enemy ship of the line run aground. British ships may exit from the British side of the table with no penalty if the building surrenders. The player with most points wins.
+<strong>Variants:</strong>
+— Play the game twice, swapping sides. The winner is the player who scores the most total points.
+— The British player places another island with a rocky coastline at half-ruler distance from the British side and at least one ruler from both adjacent sides; and two more reefs at half-ruler distance from the island, and at least half-ruler distance from each other and from the table sides (see image to the right). Both players start with their ships at one ruler of distance from their side. Both sides have an enemy building to force to surrender and score accordingly. Every ship leaving the table gives points to the enemy.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>SUPPLIES ARE COMING</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p><strong>Players:</strong> 2–4, divided evenly into two teams. With 3 players, one player controls both the ships from one side, and each of the opponents takes one ship from the opposite side.
+<strong>Gaming Surface:</strong> Length: 120 cm (≈48 in.), width: 90 cm (≈36 in.) or two game mats. British side is one of the two short sides of the table, French side is the opposite one. Wind comes from the right of the British side.
+<strong>French Player(s):</strong> Courageuse and Généreux are placed first within half–ruler distance from the British side and at least one ruler distance from both adjacent sides. The French player places an island at half–ruler distance from the French side of the table and three reefs at half–ruler distance from the island, and at least half–ruler distance from each other and from the table sides. The island is considered a harbor.
+<strong>British Player(s):</strong> HMS Terpsichore and HMS Defence are placed after the French ships, at half–ruler distance from the center of the table.
+<strong>Additional Rules Needed:</strong> Advanced Rules, Reefs, Islands.
+<strong>Winning Conditions:</strong> The game ends when all ships on either side surrender or run aground. The French scores 2 points for each turn the Courageuse stands still with struck sails within the red/purple part of the ruler, from the edge of the island, up to a maximum of 6 points. If the French player scores 6 points in this way, his ships may exit from the French side of the table without penalty. If the French does not score points in this way, the British player scores 3 points. Each player also scores 5 points for each enemy frigate surrendered or exited from the table; 9 points for each enemy ship of the line surrendered or exited from the table, 3 points for each enemy frigate run aground; and 5 for each enemy ship of the line run aground. The player with most points wins.
+<strong>Variants:</strong> Play the game twice, swapping sides. The player with most points wins.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>SITTING DUCKS (SOLITAIRE SCENARIO)</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p><strong>Players:</strong> 1.
+<strong>Gaming Surface:</strong> Length: 90 cm (≈36 in.), width: 90 cm. (≈36 in.) or one game mat. Two islands and three reefs as shown. Wind comes from the right of the French side. The islands have a rocky coastline, dangerous within the width of a ruler.
+<strong>French Player:</strong> Unité and Aquilon at half-ruler distance from the French side.
+<strong>British Player (automatic):</strong> HMS Terpsichore and HMS Defence, anchored as shown.
+<strong>Additional Rules Needed:</strong> Reefs, Islands, Rules for Solitaire Play. Anchored ships are simply ships that never move.
+<strong>Winning Conditions:</strong> The French player wins if none of his ships ran aground, both British ships are eliminated and both French ships have less than half of the damage boxes filled at the end of the game.
+<strong>Variants:</strong>
+— You can replace one or more ships with the ones on the back of the same ship card.
+— Swap sides and ship positions. The player controls the British ships, placed at half-ruler distance from the upper side of the playing area. British ships are attacking. French ships, at anchor, are automatic.</p>
+<hr/>
+<p>You may expand your game adding more ships, available for purchase as Ship Packs.
+To play with more than four ships at one time you need the Additional Ship Mats accessory.</p>
+  </div>
+</details>
+  <p id="no-results">No sections match your search.</p>
+</main>
+<script>
+(function () {
+  var searchEl  = document.getElementById('search');
+  var clearBtn  = document.getElementById('search-clear');
+  var noResults = document.getElementById('no-results');
+  var sections  = Array.from(document.querySelectorAll('details.section'));
+  var matchNav   = document.getElementById('match-nav');
+  var matchCount = document.getElementById('match-count');
+  var matchPrev  = document.getElementById('match-prev');
+  var matchNext  = document.getElementById('match-next');
+
+  var allMarks = [];
+  var currentMark = -1;
+
+  // Snapshot each section body's original HTML so we can restore it
+  // before applying a new round of highlights.
+  sections.forEach(function (s) {
+    var body = s.querySelector('.section-body');
+    if (body) body.dataset.original = body.innerHTML;
+  });
+
+  var timer;
+
+  searchEl.addEventListener('input', function () {
+    var term = this.value.trim();
+    clearBtn.classList.toggle('visible', term.length > 0);
+    clearTimeout(timer);
+    timer = setTimeout(function () { applySearch(term); }, 180);
+  });
+
+  clearBtn.addEventListener('click', function () {
+    searchEl.value = '';
+    clearBtn.classList.remove('visible');
+    applySearch('');
+    searchEl.focus();
+  });
+
+  matchPrev.addEventListener('click', function () {
+    if (allMarks.length === 0) return;
+    navigateTo((currentMark - 1 + allMarks.length) % allMarks.length);
+  });
+
+  matchNext.addEventListener('click', function () {
+    if (allMarks.length === 0) return;
+    navigateTo((currentMark + 1) % allMarks.length);
+  });
+
+  function navigateTo(index) {
+    if (allMarks[currentMark]) allMarks[currentMark].classList.remove('active');
+    currentMark = index;
+    var mark = allMarks[currentMark];
+    mark.classList.add('active');
+    mark.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    matchCount.textContent = (currentMark + 1) + ' of ' + allMarks.length;
+  }
+
+  function escapeRe(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlightTextNodes(container, re) {
+    var walker = document.createTreeWalker(
+      container, NodeFilter.SHOW_TEXT, null, false
+    );
+    var nodes = [];
+    var n;
+    while ((n = walker.nextNode())) {
+      if (n.nodeValue.trim()) nodes.push(n);
+    }
+    nodes.forEach(function (textNode) {
+      re.lastIndex = 0;
+      if (!re.test(textNode.nodeValue)) return;
+      re.lastIndex = 0;
+      var span = document.createElement('span');
+      span.innerHTML = textNode.nodeValue.replace(
+        re, function (m) { return '<mark>' + m + '</mark>'; }
+      );
+      textNode.parentNode.replaceChild(span, textNode);
+    });
+  }
+
+  function applySearch(term) {
+    var re = term ? new RegExp(escapeRe(term), 'gi') : null;
+    var visibleCount = 0;
+
+    sections.forEach(function (section) {
+      var body    = section.querySelector('.section-body');
+      var summary = section.querySelector('summary');
+
+      // Restore original HTML before each search pass
+      if (body) body.innerHTML = body.dataset.original;
+
+      if (!re) {
+        section.classList.remove('search-hidden');
+        section.open = false;
+        return;
+      }
+
+      var titleText = summary ? summary.textContent : '';
+      var bodyText  = body    ? body.textContent    : '';
+
+      re.lastIndex = 0;
+      var inTitle = re.test(titleText);
+      re.lastIndex = 0;
+      var inBody  = re.test(bodyText);
+      re.lastIndex = 0;
+
+      if (inTitle || inBody) {
+        section.classList.remove('search-hidden');
+        section.open = true;
+        if (body) highlightTextNodes(body, new RegExp(escapeRe(term), 'gi'));
+        visibleCount++;
+      } else {
+        section.classList.add('search-hidden');
+      }
+    });
+
+    noResults.style.display = (re && visibleCount === 0) ? 'block' : 'none';
+
+    allMarks = Array.from(document.querySelectorAll('mark'));
+    currentMark = -1;
+
+    if (allMarks.length > 0) {
+      matchNav.classList.add('visible');
+      navigateTo(0);
+    } else {
+      matchNav.classList.remove('visible');
+      matchCount.textContent = '';
+    }
+  }
+})();
+</script>
+</body>
+</html>

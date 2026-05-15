@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Undaunted - Reinforcements — Rules Reference</title>
+<style>
+:root {
+  --bg:            #f2ede6;
+  --text:          #1a1a1a;
+  --header-bg:     #523b58;
+  --section-bg:    #523b58;
+  --subsection-bg: #975b78;
+  --rule:          #b0a898;
+  --accent:        #975b78;
+  --table-head:    #523b58;
+  --note-bg:       #e8e0d4;
+  --body-bg:       #ffffff;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 15px;
+  line-height: 1.55;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* ── STICKY HEADER ───────────────────────────────────────── */
+.sticky-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--header-bg);
+  padding: 10px 14px 12px;
+  padding-top: max(10px, env(safe-area-inset-top));
+  padding-left: max(14px, env(safe-area-inset-left));
+  padding-right: max(14px, env(safe-area-inset-right));
+  box-shadow: 0 2px 12px rgba(0,0,0,0.4);
+}
+
+.masthead-row {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 9px;
+}
+
+.masthead-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  line-height: 1.1;
+  flex-shrink: 0;
+}
+
+.masthead-subtitle {
+  font-size: 11px;
+  color: rgba(255,255,255,0.45);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.back-link {
+  margin-left: auto;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+  text-decoration: none;
+  flex-shrink: 0;
+  padding-left: 14px;
+  white-space: nowrap;
+}
+.back-link:hover {
+  color: rgba(255,255,255,0.85);
+}
+
+/* ── TOGGLE + BACK ROW ───────────────────────────────────── */
+.toggle-back-row {
+  display: flex;
+  align-items: center;
+  margin-top: 7px;
+}
+
+.search-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-icon {
+  position: absolute;
+  left: 10px;
+  width: 15px;
+  height: 15px;
+  color: rgba(255,255,255,0.4);
+  pointer-events: none;
+  flex-shrink: 0;
+}
+
+#search {
+  width: 100%;
+  padding: 8px 36px 8px 32px;
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 8px;
+  font-size: 15px;
+  background: rgba(255,255,255,0.12);
+  color: #fff;
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+#search::placeholder { color: rgba(255,255,255,0.38); }
+
+#search:focus {
+  background: rgba(255,255,255,0.2);
+  border-color: rgba(255,255,255,0.3);
+}
+
+.search-clear {
+  position: absolute;
+  right: 6px;
+  background: rgba(255,255,255,0.18);
+  border: none;
+  border-radius: 50%;
+  color: rgba(255,255,255,0.8);
+  font-size: 14px;
+  line-height: 1;
+  width: 22px;
+  height: 22px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  flex-shrink: 0;
+}
+
+.search-clear.visible { display: flex; }
+
+mark { background: #ffe066; color: #1a1a1a; border-radius: 2px; padding: 0 1px; }
+mark.active { background: #ff9500; color: #fff; }
+
+.match-nav {
+  display: none;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 0 0;
+}
+.match-nav.visible { display: flex; }
+.match-count {
+  color: rgba(255,255,255,0.65);
+  font-size: 13px;
+  flex: 1;
+  text-align: center;
+}
+.match-btn {
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 6px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 15px;
+  line-height: 1;
+  padding: 6px 14px;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+.match-btn:active { background: rgba(255,255,255,0.25); }
+
+/* ── MAIN ────────────────────────────────────────────────── */
+main {
+  padding: 10px 12px 48px;
+  padding-left: max(12px, env(safe-area-inset-left));
+  padding-right: max(12px, env(safe-area-inset-right));
+  padding-bottom: max(48px, env(safe-area-inset-bottom));
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+/* ── NO RESULTS ──────────────────────────────────────────── */
+#no-results {
+  display: none;
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--text);
+  opacity: 0.5;
+  font-size: 14px;
+}
+
+/* ── COLLAPSIBLE SECTIONS ────────────────────────────────── */
+details.section {
+  margin-bottom: 6px;
+  border-radius: 6px;
+  overflow: hidden;
+  scroll-margin-top: 130px;
+}
+
+details.section > summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  min-height: 44px;
+  background: var(--section-bg);
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  list-style: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+details.section > summary::-webkit-details-marker { display: none; }
+
+.chevron {
+  width: 12px;
+  height: 12px;
+  opacity: 0.65;
+  flex-shrink: 0;
+  margin-left: 8px;
+  transition: transform 0.18s ease;
+}
+
+details.section[open] > summary .chevron {
+  transform: rotate(90deg);
+}
+
+.section-body {
+  background: var(--body-bg);
+  padding: 10px 12px 12px;
+  border: 1px solid var(--rule);
+  border-top: none;
+  border-radius: 0 0 6px 6px;
+}
+
+/* ── HEADINGS WITHIN SECTIONS ────────────────────────────── */
+.subsection-title {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: #fff;
+  background: var(--subsection-bg);
+  padding: 4px 12px;
+  margin: 10px -12px 7px;
+}
+
+.label-title {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--section-bg);
+  border-bottom: 1.5px solid var(--rule);
+  padding-bottom: 3px;
+  margin: 10px 0 5px;
+}
+
+.inline-title {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 8px 0 3px;
+}
+
+/* ── BODY TEXT ───────────────────────────────────────────── */
+p { margin-bottom: 7px; }
+b, strong { font-weight: 600; }
+em, i { font-style: italic; }
+
+/* ── LISTS ───────────────────────────────────────────────── */
+ul, ol { padding-left: 20px; margin-bottom: 6px; }
+ul { list-style-type: disc; }
+ol { list-style-type: decimal; }
+ul ul { list-style-type: circle; }
+li { margin-bottom: 3px; }
+li > ul, li > ol { margin-top: 2px; margin-bottom: 0; }
+
+/* ── TABLES ──────────────────────────────────────────────── */
+.table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin-bottom: 6px;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  min-width: 260px;
+}
+thead tr { background: var(--table-head); color: white; }
+thead th {
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  padding: 5px 8px;
+  text-align: left;
+  white-space: nowrap;
+}
+tbody tr:nth-child(even) { background: var(--note-bg); }
+tbody td { padding: 5px 8px; vertical-align: top; }
+
+/* ── BLOCKQUOTE ──────────────────────────────────────────── */
+blockquote {
+  background: var(--note-bg);
+  border-left: 3px solid var(--accent);
+  padding: 6px 10px;
+  margin: 5px 0 7px;
+  font-size: 14px;
+  border-radius: 0 4px 4px 0;
+}
+blockquote p { margin-bottom: 2px; }
+
+/* ── INLINE CODE ─────────────────────────────────────────── */
+code {
+  background: var(--note-bg);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  padding: 1px 4px;
+  font-size: 13px;
+  font-family: inherit;
+  font-weight: 600;
+}
+
+/* ── HR ──────────────────────────────────────────────────── */
+hr { border: none; border-top: 1px solid var(--rule); margin: 8px 0; }
+
+/* ── SEARCH HIGHLIGHT ────────────────────────────────────── */
+mark {
+  background: #ffe566;
+  color: inherit;
+  border-radius: 2px;
+  padding: 0 1px;
+}
+
+/* ── HIDDEN SECTIONS ─────────────────────────────────────── */
+details.section.search-hidden { display: none; }
+
+/* ── VERSION TOGGLE ──────────────────────────────────────── */
+.toggle-bar {
+  display: inline-flex;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.2);
+}
+.toggle-current,
+.toggle-other {
+  padding: 6px 14px;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  line-height: 1;
+  text-decoration: none;
+  white-space: nowrap;
+  -webkit-tap-highlight-color: transparent;
+}
+.toggle-current {
+  background: rgba(255,255,255,0.18);
+  color: #ffffff;
+  font-weight: 600;
+  cursor: default;
+}
+.toggle-other {
+  color: rgba(255,255,255,0.5);
+}
+.toggle-other:hover {
+  background: rgba(255,255,255,0.08);
+  color: rgba(255,255,255,0.8);
+}
+
+/* ── PRINT ───────────────────────────────────────────────── */
+@media print {
+  .sticky-header { position: static; }
+  details.section[open], details.section { display: block; }
+  .section-body { display: block !important; }
+  .search-wrap, .search-clear, .toggle-bar, .match-nav { display: none; }
+}
+</style>
+</head>
+<body>
+<header class="sticky-header">
+  <div class="masthead-row">
+    <span class="masthead-title">Undaunted - Reinforcements</span>
+    <span class="masthead-subtitle">Rules Reference</span>
+  </div>
+  <div class="toggle-back-row"><div class="toggle-bar"><span class="toggle-current">Full Rules</span><a class="toggle-other" href="undaunted-reinforcements-rules-reference.html">Quick Reference</a></div><a class="back-link" href="../index.html">&#8592; All Games</a></div>
+  <div class="search-wrap">
+    <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+         stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+         aria-hidden="true">
+      <circle cx="11" cy="11" r="8"/>
+      <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+    </svg>
+    <input type="text" id="search" placeholder="Search rules…"
+           autocomplete="off" spellcheck="false" autocorrect="off">
+    <button class="search-clear" id="search-clear" aria-label="Clear search">&#x2715;</button>
+  </div>
+  <div class="match-nav" id="match-nav">
+    <button class="match-btn" id="match-prev" aria-label="Previous match">↑</button>
+    <span class="match-count" id="match-count"></span>
+    <button class="match-btn" id="match-next" aria-label="Next match">↓</button>
+  </div>
+</header>
+<main>
+<details class="section" open>
+  <summary><span>ARMOUR AND ARMAMENT</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>Undaunted: Reinforcements introduces vehicles, specialists, and new actions to Undaunted: Normandy, as well as four new scenarios.</p>
+<span class="subsection-title">NEW UNITS</span>
+<span class="label-title">Vehicles</span>
+<p>For those familiar with vehicles in Undaunted: North Africa, it is important to note that vehicles in Undaunted: Normandy work differently. This is due to the different scale of Normandy.</p>
+<p>Vehicles in Undaunted: Normandy work as normal units, with the following exceptions.</p>
+<p>Vehicles do not have a regular defence value and cannot be targeted by normal attacks. Instead, vehicles have an armoured defence value and can only be targeted by Antitank attacks. See New Combat Actions on the opposite page for more about the Antitank combat action.</p>
+<p>Vehicles cannot be supressed.</p>
+<p>Vehicles cannot enter tiles that contain a token.</p>
+<span class="label-title">Specialists</span>
+<p>Undaunted: Reinforcements introduces two types of specialists: US Grenadiers and German Submachine Gunners. If both players agree, specialists can be added to any scenario in Undaunted: Normandy and any of the Normandy scenarios from Undaunted: Reinforcements.</p>
+<p>Specialists cannot be used in solo mode for scenarios from Undaunted: Normandy, but they can be used in solo mode for the Normandy scenarios in Undaunted: Reinforcements.</p>
+<p>To use specialists: after completing setup, each player replaces two of the Rifleman cards from each unit in their supply with the two specialists of the same squad and faction. Specialists are never placed in your starting deck.</p>
+<p>When you bolster a Rifleman unit, you may add specialists, standard Riflemen, or a combination of the two, depending on what is available in the supply.</p>
+<p>Each specialist has a unique combat action that is not available to a standard Rifleman. The Riflemen unit can perform this unique action only when a specialist card is played.</p>
+<p>When a Rifleman unit suffers a casualty, follow the normal process for determining casualties. If both a specialist and a standard Riflemen are found in the same area (play area, hand, deck, or discard), the player taking the casualty chooses which card is removed from the game.</p>
+<span class="subsection-title">NEW SUPPORT ACTIONS</span>
+<span class="label-title">Advance A</span>
+<p>Choose any number of friendly combat counters on a single tile belonging to the specified squad.</p>
+<p>Move all the chosen counters onto an adjacent tile occupied by at least one friendly combat counter.</p>
+<p>Vehicles cannot enter tiles that contain show the symbol token.</p>
+<p>You cannot move a supressed combat counter.</p>
+<span class="subsection-title">NEW COMBAT ACTIONS</span>
+<span class="label-title">Antitank X</span>
+<p>Antitank X works exactly as Attack X, except that it can only target target a unit with an armoured defence value. A combat counter's total defence value for an Antitank action is the sum of the armoured defence, the tile's cover bonus, and the range bonus.</p>
+<span class="label-title">Attack XY</span>
+<p>Attack XY works exactly as Attack X, except that it must target a unit up to Y tiles away. If Y is 0, this action can only target a unit on the same tile.</p>
+<span class="label-title">Grenade XY</span>
+<p>Choose a tile up to Y tiles away from the unit taking the action. All enemy units on the tile with a regular defence value are targeted. Perform a separate Attack X for each unit targeted.</p>
+<span class="subsection-title">CHANGES TO SUPPORT ACTIONS</span>
+<span class="label-title">Control</span>
+<p>Take control of the tile that the unit's combat counter is on by flipping the control marker to its controlled side.</p>
+<p>If your opponent controls that tile, flip their control marker back to its scouted side.</p>
+<p>If your opponent controls that tile and has a unit there, you cannot take control of the tile.</p>
+<p>This means you may take control of a tile where your opponent has a unit, but only if they do not already control the tile.</p>
+<p>This replaces the rules for the Control action as written in the Undaunted: Normandy rulebook and applies to all scenarios in Undaunted: Normandy and Undaunted: Reinforcements, whether you are playing with one, two, or four players.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>UNDER COVER OF NIGHT</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p><em>Undaunted: Reinforcements</em> introduces mines, new unit types, and new actions to <em>Undaunted: North Africa</em>, as well as four new scenarios.</p>
+<span class="subsection-title">MINES</span>
+<p>Mines are used in scenarios 201–204. Each scenario specifies which faction controls the mines in that scenario. <strong>The controlling faction will never trigger or take damage from mines.</strong></p>
+<p>Mines are not placed on tiles. Instead they are placed between two tiles, so that the token overlaps both tiles.</p>
+<p>Mines have an anti-personnel side and an anti-armour side.</p>
+<p>anti-personnel
+3</p>
+<p>anti-armour
+3</p>
+<p>If a mine is on its anti-personnel side, it is triggered when an enemy unit with a regular defence value moves from one of the tiles the mine is overlapping to the other tile the mine is overlapping. When an anti-personnel mine is triggered, immediately resolve an Attack 5 against the unit that triggered it. The target receives no range or cover bonus to their total defence. If a unit takes a casualty because of a mine, its movement ends after passing over the mine, even if it would normally have been able to move further.</p>
+<p>If a mine is on its anti-armour side, it is triggered when an enemy unit with an armoured defence value moves from one of the tiles the mine is overlapping to the other tile the mine is overlapping. When an anti-armour mine is triggered, immediately resolve an Antitank 5 against the unit that triggered it. The target receives no range or cover bonus to their total defence. If a vehicle is damaged because of a mine, the owner of the mine chooses which soldier in the unit suffers the injury, and the vehicle's movement ends after passing over the mine, even if it would normally have been able to move further.</p>
+<p>As per 'Friendly Fire' on page 8, if a soldier takes an injury, you should remove the card from your play area if possible.</p>
+<p>If multiple mines are triggered at the same time, resolve the attacks one after the other.</p>
+<p>After a mine has been triggered and the attack has been resolved, remove the mine token.</p>
+<span class="subsection-title">NEW SUPPORT ACTIONS</span>
+<span class="label-title">Mine X</span>
+<p>Choose one: place up to X mines, or remove up to X mines. You cannot place and remove mines with the same action.</p>
+<span class="label-title">Placing a Mine</span>
+<p>Take one mine token from your supply and place it on any of the edges of the tile that the unit is on, so that it overlaps that tile and one other tile. You may place the mine on its anti-personnel side or its anti-armour side. Only the mine-controlling faction can place mines.</p>
+<span class="label-title">Removing a Mine</span>
+<p>Remove one mine token that overlaps the tile the soldier is on, and return it to the box. Either faction can remove mines.</p>
+<span class="label-title">Air Support X</span>
+<p>Take X cards from your supply and place them into your hand. You may play these cards as normal on this turn.</p>
+<p>The only cards you may take with this action are Recon Aircraft and Assault Aircraft.</p>
+<span class="subsection-title">NEW COMBAT ACTIONS</span>
+<span class="label-title">Attack X Y</span>
+<p>This works exactly as Attack X, except that it must target a unit up to Y tiles away. If Y is 0, this action can only target a unit on the same tile.</p>
+<span class="label-title">Bomb X</span>
+<p>Choose any tile. All combat counters with a regular defence value are targeted, including your own counters. Perform a separate Attack X against each combat counter targeted. The targets receive no range bonus to defence. As per 'Friendly Fire' on the next page, when you inflict injuries on your own soldiers, you must first remove cards from your play area if able.</p>
+<span class="label-title">Grenade X Y</span>
+<p>Choose a tile up to Y spaces away from the unit taking the action. All enemy units on the tile with a regular defence value are targeted. Perform a separate Attack X against each unit targeted.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>FRIENDLY FIRE</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>The rules in this section apply to Undaunted: Normandy and Undaunted: North Africa.</p>
+<p>When you take a casualty or an injury on your turn, you must find a card from the attacked combat counter's unit and remove it from the game. This is only possible through a Bomb or Mortar action, or by triggering a mine.</p>
+<ol>
+<li>If possible, you must remove the card from your play area.</li>
+<li>If you don't have a card of that unit in your play area, you must remove it from your hand.</li>
+<li>If you don't have a card of that unit in your hand, you must remove it from your discard pile.</li>
+<li>If you don't have a card of that unit in your discard pile, you must remove it from your deck. You must then shuffle your deck.</li>
+<li>If you don't have a card of that unit in your deck, you must instead remove the combat counter from the board.</li>
+</ol>
+  </div>
+</details>
+<details class="section">
+  <summary><span>JOINT OPERATIONS</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>This section explains how to play Undaunted: Normandy and Undaunted: North Africa with four players, in teams of two, using the eight scenarios provided in this box. The game is played exactly as the two-player game, with the following exceptions:</p>
+<span class="subsection-title">SETUP</span>
+<p>Each player has their own starting deck and supply, as outlined in each scenario diagram. However, they share a supply of Fog of War cards with their teammate.</p>
+<p>One player on each team is designated as the commander and is given the command token. On each team, the commander will always be the player with the Lieutenant (LRDG) or Platoon Sergeant (US, Germany, or Italy) in their starting deck.</p>
+<p>The role of commander will alternate between the players throughout the course of the game, as explained opposite.</p>
+<p>command token</p>
+<span class="subsection-title">HOW TO PLAY</span>
+<p>As in the two-player game, play takes the form of a series of rounds. Each round consists of the three phases:</p>
+<ol>
+<li><strong>Draw cards</strong></li>
+<li><strong>Determine initiative</strong></li>
+<li><strong>Player turns</strong></li>
+</ol>
+<span class="label-title">DRAW CARDS</span>
+<p>The two commanders draw <strong>four cards</strong> from their deck to form a hand.
+The two non-commanders instead draw <strong>three cards</strong>.</p>
+<span class="label-title">DETERMINE INITIATIVE</span>
+<p>Only the commanders bid for initiative. They do so exactly as in the two-player game.
+The team whose commander wins the initiative will take actions first during this round.</p>
+<span class="label-title">PLAYER TURNS</span>
+<p>Players take turns as they would in a two-player game, in the following order:</p>
+<ol>
+<li>The commander of the team with the initiative</li>
+<li>The opposing commander</li>
+<li>The remaining player on the team with the initiative</li>
+<li>The remaining player on the opposing team.</li>
+</ol>
+<span class="label-title">Transferring Command</span>
+<p>When you would move your Lieutenant (LRDG) or Platoon Sergeant (US, Germany, or Italy) into your discard pile for any reason, instead place it in your teammate's discard pile. Then give them the commander token. From the next round, they will be the commander.
+Remember that the commander draws more cards, bids for initiative, and always takes their turn before their teammate.</p>
+<span class="label-title">Changes to Actions</span>
+<ul>
+<li><strong>Bolster, Command, and Inspire</strong> cannot target your teammate's supply, deck, or play area.</li>
+<li><strong>Guide</strong> can target your teammate's combat counters.</li>
+<li>Your teammate's combat counters are considered to be friendly for the purposes of <strong>mines</strong>, the <strong>Grenade action</strong>, and <strong>entering vehicles</strong>.</li>
+</ul>
+<span class="label-title">Communication</span>
+<p>Any communication with your teammate must be open, so that your opponents can hear. You may not communicate secretly, which includes passing notes and showing each other your cards.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>ENEMY UNKNOWN</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>This section explains how to play Undaunted: Normandy and Undaunted: North Africa solo, using any scenario from Normandy, North Africa, or Reinforcements. The game is played exactly as the two-player game, with the following exceptions:</p>
+<p>Because Enemy Unknown tries to simulate the experience of playing against a human opponent, it is substantially more complicated than the multiplayer game. If possible, we recommend that you familiarise yourself with the multiplayer game before playing the solo game.</p>
+<span class="subsection-title">SETUP</span>
+<p>Choose a scenario from Normandy, North Africa, or Reinforcements, and set it up as normal. If you choose a Reinforcements scenario, use the two-player setup rules. If playing a scenario from Normandy or North Africa, find its entry in the solo book included in this box. If playing a scenario for Reinforcements, the solo rules are included in the scenario book.</p>
+<p>Choose the faction you wish to play as.</p>
+<p>For each type of card in your opponent's starting deck and supply, find the matching solo card for the appropriate scenario and place the solo cards next to the play area. Your opponent will be played by a bot.</p>
+<p>Each solo card lists which scenarios and factions it is used for.</p>
+<p>Next, make any changes listed in the ‘Changes to Setup’ section.</p>
+<p>Construct the bot’s starting deck exactly as you would for a player, unless instructed otherwise.</p>
+<p>Finally, shuffle all the cards in the bot supply into face-down bolster decks as described in the scenario’s solo rules ‘Setup’ section.</p>
+<span class="subsection-title">HOW TO PLAY</span>
+<p>As in the two-player game, play takes the form of a series of rounds. Each round consists of the three phases:</p>
+<ol>
+<li>Draw cards</li>
+<li>Determine initiative</li>
+<li>Take turns</li>
+</ol>
+<span class="label-title">DRAW CARDS</span>
+<p>Draw four cards from your deck to form a hand, as normal.</p>
+<span class="label-title">DETERMINE INITIATIVE</span>
+<p>Select a card from your hand, as normal. Then, draw the top card of the bot deck as its initiative bid.</p>
+<p>Resolve the initiative bid as normal. If you win the bid, you will take your turn first. If the bot wins the bid, it will take its turn first. In addition, if the bot wins the bid, place the drawn card in its play area instead of in its discard pile.</p>
+<span class="label-title">PLAYER TURN</span>
+<p>Take your turn as normal, with the following change:</p>
+<p><strong>Successfully Attacking a Bot Unit or Soldier</strong>
+If you successfully attack a bot unit, search the bot discard for a card that matches the attacked unit and remove the card from the game. If there are no matching cards in the bot discard, search the bot deck. If there are no matching cards in the bot deck, search the bot's appropriate bolster deck. If there are no matching cards in the bolster decks, remove the combat counter from the board. Then, if you have the initiative marker and you did not remove the combat counter from the board, also place a control marker on the attacked unit.
+A combat counter can have multiple control markers on it.</p>
+<span class="label-title">BOT TURN</span>
+<p>Draw 3 cards and add them to the bot play area. Then arrange all the cards in the bot play area in initiative order, with the highest initiative card furthest to the left. Arrange cards of the same initiative value in the order they were drawn.</p>
+<p>If the bot won the initiative bid, there will be four cards in total in its play area, including the card used for the initiative bid.</p>
+<p>If the bot did not win the initiative bid, check if any of the bot combat counters have control markers on them. For each control marker, check if there is a card matching the unit in the bot play area. If there is, place that card in the discard pile. If there are multiple copies of the same card, only discard one per control counter. Whether or not there is a matching card, return the control marker to the supply.</p>
+<p>Then, resolve each card from left to right, one at a time - that is, from the highest to the lowest initiative value. For each card, find the first line that applies on the matching solo card and resolve it. In the rare case that no line applies, the bot takes no action.</p>
+<p>Whenever you resolve a card, place it in the bot discard pile. Repeat this process until there are no face-up cards in the bot play area.</p>
+<span class="subsection-title">BOT ACTIONS</span>
+<p>2
+2
+4-9, 11, 12
+4-9, 11, 12
+1 SNIPER
+Enemy with total defence value of ≤5: attack 4 that enemy.
+4 I
+Tile is secure and tile is not uncontrolled objective: select destination within 1.
+A) Select threatened objective as destination.
+value &gt; cover.
+4 II
+B) Select an unscouted objective as destination.
+value &gt; cover.
+C) 6A is unscouted: select destination closer to 6A. value &gt; cover.
+4 III
+Stalk to destination.
+Attack 4
+24A</p>
+<p>3
+SCOUT
+2
+1
+When Scout moves onto an unscouted tile: scout it.
+3 I
+Fog of War in bot play area: recon.
+Tile is secure: select destination within 2.
+A) Select threatened objective as destination.
+value &gt; cover.
+5 II
+B) Select an unscouted and controlled objective as destination. value &gt; cover.
+C) 6A is unscouted: select destination closer to 6A. value &gt; cover.
+Move to destination.
+Destination is 2 tiles away: select tile to move through.
+scouted &gt; enemy occupied &gt; enemy scouted &gt; closer to enemy Riflemen &gt; cover &gt; random.
+7
+III
+Enemy on same tile: attack 1.
+IV
+Roll. 1-6: conceal. 7-10: attack 1.
+6
+14B</p>
+<p>Solo cards</p>
+<ol>
+<li>Title: the soldier's unit type.</li>
+<li>Scenario designation: the scenarios that the solo card is used for, depending on the faction of the bot.</li>
+<li>Special rules: the rules that apply to this unit in this scenario.</li>
+<li>Lines: the different effects a card might have when it is resolved.</li>
+<li>Sub-lines: used to separate the different effects a line might have depending on what is happening in the game.</li>
+<li>Keywords: bolded words that describe an action taken.</li>
+<li>Tiebreakers: determine how to resolve a line or sub-line effect that could be resolved in multiple ways. Tiebreakers are always listed in italics, in the order they should be applied.</li>
+</ol>
+<span class="subsection-title">RESOLVING SOLO CARDS</span>
+<p>Most lines begin by stating a condition, which is underlined and followed by a colon. If this condition is false, the line does not apply and you do not resolve it.</p>
+<p>If the condition is true, or could be true, read through the rest of the line and resolve the relevant action. If the action cannot be resolved, treat the line as if the condition were false and instead continue to the next line. This might be because performing the action would break the rules (such as driving onto tiles with rough terrain), because it wouldn't achieve the aim of the line (such as a unit not getting any closer to its intended target) or because it would have no effect (such as navigating through already scouted tiles). The bot will only take a control action if it would result in the bot claiming objective points.</p>
+<p>If a condition refers to a specific target (such as an enemy on the same tile), the line’s action should be directed at that target unless otherwise specified.</p>
+<p>If a line is more complex, it may be broken down into sub-lines, each with its own condition and effect. If there are sub-lines, find the first sub-line that applies and resolve it. If none of the sub-lines apply then the line itself does not apply either, even if its condition is true.</p>
+<p>If an effect can be resolved in multiple ways, consult the tiebreakers listed at the end of the relevant line or sub-line. These are listed inside square brackets and in italics.</p>
+<p>If an effect specifies that a unit should move closer to an X, and multiple tiles meet this criterion, choose the one that is closest to X. If multiple tiles are closest, consult the tiebreakers as normal.</p>
+<p>If you resolve a <strong>then X</strong> action, resolve line <strong>X</strong> on that card if it applies. If not, resolve the next line that applies.</p>
+<p>Keywords are shown in bold and describe the action being taken. See the ‘Changes to Bot Actions’ section on page 16 for details on how to resolve each type of action.</p>
+<p>Some solo cards have boxed text at the top. These rules always apply when the solo card is resolved.</p>
+<p>Solo cards use a standardised set of terms to describe the game state and the actions you take. You can find a list of these words and their definitions in the ‘Terminology’ section on page 14.</p>
+<p>When a keyword is used, all the restrictions that apply to that action in the normal game also apply to the bot. For example, if a solo card instructs you to move a unit, the bot may not move onto tiles that have not been scouted, even if this is not stated on the solo card. Similarly, if the bot scouts a tile, they must add a Fog of War card to their discard pile. In particular, note the change to the Control action listed on page 5 of this rulebook.</p>
+<p>If a unit has access to a better version of the same action because of the vehicle seat it is in, it will use it instead. For example, if a Tank Crewman in a non-disabled Medium Tank is instructed to attack, it will always choose the Attack <strong>2</strong> vehicle action rather than its own Attack <strong>1</strong> action.</p>
+<span class="subsection-title">TERMINOLOGY</span>
+<p>Unless a card says otherwise, bot actions always refer to the bot's own side. For example, 'scouted' refers to a tile scouted by the bot. Conversely, 'enemy scouted' refers to a tile scouted by you.</p>
+<p>When resolving tiebreakers, 'value' refers to the tile that is worth the most objective points, and 'cover' refers to the tile with the highest cover bonus, unless a card says otherwise.</p>
+<span class="label-title">RANDOMLY</span>
+<p>When instructed to resolve a decision randomly, assign numbers on the die to each possible course of action, so that each course of action has an equal probability of occurring. Then roll the die and resolve accordingly.</p>
+<span class="label-title">ENEMY</span>
+<p>A combat counter belonging to you, the player.</p>
+<span class="label-title">NORTH AFRICA ONLY</span>
+<p>An unoccupied vehicle is not considered to be an enemy.</p>
+<span class="label-title">MATCHING</span>
+<p>A unit or card with the same squad as another card, unit, or spawn marker.</p>
+<p><em>A unit or card can be described as matching a card, unit, or spawn marker from another faction if both have the same squad.</em></p>
+<span class="label-title">OBJECTIVE</span>
+<p>A tile with an objective marker on it is considered to be an objective.</p>
+<span class="label-title">CONTROLLED OBJECTIVE</span>
+<p>An objective controlled by the bot.</p>
+<span class="label-title">ENEMY CONTROLLED OBJECTIVE</span>
+<p>An objective controlled by you.</p>
+<span class="label-title">OCCUPIED OBJECTIVE</span>
+<p>An objective that is not controlled and that has one or more combat counters on it.</p>
+<span class="label-title">THREATENED OBJECTIVE</span>
+<p>An objective where all of the following are true:</p>
+<ul>
+<li>The bot controls the tile</li>
+<li>The bot has no combat counters on the tile</li>
+<li>You have a unit with the Control action on the tile</li>
+</ul>
+<span class="label-title">NORTH AFRICA ONLY</span>
+<p>In scenarios where you are playing as the LRDG and your objective is to claim objective points by destroying structures, any structure on a tile that is controlled by the bot and has a demolition unit present is considered to be a threatened objective and is not considered to be secure, even if other bot units are on the tile.</p>
+<span class="label-title">POPULATION</span>
+<p>The population of a tile is the number of enemy units on it minus the number of friendly units on it.</p>
+<span class="label-title">ROLL</span>
+<p>Roll a die and resolve the action that matches the die result. If only one of the actions that match a die result could be resolved, resolve that action instead of rolling.</p>
+<span class="label-title">SECURE</span>
+<p>A tile is secure as long as <strong>at least one</strong> of the following is true:</p>
+<ul>
+<li>The bot does not control the tile</li>
+<li>The bot has other combat counters on the tile</li>
+<li>You have no units with the Control action on the tile</li>
+</ul>
+<span class="label-title">NORTH AFRICA ONLY</span>
+<span class="label-title">DEMOLITION UNIT</span>
+<p>A unit with a Demolition XX action.</p>
+<span class="label-title">PATH TO VICTORY</span>
+<p>Some solo cards will refer to a path to victory. These paths are specific to each scenario and can be found in the relevant section of the scenario book.</p>
+<span class="label-title">SELECT A TARGET</span>
+<p>When instructed to select a target, choose a tile within the specified range. If no range is specified, use the unit's full movement range. If multiple tiles match the criteria, decide based on listed tiebreakers.</p>
+<span class="subsection-title">CHANGES TO BOT ACTIONS</span>
+<p><strong>Attack ⓧ / Antitank ⓧ / Grenade ⓧ / Suppress ⓧ</strong>
+<strong>Strafe ⓧ / Demolition ⓧ / Bomb ⓧ</strong> NORTH AFRICA ONLY</p>
+<p>When the bot takes a combat action, it targets the eligible unit with the lowest total defence value.</p>
+<p>For an Attack, Bomb, Grenade, Strafe, or Suppress action, only units with a regular defence value can be targeted.</p>
+<p>For an Antitank attack, only units with armoured defence value can be targeted.</p>
+<p>For a Demolition attack, only units on the same tile as the attacker with an armoured defence value or a structure defence value can be targeted.</p>
+<p>If multiple eligible units are tied for having the lowest total defence value, target the more <strong>dangerous</strong> unit. The units that are more dangerous are listed in the solo section for each scenario in the solo book or the scenario book included in this box.</p>
+<span class="label-title">NORTH AFRICA ONLY</span>
+<p>Vehicles are considered to be as dangerous as the most dangerous unit inside them.</p>
+<p>If the bot successfully attacks a vehicle then it inflicts an injury on the most dangerous soldier in that vehicle, unless otherwise specified.</p>
+<p>If there is still a tie, determine randomly which tied unit is targeted.</p>
+<span class="label-title">BOLSTER</span>
+<p>When bolstering from a specific deck, place the top card from the indicated bolster deck into the bot discard pile. If there are no cards in that bolster deck, bolster from another random bolster deck.</p>
+<span class="label-title">COMMAND ⓧ</span>
+<p>Draw a card from the bot deck and add it to the bot play area. Place it to the left of all the cards with a lower initiative value, and to the right of all the cards with an equal or higher initiative value. If you would place it to the left of the card currently being resolved, instead place it immediately to the right of it.</p>
+<p>Repeat this process until you have drawn ⓧ cards.</p>
+<span class="label-title">INSPIRE</span>
+<p>Turn the indicated cards in the bot play area sideways. After resolving a card that is turned sideways, turn it upright and resolve it for a second time. Then discard it as normal.</p>
+<span class="label-title">RECON</span>
+<p>Find a Fog of War in the bot play area and remove it from the game.</p>
+<p>Then draw a card from the bot deck and add it to the bot play area, face down. It will not be resolved this turn. At the start of the bot's next turn, after drawing the three cards, flip all face-down cards face up. Then arrange them in initiative order as normal.</p>
+<span class="label-title">DIFFICULTY SETTING</span>
+<p>If you are finding this game mode overly challenging or too easy, you can change the difficulty setting using the below rules:</p>
+<span class="label-title">EASY</span>
+<p>The bot always discards the card it used for its initiative bid, even if it wins the bid.</p>
+<span class="label-title">HARD</span>
+<p>At the start of the bot turn, draw four cards and add them to the bot play area. If it wins the initiative bid, there will be five cards in total in the play area.</p>
+  </div>
+</details>
+  <p id="no-results">No sections match your search.</p>
+</main>
+<script>
+(function () {
+  var searchEl  = document.getElementById('search');
+  var clearBtn  = document.getElementById('search-clear');
+  var noResults = document.getElementById('no-results');
+  var sections  = Array.from(document.querySelectorAll('details.section'));
+  var matchNav   = document.getElementById('match-nav');
+  var matchCount = document.getElementById('match-count');
+  var matchPrev  = document.getElementById('match-prev');
+  var matchNext  = document.getElementById('match-next');
+
+  var allMarks = [];
+  var currentMark = -1;
+
+  // Snapshot each section body's original HTML so we can restore it
+  // before applying a new round of highlights.
+  sections.forEach(function (s) {
+    var body = s.querySelector('.section-body');
+    if (body) body.dataset.original = body.innerHTML;
+  });
+
+  var timer;
+
+  searchEl.addEventListener('input', function () {
+    var term = this.value.trim();
+    clearBtn.classList.toggle('visible', term.length > 0);
+    clearTimeout(timer);
+    timer = setTimeout(function () { applySearch(term); }, 180);
+  });
+
+  clearBtn.addEventListener('click', function () {
+    searchEl.value = '';
+    clearBtn.classList.remove('visible');
+    applySearch('');
+    searchEl.focus();
+  });
+
+  matchPrev.addEventListener('click', function () {
+    if (allMarks.length === 0) return;
+    navigateTo((currentMark - 1 + allMarks.length) % allMarks.length);
+  });
+
+  matchNext.addEventListener('click', function () {
+    if (allMarks.length === 0) return;
+    navigateTo((currentMark + 1) % allMarks.length);
+  });
+
+  function navigateTo(index) {
+    if (allMarks[currentMark]) allMarks[currentMark].classList.remove('active');
+    currentMark = index;
+    var mark = allMarks[currentMark];
+    mark.classList.add('active');
+    mark.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    matchCount.textContent = (currentMark + 1) + ' of ' + allMarks.length;
+  }
+
+  function escapeRe(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlightTextNodes(container, re) {
+    var walker = document.createTreeWalker(
+      container, NodeFilter.SHOW_TEXT, null, false
+    );
+    var nodes = [];
+    var n;
+    while ((n = walker.nextNode())) {
+      if (n.nodeValue.trim()) nodes.push(n);
+    }
+    nodes.forEach(function (textNode) {
+      re.lastIndex = 0;
+      if (!re.test(textNode.nodeValue)) return;
+      re.lastIndex = 0;
+      var span = document.createElement('span');
+      span.innerHTML = textNode.nodeValue.replace(
+        re, function (m) { return '<mark>' + m + '</mark>'; }
+      );
+      textNode.parentNode.replaceChild(span, textNode);
+    });
+  }
+
+  function applySearch(term) {
+    var re = term ? new RegExp(escapeRe(term), 'gi') : null;
+    var visibleCount = 0;
+
+    sections.forEach(function (section) {
+      var body    = section.querySelector('.section-body');
+      var summary = section.querySelector('summary');
+
+      // Restore original HTML before each search pass
+      if (body) body.innerHTML = body.dataset.original;
+
+      if (!re) {
+        section.classList.remove('search-hidden');
+        section.open = false;
+        return;
+      }
+
+      var titleText = summary ? summary.textContent : '';
+      var bodyText  = body    ? body.textContent    : '';
+
+      re.lastIndex = 0;
+      var inTitle = re.test(titleText);
+      re.lastIndex = 0;
+      var inBody  = re.test(bodyText);
+      re.lastIndex = 0;
+
+      if (inTitle || inBody) {
+        section.classList.remove('search-hidden');
+        section.open = true;
+        if (body) highlightTextNodes(body, new RegExp(escapeRe(term), 'gi'));
+        visibleCount++;
+      } else {
+        section.classList.add('search-hidden');
+      }
+    });
+
+    noResults.style.display = (re && visibleCount === 0) ? 'block' : 'none';
+
+    allMarks = Array.from(document.querySelectorAll('mark'));
+    currentMark = -1;
+
+    if (allMarks.length > 0) {
+      matchNav.classList.add('visible');
+      navigateTo(0);
+    } else {
+      matchNav.classList.remove('visible');
+      matchCount.textContent = '';
+    }
+  }
+})();
+</script>
+</body>
+</html>

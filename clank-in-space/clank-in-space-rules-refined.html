@@ -150,6 +150,36 @@ body {
 
 .search-clear.visible { display: flex; }
 
+mark { background: #ffe066; color: #1a1a1a; border-radius: 2px; padding: 0 1px; }
+mark.active { background: #ff9500; color: #fff; }
+
+.match-nav {
+  display: none;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 0 0;
+}
+.match-nav.visible { display: flex; }
+.match-count {
+  color: rgba(255,255,255,0.65);
+  font-size: 13px;
+  flex: 1;
+  text-align: center;
+}
+.match-btn {
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 6px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 15px;
+  line-height: 1;
+  padding: 6px 14px;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+.match-btn:active { background: rgba(255,255,255,0.25); }
+
 /* ── MAIN ────────────────────────────────────────────────── */
 main {
   padding: 10px 12px 48px;
@@ -366,7 +396,7 @@ details.section.search-hidden { display: none; }
   .sticky-header { position: static; }
   details.section[open], details.section { display: block; }
   .section-body { display: block !important; }
-  .search-wrap, .search-clear, .toggle-bar { display: none; }
+  .search-wrap, .search-clear, .toggle-bar, .match-nav { display: none; }
 }
 </style>
 </head>
@@ -387,6 +417,11 @@ details.section.search-hidden { display: none; }
     <input type="text" id="search" placeholder="Search rules…"
            autocomplete="off" spellcheck="false" autocorrect="off">
     <button class="search-clear" id="search-clear" aria-label="Clear search">&#x2715;</button>
+  </div>
+  <div class="match-nav" id="match-nav">
+    <button class="match-btn" id="match-prev" aria-label="Previous match">↑</button>
+    <span class="match-count" id="match-count"></span>
+    <button class="match-btn" id="match-next" aria-label="Next match">↓</button>
   </div>
 </header>
 <main>
@@ -695,6 +730,13 @@ details.section.search-hidden { display: none; }
   var clearBtn  = document.getElementById('search-clear');
   var noResults = document.getElementById('no-results');
   var sections  = Array.from(document.querySelectorAll('details.section'));
+  var matchNav   = document.getElementById('match-nav');
+  var matchCount = document.getElementById('match-count');
+  var matchPrev  = document.getElementById('match-prev');
+  var matchNext  = document.getElementById('match-next');
+
+  var allMarks = [];
+  var currentMark = -1;
 
   // Snapshot each section body's original HTML so we can restore it
   // before applying a new round of highlights.
@@ -718,6 +760,25 @@ details.section.search-hidden { display: none; }
     applySearch('');
     searchEl.focus();
   });
+
+  matchPrev.addEventListener('click', function () {
+    if (allMarks.length === 0) return;
+    navigateTo((currentMark - 1 + allMarks.length) % allMarks.length);
+  });
+
+  matchNext.addEventListener('click', function () {
+    if (allMarks.length === 0) return;
+    navigateTo((currentMark + 1) % allMarks.length);
+  });
+
+  function navigateTo(index) {
+    if (allMarks[currentMark]) allMarks[currentMark].classList.remove('active');
+    currentMark = index;
+    var mark = allMarks[currentMark];
+    mark.classList.add('active');
+    mark.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    matchCount.textContent = (currentMark + 1) + ' of ' + allMarks.length;
+  }
 
   function escapeRe(s) {
     return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
@@ -781,6 +842,17 @@ details.section.search-hidden { display: none; }
     });
 
     noResults.style.display = (re && visibleCount === 0) ? 'block' : 'none';
+
+    allMarks = Array.from(document.querySelectorAll('mark'));
+    currentMark = -1;
+
+    if (allMarks.length > 0) {
+      matchNav.classList.add('visible');
+      navigateTo(0);
+    } else {
+      matchNav.classList.remove('visible');
+      matchCount.textContent = '';
+    }
   }
 })();
 </script>

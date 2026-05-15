@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Dale of Merchants — Rules Reference</title>
+<style>
+:root {
+  --bg:            #f2ede6;
+  --text:          #1a1a1a;
+  --header-bg:     #552b12;
+  --section-bg:    #552b12;
+  --subsection-bg: #879408;
+  --rule:          #b0a898;
+  --accent:        #879408;
+  --table-head:    #552b12;
+  --note-bg:       #e8e0d4;
+  --body-bg:       #ffffff;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 15px;
+  line-height: 1.55;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* ── STICKY HEADER ───────────────────────────────────────── */
+.sticky-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--header-bg);
+  padding: 10px 14px 12px;
+  padding-top: max(10px, env(safe-area-inset-top));
+  padding-left: max(14px, env(safe-area-inset-left));
+  padding-right: max(14px, env(safe-area-inset-right));
+  box-shadow: 0 2px 12px rgba(0,0,0,0.4);
+}
+
+.masthead-row {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 9px;
+}
+
+.masthead-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  line-height: 1.1;
+  flex-shrink: 0;
+}
+
+.masthead-subtitle {
+  font-size: 11px;
+  color: rgba(255,255,255,0.45);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.back-link {
+  margin-left: auto;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+  text-decoration: none;
+  flex-shrink: 0;
+  padding-left: 14px;
+  white-space: nowrap;
+}
+.back-link:hover {
+  color: rgba(255,255,255,0.85);
+}
+
+/* ── TOGGLE + BACK ROW ───────────────────────────────────── */
+.toggle-back-row {
+  display: flex;
+  align-items: center;
+  margin-top: 7px;
+}
+
+.search-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-icon {
+  position: absolute;
+  left: 10px;
+  width: 15px;
+  height: 15px;
+  color: rgba(255,255,255,0.4);
+  pointer-events: none;
+  flex-shrink: 0;
+}
+
+#search {
+  width: 100%;
+  padding: 8px 36px 8px 32px;
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 8px;
+  font-size: 15px;
+  background: rgba(255,255,255,0.12);
+  color: #fff;
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+#search::placeholder { color: rgba(255,255,255,0.38); }
+
+#search:focus {
+  background: rgba(255,255,255,0.2);
+  border-color: rgba(255,255,255,0.3);
+}
+
+.search-clear {
+  position: absolute;
+  right: 6px;
+  background: rgba(255,255,255,0.18);
+  border: none;
+  border-radius: 50%;
+  color: rgba(255,255,255,0.8);
+  font-size: 14px;
+  line-height: 1;
+  width: 22px;
+  height: 22px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  flex-shrink: 0;
+}
+
+.search-clear.visible { display: flex; }
+
+mark { background: #ffe066; color: #1a1a1a; border-radius: 2px; padding: 0 1px; }
+mark.active { background: #ff9500; color: #fff; }
+
+.match-nav {
+  display: none;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 0 0;
+}
+.match-nav.visible { display: flex; }
+.match-count {
+  color: rgba(255,255,255,0.65);
+  font-size: 13px;
+  flex: 1;
+  text-align: center;
+}
+.match-btn {
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 6px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 15px;
+  line-height: 1;
+  padding: 6px 14px;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+.match-btn:active { background: rgba(255,255,255,0.25); }
+
+/* ── MAIN ────────────────────────────────────────────────── */
+main {
+  padding: 10px 12px 48px;
+  padding-left: max(12px, env(safe-area-inset-left));
+  padding-right: max(12px, env(safe-area-inset-right));
+  padding-bottom: max(48px, env(safe-area-inset-bottom));
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+/* ── NO RESULTS ──────────────────────────────────────────── */
+#no-results {
+  display: none;
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--text);
+  opacity: 0.5;
+  font-size: 14px;
+}
+
+/* ── COLLAPSIBLE SECTIONS ────────────────────────────────── */
+details.section {
+  margin-bottom: 6px;
+  border-radius: 6px;
+  overflow: hidden;
+  scroll-margin-top: 130px;
+}
+
+details.section > summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  min-height: 44px;
+  background: var(--section-bg);
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  list-style: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+details.section > summary::-webkit-details-marker { display: none; }
+
+.chevron {
+  width: 12px;
+  height: 12px;
+  opacity: 0.65;
+  flex-shrink: 0;
+  margin-left: 8px;
+  transition: transform 0.18s ease;
+}
+
+details.section[open] > summary .chevron {
+  transform: rotate(90deg);
+}
+
+.section-body {
+  background: var(--body-bg);
+  padding: 10px 12px 12px;
+  border: 1px solid var(--rule);
+  border-top: none;
+  border-radius: 0 0 6px 6px;
+}
+
+/* ── HEADINGS WITHIN SECTIONS ────────────────────────────── */
+.subsection-title {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: #fff;
+  background: var(--subsection-bg);
+  padding: 4px 12px;
+  margin: 10px -12px 7px;
+}
+
+.label-title {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--section-bg);
+  border-bottom: 1.5px solid var(--rule);
+  padding-bottom: 3px;
+  margin: 10px 0 5px;
+}
+
+.inline-title {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 8px 0 3px;
+}
+
+/* ── BODY TEXT ───────────────────────────────────────────── */
+p { margin-bottom: 7px; }
+b, strong { font-weight: 600; }
+em, i { font-style: italic; }
+
+/* ── LISTS ───────────────────────────────────────────────── */
+ul, ol { padding-left: 20px; margin-bottom: 6px; }
+ul { list-style-type: disc; }
+ol { list-style-type: decimal; }
+ul ul { list-style-type: circle; }
+li { margin-bottom: 3px; }
+li > ul, li > ol { margin-top: 2px; margin-bottom: 0; }
+
+/* ── TABLES ──────────────────────────────────────────────── */
+.table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin-bottom: 6px;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  min-width: 260px;
+}
+thead tr { background: var(--table-head); color: white; }
+thead th {
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  padding: 5px 8px;
+  text-align: left;
+  white-space: nowrap;
+}
+tbody tr:nth-child(even) { background: var(--note-bg); }
+tbody td { padding: 5px 8px; vertical-align: top; }
+
+/* ── BLOCKQUOTE ──────────────────────────────────────────── */
+blockquote {
+  background: var(--note-bg);
+  border-left: 3px solid var(--accent);
+  padding: 6px 10px;
+  margin: 5px 0 7px;
+  font-size: 14px;
+  border-radius: 0 4px 4px 0;
+}
+blockquote p { margin-bottom: 2px; }
+
+/* ── INLINE CODE ─────────────────────────────────────────── */
+code {
+  background: var(--note-bg);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  padding: 1px 4px;
+  font-size: 13px;
+  font-family: inherit;
+  font-weight: 600;
+}
+
+/* ── HR ──────────────────────────────────────────────────── */
+hr { border: none; border-top: 1px solid var(--rule); margin: 8px 0; }
+
+/* ── SEARCH HIGHLIGHT ────────────────────────────────────── */
+mark {
+  background: #ffe566;
+  color: inherit;
+  border-radius: 2px;
+  padding: 0 1px;
+}
+
+/* ── HIDDEN SECTIONS ─────────────────────────────────────── */
+details.section.search-hidden { display: none; }
+
+/* ── VERSION TOGGLE ──────────────────────────────────────── */
+.toggle-bar {
+  display: inline-flex;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.2);
+}
+.toggle-current,
+.toggle-other {
+  padding: 6px 14px;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  line-height: 1;
+  text-decoration: none;
+  white-space: nowrap;
+  -webkit-tap-highlight-color: transparent;
+}
+.toggle-current {
+  background: rgba(255,255,255,0.18);
+  color: #ffffff;
+  font-weight: 600;
+  cursor: default;
+}
+.toggle-other {
+  color: rgba(255,255,255,0.5);
+}
+.toggle-other:hover {
+  background: rgba(255,255,255,0.08);
+  color: rgba(255,255,255,0.8);
+}
+
+/* ── PRINT ───────────────────────────────────────────────── */
+@media print {
+  .sticky-header { position: static; }
+  details.section[open], details.section { display: block; }
+  .section-body { display: block !important; }
+  .search-wrap, .search-clear, .toggle-bar, .match-nav { display: none; }
+}
+</style>
+</head>
+<body>
+<header class="sticky-header">
+  <div class="masthead-row">
+    <span class="masthead-title">Dale of Merchants</span>
+    <span class="masthead-subtitle">Rules Reference</span>
+  </div>
+  <div class="toggle-back-row"><div class="toggle-bar"><span class="toggle-current">Full Rules</span><a class="toggle-other" href="dale-of-merchants-rules-reference.html">Quick Reference</a></div><a class="back-link" href="../index.html">&#8592; All Games</a></div>
+  <div class="search-wrap">
+    <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+         stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+         aria-hidden="true">
+      <circle cx="11" cy="11" r="8"/>
+      <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+    </svg>
+    <input type="text" id="search" placeholder="Search rules…"
+           autocomplete="off" spellcheck="false" autocorrect="off">
+    <button class="search-clear" id="search-clear" aria-label="Clear search">&#x2715;</button>
+  </div>
+  <div class="match-nav" id="match-nav">
+    <button class="match-btn" id="match-prev" aria-label="Previous match">↑</button>
+    <span class="match-count" id="match-count"></span>
+    <button class="match-btn" id="match-next" aria-label="Next match">↓</button>
+  </div>
+</header>
+<main>
+<details class="section" open>
+  <summary><span>Game Overview</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>In Dale of Merchants, players take the roles of animalfolk merchants learning new techniques, trading goods, and managing their stocks. The gameplay is customisable to your liking by inviting different animalfolks to the trading competition. The first player to finish their astounding merchant stall is the winner of the game!</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Other Games in the Series</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>Dale of Merchants Collection is fully compatible with all other games in the Dale of Merchants series. You can freely mix and match animalfolk decks and other content between the games for increased variety. There is enough room in this game's box to store the content of all other games in the series as well.</p>
+<p>Sections highlighted in green, such as this one, contain new rules and clarifications to existing rules. Make sure to read those before playing the game, even if you have played another Dale of Merchants game before.</p>
+<p>From page 8 onward, this rulebook presents new features in Dale of Merchants Collection that enhance the existing gameplay. These include team rules for 4 players, trap cards, and character cards!</p>
+<p>We hope you have an exciting time exploring Dale of Merchants Collection and everything it has to offer!</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Card Overview</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>This section describes the different card types found in the game.</p>
+<p>Some card effects allow you to bend the rules of the game. In case of such rule conflicts, text on cards overrides this rulebook. Always resolve a card's effects in the order they are written.</p>
+<p>Many cards use keywords which are explained on page 10 and on the back of the Animalfolk compendium.</p>
+<span class="subsection-title">Animalfolk cards</span>
+<p>Each animalfolk deck contains 15 animalfolk cards. These cards have values ranging from 1 to 5 and are the core element of the game.</p>
+<p>1 Value, set icon, and possible bonus action icon +
+2 Card and set name
+3 Card type
+4 Effect and flavour text
+5 Game icon (The Greatest Exhibition in the World )</p>
+<p>There are two types of animalfolk cards: technique and passive cards.</p>
+<p>Technique cards can be played as a technique action. A bonus action icon + on the card rewards the active player with a bonus action after using the technique.</p>
+<p>Most passive cards have effects which apply when you have the card in your hand. Some passive cards can also provide their effects elsewhere if their effect text states so. When you want to use a card for its passive effects, show the card to other players and fully resolve its effects.</p>
+<span class="subsection-title">Junk cards</span>
+<p>Players start the game with multiple junk cards in their decks. Junk is primarily used to purchase new animalfolk cards from the market.</p>
+<span class="subsection-title">Deck selection cards</span>
+<p>Only a few animalfolk decks are used in each game. You can use the deck selection cards to compare the decks and choose a desired combination or randomise the selection.</p>
+<span class="subsection-title">Character cards</span>
+<p>Character cards provide the players with unique and powerful abilities. Each player receives one at the start of the game if you choose to use them. For further information see page 9.</p>
+<span class="subsection-title">Specialty and trap cards</span>
+<p>Specialty cards are used alongside their respective character cards and their function varies wildly from card to card. For further information see page 9.</p>
+<p>Trap cards are another optional feature that may be included in the game if you want to further increase the interaction between players. For further information see page 8.</p>
+<p>Both specialty and trap cards have specific owners. Furthermore, these cards can never be placed into your merchant stall.</p>
+<span class="subsection-title">Gold and tokens</span>
+<p>The Wealthy Tuataras animalfolk deck and many character cards provide players with gold. Gold can be used to purchase new animalfolk cards from the market and to pay for the costs of the spend and finish keywords. A single gold coin is worth 1 (in terms of game mechanics, a large coin is five small coins). Gold is placed into the bank after it is used, but gold you have acquired remains in your possession from turn to turn. There is no limit to the amount of gold you may have.</p>
+<p>Many character cards use tokens. Tokens are used to keep track of various effects. When an effect adds tokens, take them from the supply. Similarly, when an effect removes tokens, place them into the supply.</p>
+<p>There are considered to be unlimited amounts of both gold and tokens. In the rare case either the bank or supply runs out, use something else as substitutes.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Game Setup</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>Choose as many animalfolk decks as there are players, <strong>plus one deck</strong>. You can change the feel of the game by choosing animalfolks whose qualities match your group’s playing styles or mood. The separate <em>animalfolk compendium</em> describes all of the animalfolk decks and any special rules regarding their card effects.</p>
+<p><em>Deck selection cards</em> have series of icons representing each animalfolk deck’s complexity, interactivity, nastiness, and randomness. We recommend choosing low complexity decks for your first few games. You can also use the deck selection cards to pick the decks at random.</p>
+<p>Take the chosen animalfolk decks from the game box.</p>
+<p>If you wish to use the <em>trap cards</em>, see page 8.</p>
+<p>1 If you wish to play with the <em>character cards</em>, shuffle them together and deal 2 to each player. Each player chooses one card to keep, and all players simultaneously place their chosen cards face up in front of them. Place the unused character cards back into the game box. If any of the chosen cards have <em>setup</em> instructions, follow those during the setup when appropriate.</p>
+<p>For further instructions about using character cards see page 9.</p>
+<p>2 If any of the chosen animalfolk decks or character cards use <em>gold</em> or <em>tokens</em>, gather them together to form the <em>bank</em> and <em>supply</em> respectively.</p>
+<p>3 Form each player’s starting <em>deck</em> by giving everyone one card valued 1 <strong>from each of the chosen animalfolk decks</strong> and a number of junk cards until each player has a <strong>total of 10 cards</strong>. Shuffle the decks.</p>
+<p>4 Place the unused animalfolk cards valued 1 back into the game box. Shuffle the remaining animalfolk cards valued 2–5 together to form the <em>market deck</em>.</p>
+<p>5 Place the <em>market board</em> next to the market deck. Draw <strong>5 cards</strong> from this deck one by one and place them faceup on the slots on the board (starting from the right) to form the <em>market</em>.</p>
+<p>6 Place the remaining junk cards faceup near the playing area to form a separate <em>junk pile</em>.</p>
+<p>7 Each player draws <strong>5 cards</strong> from their own deck to form their <em>starting hand</em>.</p>
+<p>A Player’s <em>discard pile</em>
+B Player’s <em>merchant stall</em>
+C <em>Market’s discard pile</em></p>
+<p>The player who woke up the earliest today should start the game by taking the first turn. When playing consecutive games, one of the losing players should be the starting player of the next game.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Turn Overview</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>During the game the players take turns in a clockwise order. A player's turn consists of an action phase followed by a clean-up phase.</p>
+<ol>
+<li>
+<p>Action phase - Perform one of the following actions
+a) Market action - Purchase a card from the market
+b) Technique action - Play a technique card
+c) Stall action - Build a stack in your stall
+d) Inventory action - Discard cards from your hand</p>
+</li>
+<li>
+<p>Clean-up phase
+1) Fill your hand back to 5 cards
+2) Slide cards and fill empty slots in the market</p>
+</li>
+<li>
+<p>Action phase - Perform one action
+Perform one of the four available actions.</p>
+</li>
+</ol>
+<p><strong>IMPORTANT:</strong> Cards are placed faceup on all discard piles. Players may look through all discard piles at any time, but may not reorder them.</p>
+<span class="subsection-title">a) Market action</span>
+<p><strong>a) Market action</strong> - Purchase a card from the market
+Buy 1 card from the market by paying its price in a combination of any cards from your hand. Your cards are worth their printed value when used to purchase new ones. A card's price in the market is equal to its value plus the (possible) added cost printed on the market board above the card slot. Moving to the left, the added costs increase one by one from 0 to +4. Place the cards you used to purchase on your discard pile and then place the newly purchased animalfolk card into your hand.</p>
+<p><strong>IMPORTANT:</strong> You may overpay, but all cards you use for the purchase must be necessary for reaching the price of the new card. If you could withhold one or more cards and still be able to pay the price, you must do so. The cards left in your hand do not matter. For example, you are allowed to buy a 5 cost card using two cards each valued 4 (totalling 8) even if you have a card valued 5 in your hand. However, you cannot use the 5 and 4 together, because the 4 would be redundant.</p>
+<p>You may use acquired gold to cover some or all of the price. Each gold is worth 1 which means you cannot overpay with it. If the price of a card is 0 or less for any reason, you may purchase it without using any cards or gold.</p>
+<span class="subsection-title">b) Technique action</span>
+<p><strong>b) Technique action</strong> - Play a technique card
+Play 1 technique card from your hand. Show the card and do the action described in its effect text. The effects always happen in the order they are written on the card.</p>
+<p>Place technique cards in front of you for the duration of their effect. These cards are in your schedule. They are unaffected by other effects until they are fully resolved. In case multiple effects of cards in your schedule resolve at the same time, you choose the order those effects resolve in.</p>
+<p>After a technique card's effects have been fully resolved, place it on your discard pile unless told otherwise.</p>
+<p><strong>IMPORTANT:</strong> If you cannot draw, take, or exchange the exact amount of cards specified by the effect, perform the action with the maximum amount of cards available. However, if any deck runs out and you or anyone else needs new cards from it, shuffle its discard pile and use it to form a new deck. Searching a deck that has no cards in it does not trigger the forming of a new deck.</p>
+<p>After resolving a card's immediate effects, advance the clock hand one space clockwise if the clock is in play. Then, if the card has a bonus action icon +, perform another action this turn. The bonus action is always awarded on the turn the card is played, even if the card remains in your schedule and has delayed effects.</p>
+<p>Your bonus action can be any of the four usual actions. If you use your bonus action to play another technique card that also has a bonus action icon +, you then perform another action – and so on.</p>
+<p><strong>IMPORTANT:</strong> The bonus action is awarded only when a card is played using its technique – not if it is used as part of a purchase, played into your stall, or for any other reason.</p>
+<p>When you need to discard or throw away multiple cards at the same time, you choose the order in which they go to their designated discard pile.</p>
+<p>Whenever an effect lets you guess a card, show the card to everyone so they can confirm the result.</p>
+<span class="subsection-title">c) Stall action</span>
+<p><strong>c) Stall action</strong> - Build a stack in your stall
+Each player's individual merchant stall has room for 8 stacks of cards that have ascending total values. The total value of your first stack must be exactly 1, the next exactly 2, and so on. They have to be built in ascending order from 1 to 8. The cards you use to build stacks in your stall can no longer be used for other actions.</p>
+<p>To build a stack, choose any number of animalfolk cards that belong to a single animalfolk set from your hand, whose values add up to the required amount, and place them in front of you into your stall. Stacks are placed faceup in a way that leaves all of the card values visible. A stack must be completely built in a single action. You cannot build a partial stack and continue to add to it later.</p>
+<p>In some cases certain card effects can modify your stacks' values or manipulate the cards in them. That is fine. After a stack is finished, it does not matter what its value is or what cards are in it. The total value of your next stack is only determined by the number of stacks you have already built, not by what is in them.</p>
+<span class="subsection-title">d) Inventory action</span>
+<p><strong>d) Inventory action</strong> - Discard cards from your hand
+Place any amount of cards from your hand into your discard pile. You may use this action to discard 0 cards.</p>
+<span class="subsection-title">2. Clean-up phase</span>
+<p><strong>2. Clean-up phase</strong>
+After the active player has performed the chosen action and possible bonus actions, their action phase ends immediately and their clean-up phase begins. Clean-up is still considered a part of the active player's turn and they may use passive effects of certain cards.</p>
+<span class="label-title">1) Fill your hand back to 5 cards</span>
+<p><strong>1) Fill your hand back to 5 cards</strong>
+Draw cards from your deck into your hand one by one until you reach your hand size, which is 5 by default. If the number of cards in your hand already exceeds your hand size for any reason, do not discard the extra cards. You should always reach at least your hand size by the end of this part of the clean-up phase, even if cards are removed from your hand during it. Only the active player fills their hand.</p>
+<p>Whenever your deck runs out and you or anyone else needs new cards from it, shuffle your discard pile and use it to form your new deck. Searching a deck that has no cards in it does not trigger the forming of a new deck.</p>
+<p>If your deck and discard pile run out at the same time and you need to draw new cards during clean-up (and only during clean-up), draw junk cards from the junk pile to fill your hand to your hand size. Unlike all other card types, there is considered to be an unlimited number of junk cards. In the rare case the junk pile runs out, use cards from the decks that are not in play as substitutes for junk cards.</p>
+<span class="label-title">2) Slide cards and fill empty slots in the market</span>
+<p><strong>2) Slide cards and fill empty slots in the market</strong>
+Move the cards in the market to the rightmost empty slot one by one starting from the right. Then draw new cards from the market deck one by one to fill the empty slots, again starting from the right.</p>
+<p>If the market deck ever runs out and you need cards from it, shuffle the market discard pile to form a new market deck. If the market deck and discard pile run out at the same time, the market will be only partially filled.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Winning the Game</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>Once you build the 8th stack in your merchant stall, the game ends immediately and you are celebrated as the winner.</p>
+<p>Certain character card effects may make you ineligible to win the game. In such a case you may still build the 8th stack in your stall but not more after that. If you then manage to get rid of the condition that prevents your victory, you immediately win the game.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Clock</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>Mongoose and bats use the clock 🕒. If you include either of them in a game, place the clock on the table and use it during the game to track the time of day. The clock hand starts at the first ☀️ day space ◆.</p>
+<p>Most card effects in these decks depend on the clock. These effects have ☀️ day and 🌙 night parts which are in effect only if the clock hand is in the corresponding space the moment you play the card. Advance the hand one space ◆ clockwise after any player has played a technique card and resolved its <strong>immediate</strong> effects.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>4 Player Team Rules</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>In 4 player games the players can join forces to create teams. This reduces downtime and also introduces additional depth to the gameplay. We recommend trying out the team rules after playing a couple of games using the normal rules.</p>
+<span class="subsection-title">Setup</span>
+<p><strong>Setup</strong>
+Form 2 teams of 2 players. Teammates should sit opposite each other so that each player has an opponent on both sides and a teammate across the table.</p>
+<p>Choose <strong>4 animalfolk decks</strong> instead of 5 to include in the game.</p>
+<p><strong>IMPORTANT</strong>: The game comes with 20 junk cards. You need 4 more for the team rules. If you do not have additional junk cards from other Dale of Merchants games, take 4 cards valued 1 from a single animalfolk deck not used in the current game and use those as substitutes for junk cards.</p>
+<span class="subsection-title">Changes to the normal rules</span>
+<p><strong>Changes to the normal rules</strong>
+Players in the same team share a merchant stall. The number of stacks needed to win the game is increased to <strong>10</strong>, with the values of stacks increasing from 1 to 10 similarly to the normal rules. The team that first builds their 10th stack wins the game as long as neither player is ineligible to win because of character card effects.</p>
+<p>When you build a stack, your teammate can help you build by adding one or more cards to the stack. However, the active player must contribute at least 1 card to the stack. Remember to fill your hand only during the <strong>clean-up phase</strong> of your own turn.</p>
+<p>Some cards refer to opponents 🦝. All other players (excluding your teammate) are your opponents.</p>
+<p>All communication is public.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Trap Cards</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>Trap cards can be included into the game to add more interaction between players. They are recommended for more experienced players.</p>
+<span class="subsection-title">Using trap cards</span>
+<p><strong>Using trap cards</strong>
+A trap card can be played on another player’s discard pile and will trigger an effect when placed into the hand of a player that is not its owner. Trap cards also have a value and can be used to purchase cards from the market. Trap cards can never be used to build a stack.</p>
+<p>Trap cards have painted sections at the bottom, accompanied by a warning icon ⚠️. These are called <strong>alerts</strong> and their use is explained on page 10.</p>
+<span class="subsection-title">Setup</span>
+<p><strong>Setup</strong>
+Each trap card comes in 4 different colours, one for each player. The player colour cards indicate which trap card belongs to which player.</p>
+<p>Place a player colour card in front of each player. After choosing the animalfolk decks, choose a combination of trap cards to include in the game. We recommend choosing a maximum of 2 trap cards per game. Give each player the same chosen trap card combination of their colour. Place the unused trap cards back into the game box.</p>
+<p>Each player shuffles their trap cards into their starting deck.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Character Cards</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>Character cards are received at the start of the game and provide players with unique powers that drastically influence the game. We recommend trying out the character cards after playing a couple of games without them.</p>
+<span class="subsection-title">Character card overview</span>
+<p><strong>Character card overview</strong>
+Character cards are divided into 3 colours based on their complexity: green are the easiest to play, yellow intermediate, and red the hardest. We recommend using only the green ones in your first few games with characters. You can add in the yellow ones and finally the red ones when you are familiar with how to use characters and ready for more complex abilities.</p>
+<ol>
+<li>Character name and title</li>
+<li>Colour denoting complexity</li>
+<li>Additional components needed</li>
+<li>Setup, abilities, passive effects, and flavour text</li>
+<li>Game icon (The Greatest Exhibition in the World)</li>
+</ol>
+<p>A few character cards have a banner on the top right corner which says they require a teammate. These characters can only be used when you play using the team rules which can be found on page 8.</p>
+<span class="subsection-title">Specialty cards</span>
+<p><strong>Specialty cards</strong>
+Some characters have unique specialty cards. These have different uses which are always explained on the character cards or on the specialty cards themselves. Each specialty card has a name tag with the name of the character it belongs to.</p>
+<p>Some specialty cards are shuffled into players’ decks and function similarly to animalfolk technique cards. However, these cards have a specific owner and can never be placed into a stack. Such cards also have painted sections at the bottom, accompanied by a warning icon . These are called alerts and their use is explained on page 10.</p>
+<p>Specialty cards that are not in your hand, deck, or discard pile cannot be stolen from you by any means.</p>
+<span class="subsection-title">Using character cards</span>
+<p><strong>Using character cards</strong>
+Character and specialty cards provide different types of effects. Passive effects apply while the character card is in play. Abilities have a coloured bar at the top which shows the ability name and its usage restrictions.</p>
+<ol>
+<li>Ability name</li>
+<li>Ability usage count</li>
+<li>Ability timing</li>
+<li>Ability effect</li>
+<li>Passive effect</li>
+</ol>
+<p>Ability timing tells when you may use the ability. However, abilities cannot be used if you are in the middle of resolving another effect (including any card effects, actions, and filling your hand or the market). The usage count shows how many times you can use the ability during a single turn.</p>
+<p>Turn: Start of turn ▶ Action phase ▶ Clean-up phase ▶ End of turn</p>
+<p>If a character or specialty card effect activates an action, resolve that action as normal. It will count as your action for that turn, and a technique action can award you a bonus action as usual.</p>
+<p>Some cards refer to opponents . All other players (excluding your teammate) are your opponents.</p>
+<p>A few character cards utilise the different dice found in the Dale of Merchants series. These characters can only be used if you own the game that comes with the required die. For more information about the different games and their contents see the list of components on page 3.</p>
+<span class="subsection-title">Setup</span>
+<p><strong>Setup</strong>
+After everyone has chosen their character cards, see if your character requires additional components. These are always listed below the name and title on the upper left of the card. Take the necessary components from the box.</p>
+<p>If your character card has a bolded setup keyword, follow those instructions during the setup when appropriate.</p>
+<p>If your character card lists specialty cards that are not mentioned in its setup instructions, place the cards near you on the table and keep them separate from other cards. They are considered to be at your disposal and their use is always explained on your character card or on the specialty cards themselves. However, large specialty cards are placed faceup on the table next to your character card instead.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Keywords</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>All keywords, except alert, are bolded words in the card's effect text. These are condensed forms of certain effects which function the same way every time. Effects of different keywords are described in detail below and at the back of the animalfolk compendium.</p>
+<span class="subsection-title">Alert</span>
+<p><strong>Alert</strong> - An instant effect from a card you do not own
+Painted sections accompanied by a warning icon are called alerts. Whenever a card with an alert is placed into a hand of a player who is not the owner of said card, resolve the alert's effect immediately. Simply seeing the card does not trigger the alert. The owner of the card cannot resolve the alert.</p>
+<span class="subsection-title">Finish</span>
+<p><strong>Finish</strong> - Release cards from your schedule
+When you play a technique card that has the keyword finish, place the card into your schedule and resolve any effects in the card text that precede finish. The card stays in your schedule afterwards.</p>
+<p>During your action phase, you may spend the amount listed after finish to continue resolving the card. This does not count as an action. Resolve any effects that come after finish in the card text and place the card into your discard pile.</p>
+<p>Each card in your schedule with finish must be finished separately. You cannot combine the finish costs of separate cards.</p>
+<span class="subsection-title">Return</span>
+<p><strong>Return</strong> - Give a card back to its owner
+Cards that have a specific owner usually have the keyword return on them. When you resolve return, place the card on top of its owner's deck. The owner of a card is specified in the name tag below the card name.</p>
+<p>Return is always within an alert.</p>
+<span class="subsection-title">Reusable</span>
+<p><strong>Reusable</strong> - A specific type of a technique card
+A reusable card is a technique card that you always place into your discard pile after it has been fully resolved. If there is a chance or an option for it to go anywhere else, it is not reusable.</p>
+<span class="subsection-title">Setup</span>
+<p><strong>Setup</strong> - Adjustments at the start of the game
+If a character card has the keyword setup, follow the instructions that come after the keyword during the game setup when appropriate.</p>
+<span class="subsection-title">Spend</span>
+<p><strong>Spend</strong> - Pay for effects
+Before you play a technique card, or use an effect, with the keyword spend, you must first pay the amount listed after spend in any combination of cards from your hand and acquired gold . Paying for spend follows the same rules as purchasing cards from the market.</p>
+<p>Spend x is a special case of spend. It is always followed by a range of values which specifies the amount you can spend. The exact amount you pay (up to the maximum) determines the value of x for that effect. If there is a maximum value, you may overpay for the maximum value similarly to purchasing cards from the market.</p>
+<p>Each spend must be paid for separately. You cannot combine the spend costs of separate cards or abilities.</p>
+<span class="subsection-title">Store</span>
+<p><strong>Store</strong> - Save cards for later
+When you play a technique card, or use an effect, with the keyword store, place the cards you wish to store facedown on the card with the keyword. You may look at your own stored cards at any time. Stored cards are untargetable by any effects other than those from the card they are stored on.</p>
+<span class="subsection-title">Throw away</span>
+<p><strong>Throw away</strong> - Get rid of cards
+When you throw away a card, place it into a location determined by its type.</p>
+<ul>
+<li>If it is a junk card, place it on the junk pile.</li>
+<li>If it is an animalfolk card, place it on the market's discard pile.</li>
+<li>If it is a specialty or trap card, place it on its owner's discard pile.</li>
+</ul>
+  </div>
+</details>
+  <p id="no-results">No sections match your search.</p>
+</main>
+<script>
+(function () {
+  var searchEl  = document.getElementById('search');
+  var clearBtn  = document.getElementById('search-clear');
+  var noResults = document.getElementById('no-results');
+  var sections  = Array.from(document.querySelectorAll('details.section'));
+  var matchNav   = document.getElementById('match-nav');
+  var matchCount = document.getElementById('match-count');
+  var matchPrev  = document.getElementById('match-prev');
+  var matchNext  = document.getElementById('match-next');
+
+  var allMarks = [];
+  var currentMark = -1;
+
+  // Snapshot each section body's original HTML so we can restore it
+  // before applying a new round of highlights.
+  sections.forEach(function (s) {
+    var body = s.querySelector('.section-body');
+    if (body) body.dataset.original = body.innerHTML;
+  });
+
+  var timer;
+
+  searchEl.addEventListener('input', function () {
+    var term = this.value.trim();
+    clearBtn.classList.toggle('visible', term.length > 0);
+    clearTimeout(timer);
+    timer = setTimeout(function () { applySearch(term); }, 180);
+  });
+
+  clearBtn.addEventListener('click', function () {
+    searchEl.value = '';
+    clearBtn.classList.remove('visible');
+    applySearch('');
+    searchEl.focus();
+  });
+
+  matchPrev.addEventListener('click', function () {
+    if (allMarks.length === 0) return;
+    navigateTo((currentMark - 1 + allMarks.length) % allMarks.length);
+  });
+
+  matchNext.addEventListener('click', function () {
+    if (allMarks.length === 0) return;
+    navigateTo((currentMark + 1) % allMarks.length);
+  });
+
+  function navigateTo(index) {
+    if (allMarks[currentMark]) allMarks[currentMark].classList.remove('active');
+    currentMark = index;
+    var mark = allMarks[currentMark];
+    mark.classList.add('active');
+    mark.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    matchCount.textContent = (currentMark + 1) + ' of ' + allMarks.length;
+  }
+
+  function escapeRe(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlightTextNodes(container, re) {
+    var walker = document.createTreeWalker(
+      container, NodeFilter.SHOW_TEXT, null, false
+    );
+    var nodes = [];
+    var n;
+    while ((n = walker.nextNode())) {
+      if (n.nodeValue.trim()) nodes.push(n);
+    }
+    nodes.forEach(function (textNode) {
+      re.lastIndex = 0;
+      if (!re.test(textNode.nodeValue)) return;
+      re.lastIndex = 0;
+      var span = document.createElement('span');
+      span.innerHTML = textNode.nodeValue.replace(
+        re, function (m) { return '<mark>' + m + '</mark>'; }
+      );
+      textNode.parentNode.replaceChild(span, textNode);
+    });
+  }
+
+  function applySearch(term) {
+    var re = term ? new RegExp(escapeRe(term), 'gi') : null;
+    var visibleCount = 0;
+
+    sections.forEach(function (section) {
+      var body    = section.querySelector('.section-body');
+      var summary = section.querySelector('summary');
+
+      // Restore original HTML before each search pass
+      if (body) body.innerHTML = body.dataset.original;
+
+      if (!re) {
+        section.classList.remove('search-hidden');
+        section.open = false;
+        return;
+      }
+
+      var titleText = summary ? summary.textContent : '';
+      var bodyText  = body    ? body.textContent    : '';
+
+      re.lastIndex = 0;
+      var inTitle = re.test(titleText);
+      re.lastIndex = 0;
+      var inBody  = re.test(bodyText);
+      re.lastIndex = 0;
+
+      if (inTitle || inBody) {
+        section.classList.remove('search-hidden');
+        section.open = true;
+        if (body) highlightTextNodes(body, new RegExp(escapeRe(term), 'gi'));
+        visibleCount++;
+      } else {
+        section.classList.add('search-hidden');
+      }
+    });
+
+    noResults.style.display = (re && visibleCount === 0) ? 'block' : 'none';
+
+    allMarks = Array.from(document.querySelectorAll('mark'));
+    currentMark = -1;
+
+    if (allMarks.length > 0) {
+      matchNav.classList.add('visible');
+      navigateTo(0);
+    } else {
+      matchNav.classList.remove('visible');
+      matchCount.textContent = '';
+    }
+  }
+})();
+</script>
+</body>
+</html>

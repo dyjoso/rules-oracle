@@ -150,6 +150,36 @@ body {
 
 .search-clear.visible { display: flex; }
 
+mark { background: #ffe066; color: #1a1a1a; border-radius: 2px; padding: 0 1px; }
+mark.active { background: #ff9500; color: #fff; }
+
+.match-nav {
+  display: none;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 0 0;
+}
+.match-nav.visible { display: flex; }
+.match-count {
+  color: rgba(255,255,255,0.65);
+  font-size: 13px;
+  flex: 1;
+  text-align: center;
+}
+.match-btn {
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 6px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 15px;
+  line-height: 1;
+  padding: 6px 14px;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+.match-btn:active { background: rgba(255,255,255,0.25); }
+
 /* ── MAIN ────────────────────────────────────────────────── */
 main {
   padding: 10px 12px 48px;
@@ -366,7 +396,7 @@ details.section.search-hidden { display: none; }
   .sticky-header { position: static; }
   details.section[open], details.section { display: block; }
   .section-body { display: block !important; }
-  .search-wrap, .search-clear, .toggle-bar { display: none; }
+  .search-wrap, .search-clear, .toggle-bar, .match-nav { display: none; }
 }
 </style>
 </head>
@@ -388,24 +418,14 @@ details.section.search-hidden { display: none; }
            autocomplete="off" spellcheck="false" autocorrect="off">
     <button class="search-clear" id="search-clear" aria-label="Clear search">&#x2715;</button>
   </div>
+  <div class="match-nav" id="match-nav">
+    <button class="match-btn" id="match-prev" aria-label="Previous match">↑</button>
+    <span class="match-count" id="match-count"></span>
+    <button class="match-btn" id="match-next" aria-label="Next match">↓</button>
+  </div>
 </header>
 <main>
-<p>Of my free will and in sound mind, I swear this solemn oath.
-I pledge myself to the great Hunt.
-In the face of fear, I shall not waver.
-In the face of death, I shall fight to the last.
-When the Lament calls me, I shall resist temptation.
-And should I fail to abide by this sacred oath,
-I ask my brothers and sisters to put a price on me.
-So say I, the hunter of the Grimcoven.</p>
 <p>Grimcoven is a ruthless boss battler with RPG elements. Each game is based on one of many Scenarios chosen from the available pool. Each Scenario offers a different world, different rules, different threats — but the goal always remains the same: defeat the Griefbound, survive, and don't yield to the tempting power of Lament.</p>
-<p>In every game, you will face a terrifying entity — a Griefbound — supported by an Elite Enemy and endless hordes of vile Minions that emerge from the shadows and cracks in reality.</p>
-<p>Each round begins with a dice roll — their results become your resources. You will spend them to activate Actions, trigger abilities, and plan the best strategy for survival and, of course, victory.</p>
-<p>You will collect Lament — a mysterious, pulsating substance that feeds on suffering — by battling enemies and exploring gaping Rifts. Lament grants power beyond your imagination, but every drop corrupts you, bringing you closer to the point of no return, when you will join the world of those you fight against.</p>
-<p>Lament allows you to develop abilities and buy new Action cards and dice, but it also tears away your humanity. However, you cannot hold back in this battle, as your enemies also grow stronger with each passing round.</p>
-<p>This is your profession. This is your world, full of dangers and sacrifices.</p>
-<p>Gather a group of Hunters. Choose your Weapons and Armor. Begin the Hunt, but be ready for a merciless fight from the very first steps. Sometimes someone will fall to their knees in the first round — it can be expected in this brutal world. From the start, you are balancing on the edge of death. Some, or even many, may never return from the hunt.</p>
-<p>The battlefield is more than just ruins and blood. The Terrain is diverse, full of oddities that can tip the scales. Among forests, swamps, or cracked earth, you will find ancient Portals connecting different parts of the Map, Treasures filled to the brim with valuable finds and tools, and sometimes even lost characters, mysterious machines, forgotten ruins, or eerie places of power. Used at the right moment, they can change the course of the battle... or change you.</p>
 <details class="section">
   <summary><span>WINNING OR LOSING</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
   <div class="section-body">
@@ -1450,6 +1470,13 @@ Weapon.........................................26</li>
   var clearBtn  = document.getElementById('search-clear');
   var noResults = document.getElementById('no-results');
   var sections  = Array.from(document.querySelectorAll('details.section'));
+  var matchNav   = document.getElementById('match-nav');
+  var matchCount = document.getElementById('match-count');
+  var matchPrev  = document.getElementById('match-prev');
+  var matchNext  = document.getElementById('match-next');
+
+  var allMarks = [];
+  var currentMark = -1;
 
   // Snapshot each section body's original HTML so we can restore it
   // before applying a new round of highlights.
@@ -1473,6 +1500,25 @@ Weapon.........................................26</li>
     applySearch('');
     searchEl.focus();
   });
+
+  matchPrev.addEventListener('click', function () {
+    if (allMarks.length === 0) return;
+    navigateTo((currentMark - 1 + allMarks.length) % allMarks.length);
+  });
+
+  matchNext.addEventListener('click', function () {
+    if (allMarks.length === 0) return;
+    navigateTo((currentMark + 1) % allMarks.length);
+  });
+
+  function navigateTo(index) {
+    if (allMarks[currentMark]) allMarks[currentMark].classList.remove('active');
+    currentMark = index;
+    var mark = allMarks[currentMark];
+    mark.classList.add('active');
+    mark.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    matchCount.textContent = (currentMark + 1) + ' of ' + allMarks.length;
+  }
 
   function escapeRe(s) {
     return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
@@ -1536,6 +1582,17 @@ Weapon.........................................26</li>
     });
 
     noResults.style.display = (re && visibleCount === 0) ? 'block' : 'none';
+
+    allMarks = Array.from(document.querySelectorAll('mark'));
+    currentMark = -1;
+
+    if (allMarks.length > 0) {
+      matchNav.classList.add('visible');
+      navigateTo(0);
+    } else {
+      matchNav.classList.remove('visible');
+      matchCount.textContent = '';
+    }
   }
 })();
 </script>

@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Sails of Glory — Rules Reference</title>
+<style>
+:root {
+  --bg:            #f2ede6;
+  --text:          #1a1a1a;
+  --header-bg:     #be8d3f;
+  --section-bg:    #be8d3f;
+  --subsection-bg: #8bbf25;
+  --rule:          #b0a898;
+  --accent:        #8bbf25;
+  --table-head:    #be8d3f;
+  --note-bg:       #e8e0d4;
+  --body-bg:       #ffffff;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 15px;
+  line-height: 1.55;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* ── STICKY HEADER ───────────────────────────────────────── */
+.sticky-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--header-bg);
+  padding: 10px 14px 12px;
+  padding-top: max(10px, env(safe-area-inset-top));
+  padding-left: max(14px, env(safe-area-inset-left));
+  padding-right: max(14px, env(safe-area-inset-right));
+  box-shadow: 0 2px 12px rgba(0,0,0,0.4);
+}
+
+.masthead-row {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 9px;
+}
+
+.masthead-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  line-height: 1.1;
+  flex-shrink: 0;
+}
+
+.masthead-subtitle {
+  font-size: 11px;
+  color: rgba(255,255,255,0.45);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.back-link {
+  margin-left: auto;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+  text-decoration: none;
+  flex-shrink: 0;
+  padding-left: 14px;
+  white-space: nowrap;
+}
+.back-link:hover {
+  color: rgba(255,255,255,0.85);
+}
+
+/* ── TOGGLE + BACK ROW ───────────────────────────────────── */
+.toggle-back-row {
+  display: flex;
+  align-items: center;
+  margin-top: 7px;
+}
+
+.search-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-icon {
+  position: absolute;
+  left: 10px;
+  width: 15px;
+  height: 15px;
+  color: rgba(255,255,255,0.4);
+  pointer-events: none;
+  flex-shrink: 0;
+}
+
+#search {
+  width: 100%;
+  padding: 8px 36px 8px 32px;
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 8px;
+  font-size: 15px;
+  background: rgba(255,255,255,0.12);
+  color: #fff;
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+#search::placeholder { color: rgba(255,255,255,0.38); }
+
+#search:focus {
+  background: rgba(255,255,255,0.2);
+  border-color: rgba(255,255,255,0.3);
+}
+
+.search-clear {
+  position: absolute;
+  right: 6px;
+  background: rgba(255,255,255,0.18);
+  border: none;
+  border-radius: 50%;
+  color: rgba(255,255,255,0.8);
+  font-size: 14px;
+  line-height: 1;
+  width: 22px;
+  height: 22px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  flex-shrink: 0;
+}
+
+.search-clear.visible { display: flex; }
+
+mark { background: #ffe066; color: #1a1a1a; border-radius: 2px; padding: 0 1px; }
+mark.active { background: #ff9500; color: #fff; }
+
+.match-nav {
+  display: none;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 0 0;
+}
+.match-nav.visible { display: flex; }
+.match-count {
+  color: rgba(255,255,255,0.65);
+  font-size: 13px;
+  flex: 1;
+  text-align: center;
+}
+.match-btn {
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 6px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 15px;
+  line-height: 1;
+  padding: 6px 14px;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+.match-btn:active { background: rgba(255,255,255,0.25); }
+
+/* ── MAIN ────────────────────────────────────────────────── */
+main {
+  padding: 10px 12px 48px;
+  padding-left: max(12px, env(safe-area-inset-left));
+  padding-right: max(12px, env(safe-area-inset-right));
+  padding-bottom: max(48px, env(safe-area-inset-bottom));
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+/* ── NO RESULTS ──────────────────────────────────────────── */
+#no-results {
+  display: none;
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--text);
+  opacity: 0.5;
+  font-size: 14px;
+}
+
+/* ── COLLAPSIBLE SECTIONS ────────────────────────────────── */
+details.section {
+  margin-bottom: 6px;
+  border-radius: 6px;
+  overflow: hidden;
+  scroll-margin-top: 130px;
+}
+
+details.section > summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  min-height: 44px;
+  background: var(--section-bg);
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  list-style: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+details.section > summary::-webkit-details-marker { display: none; }
+
+.chevron {
+  width: 12px;
+  height: 12px;
+  opacity: 0.65;
+  flex-shrink: 0;
+  margin-left: 8px;
+  transition: transform 0.18s ease;
+}
+
+details.section[open] > summary .chevron {
+  transform: rotate(90deg);
+}
+
+.section-body {
+  background: var(--body-bg);
+  padding: 10px 12px 12px;
+  border: 1px solid var(--rule);
+  border-top: none;
+  border-radius: 0 0 6px 6px;
+}
+
+/* ── HEADINGS WITHIN SECTIONS ────────────────────────────── */
+.subsection-title {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: #fff;
+  background: var(--subsection-bg);
+  padding: 4px 12px;
+  margin: 10px -12px 7px;
+}
+
+.label-title {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--section-bg);
+  border-bottom: 1.5px solid var(--rule);
+  padding-bottom: 3px;
+  margin: 10px 0 5px;
+}
+
+.inline-title {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 8px 0 3px;
+}
+
+/* ── BODY TEXT ───────────────────────────────────────────── */
+p { margin-bottom: 7px; }
+b, strong { font-weight: 600; }
+em, i { font-style: italic; }
+
+/* ── LISTS ───────────────────────────────────────────────── */
+ul, ol { padding-left: 20px; margin-bottom: 6px; }
+ul { list-style-type: disc; }
+ol { list-style-type: decimal; }
+ul ul { list-style-type: circle; }
+li { margin-bottom: 3px; }
+li > ul, li > ol { margin-top: 2px; margin-bottom: 0; }
+
+/* ── TABLES ──────────────────────────────────────────────── */
+.table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin-bottom: 6px;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  min-width: 260px;
+}
+thead tr { background: var(--table-head); color: white; }
+thead th {
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  padding: 5px 8px;
+  text-align: left;
+  white-space: nowrap;
+}
+tbody tr:nth-child(even) { background: var(--note-bg); }
+tbody td { padding: 5px 8px; vertical-align: top; }
+
+/* ── BLOCKQUOTE ──────────────────────────────────────────── */
+blockquote {
+  background: var(--note-bg);
+  border-left: 3px solid var(--accent);
+  padding: 6px 10px;
+  margin: 5px 0 7px;
+  font-size: 14px;
+  border-radius: 0 4px 4px 0;
+}
+blockquote p { margin-bottom: 2px; }
+
+/* ── INLINE CODE ─────────────────────────────────────────── */
+code {
+  background: var(--note-bg);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  padding: 1px 4px;
+  font-size: 13px;
+  font-family: inherit;
+  font-weight: 600;
+}
+
+/* ── HR ──────────────────────────────────────────────────── */
+hr { border: none; border-top: 1px solid var(--rule); margin: 8px 0; }
+
+/* ── SEARCH HIGHLIGHT ────────────────────────────────────── */
+mark {
+  background: #ffe566;
+  color: inherit;
+  border-radius: 2px;
+  padding: 0 1px;
+}
+
+/* ── HIDDEN SECTIONS ─────────────────────────────────────── */
+details.section.search-hidden { display: none; }
+
+/* ── VERSION TOGGLE ──────────────────────────────────────── */
+.toggle-bar {
+  display: inline-flex;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.2);
+}
+.toggle-current,
+.toggle-other {
+  padding: 6px 14px;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  line-height: 1;
+  text-decoration: none;
+  white-space: nowrap;
+  -webkit-tap-highlight-color: transparent;
+}
+.toggle-current {
+  background: rgba(255,255,255,0.18);
+  color: #ffffff;
+  font-weight: 600;
+  cursor: default;
+}
+.toggle-other {
+  color: rgba(255,255,255,0.5);
+}
+.toggle-other:hover {
+  background: rgba(255,255,255,0.08);
+  color: rgba(255,255,255,0.8);
+}
+
+/* ── PRINT ───────────────────────────────────────────────── */
+@media print {
+  .sticky-header { position: static; }
+  details.section[open], details.section { display: block; }
+  .section-body { display: block !important; }
+  .search-wrap, .search-clear, .toggle-bar, .match-nav { display: none; }
+}
+</style>
+</head>
+<body>
+<header class="sticky-header">
+  <div class="masthead-row">
+    <span class="masthead-title">Sails of Glory</span>
+    <span class="masthead-subtitle">Rules Reference</span>
+  </div>
+  <div class="toggle-back-row"><div class="toggle-bar"><span class="toggle-current">Quick Reference</span><a class="toggle-other" href="sails-of-glory-rules-refined.html">Full Rules</a></div><a class="back-link" href="../index.html">&#8592; All Games</a></div>
+  <div class="search-wrap">
+    <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+         stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+         aria-hidden="true">
+      <circle cx="11" cy="11" r="8"/>
+      <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+    </svg>
+    <input type="text" id="search" placeholder="Search rules…"
+           autocomplete="off" spellcheck="false" autocorrect="off">
+    <button class="search-clear" id="search-clear" aria-label="Clear search">&#x2715;</button>
+  </div>
+  <div class="match-nav" id="match-nav">
+    <button class="match-btn" id="match-prev" aria-label="Previous match">↑</button>
+    <span class="match-count" id="match-count"></span>
+    <button class="match-btn" id="match-next" aria-label="Next match">↓</button>
+  </div>
+</header>
+<main>
+<details class="section" open>
+  <summary><span>Component Overview</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th style="text-align: left;">Component</th>
+<th style="text-align: left;">Description &amp; Key Features</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Ship Bases</strong></td>
+<td style="text-align: left;">Double-sided plastic bases holding ship models. Indentations align with maneuver card movement lines. Displays <strong>Burden</strong> (hull size) and <strong>Veer</strong> (maneuverability) ratings.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Ship Cards</strong></td>
+<td style="text-align: left;">Double-sided cards listing <strong>Ship's Name</strong>, <strong>Nationality</strong>, <strong>Burden</strong>, <strong>Maneuver Deck</strong> letter, <strong>Veer</strong>, <strong>Colored Borders</strong> (attitude zones), <strong>Firing Arcs</strong>, <strong>Number of Guns</strong>, <strong>Number of Crewmen</strong>, and <strong>Class/Type</strong>. Launch/capture years are noted.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Base Cards</strong></td>
+<td style="text-align: left;">Double-sided cardboard inserts matching ship names. Placed inside ship bases before securing the transparent lid and model.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Ship Mats</strong></td>
+<td style="text-align: left;">Grid boards tracking <strong>Broadside</strong> (left/right), <strong>Ammunition Storage</strong> (left/right), <strong>Sail Settings</strong> (Full, Battle, Backing, Struck), <strong>Planned Actions</strong>, and <strong>Unused Actions</strong>.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Ship Logs</strong></td>
+<td style="text-align: left;">Paper trackers showing <strong>Ship's Name</strong>, <strong>Year</strong>, <strong>Burden</strong>, <strong>Veer</strong>, <strong>Artillery Firepower</strong> (Stem, Full Broadside, Stern), <strong>Number of Crew Actions</strong>, <strong>Musketry Firepower</strong>, and damage tracks.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Maneuver Decks</strong></td>
+<td style="text-align: left;">Card sets matching ship maneuverability letters. <strong>Blue border</strong> cards are normal maneuvers. <strong>Red border</strong> cards are for taken-aback ships. <strong>Dark gray border</strong> cards are for broken masts (✠✠✠). Cards show movement lines for sail settings and <strong>Veer</strong> values.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Damage Counters</strong></td>
+<td style="text-align: left;">Lettered pools (A–E) containing numeric values, <strong>Crew Loss</strong> symbols, and special damage icons (fire, leak, mast, rudder, sail). Used to track hull and crew damage.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Wind Gauge</strong></td>
+<td style="text-align: left;">Circular dial with directional arrow and strength track. Indicates wind direction and intensity (low, medium, high).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Combat Ruler</strong></td>
+<td style="text-align: left;">Measuring tool with colored zones (red/purple, orange, yellow) for range determination. Features gun symbols and firing arc alignment markers.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Action Counters</strong></td>
+<td style="text-align: left;">Tokens for planning crew actions: Reload Broadside, Fire Broadside, Musketry Fire, Increase/Decrease Sails, Pump Water, Extinguish Fire, Repair Damage. Includes Boarding, Blank, and Grog counters for optional rules.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Special Damage Markers</strong></td>
+<td style="text-align: left;">Tokens for tracking persistent effects: Fire on Board, Leak, Broken Mast, Sail Damage, Rudder Damage, Crew Loss, Entanglement, Grappling.</td>
+</tr>
+</tbody>
+</table></div>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Setup Checklist</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<ol>
+<li>Prepare a flat playing surface of at least 90 x 70 cm with clearly defined boundaries.</li>
+<li>Divide players evenly into two teams. Each player controls one or more ships independently.</li>
+<li>For each ship, insert the matching <strong>Base Card</strong> into the <strong>Ship Base</strong>, secure the transparent lid, and place the ship model on top.</li>
+<li>Place the corresponding <strong>Ship Log</strong> and <strong>Ship Card</strong> on the designated area of the <strong>Ship Mat</strong> for quick reference.</li>
+<li>Separate the <strong>Maneuver Deck</strong> into blue border cards and dark gray border cards. Dark gray cards are only used with Advanced Rules (✠✠✠).</li>
+<li>Divide damage counters by letter. For Basic Rules (✠), prepare pools A, B, and E. For Standard Rules (✠✠), add pools C and D. For Advanced Rules (✠✠✠), use all pools. Place them facedown in separate containers.</li>
+<li>Separate <strong>Crew Loss</strong> special damage markers from other special damage markers.</li>
+<li>Load ammunition: Place two <strong>Ball</strong> ammunition counters facedown in the left and right <strong>Broadside</strong> boxes of each <strong>Ship Mat</strong> (✠). For Standard Rules (✠✠), place one counter of each type (Ball, Chain, Grapeshot) facedown in both <strong>Ammunition Storage</strong> boxes, then secretly move one counter of your choice to each <strong>Broadside</strong> box.</li>
+<li>Orient the <strong>Wind Gauge</strong> on the table. In Basic Rules (✠), wind comes from the right of the British side. Align the arrow parallel to the starting lines.</li>
+<li>For Advanced Rules (✠✠✠), place <strong>Action Counters</strong> in the <strong>Unused Actions</strong> box of each <strong>Ship Mat</strong>. Place a <strong>Sails Status Counter</strong> on the chosen sail setting (Full, Battle, or Backing).</li>
+<li>For the first turn, place one blue border <strong>Maneuver Card</strong> facedown in the first space of each <strong>Ship Mat</strong>.</li>
+</ol>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Turn Sequence Overview</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>Each turn follows a strict phase order. All players perform each phase simultaneously. Conclude each phase completely before proceeding to the next.</p>
+<ol>
+<li><strong>Planning Phase</strong>: Check wind attitude, select maneuver cards, apply veer limits, plan crew actions, note restrictions.</li>
+<li><strong>Action Phase</strong> (✠✠✠ Only): Resolve planned crew actions immediately or delay them to later phases.</li>
+<li><strong>Movement Phase</strong>: Reveal maneuver cards, apply sail/attitude modifiers, execute movement, resolve collisions/overlaps, handle field exits.</li>
+<li><strong>Combat Phase</strong>: Declare attacks, resolve artillery and musketry fire simultaneously, apply damage.</li>
+<li><strong>Reloading Phase</strong>: Transfer used ammunition to storage, load fresh ammunition into empty broadsides.</li>
+</ol>
+<p>After the Reloading Phase, begin a new turn with the Planning Phase.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Phase 1: Planning</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Wind &amp; Attitude Reading</span>
+<p>Before planning movement, determine each ship's <strong>Attitude to Wind</strong>. Place an <strong>Attitude Indicator</strong> beside the ship, aligned with the <strong>Wind Gauge</strong> arrow, pointing toward the main mast. Note the color where the indicator crosses the ship base edge. <strong>Red</strong> indicates <strong>Taken Aback</strong>. <strong>Orange</strong> indicates <strong>Beating</strong> or <strong>Running</strong>. <strong>Green</strong> indicates <strong>Reaching</strong>. If the indicator crosses exactly between two colors, choose the most favorable (fastest) color: orange over red, green over orange. It is forbidden to take range measurements before planning. Only attitude checking is permitted.</p>
+<span class="subsection-title">Maneuver Selection &amp; Veer Limits</span>
+<p>Secretly choose a <strong>Maneuver Card</strong> from the ship's deck. If the ship is beating, running, or reaching (orange or green), select any normal blue border card. If the ship is taken aback (red), select only a red border card. Place the card facedown in the first space of the <strong>Ship Mat</strong>. When playing with Standard Rules (✠✠), players must plan maneuvers one turn in advance (<strong>Time to React</strong> rule). Place the selected card in the second space of the <strong>Ship Mat</strong>. The card in the first space executes this turn; the card in the second space executes next turn. Players may not check wind attitude before choosing the card. Each ship has a <strong>Veer</strong> rating. During planning, a selected card's veer value may not differ from the previous card's veer value by more than the ship's <strong>Veer</strong> rating. If an illegal maneuver is revealed, replace it with a straight maneuver (veer 5, straight line).</p>
+<span class="subsection-title">Crew Action Planning</span>
+<p>When playing with Advanced Rules (✠✠✠), each <strong>Ship Log</strong> shows the number of <strong>Crew Actions</strong> available. In addition to maneuver selection, place facedown <strong>Action Counters</strong> in the <strong>Planned Actions</strong> boxes of the <strong>Ship Mat</strong>, up to the ship's crew action limit. Use the leftmost uncovered symbol in both damage tracks to determine current action capacity. If a ship has <strong>Struck Sails</strong>, it may not plan a new maneuver card.</p>
+<span class="subsection-title">Struck Sail Restrictions</span>
+<p>Ships with <strong>Struck Sails</strong> cannot plan maneuvers. Any previously planned maneuver executes using the backing sails movement line, then the ship stops. The ship cannot use the <strong>Increase Sails</strong> action until it comes to a full stop. Once <strong>Increase Sails</strong> is used, sails return to backing, and maneuver planning resumes. If both maneuver spaces are filled, normal movement resumes. If a ship transitions from backing to struck sails with only one programmed maneuver, that maneuver is not executed and returns to the deck.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Phase 2: Action (Advanced Rules Only)</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Standard Actions</span>
+<p>Standard actions resolve immediately upon revelation and return to the <strong>Unused Actions</strong> box. <strong>Increase Sails</strong> modifies sail setting upward: struck becomes backing, backing becomes battle, battle becomes full. No effect if already at full sails. Move the <strong>Sails Status Counter</strong> left. <strong>Decrease Sails</strong> modifies sail setting downward: full becomes battle, battle becomes backing, backing becomes struck. No effect if already struck. Move the <strong>Sails Status Counter</strong> right. <strong>Pump Water</strong> removes one water damage token if present. If the occupied box is not the rightmost, shift all counters left to close gaps.</p>
+<span class="subsection-title">Combat Actions</span>
+<p>Combat actions resolve during the Combat Phase. <strong>Fire the Left/Right Broadside</strong> may only be planned if the corresponding broadside is loaded. Firing is not mandatory. After firing, turn the ammunition counter faceup. Return the action counter to the <strong>Unused Actions</strong> box at phase end, regardless of whether fire occurred. <strong>Musketry Fire</strong> allows one musketry attack. Firing is not mandatory. Return the counter to the <strong>Unused Actions</strong> box at phase end.</p>
+<span class="subsection-title">Reloading Actions</span>
+<p>Reloading actions resolve during the Reloading Phase. <strong>Reload the Left/Right Broadside</strong> may only be planned if the broadside box is empty. Move one facedown ammunition counter from storage to the broadside box. Return the action counter to the <strong>Unused Actions</strong> box at phase end.</p>
+<span class="subsection-title">Delayed Actions</span>
+<p>Delayed actions remain faceup in the <strong>Planned Actions</strong> box until the next turn's Action Phase. They count toward the action limit for the following turn. <strong>Extinguish Fire</strong> requires a fire on board. Move the counter to the <strong>Special Damage Box</strong> to indicate progress. At the next Action Phase, resolve the action. At turn end, remove the counter and one fire marker. Fire damage on the track remains. Multiple fires require multiple actions. <strong>Repair Damage</strong> allows choosing to repair normal damage, a leak, a damaged rudder, or a broken mast. Move the counter to the <strong>Special Damage Box</strong>. Resolve at the next Action Phase.</p>
+<span class="label-title">Repairing Normal Damage</span>
+<p>Move all counters in one damage box to the <strong>0 Damage Box</strong>. Shift remaining groups left to close gaps. Water and fire damage counters cannot be removed this way. Special damage effects from removed counters persist.</p>
+<span class="label-title">Repairing a Leak</span>
+<p>Move the counter to the <strong>Special Damage Box</strong>. At turn end, remove the counter and one leak marker. Water damage on the track remains.</p>
+<span class="label-title">Repairing a Damaged Rudder</span>
+<p>Move the counter to the <strong>Special Damage Box</strong>. At turn end, remove the counter and one rudder damage marker.</p>
+<span class="label-title">Repairing a Broken Mast</span>
+<p>Move the counter to the <strong>Special Damage Box</strong>. At turn end, remove the counter and one broken mast marker.</p>
+<span class="subsection-title">Limitation to Repairs</span>
+<p>A ship may repair leaks and rudder damage unlimited times. Normal damage and broken masts may only be repaired once per game. Leave removed counters or markers in the <strong>0 Damage Box</strong> as a reminder.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Phase 3: Movement</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Maneuver Execution &amp; Sail Modifiers</span>
+<p>After planning, reveal all first-space maneuver cards simultaneously. Execute movement by placing the <strong>Maneuver Card</strong> on the table. Align the ship base indents with the card's movement line. For blue border cards, align the front indent with the card's base line. Movement lines correspond to sail settings: full sails, battle sails, or backing sails. In Basic Rules (✠), only the blue battle sails line is used. Each line has orange (beating/running) and green (reaching) arrows. Slide the ship base onto the card so the rear indent matches the chosen arrow tip. After movement, remove the card and return it to the deck. For Standard Rules (✠✠), move the second-space card to the first space after movement completes.</p>
+<span class="subsection-title">Taken-Aback Movement</span>
+<p>If a ship is taken aback (red attitude), replace the revealed blue card with a red border card matching the original card's veer value (4 or less, exactly 5, 6 or more). On the first taken-aback turn, use the one-sandglass line, placing the card in front of the ship. On consecutive taken-aback turns, use the two-sandglass line, placing the card behind the ship to show backing wind. Leave red cards faceup on the deck as a reminder. Dark gray border cards are used only when masts are broken (✠✠✠).</p>
+<span class="subsection-title">Collision &amp; Overlap Resolution</span>
+<p>If ships would overlap after movement, return involved ships to their starting positions. Move non-overlapping ships normally. Resolve overlapping ships sequentially. Determine order by highest <strong>Burden</strong> first. Tie-break by best attitude (green, then orange, then red). Randomize if still tied. Move ships one at a time. If a ship cannot complete movement due to obstruction, slide it along the movement line until it touches another base. Place the maneuver card in front, align the ship, and slide until contact. Friendly ship collisions inflict damage equal to the total <strong>Burden</strong> of overlapping ships.</p>
+<span class="subsection-title">Leaving the Game Field</span>
+<p>If any part of a ship base exits the playing area after movement, the ship is eliminated and counts as surrendered.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Phase 4: Combat</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Firing Mechanics</span>
+<p>After movement, declare attacks. Attacks resolve simultaneously. Effects apply simultaneously regardless of type. A ship has two <strong>Broadsides</strong>, indicated by boxes on the <strong>Ship Mat</strong>. A ship may fire once per side. If multiple targets are in range, choose one per side. Firing is never mandatory. A ship may choose not to fire or fire only one side.</p>
+<span class="subsection-title">Firing Arcs &amp; Line of Sight</span>
+<p>Each broadside has three firing arcs: central (full broadside), forward (stem), and rear (stern). Central arcs provide maximum firepower. Forward/rear arcs provide reduced firepower. Use the <strong>Combat Ruler</strong> to check arcs. Place the gun symbol end on the arc's red dot. If the ruler reaches any part of the target base within the arc's white lines, the ship can fire. If multiple arcs can reach the target, choose one. Only the chosen arc's firepower applies. <strong>Line of Sight</strong> is blocked if the ruler crosses another ship's base. Choose a different arc or target if blocked.</p>
+<span class="subsection-title">Ammunition &amp; Range Modifiers</span>
+<p>A broadside may only fire if loaded. At game start, both sides are loaded. After firing, turn the ammunition counter faceup. Guns are unloaded until reloaded. Determine <strong>Firepower</strong> using the leftmost empty box on the <strong>Ship Log</strong> top row. The middle number is for full broadsides, left for forward, right for rear. Damage received this turn does not reduce current firepower. Determine <strong>Range</strong> using the <strong>Combat Ruler</strong> from the arc dot to the target base. Short range (red/purple or orange zones) and long range (yellow zone) both inflict damage equal to the firepower number. The attacker chooses which arc to use if ranges differ.</p>
+<span class="subsection-title">Raking Shots</span>
+<p>A raking shot travels down the ship's length. Trace <strong>Line of Sight</strong> from the central arc dot to the target's main mast. If the line passes through a short side of the target base, the attack is a raking shot. If entering through the front, the target takes one additional damage counter for every three drawn (round up). If entering through the rear, the target takes one additional counter for every two drawn (round up).</p>
+<span class="subsection-title">Musketry Fire</span>
+<p>If a ship base is within one <strong>Combat Ruler</strong> width of an enemy base, musketry fire is possible. Musketry is optional and in addition to artillery. A ship may attack only one target with musketry per turn. Musketry targets may differ from artillery targets. <strong>Musketry Firepower</strong> is shown on the <strong>Ship Log</strong> bottom row. The leftmost empty box indicates current firepower. Musketry does not require reloading.</p>
+<span class="subsection-title">Boarding</span>
+<p>When enemy ship bases contact at the start of Planning, declare boarding. Each player secretly places a <strong>Boarding</strong> or <strong>Blank</strong> counter facedown. Reveal simultaneously. Both Blank: no boarding. Both Boarding: grappled, cannot move. Mixed: shuffle and draw one. Blank drawn: no boarding. Boarding drawn: grappled. Place a marker between ships. Grappled ships discard planned maneuvers (✠✠/✠✠✠) or cannot plan movement (✠). Resolve boarding after combat. Each ship inflicts damage counters equal to its <strong>Burden</strong>. Draw counters alternately, applying effects simultaneously. If burdens differ, draw remaining counters at the end. Boarding stops when one ship surrenders. If both would surrender simultaneously, randomly choose one. Grappled ships remain until the next Planning phase. Multiple boardings resolve independently per pair. Declare targets in order of lowest crew first. If a ship grapples multiple opponents, declare targets sequentially. Boarding attacks resolve together. In Advanced Rules (✠✠✠), boarding is planned as an action. Only ships planning <strong>Boarding</strong> may declare it. If a ship boards an opponent without a boarding action, the defender takes one damage counter first, and damage resolves sequentially (attacker first).</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Phase 5: Reloading</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Reloading Sequence</span>
+<p>Guns may only reload the turn after firing, or later. During Reloading, move one facedown counter from <strong>Ammunition Storage</strong> to an empty <strong>Broadside</strong> box (fired in a previous turn). Keep it facedown. This ammunition may fire next turn. Then, move any faceup counter from a <strong>Broadside</strong> box (fired this turn) to <strong>Ammunition Storage</strong>, flipping it facedown. This ammunition may reload at the end of the next turn. A ship may reload both sides in one turn if both started unloaded.</p>
+<span class="subsection-title">Special Ammunition Loading</span>
+<p>When playing with Standard Rules (✠✠), choose ammunition type during reloading. <strong>Ball</strong> has longer range and causes hull damage. <strong>Chain</strong> has shorter range (red/purple zone only) and damages masts/sails. <strong>Grapeshot</strong> has shorter range (red/purple zone only) and damages crew. Leave used counters faceup until the next reloading phase. Ammunition cannot be changed once loaded. Firing without a target is permitted to empty guns for reloading different ammunition later.</p>
+<span class="subsection-title">Optional Rule Interactions</span>
+<p><strong>Gunners Lacking Training</strong> (✠/✠✠/✠✠✠): Requires an extra turn to reload. After firing, return the counter to storage faceup. Next turn, flip it facedown. The turn after, reload normally. In Standard Rules (✠✠), no other counter from that storage may reload this turn. In Advanced Rules (✠✠✠), <strong>Reload Broadside</strong> actions become delayed actions. Reveal, leave faceup, move to storage next Action Phase, reload during Reloading Phase. <strong>Double Shot</strong> (✠✠/✠✠✠): Loading takes two turns. Flip counter faceup in storage during first reload turn. Move to broadside facedown on the second turn. Fires only within half-ruler range. Inflicts both short and long range damage tokens simultaneously.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Damage Tracking & Ship Status</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Drawing &amp; Placing Damage Counters</span>
+<p>When attacked, draw damage counters randomly based on firepower and range. Show drawn counters to opponents. Place <strong>0</strong> counters in the <strong>0 Damage Box</strong>. Place numbered counters on the <strong>Ship Damage Track</strong> (top row). Place <strong>Crew Loss</strong> counters on the <strong>Crew Damage Track</strong> (bottom row). Counters with both a number and <strong>Crew Loss</strong> symbol go on the Ship Track, and a <strong>Crew Loss</strong> marker goes on the Crew Track. Ignore other special symbols in Basic Rules (✠). Start placing counters in the leftmost non-full box.</p>
+<span class="subsection-title">Ship &amp; Crew Damage Tracks</span>
+<p>Numbered counters represent hull damage. Place them highest value to lowest. Each box holds counters until their total value meets or exceeds the ship's <strong>Burden</strong>. When full, turn counters facedown. Move to the next box. A single counter equal to or greater than <strong>Burden</strong> fills the box immediately. Crew damage boxes hold only one counter each.</p>
+<span class="subsection-title">Special Damage Effects</span>
+<p><strong>Fire on Board</strong> (✠✠✠): Place a fire marker in the <strong>Special Damage Box</strong>. At the start of each turn, before Planning, place one fire damage marker on an empty Ship Track box. The box is full and blocks other damage. Ends when extinguished. <strong>Leak</strong> (✠✠✠): Place a water marker in the <strong>Special Damage Box</strong>. At the start of each turn, before Planning, place one water damage marker on an empty Ship Track box. The box is full. Ends when repaired. <strong>Pump Water</strong> counters the effect but does not repair. <strong>Broken Mast</strong> (✠✠✠): Starting next turn, plan only dark gray border cards with matching broken mast symbols. Use appropriate movement arrows. If taken aback, replace with a random red card. Second broken mast restricts to two-symbol cards. Third broken mast causes surrender. Repairable once per game. <strong>Sail Damage</strong> (✠✠✠): Place a sail marker. First damage has no effect. Second damage prevents full sails (immediately change to battle if full). Fourth damage restricts to backing sails (immediately change if battle). Sixth damage counts as an unrepairable broken mast. Further damage has no effect. <strong>Rudder Damage</strong> (✠✠✠): Place a rudder marker. Decrease <strong>Veer</strong> rating by 1. Further rudder damage counts as broken masts.</p>
+<span class="subsection-title">Surrender &amp; Elimination</span>
+<p>If all boxes on either the Ship or Crew Damage Track are covered, the ship surrenders and is removed. Reshuffle all damage counters, including <strong>0</strong>s, with unused counters of the same type. Ships that surrender may still fire in the phase they are eliminated.</p>
+<span class="subsection-title">Optional Status Effects</span>
+<p><strong>Flagship</strong> (✠/✠✠/✠✠✠): If eliminated, all friendly ships take two <strong>Crew Loss</strong> markers. All enemy ships remove one crew damage marker (or two if they fired at the flagship this turn). <strong>Ammunition Explosion</strong> (✠/✠✠/✠✠✠): If a ship has fire on board and receives a third or more fire damage marker, shuffle three fire markers and one explosion marker. Draw one. Fire marker: apply damage normally. Explosion marker: ship is eliminated. Ships in base contact draw a damage counter. Non-zero counters also start a fire on the contacting ship. Double fire damage places two fire markers. <strong>Sinking Ships</strong> (✠/✠✠/✠✠✠): If a ship has a leak and receives a third or more water damage marker, shuffle three water markers and one sinking marker. Draw one. Water marker: apply damage normally. Sinking marker: ship is eliminated. <strong>Spreading Fires</strong> (✠/✠✠/✠✠✠): If a ship fires a broadside at a contacting enemy and inflicts fire damage, the firing ship also catches fire. Planning an <strong>Extinguish Fire</strong> action targeting the enemy prevents fire on both ships. <strong>Surrendered Ships</strong> (✠/✠✠/✠✠✠): Surrendered ships remain as obstacles. Execute last planned maneuvers, then stop as wrecks. Wrecks inflict collision damage to all ships. Cannot be boarded. Remove from play if eliminated by explosion, sinking, or if they have open leaks/fires when surrendering.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Wind, Attitude & Sailing</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Attitude Indicator &amp; Wind Colors</span>
+<p>The <strong>Attitude Indicator</strong> determines wind relationship. <strong>Red</strong> indicates <strong>Taken Aback</strong>. <strong>Orange</strong> indicates <strong>Beating</strong> or <strong>Running</strong>. <strong>Green</strong> indicates <strong>Reaching</strong>. Colors modify movement speed and maneuver card selection. Attitude changes immediately when wind direction or strength changes.</p>
+<span class="subsection-title">Variable Wind Direction</span>
+<p>Wind direction may change during the game. Place the <strong>Wind Gauge</strong> aligned with the table edge. Rotate the arrow to the starting direction. Shuffle wind direction change counters. At the start of each Planning Phase, draw one counter. The first change counter drawn is placed on the gauge but does not change wind yet. If a blank counter is drawn, wind remains unchanged. Reshuffle. If a change counter is drawn while one is already on the gauge, compare them. Same direction: rotate the gauge arrow 45° clockwise or counter-clockwise. Opposite directions: wind does not change. Reshuffle both counters. Direction changes affect ship attitude immediately in the current Movement Phase.</p>
+<span class="subsection-title">Variable Wind Strength</span>
+<p>When using Variable Wind Direction with Advanced Rules (✠✠✠), wind strength varies. Start at medium strength. Place the strength counter on the middle track square. <strong>Low Strength</strong>: All sail settings are considered one step lower. Full sails use battle lines, battle use backing lines, backing becomes struck. <strong>Medium Strength</strong>: Normal movement. <strong>High Strength</strong>: All sail settings are considered one step higher. Backing uses battle lines, battle uses full lines, struck remains struck. Ships at full sails must draw a damage counter each turn. <strong>Crew Loss</strong> symbol inflicts sail damage. <strong>0</strong> symbol has no effect. At the start of each Planning Phase, draw a strength change counter. First change counter is placed on the gauge but does not change strength yet. If a blank counter is drawn with no counter on the gauge, strength remains unchanged. If a blank counter is drawn with a change counter on the gauge, strength changes. Decrease moves the counter left. Increase moves it right. Strength caps at low or high. Reshuffle counters. Strength changes affect movement immediately in the current Movement Phase.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Terrain, Batteries & Solitaire Play</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Terrain Elements</span>
+<p><strong>Reefs</strong>: Hard obstacles. If a ship would overlap a reef, return it to its start and resolve movement as an overlap. Movement ends when the base touches the reef. The ship takes damage tokens equal to its <strong>Burden</strong>. If damage exceeds <strong>Burden</strong> in one turn, the ship runs aground and cannot move again. Planned maneuvers are discarded (✠✠/✠✠✠). Leaks stop inflicting water damage. Special damage symbols (except leak/rudder) are ignored on reef collision counters (✠✠✠). Reefs do not affect combat. <strong>Shoals</strong>: Shallow water hazards. Overlapping a shoal causes the ship to run aground immediately. Cannot move again. Planned maneuvers discarded (✠✠/✠✠✠). Leaks stop inflicting water damage. Ships cannot sink on shoals if Sinking Ships or Surrendered Ships rules are active (✠✠✠). Shoals do not affect combat. <strong>Coasts &amp; Islands</strong>: Block line of sight. Scenarios indicate dangerous distances (ruler width, red/purple zone, or none). Sandy coasts act as shoals. Rocky coasts/islands act as reefs. Overlapping terrain inflicts double <strong>Burden</strong> damage and always causes grounding. Line of sight is blocked from central arcs but not forward arcs. Harbors are safe zones but still cause damage/grounding if overlapped. Coasts block firing arcs completely if the line of sight crosses sea, land, then sea again.</p>
+<span class="subsection-title">Coastal Batteries</span>
+<p>Batteries are stationary terrain features with firing arcs. They use a <strong>Battery Log</strong> with a <strong>Fortification Rating</strong> (similar to <strong>Burden</strong>), <strong>Artillery Firepower</strong>, <strong>Crew Actions</strong>, and damage tracks. Batteries do not move or plan maneuvers. They follow ship combat rules: shoot, reload, take damage. Firepower is determined by the leftmost empty top-row box. Batteries may have multiple arcs. Choose one arc per target. Range is measured from the red dot. Musketry is possible if the target is within the red/purple zone. Batteries inflict raking damage if any arc meets raking requirements (✠✠). Batteries ignore special damages except crew and fire (✠✠✠). If all Battery Damage or Crew Damage boxes are full, the battery is eliminated. Reshuffle counters. Eliminated batteries may still fire in the phase they fall. In Advanced Rules (✠✠✠), batteries plan actions: Fire Guns, Reload Guns, Musketry Fire, Extinguish Fire, Repair Damage. Repair only fixes normal damage.</p>
+<span class="subsection-title">Solitaire Play</span>
+<p>Automatic enemy ships use a filtered maneuver deck (veer 3–7). During Movement, draw the top card. Used cards go to a discard pile. Shuffle sideslips (veer 5, non-straight) back into the deck when one left and one right are in the discard. Shuffle turns back when one left and one right sum to exactly 10. Random ships do not plan one turn ahead (✠✠/✠✠✠). Combat: Basic/Standard (✠/✠✠) ships fire when loaded with a target in range. Reload immediately. Use <strong>Forced Aim</strong> for target selection. If Continuous Fire is active, fire if a target exists, reload only if none. Standard/Advanced (✠✠/✠✠✠) ships use fixed ammunition damage based on range zones. Advanced (✠✠✠) action priorities: 1) Musketry if target in range. 2) Extinguish fire. 3) Repair leak. 4) Fire broadside if loaded/target exists. 5) Reload broadside. 6) Repair damages (points, then mast, then rudder). Battery priorities: 1) Extinguish fire. 2) Fire guns. 3) Musketry. 4) Reload guns. 5) Repair damage.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Optional Rules Index</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th style="text-align: left;">Rule Name</th>
+<th style="text-align: left;">Tier</th>
+<th style="text-align: left;">Phase Affected</th>
+<th style="text-align: left;">Key Effect</th>
+<th style="text-align: left;">See Section</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Let the Men Drink! (Grog)</td>
+<td style="text-align: left;">✠✠✠</td>
+<td style="text-align: left;">Planning / Action</td>
+<td style="text-align: left;">Removes one crew damage token. Once per game. Requires no enemies in short range.</td>
+<td style="text-align: left;">Phase 1: Planning</td>
+</tr>
+<tr>
+<td style="text-align: left;">Gunners Lacking Training</td>
+<td style="text-align: left;">✠ / ✠✠ / ✠✠✠</td>
+<td style="text-align: left;">Reloading</td>
+<td style="text-align: left;">Adds one extra turn to reload broadsides. Modifies action timing in Advanced.</td>
+<td style="text-align: left;">Phase 5: Reloading</td>
+</tr>
+<tr>
+<td style="text-align: left;">Sailors Lacking Training</td>
+<td style="text-align: left;">✠✠✠</td>
+<td style="text-align: left;">Action</td>
+<td style="text-align: left;">Randomly replaces one planned action with a Blank counter before revelation.</td>
+<td style="text-align: left;">Phase 2: Action</td>
+</tr>
+<tr>
+<td style="text-align: left;">Entanglement</td>
+<td style="text-align: left;">✠ / ✠✠ / ✠✠✠</td>
+<td style="text-align: left;">Movement</td>
+<td style="text-align: left;">Contacting ships may become entangled. Prevents movement until disentangled via random draw.</td>
+<td style="text-align: left;">Phase 3: Movement</td>
+</tr>
+<tr>
+<td style="text-align: left;">Continuous Fire</td>
+<td style="text-align: left;">✠ / ✠✠ / ✠✠✠</td>
+<td style="text-align: left;">Combat</td>
+<td style="text-align: left;">Allows firing unloaded broadsides at half damage. Modifies ammo choice and action planning.</td>
+<td style="text-align: left;">Phase 4: Combat</td>
+</tr>
+<tr>
+<td style="text-align: left;">First Broadside</td>
+<td style="text-align: left;">✠ / ✠✠ / ✠✠✠</td>
+<td style="text-align: left;">Combat</td>
+<td style="text-align: left;">First broadside fired inflicts extra damage (1 per 3, round up). Requires setup marker.</td>
+<td style="text-align: left;">Phase 4: Combat</td>
+</tr>
+<tr>
+<td style="text-align: left;">Forced Aim</td>
+<td style="text-align: left;">✠ / ✠✠ / ✠✠✠</td>
+<td style="text-align: left;">Combat</td>
+<td style="text-align: left;">Must target the nearest enemy on the firing side. Cannot fire if nearest is friendly.</td>
+<td style="text-align: left;">Phase 4: Combat</td>
+</tr>
+<tr>
+<td style="text-align: left;">Double Shot</td>
+<td style="text-align: left;">✠✠ / ✠✠✠</td>
+<td style="text-align: left;">Combat / Reloading</td>
+<td style="text-align: left;">Requires two turns to load. Inflicts combined short/long range damage at close range only.</td>
+<td style="text-align: left;">Phase 4: Combat</td>
+</tr>
+<tr>
+<td style="text-align: left;">Aiming High</td>
+<td style="text-align: left;">✠✠ / ✠✠✠</td>
+<td style="text-align: left;">Combat</td>
+<td style="text-align: left;">Replaces hull/crew damage with sail/mast damage when firing ball/double shot.</td>
+<td style="text-align: left;">Phase 4: Combat</td>
+</tr>
+<tr>
+<td style="text-align: left;">Flagship</td>
+<td style="text-align: left;">✠ / ✠✠ / ✠✠✠</td>
+<td style="text-align: left;">Damage / Status</td>
+<td style="text-align: left;">Elimination causes friendly crew morale loss and enemy crew morale gain.</td>
+<td style="text-align: left;">Damage Tracking &amp; Ship Status</td>
+</tr>
+<tr>
+<td style="text-align: left;">Ammunition Explosion</td>
+<td style="text-align: left;">✠ / ✠✠ / ✠✠✠</td>
+<td style="text-align: left;">Damage / Status</td>
+<td style="text-align: left;">High fire damage triggers explosion check. Eliminates ship and damages contacting ships.</td>
+<td style="text-align: left;">Damage Tracking &amp; Ship Status</td>
+</tr>
+<tr>
+<td style="text-align: left;">Sinking Ships</td>
+<td style="text-align: left;">✠ / ✠✠ / ✠✠✠</td>
+<td style="text-align: left;">Damage / Status</td>
+<td style="text-align: left;">High water damage triggers sinking check. Eliminates ship.</td>
+<td style="text-align: left;">Damage Tracking &amp; Ship Status</td>
+</tr>
+<tr>
+<td style="text-align: left;">Spreading Fires</td>
+<td style="text-align: left;">✠ / ✠✠ / ✠✠✠</td>
+<td style="text-align: left;">Combat / Damage</td>
+<td style="text-align: left;">Firing at contacting enemies may spread fire to the attacker. Preventable with Extinguish action.</td>
+<td style="text-align: left;">Damage Tracking &amp; Ship Status</td>
+</tr>
+<tr>
+<td style="text-align: left;">Surrendered Ships</td>
+<td style="text-align: left;">✠ / ✠✠ / ✠✠✠</td>
+<td style="text-align: left;">Movement / Status</td>
+<td style="text-align: left;">Surrendered ships remain as stationary wrecks. Inflict collision damage.</td>
+<td style="text-align: left;">Damage Tracking &amp; Ship Status</td>
+</tr>
+<tr>
+<td style="text-align: left;">Variable Wind Direction</td>
+<td style="text-align: left;">✠ / ✠✠ / ✠✠✠</td>
+<td style="text-align: left;">Planning / Wind</td>
+<td style="text-align: left;">Wind direction changes via random counters. Affects attitude immediately.</td>
+<td style="text-align: left;">Wind, Attitude &amp; Sailing</td>
+</tr>
+<tr>
+<td style="text-align: left;">Variable Wind Strength</td>
+<td style="text-align: left;">✠✠✠</td>
+<td style="text-align: left;">Planning / Wind</td>
+<td style="text-align: left;">Wind intensity varies. Modifies effective sail settings and movement speed.</td>
+<td style="text-align: left;">Wind, Attitude &amp; Sailing</td>
+</tr>
+</tbody>
+</table></div>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Glossary & Symbol Key</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p><strong>Burden</strong>: The numerical size rating of a ship, indicating hull damage capacity and collision impact.</p>
+<p><strong>Veer</strong>: The maneuverability rating of a ship, limiting how sharply a ship can turn between turns.</p>
+<p><strong>Taken Aback</strong>: A wind attitude where the wind hits the ship's sails from behind, forcing the use of red border maneuver cards and reduced movement.</p>
+<p><strong>Broadside</strong>: A ship's left or right side, equipped with guns that fire simultaneously.</p>
+<p><strong>Raking</strong>: A shot that travels along the length of a target ship, inflicting additional damage based on entry point.</p>
+<p><strong>Attitude to Wind</strong>: The angle between a ship's heading and the wind direction, categorized as Beating/Running (orange), Reaching (green), or Taken Aback (red).</p>
+<p><strong>Ship Log</strong>: A paper tracker recording firepower, crew actions, and damage accumulation for a specific ship.</p>
+<p><strong>Combat Ruler</strong>: A measuring tool used to determine firing arcs, line of sight, and damage range zones.</p>
+<p><strong>Maneuver Card</strong>: A card dictating a ship's movement path, veer value, and sail setting modifiers.</p>
+<p><strong>Special Damage</strong>: Persistent negative effects (fire, leak, broken mast, rudder damage, sail damage) that require specific actions to resolve.</p>
+<p><strong>Tier Markers</strong>: ✠ indicates Basic Rules. ✠✠ indicates Standard Rules. ✠✠✠ indicates Advanced Rules.</p>
+<p><strong>Damage Symbols</strong>: Numeric values represent hull damage. Crew Loss symbols represent crew casualties. Fire, Leak, Mast, Rudder, and Sail icons represent special damage types. Zero (0) counters represent non-damaging hits.</p>
+<p><strong>Action Counters</strong>: Tokens representing crew tasks such as reloading, firing, adjusting sails, pumping water, extinguishing fires, and repairing damage.</p>
+<p><strong>Wind Gauge</strong>: A dial indicating current wind direction and strength, used to determine ship attitudes and movement modifiers.</p>
+<p><strong>Base Card</strong>: A double-sided insert matching a ship's identity, placed inside the ship base for identification.</p>
+<p><strong>Ship Mat</strong>: A grid board tracking ammunition status, sail settings, planned actions, and damage markers for a ship.</p>
+<p><strong>Fortification Rating</strong>: The damage capacity of a coastal battery, functioning similarly to a ship's Burden.</p>
+<p><strong>Continuous Fire</strong>: An optional rule allowing unloaded broadsides to fire at reduced damage.</p>
+<p><strong>Forced Aim</strong>: An optional rule requiring ships to target the nearest enemy within their firing arc.</p>
+<p><strong>Double Shot</strong>: An optional ammunition type requiring extended loading time but inflicting combined damage at close range.</p>
+<p><strong>Aiming High</strong>: An optional rule allowing players to trade hull/crew damage for mast/sail damage.</p>
+<p><strong>Entanglement</strong>: An optional rule where contacting ships may become temporarily immobilized.</p>
+<p><strong>Grog</strong>: An optional morale action allowing a ship to remove one crew damage token once per game.</p>
+<p><strong>Surrendered Ships</strong>: An optional rule keeping eliminated ships on the table as stationary obstacles.</p>
+<p><strong>Variable Wind</strong>: Optional rules allowing wind direction and strength to change dynamically during gameplay.</p>
+  </div>
+</details>
+  <p id="no-results">No sections match your search.</p>
+</main>
+<script>
+(function () {
+  var searchEl  = document.getElementById('search');
+  var clearBtn  = document.getElementById('search-clear');
+  var noResults = document.getElementById('no-results');
+  var sections  = Array.from(document.querySelectorAll('details.section'));
+  var matchNav   = document.getElementById('match-nav');
+  var matchCount = document.getElementById('match-count');
+  var matchPrev  = document.getElementById('match-prev');
+  var matchNext  = document.getElementById('match-next');
+
+  var allMarks = [];
+  var currentMark = -1;
+
+  // Snapshot each section body's original HTML so we can restore it
+  // before applying a new round of highlights.
+  sections.forEach(function (s) {
+    var body = s.querySelector('.section-body');
+    if (body) body.dataset.original = body.innerHTML;
+  });
+
+  var timer;
+
+  searchEl.addEventListener('input', function () {
+    var term = this.value.trim();
+    clearBtn.classList.toggle('visible', term.length > 0);
+    clearTimeout(timer);
+    timer = setTimeout(function () { applySearch(term); }, 180);
+  });
+
+  clearBtn.addEventListener('click', function () {
+    searchEl.value = '';
+    clearBtn.classList.remove('visible');
+    applySearch('');
+    searchEl.focus();
+  });
+
+  matchPrev.addEventListener('click', function () {
+    if (allMarks.length === 0) return;
+    navigateTo((currentMark - 1 + allMarks.length) % allMarks.length);
+  });
+
+  matchNext.addEventListener('click', function () {
+    if (allMarks.length === 0) return;
+    navigateTo((currentMark + 1) % allMarks.length);
+  });
+
+  function navigateTo(index) {
+    if (allMarks[currentMark]) allMarks[currentMark].classList.remove('active');
+    currentMark = index;
+    var mark = allMarks[currentMark];
+    mark.classList.add('active');
+    mark.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    matchCount.textContent = (currentMark + 1) + ' of ' + allMarks.length;
+  }
+
+  function escapeRe(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlightTextNodes(container, re) {
+    var walker = document.createTreeWalker(
+      container, NodeFilter.SHOW_TEXT, null, false
+    );
+    var nodes = [];
+    var n;
+    while ((n = walker.nextNode())) {
+      if (n.nodeValue.trim()) nodes.push(n);
+    }
+    nodes.forEach(function (textNode) {
+      re.lastIndex = 0;
+      if (!re.test(textNode.nodeValue)) return;
+      re.lastIndex = 0;
+      var span = document.createElement('span');
+      span.innerHTML = textNode.nodeValue.replace(
+        re, function (m) { return '<mark>' + m + '</mark>'; }
+      );
+      textNode.parentNode.replaceChild(span, textNode);
+    });
+  }
+
+  function applySearch(term) {
+    var re = term ? new RegExp(escapeRe(term), 'gi') : null;
+    var visibleCount = 0;
+
+    sections.forEach(function (section) {
+      var body    = section.querySelector('.section-body');
+      var summary = section.querySelector('summary');
+
+      // Restore original HTML before each search pass
+      if (body) body.innerHTML = body.dataset.original;
+
+      if (!re) {
+        section.classList.remove('search-hidden');
+        section.open = false;
+        return;
+      }
+
+      var titleText = summary ? summary.textContent : '';
+      var bodyText  = body    ? body.textContent    : '';
+
+      re.lastIndex = 0;
+      var inTitle = re.test(titleText);
+      re.lastIndex = 0;
+      var inBody  = re.test(bodyText);
+      re.lastIndex = 0;
+
+      if (inTitle || inBody) {
+        section.classList.remove('search-hidden');
+        section.open = true;
+        if (body) highlightTextNodes(body, new RegExp(escapeRe(term), 'gi'));
+        visibleCount++;
+      } else {
+        section.classList.add('search-hidden');
+      }
+    });
+
+    noResults.style.display = (re && visibleCount === 0) ? 'block' : 'none';
+
+    allMarks = Array.from(document.querySelectorAll('mark'));
+    currentMark = -1;
+
+    if (allMarks.length > 0) {
+      matchNav.classList.add('visible');
+      navigateTo(0);
+    } else {
+      matchNav.classList.remove('visible');
+      matchCount.textContent = '';
+    }
+  }
+})();
+</script>
+</body>
+</html>

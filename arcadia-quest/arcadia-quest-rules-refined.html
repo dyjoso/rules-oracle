@@ -153,6 +153,7 @@ body {
 mark { background: #ffe066; color: #1a1a1a; border-radius: 2px; padding: 0 1px; }
 mark.active { background: #ff9500; color: #fff; }
 
+/* ── MATCH NAVIGATION ────────────────────────────────────── */
 .match-nav {
   display: none;
   align-items: center;
@@ -348,14 +349,6 @@ code {
 /* ── HR ──────────────────────────────────────────────────── */
 hr { border: none; border-top: 1px solid var(--rule); margin: 8px 0; }
 
-/* ── SEARCH HIGHLIGHT ────────────────────────────────────── */
-mark {
-  background: #ffe566;
-  color: inherit;
-  border-radius: 2px;
-  padding: 0 1px;
-}
-
 /* ── HIDDEN SECTIONS ─────────────────────────────────────── */
 details.section.search-hidden { display: none; }
 
@@ -425,25 +418,23 @@ details.section.search-hidden { display: none; }
   </div>
 </header>
 <main>
+<details class="section" open>
+  <summary><span>GAME OVERVIEW</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
 <p>Arcadia Quest is a campaign game for 2 to 4 players, in which each player controls a Guild with three unique Heroes. These Guilds compete against each other and against the obstacles in the game in order to accomplish a series of scenarios that will lead them to ultimate victory against the Vampire Lord Fang.</p>
 <p>Players are able to choose the path their campaign takes, navigating through six of eleven available scenarios, so each time the campaign is played it can have a different configuration of scenarios. The feats accomplished by a Guild in each scenario can grant it a significant strategic advantage in a following scenario.</p>
 <p>During a scenario, each player pits his three Heroes against the Heroes of the other players, and the nasty Monsters that swarm the once-noble city of Arcadia. Fulfilling specific Quests, finding treasure and killing enemies, a Guild emerges victorious in each scenario, and its Heroes are able to evolve and acquire more powerful items and weapons. Over the course of the campaign, Heroes will have to prepare themselves if they want to have any hope of surviving the final showdown against the vampire lord and his minions!</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>GUILD SETUP</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
 <p>The first thing players starting a new Arcadia Quest campaign need to do is create their Guilds. There are four different Guilds to choose from: Orange (Lion), Blue (Eagle), Red (Fox) and Green (Panda). Each player receives the Guild Dashboard for his chosen Guild, which will help him organize his Heroes, and his corresponding Guild tokens, which will be used to track his Guild's actions.</p>
-<details class="section">
-  <summary><span>Choosing Heroes</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
-  <div class="section-body">
+<span class="subsection-title">Choosing Heroes</span>
 <p>The players now have to carefully pick the 3 Heroes that will defend their Guild throughout the campaign. This is a key moment, since creating the right team can be a decisive factor in the upcoming adventures. The players look through the Hero cards and each chooses 3 of them to form his Guild.</p>
-  </div>
-</details>
-<details class="section">
-  <summary><span>Advanced: Drafting Heroes</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
-  <div class="section-body">
+<span class="subsection-title">Advanced: Drafting Heroes</span>
 <p>Once players are more familiarized with the game and each Hero's capabilities, they may want to pick their Heroes in a more structured fashion. If all players agree, they can choose their Heroes at the start of a campaign by using the drafting method. Shuffle all the Hero cards and divide them among the players as equally as possible (it's not a problem if a player gets one more card than another). Each player browses his Hero cards in secret and picks one Hero for his Guild, placing it face down in front of him. All players then pass the remaining cards to the player to his left. From the cards they now received, each player picks another Hero for his Guild and places it face down in front of him. The remaining cards are passed to the left one last time and the players select their last Hero. Any remaining Hero cards are removed from the game and returned to the box.</p>
-  </div>
-</details>
-<details class="section">
-  <summary><span>Anatomy of a Hero</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
-  <div class="section-body">
+<span class="subsection-title">Anatomy of a Hero</span>
 <p>Each of the Heroes in Arcadia Quest is unique with different traits and special abilities, players should take these into consideration when picking their Heroes. The Hero cards all display the following characteristics:</p>
 <ul>
 <li><strong>A. Defense</strong> – This tells you how many Defense dice this Hero can roll to try to prevent an attack from inflicting Wounds.</li>
@@ -451,19 +442,25 @@ details.section.search-hidden { display: none; }
 <li><strong>C. Name</strong> – This is the name of the Hero.</li>
 <li><strong>D. Ability</strong> – This is the Hero’s Natural Ability, a special characteristic that truly sets him apart from anybody else. These Abilities are always in effect, following the parameters of their descriptive text.</li>
 </ul>
+<span class="subsection-title">Starting Equipment</span>
+<p>Before beginning with the first Scenario in the campaign, each Guild receives 5 Upgrade cards as starting equipment. Take the Starter deck and give each player one of each type of card: Rusty Blade, Parrying Blade, Slingshot, Life Drain and Nova Bolt. Each player can distribute his 5 cards among his 3 Heroes in any way he chooses.</p>
+<p>On the Guild Dashboard, each Hero has an inventory of 4 card slots, located under his Hero card. Each Hero can only use the 4 cards in his inventory, not the cards of the entire Guild.</p>
   </div>
 </details>
 <details class="section">
-  <summary><span>Starting Equipment</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <summary><span>CAMPAIGN FOR ARCADIA</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
   <div class="section-body">
-<p>Before beginning with the first Scenario in the campaign, each Guild receives 5 Upgrade cards as starting equipment. Take the Starter deck and give each player one of each type of card: Rusty Blade, Parrying Blade, Slingshot, Life Drain and Nova Bolt. Each player can distribute his 5 cards among his 3 Heroes in any way he chooses.</p>
-<p>On the Guild Dashboard, each Hero has an inventory of 4 card slots, located under his Hero card. Each Hero can only use the 4 cards in his inventory, not the cards of the entire Guild.</p>
 <p>In order to defeat the evil rule of Lord Fang, the Heroes will need to first make their way from the outskirts to the very heart of the city of Arcadia. As they progress, they diminish the power base of the vampire lord, while gaining more power themselves. Only after much adventuring will they be ready to face the vampire lord in the flesh.</p>
 <p>The Arcadia Quest campaign, presented in detail in the Campaign Book, is divided into three stages: the Outer Circle, the Inner Circle and the Final Showdown. During a campaign, just six of the eleven scenarios contained in the Campaign Book will be played, so a new campaign can take a different path and offer all new scenarios to the players.</p>
 <p><strong>Outer Circle</strong> – These are the districts just within the outer wall of the city. Of the six scenarios available in the Outer Circle, three must be completed before the players move into the Inner Circle.</p>
 <p><strong>Inner Circle</strong> – This is the protected citadel of Arcadia, within the city’s second wall. Of the four scenarios available in the Inner Circle, two must be completed before the players move to the Final Showdown.</p>
 <p><strong>Final Showdown</strong> – At the very center of the city sits the Temple of Dawning Twilight. All campaigns end there with the Final Showdown scenario.</p>
 <p>At the beginning of the campaign, players choose together which of the Outer Circle scenarios will be the first (it is recommended that first-time players begin the campaign with the District of Hammers scenario). Afterwards, the winner of the previous scenario chooses which scenario will be played next.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>SCENARIO SETUP</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
 <p>The Campaign Book contains detailed descriptions of all the scenarios that make up the campaign. Once a scenario has been chosen to play, it must be set up on the play area. The entry for the scenario contains a detailed list of all the components used in it, as well as the quantity required. To ensure no component is left out of the scenario, first separate the amount of each component requested, before setting up the game board.</p>
 <ol>
 <li><strong>Tiles</strong> - Each side of the 9 gaming tiles displays an identifying code. Find the tiles listed in the scenario map and position them with the same orientation presented on the map.</li>
@@ -482,20 +479,35 @@ details.section.search-hidden { display: none; }
 <li><strong>Heroes Starting Areas</strong> - Indicated in the scenario map are the Starting Areas for each Guild. Each player is randomly assigned one of them. Put one Guild token from each player in a dice bag or closed hand and randomly place one token next to each starting area, this will be the starting area for each Guild. Players must sit around the table in the same order as their starting areas. Each player then places his Hero figures in any of the indicated spaces of his starting area, in any way he chooses (up to two figures may occupy the same Space). On a 3-player game the Player 4 Starting Area is not used. On a 2-player game the Player 3 and Player 4 Starting Areas are not used.</li>
 </ol>
 <p>Once all the setup has been executed, your gaming table should look like the reference picture. You are now ready to start your adventure!</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>THE GAME BOARD</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
 <p>Arcadia is played on a game board consisting of several tiles arranged together according to the scenario map. These tiles represent the streets and buildings of the city of Arcadia. Each tile is divided into 9 equal Spaces, each with a dot marking its center. These spaces can be occupied by a maximum of two characters each.</p>
 <p>Some Spaces are divided by walls which block Movement and Line of Sight. These blocking elements are identified by a diagonal hatching texture. The tiles also display several other decorative elements, which do not affect the game in any way and are there just to flesh out the setting. Only elements with the identifying hatching texture are blocking elements, everything else can be ignored for gameplay purposes.</p>
-<p><strong>CHARACTER</strong>
+  </div>
+</details>
+<details class="section">
+  <summary><span>IMPORTANT TERMS</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p><strong>CHARACTER</strong><br/>
 A Hero or a Monster.</p>
-<p><strong>ALLY</strong>
+<p><strong>ALLY</strong><br/>
 For a Hero, another Hero of the same Guild. For a Monster, any other Monster.</p>
-<p><strong>ENEMY</strong>
+<p><strong>ENEMY</strong><br/>
 For a Hero, any Hero from a different Guild and any Monster. For a Monster, any Hero.</p>
-<p><strong>CLOSE</strong>
+<p><strong>CLOSE</strong><br/>
 Many rules and cards in the game refer to something being Close to something else. To be Close to something means to be either sharing the same Space, or to be on any of the four orthogonal Spaces that share an open edge with it.</p>
 <ul>
 <li>A Space that's diagonal from it is not Close.</li>
 <li>A Space whose shared edge is blocked by a wall or closed door is not Close.</li>
 </ul>
+  </div>
+</details>
+<details class="section">
+  <summary><span>THE PLAYER TURN</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
 <p>A game of Arcadia Quest is played over a series of Player Turns, in clockwise order. The first player takes his turn, then the player to his left takes his turn, and so on. This sequence goes on uninterrupted until a player wins the scenario, ending that game.</p>
 <p>The first player to take his turn at the start of a scenario is the one sitting to the left of the player who won the last scenario. At the very first scenario of a campaign, however, the first player is chosen randomly.</p>
 <p>When a player takes his turn, he may do one of two things:</p>
@@ -504,17 +516,9 @@ Many rules and cards in the game refer to something being Close to something els
 <li>REST his Guild.</li>
 </ul>
 <p>Each turn, the player can only do one or the other, never both.</p>
-  </div>
-</details>
-<details class="section">
-  <summary><span>Hero Activation</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
-  <div class="section-body">
+<span class="subsection-title">Hero Activation</span>
 <p>The player chooses a single one of his Heroes to activate (activating the same Hero after turn is allowed). That Hero is now considered "active" and may perform, in any order, his Movement and one Attack, or one Attack and then his Movement. The Movement can't be interrupted by the Attack and then resumed afterwards, it must be performed all at once either before or after the Attack. The Hero may also choose to perform just his Attack or just his Movement.</p>
-  </div>
-</details>
-<details class="section">
-  <summary><span>Movement</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
-  <div class="section-body">
+<span class="subsection-title">Movement</span>
 <p>All Heroes have 3 Movement points available to use on each activation. By spending his available Movement points, a Character is able to move around the board. For each Movement point spent, the Character can either:</p>
 <ul>
 <li>Move one Space.</li>
@@ -522,64 +526,40 @@ Many rules and cards in the game refer to something being Close to something els
 <li>Open or close a door at the edge of his Space.</li>
 </ul>
 <p>The Character doesn't have to use all of his available Movement points, though any remaining points don't carry over to his next activation.</p>
-<p><strong>Move</strong>
+<p><strong>Move</strong><br/>
 Moving one Space means taking the active figure from its current Space to one of the four Close spaces that share an edge with it. Diagonal movement is not allowed. If there is a wall or a closed door between the Hero and the Space he wishes to enter, that move is not possible.</p>
-  </div>
-</details>
-<details class="section">
-  <summary><span>Portals</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
-  <div class="section-body">
+<span class="subsection-title">Portals</span>
 <p>Portals allow Characters to teleport from one side of the board to the other very quickly during their movement. A Character standing in a Space that contains a portal can spend one Movement point to immediately take his figure and place it in any other Space containing a portal of the same color. If the destination Space is Blocked to the Character, he can't use that portal. If the Space is just Full, the portal can be used, though the Character must be able to end his Movement in a free Space (see next page). Using a portal does not trigger a Guard Reaction from a Close Monster.</p>
-  </div>
-</details>
-<details class="section">
-  <summary><span>Doors</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
-  <div class="section-body">
+<span class="subsection-title">Doors</span>
 <p>Door tokens can be flipped to their closed or open position by spending one Movement point. The manipulated door must be at the edge of the space occupied by the active Character. Closed doors work just like a wall, blocking Movement and Line of Sight. Open doors create a Space-wide passage between two Spaces, allowing Movement and Line of Sight.</p>
-  </div>
-</details>
-<details class="section">
-  <summary><span>Full or Blocked Spaces</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
-  <div class="section-body">
+<span class="subsection-title">Full or Blocked Spaces</span>
 <p>Each Space can contain a maximum of two Characters at a time. A Space with up to one character in it is still considered to be free, since other characters, enemy or allied, can still enter it and shoot through it normally.</p>
 <ul>
 <li><strong>Full</strong> – A Space with two characters in it is considered Full and nobody else can end their Movement inside it. If at least one of those two Characters is an ally of the active Character, he can move through the Space (though not end his Movement inside it) and it does not block his Line of Sight.</li>
 <li><strong>Blocked</strong> – A Space with two enemies of the active character is considered Blocked. That means that he can't move through it, and it blocks his Line of Sight.</li>
 </ul>
-  </div>
-</details>
-<details class="section">
-  <summary><span>Attack</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
-  <div class="section-body">
+<span class="subsection-title">Attack</span>
 <p>The active Hero may attempt to attack an enemy of his choosing, be it a Monster or an enemy Hero. There are several different kinds of attack that Heroes can obtain throughout the game, with a variety of capabilities and special effects. To perform an attack, the player executes the following steps:</p>
-<p><strong>Select Attack Card</strong>
+<p><strong>Select Attack Card</strong><br/>
 The player chooses one exhausted Attack card located in the active Hero's inventory to use.</p>
-<p><strong>Confirm Target</strong>
+<p><strong>Confirm Target</strong><br/>
 The player selects his target, making sure the Attack card he chose is able to reach it. There are two basic types of attack: Melee or Ranged. The type of an attack is indicated in the card being used to perform it.</p>
 <ul>
 <li><strong>Melee</strong> – A Melee attack can only target Enemies situated in a Space Close to the active Character (see Close rules on page 13).</li>
 <li><strong>Ranged</strong> – A Ranged attack can target Enemies on any Space on the board, as long as the active Character has a clear Line of Sight to it (see Line of Sight rules on page 16).</li>
 </ul>
-<p><strong>Exhaust Attack Card</strong>
+<p><strong>Exhaust Attack Card</strong><br/>
 Before resolving the attack, the player must exhaust the Attack card being used by placing one of his Guild tokens on top of it. This exhausts the card, showing that it has been used. An exhausted card cannot be used again to perform an attack until it is unexhausted.</p>
-<p><strong>Attack Dice Pool</strong>
+<p><strong>Attack Dice Pool</strong><br/>
 The attacking player gathers a number of black Attack dice equal to the number indicated on the Attack card being used. If he's accessing any bonuses granted by other cards, those extra Attack dice are also added to his pool.</p>
-<p><strong>Defense Dice Pool</strong>
+<p><strong>Defense Dice Pool</strong><br/>
 If the targeted Character has any Defense listed on his card, the player controlling him gathers a number of white Defense dice equal to that character's Defense. If a targeted Hero possesses any cards with extra Defense icons, those dice are added as well. All of a Hero's cards with extra Defense icons always add to his Defense pool, whether they are exhausted or not.</p>
-  </div>
-</details>
-<details class="section">
-  <summary><span>Line of Sight</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
-  <div class="section-body">
+<span class="subsection-title">Line of Sight</span>
 <p>When using Ranged attacks, it is necessary to check whether or not the active Character has a clear Line of Sight to his target. A Ranged attack has no limitation in regards to distance; the only requirement for it is that there be a free Line of Sight (LOS) to the target.</p>
 <p>To check the Line of Sight, draw an imaginary line from the center of the active Character's Space to the center of its target's Space. There is free Line of Sight if this line is not interrupted by any blocking element - a wall, a closed door or a Blocked Space (see previous page).</p>
 <p>The Line of Sight is not blocked if it only skims a blocking corner, passing at a 45 degree angle exactly through the intersection of four Spaces where only one side is blocked. If both sides of the intersection are blocked, however, the Line of Sight is blocked.</p>
 <p>Finally, the Line of Sight can never cross an area that is not part of the board. If it ever leaves the tiles, it is blocked.</p>
-  </div>
-</details>
-<details class="section">
-  <summary><span>Rolling Dice</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
-  <div class="section-body">
+<span class="subsection-title">Rolling Dice</span>
 <p>The Attack dice and the Defense dice are rolled to decide the effect of the attack. What symbol constitutes a success on a die roll depends on the type of roll being made:</p>
 <ul>
 <li>This symbol scores a successful hit in a Melee Attack roll.</li>
@@ -588,78 +568,47 @@ If the targeted Character has any Defense listed on his card, the player control
 <li>This symbol is a CRIT, and always counts as a success, no matter the type of roll.</li>
 </ul>
 <p>Besides being a success itself, each CRIT result allows an extra die to be rolled, adding its result to the total. If that roll also results in a CRIT, another extra die is rolled, and so on. In some cases, rolling a CRIT also activates a special effect listed in the card being used.</p>
-  </div>
-</details>
-<details class="section">
-  <summary><span>Attack Results</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
-  <div class="section-body">
+<span class="subsection-title">Attack Results</span>
 <p>Once all dice have been rolled, compare the number of hits scored by the attacker with the number of saves obtained by the target's Defense (if he had any). Each save cancels one hit. If there are still any hits remaining, the target suffers a number of Wounds equal to the number of exceeding hits. Place that number of Wound tokens on the targeted Hero's card, or in case of a Monster, next to its figure.</p>
-  </div>
-</details>
-<details class="section">
-  <summary><span>Special Effects</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
-  <div class="section-body">
+<span class="subsection-title">Special Effects</span>
 <p>Some Attack cards possess special effects listed on them. These take effect following the parameters described in the card. Some effects always happen, whenever the card is used, while others need to be triggered by specific circumstances, like scoring hits, rolling CRITS or inflicting a Wound.</p>
-  </div>
-</details>
-<details class="section">
-  <summary><span>Kills and Rewards</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
-  <div class="section-body">
+<span class="subsection-title">Kills and Rewards</span>
 <p>When a Character suffers a number of Wounds equal to his Life, he is killed. A killed Monster is removed from the board and placed in the first available slot in the Spawn Tile, while a killed Hero is placed on his Hero card.</p>
 <p>When a Hero kills a Monster, his Guild immediately gets the number of coins listed in that Monster's card. When a Hero kills an enemy Hero, his Guild gets one coin. When a Monster kills a Hero, all other Guilds get one coin. If a Hero is killed by any other game circumstances, like traps, all other Guilds also get one coin.</p>
 <p>The credit for killing a Character goes to the Character that inflicts the last Wound, responsible for removing the Character from the board. It does not matter if someone else inflicted more Wounds to the killed Character, all the credit goes to the one who scores the final blow!</p>
 <p>When a Hero is killed, any Exploration tokens (including Quest tokens) he was carrying are placed on the Space he was occupying, and can then be picked up by another Hero normally. If the Hero was killed by an enemy Hero, that Hero can automatically get one of those tokens and place it on his Hero card (he doesn't even have to be near the killed Hero). Each time a Hero is killed, place a Death token on his card to mark the number of times he dies. Death tokens cannot be moved or removed from a Hero until the next Upgrade Phase.</p>
-  </div>
-</details>
-<details class="section">
-  <summary><span>Rest</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
-  <div class="section-body">
+<span class="subsection-title">Rest</span>
 <p>Instead of Activating a Hero, a player can choose to spend his turn allowing his Heroes to Rest. When a Guild Rests, none of its Heroes are activated, they are not allowed to perform any Movement or Attacks whatsoever during this turn. The Heroes rest and prepare themselves to continue their quest. The resting player may perform all of the following:</p>
-<p><strong>UNEXHAUST CARDS</strong>
+<p><strong>UNEXHAUST CARDS</strong><br/>
 Remove all Guild tokens from all cards in the Guild's dashboard, unexhausting all of them. The cards are ready to be used once again in the following turns.</p>
-<p><strong>REORGANIZE ITEMS</strong>
+<p><strong>REORGANIZE ITEMS</strong><br/>
 The player can reorganize his cards, moving any number of them among any of his Heroes. Death Curse cards, however, cannot be moved around.</p>
 <p>Exploration tokens can also be moved among any of his Heroes, though Quest tokens cannot be moved and must remain with the Hero that collected it.</p>
-<p><strong>RESURRECT HEROES</strong>
+<p><strong>RESURRECT HEROES</strong><br/>
 Any of the player's killed Heroes may be resurrected and brought back into the game. Remove all Wound tokens from that Hero only and place his figure back on the board. The resurrected Hero can be placed either on that Guild's Starting Area, or Close to any allied Hero that was already on the board at the beginning of his turn.</p>
   </div>
 </details>
 <details class="section">
-  <summary><span>Monster Activation</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <summary><span>THE MONSTERS</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
   <div class="section-body">
+<span class="subsection-title">Monster Activation</span>
 <p>There is no "Monster turn" in the game, the monsters swarming the streets and houses of Arcadia are passive agents in the scenarios. They are not actively hunting down the Heroes, but will do anything they can to stop their advance and retaliate their attacks. Monsters are only ever activated as a reaction to a Hero's actions. Their activation is always controlled by the player to the right of the active player.</p>
-  </div>
-</details>
-<details class="section">
-  <summary><span>Guard Reaction</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
-  <div class="section-body">
+<span class="subsection-title">Guard Reaction</span>
 <p>Every Monster in the game guards all Spaces Close to itself (see page 13 for an explanation on Close Spaces), and will attack any Close Hero that lowers his guard by trying to move past it or by attacking somebody else.</p>
-<p><strong>Triggered by a Move</strong>
+<p><strong>Triggered by a Move</strong><br/>
 Whenever a Hero that occupies a Space Close to a Monster moves to another Space, he triggers that Monster's Guard Reaction. That causes the Monster to immediately attack the active Hero with its listed attack attributes and abilities. The Monster does not move, it only attacks. Entering a Space Close to a Monster does not trigger its Guard Reaction, it is only triggered by moving from a Close Space, no matter if the movement is towards the Monster or away from it.</p>
 <p>Whenever a Hero's move would trigger the Guard Reaction in one or more Monsters, the player to the right of the active player must perform the attacks of all activated Monsters before the Hero executes his move. After all attacks are resolved (including the Hero's Defense rolls), then the Hero can perform the intended move. Always resolve all Guard Reaction attacks triggered by a move before executing the following move.</p>
 <p>It is possible to trigger several consecutive Guard Reaction attacks from the same Monster or different ones in the same turn, if each move the Hero executes leaves a different Space guarded by the Monster. Keep in mind that using a portal does not trigger Guard Reaction.</p>
-<p><strong>Triggered By An Attack</strong>
+<p><strong>Triggered By An Attack</strong><br/>
 When a Hero performs an attack that doesn't target any of the Monsters Close to him, he triggers the Guard Reaction of all Close Monsters. Whether he attacks an enemy Hero anywhere, or a Monster at a distance, if there are any Monsters Close to him they will seize the opportunity and attack him.</p>
 <p>In this case, after the Hero's attack has been completely executed, any Monsters Close to the active Hero will perform an attack against him (they do not move). Note that if the Hero's attack targets any Monster Close to him - whether directly or as a special effect -, he effectively fends off all Close Monsters and no Guard Reaction will be triggered by this attack.</p>
-  </div>
-</details>
-<details class="section">
-  <summary><span>Payback Reaction</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
-  <div class="section-body">
+<span class="subsection-title">Payback Reaction</span>
 <p>Attacking a Monsters is always a risk, for they will not suffer it quietly. Attacking a Monster triggers its Payback Reaction. Whenever a Hero attacks a Monster (even if his attack roll completely fails), the Monster is activated and may immediately attempt to strike back at his attacker. The difference with Payback Reaction is that the activated Monster may perform its Movement before attacking. The player to the right of the active player controls the activated Monster and may choose how best to employ it.</p>
 <p>After fully resolving the Hero's attack, the Monster may move up to its full Movement rating (as listed on its card) and then attempt an attack against the Hero who attacked him (it cannot move after attacking). A moving Monster may choose to open doors and use portals or move in any direction he wishes, following the same Movement rules and restrictions as Heroes. The player controlling the Monster doesn't have to move it or even perform its attack, if he so desires, but any attack made by the Monster must necessarily have the active Hero as the primary target.</p>
 <p>If a Hero's attack targets more than one Monster at once, only one of the targeted Monsters is activated; the player to the right chooses which one.</p>
-  </div>
-</details>
-<details class="section">
-  <summary><span>Monster Attack</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
-  <div class="section-body">
+<span class="subsection-title">Monster Attack</span>
 <p>A Monster's attack follows most of the same rules as a Hero's attack. Since all of a Monster's attack information is contained in its own card, they don't exhaust cards to perform an attack and thus are always ready to attack when activated. Some monsters perform Melee attacks and other perform Ranged attacks. These are subjected to same parameters of proximity and Line of Sight in order to be executed as a Hero's attack, as well as any Ability the Monster may have. A Monster's attack is always executed by the player to the right of the active player.</p>
-  </div>
-</details>
-<details class="section">
-  <summary><span>Anatomy of a Monster</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
-  <div class="section-body">
+<span class="subsection-title">Anatomy of a Monster</span>
 <ul>
 <li><strong>A. Name</strong> - The Monster's name.</li>
 <li><strong>B. Level</strong> - This should be the same as the number of the scenario being played in the campaign (1st scenario - Level 1, 3rd scenario - Level 2-3, etc).</li>
@@ -675,23 +624,11 @@ When a Hero performs an attack that doesn't target any of the Monsters Close to 
 <li><strong>L. Ability</strong> - Some Monsters have a special Ability that is always in effect. They work very much like a Hero's Natural Ability or that of an Upgrade card.</li>
 <li><strong>M. Reroll</strong> - Some Monsters have a Reroll Pool available to them. The controlling player can always choose to reroll this number of dice both when attacking and defending with that Monster (see Reroll Pool on page 27).</li>
 </ul>
-  </div>
-</details>
-<details class="section">
-  <summary><span>Overkill</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
-  <div class="section-body">
+<span class="subsection-title">Overkill</span>
 <p>Even if the Hero's attack deals enough Wounds to kill a Monster, the Monster still gets to perform its full activation against its attacker before being removed from the board. If, however, the Hero's attack is so powerful that it deals a number of Wounds equal to or higher than the Monster's Overkill rating, the Monster is immediately removed from the board, without getting the chance to trigger its Payback Reaction. Note that it doesn't matter how many Wounds the Monster already has, in order to Overkill it a single attack must beat its Overkill rating.</p>
-  </div>
-</details>
-<details class="section">
-  <summary><span>Villains</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
-  <div class="section-body">
+<span class="subsection-title">Villains</span>
 <p>A few powerful and important Monster are designated as a Villain in their card. Villains are the hardest Monsters to kill, and as such anybody who contributes to their demise is deserving of some reward. Any Hero who manages to inflict a Wound on a Villain places one of his Guild tokens on that Villain's card. If that Villain is eventually killed, all Guilds that have a token on its card win the full Coin reward listed in the Monster card. The credit for killing the Villain still goes only to the Hero that inflicts the last Wound, so only his Guild would win any associated Quest.</p>
-  </div>
-</details>
-<details class="section">
-  <summary><span>Spawning Monsters</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
-  <div class="section-body">
+<span class="subsection-title">Spawning Monsters</span>
 <p>Unless otherwise stated in the scenario, when a Monster is killed, it is removed from the board and placed in the first available slot of the Spawn Tile. When the Spawn Tile is full, with five Monsters on it, the active player must perform a Monster Spawn as soon as he finishes his turn. Starting with the Monster in the first slot, he rolls two attack dice to determine where it will spawn. Compare the dice result to the symbols in the Spawn Tokens on the board and find the matching token with the same pair of symbols. The Spawn roll is not subjected to normal dice rolling mechanics, such as Rerolls and extra dice.</p>
 <ul>
 <li>If there is no matching Spawn Token on the board, the Monster is returned to the game box.</li>
@@ -700,32 +637,21 @@ When a Hero performs an attack that doesn't target any of the Monsters Close to 
 </ul>
 <p>This procedure is repeated, following the slot order, for all of the Monsters in the Spawn Tile, with each one being either placed back on the board or completely removed from the game. Once the Spawn Tile is empty, the next player begins his turn.</p>
 <p><strong>Note:</strong> If more than one Monster is killed in the same turn, and there are no more available slots in the Spawn Tile, any exceeding Monsters are immediately returned to the box.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>QUESTS</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
 <p>Each scenario possesses a number of Quests that the Heroes must accomplish in order to be victorious. The specific Quest cards for each scenario are listed in their description and they're divided into two kinds: Player vs. Player (PvP) and Player vs. Environment (PvE). PvP Quests relate to defeating the Heroes of the enemy Guilds. PvE Quests are specific feats related to the scenario at hand, such as defeating a specific Monster or performing a specific task. During a scenario, as soon as a player accomplishes the task described in one of the Quest cards, he fulfills that Quest. Place a Guild token belonging to that player on top of the Quest card to mark its completion. Each player can only fulfill each Quest a single time per scenario. For most Quests, however, it is possible for several different players to accomplish them during the scenario.</p>
-  </div>
-</details>
-<details class="section">
-  <summary><span>First Bonus</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
-  <div class="section-body">
+<span class="subsection-title">First Bonus</span>
 <p>The first player to place his Guild token on one of the Quests immediately gets a "First Bonus" in the form of one coin. Any other player that subsequently accomplishes that same Quest does not get the bonus. Each of the Quest cards offers this bonus individually.</p>
-  </div>
-</details>
-<details class="section">
-  <summary><span>Reward Cards</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
-  <div class="section-body">
+<span class="subsection-title">Reward Cards</span>
 <p>Some Quests may have one or more Reward cards associated with them, as indicated in the Campaign Book. When a player accomplishes that Quest, his Guild immediately gets one of the available Reward cards. The card is immediately placed in the inventory of any of that Guild's Heroes and it can be used normally from then on (the player can discard one of his Upgrade cards to make room for his new Reward card if necessary). If a player accomplishes a Quest, but all of its associated Reward cards have already been taken, he doesn't get any cards.</p>
-  </div>
-</details>
-<details class="section">
-  <summary><span>Winning the Scenario</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
-  <div class="section-body">
+<span class="subsection-title">Winning the Scenario</span>
 <p>In a 3 or 4-player game, the first Guild to accomplish 3 Quests is the winner of the scenario, as long as at least one of those is a PvE Quest. When a player fulfills his third Quest, at least one them being PvE, the scenario immediately ends and that player is victorious. If a player has got three PvP Quests, he still needs to get a PvE Quests in order to win and end the scenario. He could also win with two PvE Quests and a single PvP one, or with two PvP and one PvE.</p>
 <p>In a 2-player game, victory is achieved by fulfilling only 2 Quests.</p>
 <p><strong>Note:</strong> It is impossible for a player to get the PvP Quest related to killing a Hero of his own Guild.</p>
-  </div>
-</details>
-<details class="section">
-  <summary><span>Coin Rewards</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
-  <div class="section-body">
+<span class="subsection-title">Coin Rewards</span>
 <p>During their adventures, heroes accomplish many deeds that earn them not only renown, but also wealth and power. They gather coins for their Guild, that will help them acquire new equipment, weapons and abilities to help them in their ongoing campaign. A player's Guild can earn coins in several ways:</p>
 <ul>
 <li>Every time a Hero kills a Monster, his Guild gets the number of coins listed in that Monster's card.</li>
@@ -736,28 +662,26 @@ When a Hero performs an attack that doesn't target any of the Monsters Close to 
 <li>At the end of the scenario, each Treasure Chest token in a Hero's possession gives the coin value listed on it to his Guild.</li>
 </ul>
 <p>These rewards stack so, for example, if you were the first to kill a Green Guild Hero, you would immediately get one coin for killing an Enemy Hero, plus one coin for being the first to accomplish the "Kill a Hero from the Green Guild" Quest, and then at the end of the scenario you would get another coin for having accomplished that Quest. If you killed more Green Guild Heroes during that scenario, you would only get one extra coin for each kill, since you had already accomplished the Quest.</p>
-<p>Once a scenario is over, and before the next one begins, the Upgrade Phase takes place. In this lull between the action, the Heroes improve themselves, get better equipment, lick their wounds and decide where they will go next.</p>
   </div>
 </details>
 <details class="section">
-  <summary><span>Death Curses</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <summary><span>UPGRADE PHASE</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
   <div class="section-body">
+<p>Once a scenario is over, and before the next one begins, the Upgrade Phase takes place. In this lull between the action, the Heroes improve themselves, get better equipment, lick their wounds and decide where they will go next.</p>
+<span class="subsection-title">Death Curses</span>
 <p>Thanks to the Guilds' power, Heroes are able to come back to life with relative ease after being killed during their adventures. However, losing one's life must not be taken lightly, for death still takes its toll. Any Hero that is killed during a scenario may suffer a debilitating curse. The more times he dies, the bigger the chance of suffering a grievous curse.</p>
 <p>At the start of every Upgrade Phase, any Hero with a Death Curse card from a previous scenario returns it to the deck. The Death Curse deck is reshuffled and any Hero that received a Death token during the previous scenario receives a number of Death Curse cards equal to the number of Death tokens he possesses. Each Hero must keep the Death Curse card with the highest value among those he receives, discarding the others along with his Death tokens. Each Death Curse card has a different effect described in it that will afflict the Hero throughout the next scenario. As indicated, some Death Curse cards are merely placed next to that Hero's card, while others must occupy one of that Hero's inventory slots. In that case, it is possible to keep an upgrade card under it, though that card cannot be accessed until the curse is removed. The only way to remove a Death Curse card before the next Upgrade Phase is to use a Healing Potion token.</p>
-  </div>
-</details>
-<details class="section">
-  <summary><span>Upgrades</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
-  <div class="section-body">
+<span class="subsection-title">Upgrades</span>
 <p>In the course of the Heroes' adventures in Arcadia, they become gradually more powerful, learning new tricks, new powers and getting hold of better weapons and equipment. The better a Guild performs in a scenario, the more resources it has to improve its Heroes for the next scenario.</p>
 <p>During a scenario, each Guild earns coins for the feats it accomplishes, like killing enemies and fulfilling Quests. These coins are not used during the scenarios themselves, but will be very useful during each Upgrade Phase. Shuffle the Upgrade deck corresponding to the number of the scenario that's just been completed (Level 1 deck after the first scenario, Level 2 deck after the second scenario, and so on). Each player is dealt 6 cards from that deck. He chooses 2 cards that he wants to reserve for himself and places them face down in front of him, passing the remaining cards to the player to his left. From the new cards they received, each player reserves 2 more cards and passes the rest to the left. After that drafting is done, each player takes the 6 cards he ended up with and decides which ones he wants to purchase for his Heroes, using his Guild's coins. Each card has a listed cost, and during each Upgrade Phase each player can only purchase a maximum of 3 cards. The remaining Upgrade cards are returned to the box and the spent coins are returned to the common pile. If a player doesn't spend all his coins in this purchase, he may save a single coin to spend in the next Upgrade Phase, though any coins beyond that are returned to the common pile.</p>
 <p>Each player then distributes his complete Upgrade cards among his Heroes, being allowed to completely rearrange all cards. If a Guild has more than 12 Upgrade cards, it will have to discard any excess cards.</p>
+<span class="subsection-title">Onwards!</span>
+<p>For the next scenario to begin, remove any tokens from the Heroes (Wound, Exploration, etc). The player who won the previous scenario chooses the next scenario that will be played, obeying the campaign progression rules.</p>
   </div>
 </details>
 <details class="section">
-  <summary><span>Onwards!</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <summary><span>EXPLORATION TOKENS</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
   <div class="section-body">
-<p>For the next scenario to begin, remove any tokens from the Heroes (Wound, Exploration, etc). The player who won the previous scenario chooses the next scenario that will be played, obeying the campaign progression rules.</p>
 <p>During setup, several Exploration tokens are scattered around the board. According to the scenario instructions, some may be laid out face down and others are face up. These tokens represent (mostly) useful things the Heroes may find while exploring the city, and even some important objectives they are trying to achieve in their quest!</p>
 <p>Collecting an Exploration token does not require a Movement Point or any other action. Whenever an active Hero is standing in the same Space as an Exploration token, and there are no Enemies in that same Space, the Hero must automatically collect the token. The token's content is revealed and it is then in possession of the Hero who collected it (place it on that Hero's card). Each Exploration token has a different effect, that only affects the Hero in possession of the token:</p>
 <ul>
@@ -770,6 +694,11 @@ When a Hero performs an attack that doesn't target any of the Monsters Close to 
 </ul>
 <p>Exploration tokens can be freely exchanged among a Guild's Heroes whenever that Guild Rests. Quest tokens, however, can't be exchanged. A killed Hero drops all of his Exploration tokens on the Space he occupied. If he was killed by an enemy Hero, that Hero can automatically get one of his Exploration tokens (even a Quest token).</p>
 <p>Any Exploration token in possession of a Hero at the end of a scenario is returned to the game. Nobody starts a scenario in possession of Exploration tokens.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>UPGRADE CARDS</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
 <p>The Upgrade cards acquired by each Guild as the campaign progresses are what will truly set them apart from the rest. Through the use and combination of different cards, each Hero is able to use his natural characteristics to their full potential, or build up a whole unique new role for himself in the game.</p>
 <p>There are three basic types of Upgrade cards:</p>
 <ul>
@@ -778,11 +707,7 @@ When a Hero performs an attack that doesn't target any of the Monsters Close to 
 <li><strong>Permanent cards</strong></li>
 </ul>
 <p>Through the combination of these cards, players can create some powerful and unexpected attacks and strategies!</p>
-  </div>
-</details>
-<details class="section">
-  <summary><span>Anatomy of an Upgrade Card</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
-  <div class="section-body">
+<span class="subsection-title">Anatomy of an Upgrade Card</span>
 <ul>
 <li><strong>A. Name</strong> – The name of the card.</li>
 <li><strong>B. Cost</strong> – The number of coins necessary to purchase this card.</li>
@@ -791,76 +716,62 @@ When a Hero performs an attack that doesn't target any of the Monsters Close to 
 <li><strong>E. Special Effect</strong> – Any Special Effects that the card offers.</li>
 <li><strong>F. Code</strong> – Use this identifying code to easily log your cards in the Campaign Sheet.</li>
 </ul>
-  </div>
-</details>
-<details class="section">
-  <summary><span>Boost Cards</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
-  <div class="section-body">
+<span class="subsection-title">Boost Cards</span>
 <p>Boost cards are companions to Attack cards. While they can never be used on their own, they might be able to greatly improve the power of an Attack card being used.</p>
 <p>When a Hero is declaring his attack (before rolling the Attack dice), he may choose to also use one or more Boost cards in his possession. He exhausts the Attack card being used, and also exhausts any Boost cards being used in conjunction (place a Guild token on it). The special effects offered by the Boost card are then added to the attack being executed. Note that some Boost cards only work with specific types of Attack cards, as described in their text. As is the case with Attack cards, an exhausted Boost card cannot be used again until it is unexhausted.</p>
-  </div>
-</details>
-<details class="section">
-  <summary><span>Permanent Cards</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
-  <div class="section-body">
+<span class="subsection-title">Permanent Cards</span>
 <p>Permanent cards work exactly like the Heroes’ Natural Ability. They give the Hero that possesses them a special ability that is always in effect, according to the parameters of the card’s text. Permanent cards are never exhausted, so their ability is always at the disposal of the Hero who has it in his inventory. If a Hero decides to use a Permanent card’s effect on an attack, he must declare it before rolling any dice.</p>
-  </div>
-</details>
-<details class="section">
-  <summary><span>Special Effects</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
-  <div class="section-body">
+<span class="subsection-title">Special Effects</span>
 <p>Upgrade cards offer a multitude of new resources to the Hero who possesses them. Here are some of them:</p>
-<p><strong>EXTRA DEFENSE</strong>
+<p><strong>EXTRA DEFENSE</strong><br/>
 Cards with this Extra Defense icon grant the Hero who owns them the number of extra Defense dice listed. Whenever the Hero needs to make a Defense roll, add together his basic Defense and all Extra Defense his cards might grant him. Extra Defense is always added to the Hero’s Defense, even if the card that contains it is exhausted.</p>
-<p><strong>EXTRA LIFE</strong>
+<p><strong>EXTRA LIFE</strong><br/>
 Cards with this Extra Life icon grant the Hero who owns them the ability to sustain more Wounds before being killed. Add together the Hero’s basic Life and any Extra Life his cards might grant him, it doesn’t matter whether the card is exhausted or not, this is his total Life, the number of Wounds necessary to kill him.</p>
-<p><strong>ATTACK CARDS</strong>
+<p><strong>ATTACK CARDS</strong><br/>
 Attack cards are what allows a Hero to make an attack against an Enemy. A Hero with no Attack cards in his inventory is generally incapable of executing an attack when activated. But if he has multiple Attack cards, he can still only use a single one per attack. However, since when an Attack card is used it must be exhausted (place a Guild token on it), having multiple Attack cards available to a single Hero gives him not only more options, but the ability to attack for multiple turns before needing to Rest and unexhaust his cards.</p>
 <p>All Attack cards are able to make either Melee or Ranged attacks, as indicated by the icons of their listed attack dice. While some Attack cards offer only a simple attack, many have some form of special effect listed which enhances their attack. This effect is only triggered when the card is used and the parameters stated in it are met.</p>
-<p><strong>BOMBS</strong>
+<p><strong>BOMBS</strong><br/>
 Bombs can be extremely dangerous, which is why each Guild can only possess a single Bomb card at a time. When a Bomb card is used, resolve the attack normally against the targeted Character. If the Attack roll scores any hits, it creates an incendiary minefield around it. Place one Guild token in the target’s Space and in all Spaces Close to it. If an Enemy Hero enters a Space with one of these tokens, he suffers an attack exactly like the original Bomb attack and that Guild token is removed from the board. If that Hero is killed, credit goes to the Guild whose token exploded, though any Exploration tokens that the victim carried must be placed on its Space.</p>
 <p>If a Hero enters a Space containing his own Guild’s token, nothing happens. If a Hero enters a Space containing multiple Enemy Guild tokens, they all explode simultaneously. Add the dice for all Bombs involved into a single attack. If a Hero is killed in such a simultaneous attack, all Guilds involved in the attack get the credit for the kill.</p>
-<p><strong>REROLL POOL</strong>
+<p><strong>REROLL POOL</strong><br/>
 Cards with this Reroll icon allow the Hero who owns them to reroll the indicated number of dice after his dice pool has been rolled. The result of this new roll replaces the original result. All of a Hero’s cards with Reroll icons always add to his Reroll pool, whether they are exhausted or not. Whenever a Hero makes a roll (be it an Attack or a Defense roll) he has his full Reroll pool at his disposal to use in any order he’d like.</p>
-<p><strong>EXHAUST HERO</strong>
+<p><strong>EXHAUST HERO</strong><br/>
 Some Upgrade cards require that the player "exhaust the Hero" in order to use a special effect offered by the card. To exhaust the Hero using the card, simply place a Guild token on top of his Hero card. That Hero’s card is now exhausted, and so he won’t be able to use any other special effects that need him to "exhaust the Hero" in order to work until his Hero card is unexhausted. The Hero card can be unexhausted by using a turn to Rest and remove all Guild tokens from the Guild’s cards. A Hero with an exhausted Hero card does not suffer any penalty, he can be activated normally, moving and attacking as usual. He is just unable to activate special effects that require him to exhaust his Hero card. He can still use his natural ability (as long as it doesn’t require him to exhaust his Hero card).</p>
-<p><strong>DAZE</strong>
+<p><strong>DAZE</strong><br/>
 Some attacks are able to daze their target, leaving him open to future attacks. When a Character is dazed, lay its figure on its side to indicate his condition. A dazed Character is not allowed to roll any Defense dice against attacks. Other than that, he may act normally, moving and attacking as usual. When a dazed Hero Rests he recovers from the daze effect. Place his figure back up to indicate that.</p>
-<p><strong>SELF SACRIFICE</strong>
+<p><strong>SELF SACRIFICE</strong><br/>
 Some abilities require the active Hero to suffer a number of Wounds in order to use them. The Hero must take the required number of Wounds before rolling any dice for the ability. However, a Hero cannot use such an ability if the Wounds taken would cause him to die. If he doesn’t have enough Life left, he cannot activate the ability.</p>
-<p><strong>CRITICAL EFFECT</strong>
+<p><strong>CRITICAL EFFECT</strong><br/>
 When the special effect of a card is listed after a CRIT symbol, it means that effect is only activated if the dice roll associated with that card scores at least one CRIT. Unless otherwise stated, only a single CRIT is necessary to activate the special effect, scoring multiple CRITS does not multiply it.</p>
   </div>
 </details>
 <details class="section">
-  <summary><span>The Campaign Sheet</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <summary><span>CAMPAIGN</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
   <div class="section-body">
+<span class="subsection-title">The Campaign Sheet</span>
 <p>The Campaign Sheet is a two-sided document which players use during the campaign to keep track of game development and record important information.</p>
 <p>One side is used to record the campaign itself. It displays a map of Arcadia on the left, with white spaces over each scenario so that players can write down the order in which they were played. On the right, a more detailed list allows players to record what happened during each scenario, indicating which Guild earned each Achievement (who collected the most coins, whose Heroes died the least, etc) .</p>
 <p>The reverse side of the Campaign Sheet is used to keep track of the Guilds, indicating which Heroes each player chose and what are their current Upgrade cards and Death Curses.</p>
-<p>Most Coins: Indicates which Guild won the most coins during the scenario (before spending them during the Upgrade Phase).
-Won Reward: Registers which Guild completed the Quest with a Reward card associated with it and, consequently, won the Reward card.
+<p>Most Coins: Indicates which Guild won the most coins during the scenario (before spending them during the Upgrade Phase).<br/>
+Won Reward: Registers which Guild completed the Quest with a Reward card associated with it and, consequently, won the Reward card.<br/>
 Won Title: Marks which Guild acquired a Title by completing the Quest associated with it.</p>
 <p>If two or more Guilds are tied for an Achievement, all of the tied Guilds are considered to have earned it.</p>
 <p>After players execute the Upgrade Phase for the scenario that has just been played, the next step is to turn the Campaign Sheet over and update the Guild Inventories. Players will write down the cards each Guild possesses at this point (using the card codes) and any Death Curses that each Hero might carry. Note that the players will not just record the new cards they have purchased, but all the cards currently in possession of his Guild’s Heroes after the Upgrade Phase. If a player has saved a coin to spend in a future Upgrade Phase, he notes it in the Campaign Sheet.</p>
-  </div>
-</details>
-<details class="section">
-  <summary><span>Titles</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
-  <div class="section-body">
+<span class="subsection-title">Titles</span>
 <p>As the Heroes accomplish their deeds, they gain notoriety, resources and possible allies. Arcadia tends to remember the accomplishments of adventurers and often times Heroes might find an unexpected aid along their path, depending on what they did before.</p>
 <p>Some Quests, when fulfilled, reward the Guild who accomplished them with a Title. Each Title offers an advantage that this Guild will be able to enjoy when playing certain subsequent scenarios. Most scenarios – with the exception of “District of Hammers”, “Brightsun Arena” and “The Temple of Light” – have one Quest associated to a Title. When a Hero fulfills one of these Quests, his Guild receives the associated Title, which should be noted in the Campaign Sheet. This Title has no effect on the current scenario, but it will grant an advantage if the player goes on to play a scenario that benefits from it. Each scenario description specifies which of its Quests is associated to a Title, what is the advantage it brings, and which subsequent scenarios benefit from that Title. In addition, the advantage of each Title is also explained in the description of the scenarios where they can be used.</p>
-  </div>
-</details>
-<details class="section">
-  <summary><span>Campaign Finale</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
-  <div class="section-body">
+<span class="subsection-title">Campaign Finale</span>
 <p>Once the 6th and last scenario of the campaign, the Final Showdown, has been played, Arcadia has finally been liberated! The Guild that wins the last scenario is the victor, and now has complete control over Arcadia! It is now time to award Medals to each Guild and see how well each player did in each aspect of the campaign.</p>
 <p>For each of the Achievements listed in the Campaign Sheet, a Guild will be awarded a specific Medal. Tally up the Achievements of the entire campaign, and determine which Guild won each Achievement type the most times. That Guild is then awarded the Medal associated with that Achievement type. If more than one Guild is tied with the most wins in an Achievement, all tied Guilds win the associated Medal.</p>
 <p>During a campaign, after a scenario is finished (but before its Upgrade Phase), players will make a record of what they have just played. If it is their first scenario, they will also make a record of the Guilds they have created, indicating which three Heroes they chose for the campaign. The record-keeping starts with indicating which scenario was just played. This is done on the map of Arcadia on the front side of the sheet, where players will indicate which scenario they have just played and mark it with its number according to the order in which it was played in the campaign (1 through 6). Following this, players will check the detailed list to the right of the map and find the corresponding line for the scenario they have just played. In it, players will indicate which Achievements were earned and who earned them.</p>
 <p>The Achievements are as follows:</p>
-<p><strong>Winner:</strong> Indicates which Guild was the first to complete the Quests necessary to win the scenario.
+<p><strong>Winner:</strong> Indicates which Guild was the first to complete the Quests necessary to win the scenario.<br/>
 <strong>Least Deaths:</strong> Shows which Guild accumulated the least amount of Death tokens among its Heroes.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>OPTIONAL: EPISODIC MODE</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
 <p>Arcadia Quest is intended as a campaign game, with the scenarios being played from the beginning in the Outer Circle all the way to the Final Showdown at the heart of the city, with your accomplishments in one scenario affecting the game in the next, and with your group of heroes becoming gradually more and more powerful. However, if a group of players desires to simply have some fun in a disconnected way, just gathering some Heroes and playing a scenario without greater repercussions, they can play in Episodic Mode.</p>
 <p>In Episodic Mode, players quickly set up their Guilds, with Heroes and Upgrade cards in any level of their choice and go tackle any scenario in the Campaign Book (or perhaps even come up with one of their own). To play in Episodic Mode, follow these steps:</p>
 <ol>
@@ -868,37 +779,30 @@ Won Title: Marks which Guild acquired a Title by completing the Quest associated
 <li>Choose Level. The players should decide together at what level they would like to play this game, from level 1 to level 6. The higher the level, the stronger the Monsters will be, but players will have access to more Upgrade cards.</li>
 <li>Deal Upgrade Cards. For each level beyond 1, the players are dealt Upgrade cards from all previous levels. So if playing at level 2, only the Level 1 deck will be dealt; at level 3 – decks Level 1 and 2; at level 4 – decks Level 1, 2 and 3; and so on. Starting with the Level 1 deck, each player is randomly dealt 6 cards from the deck, from which he may keep only 2, discarding the rest. The cards are not purchased with coins, the players simply choose which ones to keep. This is repeated for all the decks accessed, according to the game level. If at the end the players have more than 12 Upgrade cards, they must discard the exceeding number.</li>
 <li>Play a Scenario. Any scenario in the Campaign Book can be played in this mode, just be sure to use the Monster cards at the level that has been chosen by the group. Alternatively, you may want to create your very own scenarios, using the modular game tiles and coming up with custom Quests!</li>
-<li>Determine the Winner. Victory in Episodic Mode is determined in a slightly different way from the normal game: the winner is the player whose Guild has the most coins at the end of the game. Once the scenario is over, each Guild receives extra coins normally for completed Quests, and also:
-   - Lose 1 coin for each Death Token in your Guild.
+<li>Determine the Winner. Victory in Episodic Mode is determined in a slightly different way from the normal game: the winner is the player whose Guild has the most coins at the end of the game. Once the scenario is over, each Guild receives extra coins normally for completed Quests, and also:<br/>
+   - Lose 1 coin for each Death Token in your Guild.<br/>
    - The Guild that finishes the Scenario (by completing three Quests) gets an extra 5 coins.</li>
 </ol>
 <p>Each Guild adds together all its coins, and the one with the largest amount is the winner.</p>
   </div>
 </details>
 <details class="section">
-  <summary><span>GUILD SETUP</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <summary><span>RULES SUMMARY</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
   <div class="section-body">
+<span class="subsection-title">GUILD SETUP</span>
 <ul>
 <li><strong>Choose your Guild.</strong></li>
 <li><strong>Choose or Draft 3 Heroes.</strong></li>
 <li><strong>Get the 5 Starter Deck cards.</strong></li>
 </ul>
-  </div>
-</details>
-<details class="section">
-  <summary><span>MONSTER ACTIVATION</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
-  <div class="section-body">
+<span class="subsection-title">MONSTER ACTIVATION</span>
 <p>(controlled by player to the right of active player).</p>
 <ul>
 <li><strong>Guard Reaction</strong> (attack any Hero Close to them that moves out his Space or that makes an attack that doesn't target a Close Monster).</li>
 <li><strong>Payback Reaction</strong> (when attacked, may move and attack Hero who attacked it).</li>
 <li><strong>Spawn</strong> (when the Spawn tile is full, roll 2 dice for each Monster, if it matches a Spawn token in a free Space, place figure; otherwise it's out of the game).</li>
 </ul>
-  </div>
-</details>
-<details class="section">
-  <summary><span>PLAYER TURN</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
-  <div class="section-body">
+<span class="subsection-title">PLAYER TURN</span>
 <ul>
 <li><strong>Activate a Hero or Rest the Guild.</strong></li>
 <li><strong>Hero Activation</strong> (in any order):</li>
@@ -909,21 +813,13 @@ Won Title: Marks which Guild acquired a Title by completing the Quest associated
 <li>Reorganize cards and Exploration tokens (not Death Curse cards nor Quest tokens).</li>
 <li>Resurrect killed Heroes.</li>
 </ul>
-  </div>
-</details>
-<details class="section">
-  <summary><span>QUESTS</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
-  <div class="section-body">
+<span class="subsection-title">QUESTS</span>
 <ul>
 <li><strong>Scenario</strong> is won by player who accomplishes 3 Quests, with at least one of them being PvE.</li>
 <li><strong>First Bonus</strong> (when each Quest is fulfilled for the first time, the Guild who does it gets a coin).</li>
 <li><strong>Reward cards</strong> (Hero who accomplishes a Quest associated with a Reward card, gets it).</li>
 </ul>
-  </div>
-</details>
-<details class="section">
-  <summary><span>OTHER RULES</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
-  <div class="section-body">
+<span class="subsection-title">OTHER RULES</span>
 <ul>
 <li><strong>Exploration tokens</strong> (an active Hero may freely pick up all Exploration tokens in his Space, if there are no Enemies in it).</li>
 <li><strong>Close</strong> (Melee attacks and other effects only affect Close Characters, which must be in the same Space as the active Character or one of the four Spaces that share an edge with it, as long as that is not blocked by a wall or closed door).</li>
@@ -931,16 +827,17 @@ Won Title: Marks which Guild acquired a Title by completing the Quest associated
 <li><strong>Full Space</strong> (a Space with two Characters, one of them being an ally of the active Character. He may move and shoot through the Space, but not end his Movement in it).</li>
 <li><strong>Blocked Space</strong> (a Space with two Enemies of the active Character. He can't move through nor shoot through the Space).</li>
 </ul>
-  </div>
-</details>
-<details class="section">
-  <summary><span>UPGRADE PHASE</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
-  <div class="section-body">
+<span class="subsection-title">UPGRADE PHASE</span>
 <ul>
 <li><strong>Death Curse cards</strong> (remove old curses, each Hero gets one Death Curse card per Death token and keeps only the highest card).</li>
 <li><strong>Upgrade cards</strong> (each player gets 6 cards from the deck equivalent to the last played scenario, keeps 2 and passes the rest to the left two times, then may purchase up to 3 cards).</li>
 <li><strong>Winner of last scenario chooses next scenario.</strong></li>
 </ul>
+  </div>
+</details>
+<details class="section">
+  <summary><span>CAMPAIGN STRUCTURE</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
 <ul>
 <li>Outer Circle: 3 scenarios</li>
 <li>Inner Circle: 2 scenarios</li>
@@ -964,8 +861,6 @@ Won Title: Marks which Guild acquired a Title by completing the Quest associated
   var allMarks = [];
   var currentMark = -1;
 
-  // Snapshot each section body's original HTML so we can restore it
-  // before applying a new round of highlights.
   sections.forEach(function (s) {
     var body = s.querySelector('.section-body');
     if (body) body.dataset.original = body.innerHTML;
@@ -1039,7 +934,6 @@ Won Title: Marks which Guild acquired a Title by completing the Quest associated
       var body    = section.querySelector('.section-body');
       var summary = section.querySelector('summary');
 
-      // Restore original HTML before each search pass
       if (body) body.innerHTML = body.dataset.original;
 
       if (!re) {

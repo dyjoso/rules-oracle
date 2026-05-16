@@ -153,6 +153,7 @@ body {
 mark { background: #ffe066; color: #1a1a1a; border-radius: 2px; padding: 0 1px; }
 mark.active { background: #ff9500; color: #fff; }
 
+/* ── MATCH NAVIGATION ────────────────────────────────────── */
 .match-nav {
   display: none;
   align-items: center;
@@ -347,14 +348,6 @@ code {
 
 /* ── HR ──────────────────────────────────────────────────── */
 hr { border: none; border-top: 1px solid var(--rule); margin: 8px 0; }
-
-/* ── SEARCH HIGHLIGHT ────────────────────────────────────── */
-mark {
-  background: #ffe566;
-  color: inherit;
-  border-radius: 2px;
-  padding: 0 1px;
-}
 
 /* ── HIDDEN SECTIONS ─────────────────────────────────────── */
 details.section.search-hidden { display: none; }
@@ -587,7 +580,7 @@ details.section.search-hidden { display: none; }
   <div class="section-body">
 <p>Keywords stand in for longer rules statements that would otherwise commonly appear on cards.</p>
 <span class="subsection-title">AMBUSH</span>
-<p>When a card with the ambush keyword enters play within reach or moves within reach of a Ranger, it fatigues that Ranger.
+<p>When a card with the ambush keyword enters play within reach or moves within reach of a Ranger, it fatigues that Ranger.<br/>
 <em>Note: Only ready cards can fatigue you. If the card is exhausted, you do not suffer fatigue from ambush.</em></p>
 <span class="subsection-title">CONDUIT</span>
 <p>When you have a card with the conduit keyword equipped, you can play manifestation cards from your hand by spending one token from the conduit.</p>
@@ -596,13 +589,13 @@ details.section.search-hidden { display: none; }
 <span class="subsection-title">FATIGUING</span>
 <p>When you rest, if this card is ready and is equipped, within reach, or along the way, you suffer fatigue equal to its presence. If this keyword is followed by a number, suffer that much fatigue instead.</p>
 <span class="subsection-title">FRIENDLY</span>
-<p>When a card with the friendly keyword is between you and the card with which you're interacting, it does not fatigue you.
+<p>When a card with the friendly keyword is between you and the card with which you're interacting, it does not fatigue you.<br/>
 You cannot affect a card that has the friendly keyword with a card that has the weapon trait.</p>
 <span class="subsection-title">MANIFESTATION</span>
 <p>You cannot play a manifestation card from your hand without discarding a token from one of your equipped cards that has the conduit keyword.</p>
 <span class="subsection-title">OBSTACLE</span>
-<p>You cannot interact with a card if a ready card with the obstacle keyword is between you and that card.
-<em>For example, an obstacle within reach prevents you from interacting with cards along the way or in the surroundings. An obstacle along the way prevents you from interacting with cards in the surroundings.</em>
+<p>You cannot interact with a card if a ready card with the obstacle keyword is between you and that card.<br/>
+<em>For example, an obstacle within reach prevents you from interacting with cards along the way or in the surroundings. An obstacle along the way prevents you from interacting with cards in the surroundings.</em><br/>
 You cannot travel if there are any ready cards with the obstacle keyword in play.</p>
 <span class="subsection-title">PERSISTENT</span>
 <p>Persistent cards (ready or exhausted) and all cards attached to them remain in play when you travel.</p>
@@ -649,16 +642,16 @@ You cannot travel if there are any ready cards with the obstacle keyword in play
 <li>Expert - Electric Fog</li>
 </ul>
 <p>Note: Electric Fog is not included in the “recommended weather” on the campaign tracker and should only be used by groups looking for an intense challenge.</p>
-<p>As you progress through the campaign, your Ranger's deck will change as you unlock new cards and replace the cards with which you began the campaign. This represents your Ranger learning from experience and gaining access to new and better gear.
+<p>As you progress through the campaign, your Ranger's deck will change as you unlock new cards and replace the cards with which you began the campaign. This represents your Ranger learning from experience and gaining access to new and better gear.<br/>
 There are three ways you can alter your deck during a campaign:</p>
 <span class="subsection-title">PERMANENT ALTERATIONS</span>
 <p>Some effects during gameplay may make permanent changes to your deck. These effects usually allow you to trade one card from your deck for one other card from the starting Ranger card list. You can never go over two copies of the same card with these changes. These alterations to your deck are permanent and cannot be reversed except by other similar effects found during play.</p>
 <span class="subsection-title">SWAPPING REWARDS IN AND OUT</span>
 <p>If you end the day by camping (see Travel on page 14), you can use the downtime to reorganize your gear and think on your experiences.</p>
-<p>If you ended the day by camping, before you start the next day, you may choose up to two copies of each reward card that you've unlocked and add them to your deck. For each reward card you add, you must choose a non-malady card to remove from your deck.
+<p>If you ended the day by camping, before you start the next day, you may choose up to two copies of each reward card that you've unlocked and add them to your deck. For each reward card you add, you must choose a non-malady card to remove from your deck.<br/>
 If the removed card is another reward, return it to the collection. But if the removed card is a starting Ranger card, set it aside. These <strong>displaced</strong> cards can be swapped back into your deck any time you camp in the same way as rewards, and are not part of the collection.</p>
 <span class="subsection-title">MALADIES</span>
-<p>Maladies represent the lingering negative effects of the trials your Ranger has endured. The primary malady that can be added to your deck is Lingering Injury, which is added to your deck if you are forced to end the day after suffering three injuries.
+<p>Maladies represent the lingering negative effects of the trials your Ranger has endured. The primary malady that can be added to your deck is Lingering Injury, which is added to your deck if you are forced to end the day after suffering three injuries.<br/>
 Maladies are always in addition to the thirty cards normally in your Ranger deck and cannot be swapped out for reward cards, traded away to merchants, or removed by any other method apart from what is described on the malady card itself.</p>
 <p>To start a campaign of Earthborne Rangers, you build your own custom Ranger character. You'll bring all the cards you need together in a way that tells the story of who your Ranger is, how they spent their formative years, and what specialized training they've received before they completed the trials, rites, and ceremonies that welcomed them into the service of the Rangers.</p>
 <p>If you are starting with the Prologue (see page 9), you will create a character as part of that process, but if you are jumping right into the game, you can follow these steps to create your Ranger.</p>
@@ -666,7 +659,7 @@ Maladies are always in addition to the thirty cards normally in your Ranger deck
 <p>Ranger cards are broken into five categories: personality, background, specialty, malady, and reward. You can set aside all reward and malady cards for now. Those are obtained during the campaign and not used in Ranger creation. Both backgrounds and specialties are broken into different sets that you will be choosing between during character creation. To make Ranger creation easier, we recommend placing each of these sets in their own pile to keep them organized.</p>
 <p>Once you become familiar with the deck customization process, you can build your deck in any order you like, but for your first time, we recommend performing the following steps in order:</p>
 <span class="subsection-title">CHOOSE YOUR ASPECTS</span>
-<p>Awareness (AWA):
+<p>Awareness (AWA):<br/>
 Your Ranger's skills of observation. Awareness is a measure of how well they process the world around them.</p>
 <p>Spirit (SPI): Your Ranger's inner strength and sense of self. Spirit is a measure of how well your Ranger knows themself.</p>
 <p>Fitness (FIT): Your Ranger's strength, agility, and endurance. Fitness is a measure of how well they respond to physical demands.</p>
@@ -780,8 +773,6 @@ Your Ranger's skills of observation. Awareness is a measure of how well they pro
   var allMarks = [];
   var currentMark = -1;
 
-  // Snapshot each section body's original HTML so we can restore it
-  // before applying a new round of highlights.
   sections.forEach(function (s) {
     var body = s.querySelector('.section-body');
     if (body) body.dataset.original = body.innerHTML;
@@ -855,7 +846,6 @@ Your Ranger's skills of observation. Awareness is a measure of how well they pro
       var body    = section.querySelector('.section-body');
       var summary = section.querySelector('summary');
 
-      // Restore original HTML before each search pass
       if (body) body.innerHTML = body.dataset.original;
 
       if (!re) {

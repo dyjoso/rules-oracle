@@ -153,6 +153,7 @@ body {
 mark { background: #ffe066; color: #1a1a1a; border-radius: 2px; padding: 0 1px; }
 mark.active { background: #ff9500; color: #fff; }
 
+/* ── MATCH NAVIGATION ────────────────────────────────────── */
 .match-nav {
   display: none;
   align-items: center;
@@ -348,14 +349,6 @@ code {
 /* ── HR ──────────────────────────────────────────────────── */
 hr { border: none; border-top: 1px solid var(--rule); margin: 8px 0; }
 
-/* ── SEARCH HIGHLIGHT ────────────────────────────────────── */
-mark {
-  background: #ffe566;
-  color: inherit;
-  border-radius: 2px;
-  padding: 0 1px;
-}
-
 /* ── HIDDEN SECTIONS ─────────────────────────────────────── */
 details.section.search-hidden { display: none; }
 
@@ -425,7 +418,15 @@ details.section.search-hidden { display: none; }
   </div>
 </header>
 <main>
+<details class="section" open>
+  <summary><span>Game Objective</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
 <p>Agents of SMERSH is a cooperative game wherein players portray UN Secret Service spies in an international effort to stop SMERSH from world domination. Players must have between 3 and 5 successful encounters with Henchmen at locations with Location Tokens AND have the correct Intel in the Intel Pool to win the game. Intel in the Pool must match the Intel symbols at the last position of Dr. Lobo’s pawn on his track.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Game Set-Up</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
 <ol>
 <li>Place Map and Henchmen: Place the map in a central location with the 4 Henchmen Cards on the right or left side of the map. Place a black cube on Level 1 for each Henchman</li>
 <li>Players Choose Their Character Mats: Place 5 white cubes on the starting numbers of the basic skills indicated by the stars (basic skills are Spycraft, Persuasion, Deception, Athletics and Hand-to-hand). Take 1 additional white cube and place it on the starred number under "resolve" on the right side of the Character Mat. Use the cubes to adjust all numbers as you play the game. Also, take any starting Status Cards and Advanced Skills. Each character starts with 2 Advanced Skills unless otherwise stated on Character Card. Players pick Advanced Skills.</li>
@@ -435,20 +436,19 @@ details.section.search-hidden { display: none; }
 <li>Encounter Decks: Separate and shuffle the Encounter Decks by continent. There should be 6 decks in the core game (Africa, Asia, North America, South America, Europe and Ocean). There are only 5 decks when using The Book of Encounters Deck (Ocean is missing) unless you decide to mix the 2 types of Encounter Decks. (See page 12 on How to Use The Book of Encounters.)</li>
 <li>The last person to watch a spy film goes first. You are ready to play.</li>
 </ol>
-<details class="section">
-  <summary><span>Set-Up By Number of Players</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
-  <div class="section-body">
-<span class="subsection-title">Setup for 3-4 Players</span>
+<span class="subsection-title">Set-Up By Number of Players</span>
+<span class="label-title">Setup for 3-4 Players</span>
 <p>The board starts with no tokens and no special instructions.</p>
-<span class="subsection-title">Setup for 2 Players</span>
+<span class="label-title">Setup for 2 Players</span>
 <p>Place 2 random Yellow Intel Tokens on the board by revealing 2 random Fate Cards. Each player starts with an additional 2 UN Transport Tokens. (If playing with Calli, she receives 1 additional UN Transport and 1 Top Secret Card.) Also, choose one Henchman to start game at Level 2. Lastly, remove the Villain Advancement Cards with Injury and [-1] inside the icon of the book on the Villain Advancement side. They are not used.</p>
-<span class="subsection-title">Setup for 1 Player</span>
+<span class="label-title">Setup for 1 Player</span>
 <p>Add 3 random Intel Tokens to random locations on the board. Choose 2 Henchmen to start the game at Level 2. The other 2 start the game at Level 1. Your character starts the game with a total of 3 UN Transports and Top Secret cards combined. These are in addition to any your character normally receives. For example, you may pick 3 UN Transports OR you may pick 1 UN Transport and 2 Top Secret Cards as long as you don't choose more than 3 (Exception: Calli may only choose 1 additional UN Transport and 2 Top Secret Cards OR 3 Top Secret Cards.). Lastly, remove the Villain Advancement Cards with Injury and [-1] inside the icon of the book on the Villain Advancement side, as well as three more random cards with "1" inside the book icon. They are not used.</p>
   </div>
 </details>
 <details class="section">
-  <summary><span>1 Movement</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <summary><span>Game Phases</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
   <div class="section-body">
+<span class="subsection-title">1 Movement</span>
 <p>Choose one of the following:</p>
 <span class="label-title">1.1 Rest Action</span>
 <p>If, and only if, a player has 2 or more Injury Tokens on his Character Card, they may take a Rest Action to Heal 2 Injuries. They skip their encounter phase and go directly to step 3 (Villain Phase). If playing solo, the player must also roll the BLUE Die. If you fail the roll, you must draw a Villain card and advance Dr Lobo's track by the number of steps shown.</p>
@@ -460,11 +460,7 @@ details.section.search-hidden { display: none; }
 <p>If traveling by airplane, players must already be on a city with an open airport and end on another city with an open airport. That is their full movement. However, after using an airport, a player may still choose to spend 1 Resolve to gain 1 Movement point.</p>
 <span class="label-title">1.5 UN Transport</span>
 <p>Return a UN Transport token to the supply to move directly to any city or ocean location on the board (see page 10 for more information on UN Transport tokens).</p>
-  </div>
-</details>
-<details class="section">
-  <summary><span>2 Encounters</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
-  <div class="section-body">
+<span class="subsection-title">2 Encounters</span>
 <p>If a Player begins the Encounter phase on a Location that matches one of their ‘Secret Mission’ locations, they may flip over the appropriate Fate card under their Character Mat. If both cards are flipped over, the player may claim a reward at the end of their current turn (see Section 3. Villain Phase), even if the Encounter moves them away from their current location.</p>
 <p>NOTE: It does not matter the order in which you visit the cities nor does it matter if you fail an encounter at those locations.</p>
 <p>The type of encounter a player has will depend on whether there is a Green Location Token, a Yellow Intel Token, or no tokens on the city/ocean space where they end their movement. If a space has more than one token, only one may be encountered per turn.</p>
@@ -472,7 +468,7 @@ details.section.search-hidden { display: none; }
 <p>Draw an Encounter Card from the appropriate deck. For example, if player is on a city in Africa, draw from the Africa deck. The encounter listed under the ‘NO INTEL’ section should be read out to all players. Resolve any tests associated with the encounter as described in ‘Resolving Tests’, below.</p>
 <p>Unless the Encounter Card says otherwise, if players fail an encounter (including being defeated by a Henchman), players must ALWAYS draw a Villain Card and apply the Villain Advancement side of the card, adding the number to Dr. Lobo’s track. These cards stay in play next to Dr. Lobo (the flavor text on the Villain Card adds to the story; read it aloud). If Dr. Lobo’s track ever reaches the number “9,” all players immediately lose.</p>
 <p>Encounters may be also carry additional rewards or penalties, which are listed in italics after the PASS or FAIL text. Details of rewards and penalties can be found in the Appendix (page 14 ).</p>
-<p><strong>Reading Encounters</strong>
+<p><strong>Reading Encounters</strong><br/>
 For added gameplay value, we suggest that a player should not read his/her own encounters unless playing solo. (Then the player can use a card to block off unread areas as he/she reads). Why? The current player should not be able to see the PASS/FAIL results. Also, having another player read your encounter aloud lends to the suspense and cooperative play.</p>
 <span class="label-title">2.2 If players stop on city/ocean with a Yellow Intel Token.</span>
 <p>The player must choose what to do with the token:</p>
@@ -487,15 +483,11 @@ For added gameplay value, we suggest that a player should not read his/her own e
 <p>Players will not read a regular encounter in this case. Flip the token to see which Henchman the player is to encounter. Take that Henchman's Card from next to the board and conduct the Test on his card according to the Henchman's level. If successful against the Henchman, then advance 1 spot on the Location Track. The Henchman then Levels up 1 level. If the Henchman is defeated at Level 3 then players flip his card and remove that Henchman's Green Location Token from the game.</p>
 <p>NOTE: If the Player fails their Test, henchmen do not Level up, and the Villain is advanced in the same way as for a failed Encounter.</p>
 <p>Regardless of whether the encounter with the Henchman was successful or not, remove the Green Location token from the board and shuffle it face down with the others.</p>
-  </div>
-</details>
-<details class="section">
-  <summary><span>3 Villain Phase</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
-  <div class="section-body">
+<span class="subsection-title">3 Villain Phase</span>
 <p>Regardless of the result of the encounter, at the end of each player's turn, draw a Villain Card and read the End Of Turn Event side of the card, adding and removing Intel on the board. Also, be sure to close the Airport indicated on the card when drawing it as an End of Turn Event. As the game advances, Airports close and remain closed for the duration of the game making it more difficult for players to get around. (Note: Airports with RED airplane icons never close for any reason).</p>
 <p>If a player rested during their turn, draw 2 Villain Cards and apply the End of Turn events one after the other.</p>
-<p>IMPORTANT: Intel Overflow. There is a limit to how many Yellow Intel Tokens that can be present on the board:
-1–3 players: Maximum of 5 Yellow Intel Tokens.
+<p>IMPORTANT: Intel Overflow. There is a limit to how many Yellow Intel Tokens that can be present on the board:<br/>
+1–3 players: Maximum of 5 Yellow Intel Tokens.<br/>
 4+ players: Maximum of 4 Yellow Intel Tokens.</p>
 <p>If resolving the Villain End of Turn Event(s) takes the number of Yellow Intel Tokens over that limit, players must remove all Yellow Intel from the board. If there is more than 1 Location Token, remove the excess. There should be no Intel Tokens and 1 Location Token at most left on the board in the event of Intel Overflow.</p>
 <p>If the Player has flipped over both of their Secret Mission Fate cards, they may now claim one of the following rewards: 1 Top Secret Card drawn from the top of the deck, 1 Resolve (or 2 Resolve if playing solo), a UN Transport Token, or up any Basic Skill by 1 (alternatively, a negative Status Card can be discarded as a reward for completing a Secret Mission – see the text on the Status Card for details). Discard the Fate cards and draw two more for a new Secret Mission.</p>
@@ -503,24 +495,17 @@ For added gameplay value, we suggest that a player should not read his/her own e
   </div>
 </details>
 <details class="section">
-  <summary><span>Six Custom Dice</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <summary><span>Resolving Tests</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
   <div class="section-body">
+<span class="subsection-title">Six Custom Dice</span>
 <p>The grey die with yellow icons (the 'YELLOW die') is always in play. It never goes into the draw bag, and you must always roll it. It contains 1 Success (The Gun Symbol), 1 Injury, 1 Heal Injury and 3 Failures (Dr. Lobo's eye symbol). The Injury and Heal Injury sides are also considered failures, but players always receive the consequence (Heal or take an Injury).</p>
 <p>The Dice Bag contains FIVE Dice. Each die has a different ratio of success and failure icons. Become familiar with the different dice as you plot your strategy. The BLACK icon die is best with 4 Successes, but it also has 1 side that gives 2 Injuries. Injuries from dice are received even if you pass the encounter. All symbols other than the Gun are considered failures as far as it concerns passing encounters.</p>
 <p>Players blindly pull a number of dice from the bag determined by their basic skills. As the YELLOW Die never goes into the bag, players will always have at least one die to roll. Players must roll all dice pulled from the bag, including the YELLOW Die. They can't decide to not roll available dice. However, they may choose not to pull their allowed dice from the bag. (Maybe a player is trying to avoid Injuries from dice and decides not to pull more dice).</p>
 <p>The player must choose which Skill they want to test before pulling dice. Although you are not required to do so, you may draw as many dice as allowed from the bag, inspecting each as you draw them, as long as you have enough skill to draw them. For example, if your Test reads as SPYCRAFT +1 and your Base Skill of Spycraft is 0, you may draw 1 die from the bag. If you still don't like your chances, then you may spend a Resolve to add +1 and draw an additional die out of the bag. YOU MUST ROLL ALL DICE DRAWN, INCLUDING THE YELLOW DIE. If you have not spent 1 Resolve to add +1 to your test, you may spend 1 Resolve to reroll 1 die. Unless you have a card or ability that states otherwise, YOU MAY ONLY SPEND MAX 1 RESOLVE PER TURN TO MANIPULATE DICE.</p>
 <p>IMPORTANT: If your Test results in a negative number, you must factor in that negative number when using Resolve or adding +1 in any way to your Test. In other words, if a Test brings your skill level to -2, you must somehow add +3 to be able to pull 1 Die from the bag ([-2]+3=1)</p>
-  </div>
-</details>
-<details class="section">
-  <summary><span>Injuries</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
-  <div class="section-body">
+<span class="subsection-title">Injuries</span>
 <p>Each time you are Injured, take an Injury Token. When you reach Injuries equal to or more than your Life Point Number (# inside the heart on your Character Mat), discard all Injury Tokens and immediately draw a Villain Advancement Card and advance Dr. Lobo's Track. You may then continue as normal even if in the middle of an encounter. Injury status does not affect pass or failure of the encounter.</p>
-  </div>
-</details>
-<details class="section">
-  <summary><span>Gamble Actions</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
-  <div class="section-body">
+<span class="subsection-title">Gamble Actions</span>
 <p>The Fate Deck contains a truncated deck of playing cards. 2s and 3s are not present in the deck, so it is easier to get a good hand. To gamble, players simply deal themselves 5 cards to form a Poker Hand. You may discard 1 card and redraw. If you have the Gambling/Luck Advanced Skill, you may discard and redraw up to 2 cards. If you spend 1 Resolve, you may discard and redraw up to 5 cards. If discarding and redrawing more than one card, all discards and redrews must be made simultaneously, not one card at a time.</p>
 <p>Once your hand is established, the House draws 5 cards, displaying them face up. If you have the better hand, you win. Otherwise you lose and advance Dr. Lobo by drawing a Villain Advancement Card and adjusting his Track.</p>
 <ol>
@@ -535,14 +520,29 @@ For added gameplay value, we suggest that a player should not read his/her own e
 <li>Pair: Two cards of the same index</li>
 <li>High Card: Highest card in your hand</li>
 </ol>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Winning The Game</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
 <ol>
 <li>To bring the endgame, players must have between 3 and 5 (depending on numbers of players, as shown on the Location Track) successful encounters against Henchmen at city locations with Green Location Tokens. Each successful Henchman encounter made in this way allows the players to advance on the Location Track (located on the main board). This track represents the amount of Intelligence gathered on the location of the Villain’s hideout. Once the Location Track is at the required number, the game ends immediately and players flip up Intel located in the Intel Pool. To actually win the game, players must have the necessary symbols of Intel in the Intel Pool matching the symbols at the last location of Dr. Lobo’s pawn on his track. (Players may have Intel in excess of what is needed).</li>
 <li>Players also immediately win if they defeat all 4 Henchmen (Henchmen Cards all flipped), but this scenario is extremely unlikely. In this case, Dr. Lobo’s track is ignored as is the Location Track.</li>
 </ol>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Losing The Game</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
 <ol>
 <li>Players lose immediately once Dr. Lobo’s track reaches “9.”</li>
 <li>If the Players reach the requisite number on the Location Track but do not reveal the correct symbols on the Yellow Intel Tokens in the Intel Pool, they are unable to defeat Dr Lobo and lose the game.</li>
 </ol>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Additional Rules</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
 <p><strong>Resolve.</strong> Each player has a starting number of Resolve. Resolve, depending upon your character, generally allows you either to add 1 Movement, reroll a single die or receive +1 to an Encounter Test. Be careful how you spend it since it is not easy to get back. Adding dice is not always the best option; you may want to roll and see if you can save your Resolve, spending it to reroll one of the dice if necessary. Get familiar with the dice ratios.</p>
 <p><strong>Intel Overflow.</strong> Remember that just because it appears that you are about to go over the Intel Limit, most Villain End of Turn Event Cards remove Intel from the board as well (removal comes before adding Intel). You might get lucky.</p>
 <p><strong>Villain Advancement.</strong> About half of the Villain Advancement Cards add “2” to Dr. Lobo’s track. The other half adds “1,” but there are 2 cards that actually subtract “1” from his track. It is a huge advantage if you can get one of those cards in play. One character starts with the ‘Watch’ Status Card which can be used to watch for this Villain Card. In this case, oddly enough, it may be to that character’s advantage to fail the encounter (a player may choose only to roll the Yellow Die and not draw from the bag). Of course, this will rarely come about.</p>
@@ -556,71 +556,67 @@ For added gameplay value, we suggest that a player should not read his/her own e
   </div>
 </details>
 <details class="section">
-  <summary><span>Fate Card Elements</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <summary><span>Game Elements</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
   <div class="section-body">
-<p>UN Transport Tokens may be used during the Movement Phase to move to or from any city or ocean location on the board, regardless of Airport Status. You may not use them to move into external Regions (such as Japan or Congo) or Island Spaces, but they can be used to move out of these areas. They are favors from the UN. A Transport is dispatched to your location and you are picked up and transported.</p>
 <span class="subsection-title">Fate Card Elements</span>
-<p>A. City Location - For Secret Missions and for when instructed to place Location Tokens at random cities. If you need to determine a random city location, you draw a Fate Card.
-B. No Intel – Used with Encounter Book to determine the final number associated with an encounter (x.x.2). This number is used when No Intel is picked up at your location.
-C. With Intel – Used with Encounter Book to determine the final number associated with an encounter (x.x.4). This number is used when Intel is picked up at your location.
-D. The number in blue is used in ALL Ocean Encounters when using the Book. This number determines the final number of your encounter (x.x.2). It does not matter in ocean spaces if you are picking up Intel. You use this single number.
+<p>UN Transport Tokens may be used during the Movement Phase to move to or from any city or ocean location on the board, regardless of Airport Status. You may not use them to move into external Regions (such as Japan or Congo) or Island Spaces, but they can be used to move out of these areas. They are favors from the UN. A Transport is dispatched to your location and you are picked up and transported.</p>
+<span class="label-title">Fate Card Elements</span>
+<p>A. City Location - For Secret Missions and for when instructed to place Location Tokens at random cities. If you need to determine a random city location, you draw a Fate Card.<br/>
+B. No Intel – Used with Encounter Book to determine the final number associated with an encounter (x.x.2). This number is used when No Intel is picked up at your location.<br/>
+C. With Intel – Used with Encounter Book to determine the final number associated with an encounter (x.x.4). This number is used when Intel is picked up at your location.<br/>
+D. The number in blue is used in ALL Ocean Encounters when using the Book. This number determines the final number of your encounter (x.x.2). It does not matter in ocean spaces if you are picking up Intel. You use this single number.<br/>
 E. Bottom of card is used when Gambling.</p>
-  </div>
-</details>
-<details class="section">
-  <summary><span>Character Mat Elements</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
-  <div class="section-body">
-<p>A. Basic Skills
-B. Secret Missions
-C. Resolve
-D. Special Abilities
-E. Starting Location
+<span class="subsection-title">Character Mat Elements</span>
+<p>A. Basic Skills<br/>
+B. Secret Missions<br/>
+C. Resolve<br/>
+D. Special Abilities<br/>
+E. Starting Location<br/>
 F. Life Points</p>
-  </div>
-</details>
-<details class="section">
-  <summary><span>Explanation Of Game Decks</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
-  <div class="section-body">
-<span class="subsection-title">Fate Deck</span>
+<span class="subsection-title">Explanation Of Game Decks</span>
+<span class="label-title">Fate Deck</span>
 <p>The Fate Deck is used for random determinations such as setting your Secret Mission city locations or placement of Location Tokens on the map. The three numbers under the city location are used only with The Book of Encounters to help determine which encounter to read. The bottom part of the card is used when Gambling.</p>
-<span class="subsection-title">Villain Deck</span>
+<span class="label-title">Villain Deck</span>
 <p>There are two parts to the Villain Deck: the “End of Turn Event” side and the Villain Advancement side. The “End of Turn Event” side is always applied at the end of every player’s turn. The Villain Advancement side is only applied when a player fails an encounter or if their Life Points is reduced to 0.</p>
-<span class="subsection-title">Top Secret Deck</span>
+<span class="label-title">Top Secret Deck</span>
 <p>These cards are sometimes awarded by encounters. You may also draw a Top Secret Card as your reward for finishing a Secret Mission. This deck contains powerful cards to help players defeat Dr. Lobo.</p>
-<span class="subsection-title">Encounter Deck Core Game</span>
+<span class="label-title">Encounter Deck Core Game</span>
 <p>These have encounters written directly on the cards.</p>
-<span class="subsection-title">Book Encounter Deck</span>
+<span class="label-title">Book Encounter Deck</span>
 <p>These cards are used when using The Book of Encounters. They have a small Book Icon on the back of the card to differentiate them from the Core Game Encounter Deck.</p>
-<span class="subsection-title">Status Deck</span>
+<span class="label-title">Status Deck</span>
 <p>These are awarded only by encounters or during Set Up. They bring into play gadgets, abilities, or 3rd persons that both help and hinder the players. In the rare event that you are rewarded a Status card and there are no copies available, you may either receive 1 Resolve or draw a Top Secret Card instead.</p>
-<span class="subsection-title">The Book Of Encounters</span>
+<span class="label-title">The Book Of Encounters</span>
 <p>Playing with <em>The Book of Encounters</em> is optional but adds a lot of replay to your game. Inside are more than 1,600 additional encounters! The Book also allows players to choose from a Reaction Group – they are given choices to certain situations. Players also use a different Encounter Deck – it has the same backside as the Game Encounter Deck except there is a book icon added and only 5 different decks make up the Book Encounter Deck (instead of 6). The missing 6th Deck for Book Encounters is handled differently; for Ocean Encounters, players look on the backside of the Reaction Group Card and roll a D6 to obtain their encounter type, number and Reaction Group.</p>
 <p>Note: You may mix the Game Encounter Deck and the Book Encounter Deck for more varied play. It is your choice.</p>
 <p>The Book Encounter Deck has 3 pieces of information – the challenge, the action and the first number of the encounter. The challenge may be, for example, a <strong>Daring Infiltration</strong>. Then, the player will be directed to choose a response from a <strong>Reaction Group (A-J)</strong>. The Reaction Groups and their responses are listed on a separate card. They also can be found in The Book of Encounters. Further instructions on use can also be found in the Book.</p>
   </div>
 </details>
 <details class="section">
-  <summary><span>5 Player Variant</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <summary><span>Variants</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
   <div class="section-body">
+<span class="subsection-title">5 Player Variant</span>
 <p>SMERSH can be played with 5 players, but downtime may then become an issue for some. To play with 5 players, every character will need to adjust his/her starting Resolve down by 1 (Except for Rocko). All other rules are the same as if you are playing a 4-player game. We do not advise you playing with 6. But if you do, adjust everyone's starting Resolve down by 2 (Rocko's down by 1).</p>
-  </div>
-</details>
-<details class="section">
-  <summary><span>For An Easier Game</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
-  <div class="section-body">
+<span class="subsection-title">For An Easier Game</span>
 <p>If you find the game too difficult, there are things you can do to make the game easier. In a 3- or 4-player game, you can start each player with (additional to setup) either a Top Secret Card or a UN Transport Token. In a 2-player game, start each player with a Top Secret Card in conjunction with 2 UN Tokens. In a Solo game, start all Henchmen at Level 1.</p>
+<span class="subsection-title">For A Real Challenge (Dirty Intel Challenge)</span>
+<p>Start Dr. Lobo at 2 on his Track. Or alternatively, increase the number of Location Tokens needed to bring on the endgame by 1 (in a 3 player game you would need to reach 6 on the Location Track).</p>
   </div>
 </details>
 <details class="section">
-  <summary><span>For A Real Challenge (Dirty Intel Challenge)</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <summary><span>Hints And Tips</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
   <div class="section-body">
-<p>Start Dr. Lobo at 2 on his Track. Or alternatively, increase the number of Location Tokens needed to bring on the endgame by 1 (in a 3 player game you would need to reach 6 on the Location Track).</p>
 <ol>
 <li>In most cases, drawing a Top Secret Card as your reward for finishing a Secret Mission is your best option. In some cases, you may want to take a different reward, especially if you have a character with particular special abilities. For example, Calli can give her UN Tokens to other players even when it is not her turn.</li>
 <li>Keep an eye on Intel Overflow. It may seem a minor consequence at first, but it can prolong the game and give Dr. Lobo a better chance of advancing to 9 on his track. It can severely impact play in a negative way.</li>
 <li>Some encounters may offer you two alternatives with one of them offering Tests for 2 Successes. Be careful with this option. More dice also can mean more Injuries, and it is much harder to get 2 Successes than it is to get 1. Sometimes, though, the 2nd option may be your only viable option.</li>
 <li>Spend UN Tokens wisely. They become more important toward the end of the game when you can’t get around and you really need to do so quickly.</li>
 </ol>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Frequently Asked Questions</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
 <span class="label-title">1. What do I do if I run out Intel from Supply and need to place another Intel on the Board?</span>
 <p>If you need to place new Intel on the board and the supply is empty, remove Intel from the Intel Pool to add to the Board. Also, in this case, if you are instructed by a paragraph to add Intel to the Intel Pool and Supply is empty, then you are out of luck.</p>
 <span class="label-title">1.1 When an End of Turn event removes Intel from the board, does it remove all Intel from that region?</span>
@@ -646,63 +642,57 @@ F. Life Points</p>
   </div>
 </details>
 <details class="section">
-  <summary><span>Rewards and Penalties Explained</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <summary><span>Appendix</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
   <div class="section-body">
-<p>1 or 2 Intel ............................................................... Take either 1 or 2 Intel from Supply and place it face down in Pool. Do not look at the Intel unless it is already flipped up.
-Top Secret ............................................................... Draw a Top Secret Card.
-1 or 2 Resolve ............................................................... If possible, increase your Resolve by 1 or 2.<em>
-Up Any Skill ............................................................... Raise any one of the five skills on your Character Mat by 1.</em>
-Up (Basic Skill) ............................................................... Raise the specified skill by 1, if possible.
-UN Transport ............................................................... Gain a UN Transport Token.
-Flip Up 1 or 2 Intel In Pool................................. If available, flip face up 1 or 2 Intel Tokens in Intel Pool.
-Flip Up 1 or 2 Intel Anywhere ......... Flip face up 1 or 2 Intel Tokens in either Pool, Map or Supply. Tokens flipped up remain flipped up the remainder of the game even if returned to Supply.
-Do Not Advance Villain ................................. If you fail an encounter, this instructs you not to draw a Villain Advancement Card.
-Advanced Skill ............................................................... Take an Advanced Skill of your choice.
-(Specific) Skill............................................................... Take the named Advanced Skill, if available.
-Lose 1 or 2 Intel from Pool................................ If available, remove 1 or 2 Intel from Pool. Do not look at the Intel unless it is already flipped up.
-1 or 2 Injuries ............................................................... Player is injured. Take 1 or 2 Injury Tokens.
-Lower (Basic Skill)............................................................... Reduce by 1, if possible, the specified skill.<em>
-V-1 ......................................................................................... Shuffle any Villain Advancement Cards in play on Dr. Lobo. Randomly remove 1 and discard. Adjust Dr. Lobo's track.
-Named Status Card (e.g. Revoked, Cool Agent, The Small Man) ......... Take the appropriate card and follow the instructions.
+<span class="subsection-title">Rewards and Penalties Explained</span>
+<p>1 or 2 Intel ............................................................... Take either 1 or 2 Intel from Supply and place it face down in Pool. Do not look at the Intel unless it is already flipped up.<br/>
+Top Secret ............................................................... Draw a Top Secret Card.<br/>
+1 or 2 Resolve ............................................................... If possible, increase your Resolve by 1 or 2.<em><br/>
+Up Any Skill ............................................................... Raise any one of the five skills on your Character Mat by 1.</em><br/>
+Up (Basic Skill) ............................................................... Raise the specified skill by 1, if possible.<br/>
+UN Transport ............................................................... Gain a UN Transport Token.<br/>
+Flip Up 1 or 2 Intel In Pool................................. If available, flip face up 1 or 2 Intel Tokens in Intel Pool.<br/>
+Flip Up 1 or 2 Intel Anywhere ......... Flip face up 1 or 2 Intel Tokens in either Pool, Map or Supply. Tokens flipped up remain flipped up the remainder of the game even if returned to Supply.<br/>
+Do Not Advance Villain ................................. If you fail an encounter, this instructs you not to draw a Villain Advancement Card.<br/>
+Advanced Skill ............................................................... Take an Advanced Skill of your choice.<br/>
+(Specific) Skill............................................................... Take the named Advanced Skill, if available.<br/>
+Lose 1 or 2 Intel from Pool................................ If available, remove 1 or 2 Intel from Pool. Do not look at the Intel unless it is already flipped up.<br/>
+1 or 2 Injuries ............................................................... Player is injured. Take 1 or 2 Injury Tokens.<br/>
+Lower (Basic Skill)............................................................... Reduce by 1, if possible, the specified skill.<em><br/>
+V-1 ......................................................................................... Shuffle any Villain Advancement Cards in play on Dr. Lobo. Randomly remove 1 and discard. Adjust Dr. Lobo's track.<br/>
+Named Status Card (e.g. Revoked, Cool Agent, The Small Man) ......... Take the appropriate card and follow the instructions.<br/>
 </em>No Basic Skill or Resolve may be increased or decreased beyond the limits shown on the Character Mat.</p>
   </div>
 </details>
 <details class="section">
-  <summary><span>I. Movement Phase</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <summary><span>Quick Reference Guide</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
   <div class="section-body">
-<p><strong>A. Rest (No Movement)</strong> – You may only rest if you have at least 2 Injuries. When you rest, you do not move your player token nor do you have an encounter. You may only Heal 2 Injuries. Then you skip to the Villain Phase, drawing 2 cards , resolving each End of Turn Event.
+<span class="subsection-title">I. Movement Phase</span>
+<p><strong>A. Rest (No Movement)</strong> – You may only rest if you have at least 2 Injuries. When you rest, you do not move your player token nor do you have an encounter. You may only Heal 2 Injuries. Then you skip to the Villain Phase, drawing 2 cards , resolving each End of Turn Event.<br/>
 <strong>B. Move Token</strong> – Default Movement is up to 2 Movement Points. It takes 1 Movement Point to travel a connecting line space between cities or ocean. If you move into the ocean, you must always stop Movement and forego excess Movement points.</p>
 <ol>
 <li>Movement via Train – In the Soviet Union when moving from a city with a Train Icon, you may spend 1 Movement Point to move to any other city with a Train Icon.</li>
 <li>Movement via Plane – You must start your movement on a city with an open Airport. Movement to another city with an open airport constitutes your entire Movement no matter how many Movement Points you began with. However, you may spend 1 Resolve to regain 1 Movement Point after traveling via Plane.</li>
 </ol>
-  </div>
-</details>
-<details class="section">
-  <summary><span>II. Encounter Phase</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
-  <div class="section-body">
-<p><strong>A. Draw Encounter</strong> – Draw an Encounter Card from the appropriate Deck. When playing with the Book of Encounters and you are in the Ocean, you will refer to the chart on the back of the Reaction Group Sheet to receive your encounter.
-<strong>B. Have Another Player Read Your Encounter Aloud But Not Read The Pass/Fail Consequences To You</strong> – If playing solo, you may use a card to hide the Pass/Fail consequences. When confronting Henchmen, the Pass/Fail consequences are visible to everyone.
+<span class="subsection-title">II. Encounter Phase</span>
+<p><strong>A. Draw Encounter</strong> – Draw an Encounter Card from the appropriate Deck. When playing with the Book of Encounters and you are in the Ocean, you will refer to the chart on the back of the Reaction Group Sheet to receive your encounter.<br/>
+<strong>B. Have Another Player Read Your Encounter Aloud But Not Read The Pass/Fail Consequences To You</strong> – If playing solo, you may use a card to hide the Pass/Fail consequences. When confronting Henchmen, the Pass/Fail consequences are visible to everyone.<br/>
 <strong>C. Resolve Encounter (see Rulebook)</strong> – If you fail the encounter, you always draw a Villain Advancement Card UNLESS the encounter instructs you not to do so.</p>
-  </div>
-</details>
-<details class="section">
-  <summary><span>III. Villain Phase</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
-  <div class="section-body">
-<p><strong>A. Draw Villain Card</strong> – Resolve the End of Turn Event Side Only, first removing Intel as instructed and then adding Intel and Closing an Airport.
+<span class="subsection-title">III. Villain Phase</span>
+<p><strong>A. Draw Villain Card</strong> – Resolve the End of Turn Event Side Only, first removing Intel as instructed and then adding Intel and Closing an Airport.<br/>
 <strong>B. Check For Intel Overflow</strong> – If there is Intel Overflow, remove all Yellow Intel Tokens from map as well as all Location Tokens in excess of 1. There should only be, at most, 1 Location Token on the Board. Overflow happens at 6 or more in a 1-3 Player Game. It happens at 5 or more in a 4 Player Game.</p>
-<span class="subsection-title">Resolve</span>
+<span class="label-title">Resolve</span>
 <ul>
 <li>Add +1 to any test roll (this may be after pulling dice from the bag, but must be BEFORE the dice are rolled)</li>
 <li>Reroll a single die (if you have not already used Resolve to add +1 to the test)</li>
 <li>Move 1 additional space on board – cannot use to move extra space after moving into ocean but can use to move 1 space after flying</li>
 <li>Exchange any number of cards when gambling</li>
 </ul>
-<span class="subsection-title">Setup</span>
-<p>3-4 Players: Add Nothing To The Board.
-2 Players: Add 2 Intel To Board At Random Locations
+<span class="label-title">Setup</span>
+<p>3-4 Players: Add Nothing To The Board.<br/>
+2 Players: Add 2 Intel To Board At Random Locations<br/>
 1 Player: Add 3 Intel To Board At Random Locations.</p>
-<span class="subsection-title">Other Tips</span>
+<span class="label-title">Other Tips</span>
 <ul>
 <li>Players must roll available dice but they do not have to pull dice from bag.</li>
 <li>Players can stay (choose not to move) when on a city or ocean location but they must move if in a Regional Area (Congo, Japan, etc.) or on an Island.</li>
@@ -726,8 +716,6 @@ Named Status Card (e.g. Revoked, Cool Agent, The Small Man) ......... Take the a
   var allMarks = [];
   var currentMark = -1;
 
-  // Snapshot each section body's original HTML so we can restore it
-  // before applying a new round of highlights.
   sections.forEach(function (s) {
     var body = s.querySelector('.section-body');
     if (body) body.dataset.original = body.innerHTML;
@@ -801,7 +789,6 @@ Named Status Card (e.g. Revoked, Cool Agent, The Small Man) ......... Take the a
       var body    = section.querySelector('.section-body');
       var summary = section.querySelector('summary');
 
-      // Restore original HTML before each search pass
       if (body) body.innerHTML = body.dataset.original;
 
       if (!re) {

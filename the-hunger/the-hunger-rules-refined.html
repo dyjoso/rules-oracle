@@ -153,6 +153,7 @@ body {
 mark { background: #ffe066; color: #1a1a1a; border-radius: 2px; padding: 0 1px; }
 mark.active { background: #ff9500; color: #fff; }
 
+/* ── MATCH NAVIGATION ────────────────────────────────────── */
 .match-nav {
   display: none;
   align-items: center;
@@ -348,14 +349,6 @@ code {
 /* ── HR ──────────────────────────────────────────────────── */
 hr { border: none; border-top: 1px solid var(--rule); margin: 8px 0; }
 
-/* ── SEARCH HIGHLIGHT ────────────────────────────────────── */
-mark {
-  background: #ffe566;
-  color: inherit;
-  border-radius: 2px;
-  padding: 0 1px;
-}
-
 /* ── HIDDEN SECTIONS ─────────────────────────────────────── */
 details.section.search-hidden { display: none; }
 
@@ -442,8 +435,8 @@ details.section.search-hidden { display: none; }
 <ol>
 <li>Place the game board (Rookie: Side A; Elder: Side B) in the middle of the table and the Hunt Track to the right. Assemble the Hunt Track based on the number of players: You must have 1 more row than the number of players (ex: 4 rows in a 3-player game).</li>
 <li>Each player chooses a Vampire and takes their sheet, starting deck, Vampire token and Score token, which they place on the "0" space of the Score Track.</li>
-<li>Shuffle the Hunt cards (without the Roses) and place them face down to create a Hunt deck near the Hunt Track.
-      <strong>ROOKIE MODE:</strong> This option allows beginners to start with more Vampire Powers and Familiars for the first two turns. Gather the Human, Familiar and Power cards marked 'A'. Shuffle them and take 2 + 2 per player, setting them aside without looking at them. Shuffle the rest of the cards back into the deck, and put the cards that were set aside on top of the deck.</li>
+<li>Shuffle the Hunt cards (without the Roses) and place them face down to create a Hunt deck near the Hunt Track.<br/>
+<strong>ROOKIE MODE:</strong> This option allows beginners to start with more Vampire Powers and Familiars for the first two turns. Gather the Human, Familiar and Power cards marked 'A'. Shuffle them and take 2 + 2 per player, setting them aside without looking at them. Shuffle the rest of the cards back into the deck, and put the cards that were set aside on top of the deck.</li>
 </ol>
 <span class="subsection-title">Organizing the Board</span>
 <ol start="4">
@@ -451,10 +444,10 @@ details.section.search-hidden { display: none; }
 <li>Place the 3 Rose cards face up on the Labyrinth.</li>
 <li>Draw 3 cards from the Hunt deck (from bottom on Rookie mode) and place them face down on the Tavern without looking at them.</li>
 <li>Place the Moon token on the first space of the Turn Track.</li>
-<li>Place Castle tokens on the Castle depending on the number of players:
-      2-players &gt; 10/6
-      3-players &gt; 10/6/4
-      4-players &gt; 10/8/6/4
+<li>Place Castle tokens on the Castle depending on the number of players:<br/>
+      2-players &gt; 10/6<br/>
+      3-players &gt; 10/6/4<br/>
+      4-players &gt; 10/8/6/4<br/>
       5/6-players &gt; 10/8/6/4/2</li>
 </ol>
 <span class="subsection-title">Prepare the Missions</span>
@@ -481,20 +474,20 @@ details.section.search-hidden { display: none; }
 <p>For the first turn, the order is determined by the Vampires' Speeds (see Setup). <strong>Stack the Vampire tokens on the Castle</strong> with the first player on top and the last one on the bottom.</p>
 <p>In later turns, it's always the <strong>Vampire on their active side furthest from the Castle</strong> who plays first.</p>
 <p>When you finish your turn, flip your Vampire token face down (to the "resting" side) to avoid any confusion.</p>
-<p>Active
+<p>Active<br/>
 Resting</p>
 <blockquote>
-<p><strong>TURN ORDER PRIORITY PER REGION:</strong>
-If the Vampires are not in the same region:
-*   Vampires in the Forest play first,
-*   then Vampires on the Plains
-*   then Vampires in the Mountains,
+<p><strong>TURN ORDER PRIORITY PER REGION:</strong><br/>
+If the Vampires are not in the same region:<br/>
+*   Vampires in the Forest play first,<br/>
+*   then Vampires on the Plains<br/>
+*   then Vampires in the Mountains,<br/>
 *   and finally Vampires in the Cemetery.</p>
-<p><strong>TURN ORDER PRIORITY IN THE SAME REGION:</strong>
-If several Vampires are in the same region, they take turns depending on the path they are on:
-*   Vampires on the Road play first,
-*   Then Vampires on the Railroad,
-*   and finally Vampires on the Boat path.
+<p><strong>TURN ORDER PRIORITY IN THE SAME REGION:</strong><br/>
+If several Vampires are in the same region, they take turns depending on the path they are on:<br/>
+*   Vampires on the Road play first,<br/>
+*   Then Vampires on the Railroad,<br/>
+*   and finally Vampires on the Boat path.<br/>
 If several Vampires are in the same region and on the same path, the Vampires closest to the Labyrinth play first.</p>
 <p><strong>A Vampire whose token is on top of another Vampire plays first.</strong></p>
 </blockquote>
@@ -505,15 +498,15 @@ If several Vampires are in the same region and on the same path, the Vampires cl
 <blockquote>
 <p><strong>Beware!</strong> If the Moon token is on the '15' space you are playing your last turn.</p>
 </blockquote>
-<p><strong>Your turn is divided into 3 steps:</strong>
-1- Activate your discard/draw effects
+<p><strong>Your turn is divided into 3 steps:</strong><br/>
+1- Activate your discard/draw effects<br/>
 2- Calculate your Speed and spend it to</p>
 <pre><code>  *   Move your Vampire
   *   and/or Hunt one time
 </code></pre>
 <p>3- End of turn</p>
 <span class="subsection-title">1. ACTIVATE YOUR DISCARD/DRAW EFFECTS</span>
-<p>Discard effect
+<p>Discard effect<br/>
 Draw effect</p>
 <p>You must always activate your discard and draw effects before doing anything else.</p>
 <p>You can activate them in any order to optimize your play. You must complete all of each card effect before activating the next one.</p>
@@ -627,19 +620,19 @@ Draw effect</p>
 <p>Add Victory Points from cards with an End of the Game effect.</p>
 <p>Hunters give you as many as you have Humans of the same type (including themselves).</p>
 <p>The Wolf Echo gives you as many as you have Wolves (including himself).</p>
-<p><strong>Cyrana</strong>
+<p><strong>Cyrana</strong><br/>
 Gain 1 at the end of the game if you have Roxane.</p>
-<p><strong>Veres</strong>
+<p><strong>Veres</strong><br/>
 Gain 1 at the end of the game for each you have hunted.</p>
-<p><strong>Echo</strong>
+<p><strong>Echo</strong><br/>
 Ready. Permanent. Gain 1 at the end of the game for each Wolf you have.</p>
 <span class="subsection-title">Mission Scoring</span>
-<p>• Each player gains the points shown on the Public Missions if they met their requirements.
-• Each player reveals their own Missions and scores them.
-Note: Majority Missions require you to have more than each of the other Vampires, not equal to any of them.
+<p>• Each player gains the points shown on the Public Missions if they met their requirements.<br/>
+• Each player reveals their own Missions and scores them.<br/>
+Note: Majority Missions require you to have more than each of the other Vampires, not equal to any of them.<br/>
 If you reach 100 Victory Points, flip your Score token to the 100 side and start over from 0.</p>
 <span class="subsection-title">Winner</span>
-<p>• The Vampire with the most Victory Points wins the game.
+<p>• The Vampire with the most Victory Points wins the game.<br/>
 • In case of a tie, the tied Vampire who got to the Castle first or is the closest to the Castle (if none of them got there) wins the game.</p>
   </div>
 </details>
@@ -725,8 +718,6 @@ If you reach 100 Victory Points, flip your Score token to the 100 side and start
   var allMarks = [];
   var currentMark = -1;
 
-  // Snapshot each section body's original HTML so we can restore it
-  // before applying a new round of highlights.
   sections.forEach(function (s) {
     var body = s.querySelector('.section-body');
     if (body) body.dataset.original = body.innerHTML;
@@ -800,7 +791,6 @@ If you reach 100 Victory Points, flip your Score token to the 100 side and start
       var body    = section.querySelector('.section-body');
       var summary = section.querySelector('summary');
 
-      // Restore original HTML before each search pass
       if (body) body.innerHTML = body.dataset.original;
 
       if (!re) {

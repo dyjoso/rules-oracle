@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Unstoppable — Rules Reference</title>
+<style>
+:root {
+  --bg:            #f2ede6;
+  --text:          #1a1a1a;
+  --header-bg:     #2f3481;
+  --section-bg:    #2f3481;
+  --subsection-bg: #8d2dbf;
+  --rule:          #b0a898;
+  --accent:        #8d2dbf;
+  --table-head:    #2f3481;
+  --note-bg:       #e8e0d4;
+  --body-bg:       #ffffff;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 15px;
+  line-height: 1.55;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* ── STICKY HEADER ───────────────────────────────────────── */
+.sticky-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--header-bg);
+  padding: 10px 14px 12px;
+  padding-top: max(10px, env(safe-area-inset-top));
+  padding-left: max(14px, env(safe-area-inset-left));
+  padding-right: max(14px, env(safe-area-inset-right));
+  box-shadow: 0 2px 12px rgba(0,0,0,0.4);
+}
+
+.masthead-row {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 9px;
+}
+
+.masthead-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  line-height: 1.1;
+  flex-shrink: 0;
+}
+
+.masthead-subtitle {
+  font-size: 11px;
+  color: rgba(255,255,255,0.45);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.back-link {
+  margin-left: auto;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+  text-decoration: none;
+  flex-shrink: 0;
+  padding-left: 14px;
+  white-space: nowrap;
+}
+.back-link:hover {
+  color: rgba(255,255,255,0.85);
+}
+
+/* ── TOGGLE + BACK ROW ───────────────────────────────────── */
+.toggle-back-row {
+  display: flex;
+  align-items: center;
+  margin-top: 7px;
+}
+
+.search-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-icon {
+  position: absolute;
+  left: 10px;
+  width: 15px;
+  height: 15px;
+  color: rgba(255,255,255,0.4);
+  pointer-events: none;
+  flex-shrink: 0;
+}
+
+#search {
+  width: 100%;
+  padding: 8px 36px 8px 32px;
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 8px;
+  font-size: 15px;
+  background: rgba(255,255,255,0.12);
+  color: #fff;
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+#search::placeholder { color: rgba(255,255,255,0.38); }
+
+#search:focus {
+  background: rgba(255,255,255,0.2);
+  border-color: rgba(255,255,255,0.3);
+}
+
+.search-clear {
+  position: absolute;
+  right: 6px;
+  background: rgba(255,255,255,0.18);
+  border: none;
+  border-radius: 50%;
+  color: rgba(255,255,255,0.8);
+  font-size: 14px;
+  line-height: 1;
+  width: 22px;
+  height: 22px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  flex-shrink: 0;
+}
+
+.search-clear.visible { display: flex; }
+
+mark { background: #ffe066; color: #1a1a1a; border-radius: 2px; padding: 0 1px; }
+mark.active { background: #ff9500; color: #fff; }
+
+/* ── MATCH NAVIGATION ────────────────────────────────────── */
+.match-nav {
+  display: none;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 0 0;
+}
+.match-nav.visible { display: flex; }
+.match-count {
+  color: rgba(255,255,255,0.65);
+  font-size: 13px;
+  flex: 1;
+  text-align: center;
+}
+.match-btn {
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 6px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 15px;
+  line-height: 1;
+  padding: 6px 14px;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+.match-btn:active { background: rgba(255,255,255,0.25); }
+
+/* ── MAIN ────────────────────────────────────────────────── */
+main {
+  padding: 10px 12px 48px;
+  padding-left: max(12px, env(safe-area-inset-left));
+  padding-right: max(12px, env(safe-area-inset-right));
+  padding-bottom: max(48px, env(safe-area-inset-bottom));
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+/* ── NO RESULTS ──────────────────────────────────────────── */
+#no-results {
+  display: none;
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--text);
+  opacity: 0.5;
+  font-size: 14px;
+}
+
+/* ── COLLAPSIBLE SECTIONS ────────────────────────────────── */
+details.section {
+  margin-bottom: 6px;
+  border-radius: 6px;
+  overflow: hidden;
+  scroll-margin-top: 130px;
+}
+
+details.section > summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  min-height: 44px;
+  background: var(--section-bg);
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  list-style: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+details.section > summary::-webkit-details-marker { display: none; }
+
+.chevron {
+  width: 12px;
+  height: 12px;
+  opacity: 0.65;
+  flex-shrink: 0;
+  margin-left: 8px;
+  transition: transform 0.18s ease;
+}
+
+details.section[open] > summary .chevron {
+  transform: rotate(90deg);
+}
+
+.section-body {
+  background: var(--body-bg);
+  padding: 10px 12px 12px;
+  border: 1px solid var(--rule);
+  border-top: none;
+  border-radius: 0 0 6px 6px;
+}
+
+/* ── HEADINGS WITHIN SECTIONS ────────────────────────────── */
+.subsection-title {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: #fff;
+  background: var(--subsection-bg);
+  padding: 4px 12px;
+  margin: 10px -12px 7px;
+}
+
+.label-title {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--section-bg);
+  border-bottom: 1.5px solid var(--rule);
+  padding-bottom: 3px;
+  margin: 10px 0 5px;
+}
+
+.inline-title {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 8px 0 3px;
+}
+
+/* ── BODY TEXT ───────────────────────────────────────────── */
+p { margin-bottom: 7px; }
+b, strong { font-weight: 600; }
+em, i { font-style: italic; }
+
+/* ── LISTS ───────────────────────────────────────────────── */
+ul, ol { padding-left: 20px; margin-bottom: 6px; }
+ul { list-style-type: disc; }
+ol { list-style-type: decimal; }
+ul ul { list-style-type: circle; }
+li { margin-bottom: 3px; }
+li > ul, li > ol { margin-top: 2px; margin-bottom: 0; }
+
+/* ── TABLES ──────────────────────────────────────────────── */
+.table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin-bottom: 6px;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  min-width: 260px;
+}
+thead tr { background: var(--table-head); color: white; }
+thead th {
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  padding: 5px 8px;
+  text-align: left;
+  white-space: nowrap;
+}
+tbody tr:nth-child(even) { background: var(--note-bg); }
+tbody td { padding: 5px 8px; vertical-align: top; }
+
+/* ── BLOCKQUOTE ──────────────────────────────────────────── */
+blockquote {
+  background: var(--note-bg);
+  border-left: 3px solid var(--accent);
+  padding: 6px 10px;
+  margin: 5px 0 7px;
+  font-size: 14px;
+  border-radius: 0 4px 4px 0;
+}
+blockquote p { margin-bottom: 2px; }
+
+/* ── INLINE CODE ─────────────────────────────────────────── */
+code {
+  background: var(--note-bg);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  padding: 1px 4px;
+  font-size: 13px;
+  font-family: inherit;
+  font-weight: 600;
+}
+
+/* ── HR ──────────────────────────────────────────────────── */
+hr { border: none; border-top: 1px solid var(--rule); margin: 8px 0; }
+
+/* ── HIDDEN SECTIONS ─────────────────────────────────────── */
+details.section.search-hidden { display: none; }
+
+/* ── VERSION TOGGLE ──────────────────────────────────────── */
+.toggle-bar {
+  display: inline-flex;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.2);
+}
+.toggle-current,
+.toggle-other {
+  padding: 6px 14px;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  line-height: 1;
+  text-decoration: none;
+  white-space: nowrap;
+  -webkit-tap-highlight-color: transparent;
+}
+.toggle-current {
+  background: rgba(255,255,255,0.18);
+  color: #ffffff;
+  font-weight: 600;
+  cursor: default;
+}
+.toggle-other {
+  color: rgba(255,255,255,0.5);
+}
+.toggle-other:hover {
+  background: rgba(255,255,255,0.08);
+  color: rgba(255,255,255,0.8);
+}
+
+/* ── PRINT ───────────────────────────────────────────────── */
+@media print {
+  .sticky-header { position: static; }
+  details.section[open], details.section { display: block; }
+  .section-body { display: block !important; }
+  .search-wrap, .search-clear, .toggle-bar, .match-nav { display: none; }
+}
+</style>
+</head>
+<body>
+<header class="sticky-header">
+  <div class="masthead-row">
+    <span class="masthead-title">Unstoppable</span>
+    <span class="masthead-subtitle">Rules Reference</span>
+  </div>
+  <div class="toggle-back-row"><div class="toggle-bar"><span class="toggle-current">Quick Reference</span><a class="toggle-other" href="unstoppable-rules-refined.html">Full Rules</a></div><a class="back-link" href="../index.html">&#8592; All Games</a></div>
+  <div class="search-wrap">
+    <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+         stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+         aria-hidden="true">
+      <circle cx="11" cy="11" r="8"/>
+      <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+    </svg>
+    <input type="text" id="search" placeholder="Search rules…"
+           autocomplete="off" spellcheck="false" autocorrect="off">
+    <button class="search-clear" id="search-clear" aria-label="Clear search">&#x2715;</button>
+  </div>
+  <div class="match-nav" id="match-nav">
+    <button class="match-btn" id="match-prev" aria-label="Previous match">↑</button>
+    <span class="match-count" id="match-count"></span>
+    <button class="match-btn" id="match-next" aria-label="Next match">↓</button>
+  </div>
+</header>
+<main>
+<details class="section" open>
+  <summary><span>Setup</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Pre-Game Preparation</span>
+<p>Before your first play, you will need to do some initial preparation by putting cards into the provided sleeves. These sleeves streamline the gameplay and enable the game's unique card-crafting system. The tables in the following sections will guide you. Some cards begin each game in sleeves by themselves, while others are sleeved in pairs. Pairs of cards should always be sleeved back to back, so that their fronts face outward. The only cards that should not be sleeved during this process are the 100 non-starting core cards and the 36 upgrade cards.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th style="text-align: left;">TYPE</th>
+<th style="text-align: left;">CORE SIDE</th>
+<th style="text-align: left;">THREAT SIDE</th>
+<th style="text-align: left;">QUANTITY</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Starting Cards</strong></td>
+<td style="text-align: left;">Strike</td>
+<td style="text-align: left;">Ceresan Thief</td>
+<td style="text-align: left;">12x</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Spare Credits</td>
+<td style="text-align: left;">Virenian Doe</td>
+<td style="text-align: left;">2x</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Character Cards</strong><br/>(level 0 in bottom right corner)</td>
+<td style="text-align: left;">[Character Card A]</td>
+<td style="text-align: left;">Backalley Blademaster</td>
+<td style="text-align: left;">4x</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">[Character Card B]</td>
+<td style="text-align: left;">Sporeling</td>
+<td style="text-align: left;">4x</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">[Character Card C]</td>
+<td style="text-align: left;">Junker Cyclist</td>
+<td style="text-align: left;">4x</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Threat Cards*</strong></td>
+<td style="text-align: left;">N/A</td>
+<td style="text-align: left;">Ceres II Threats</td>
+<td style="text-align: left;">13x</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">N/A</td>
+<td style="text-align: left;">Virenos Threats</td>
+<td style="text-align: left;">13x</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">N/A</td>
+<td style="text-align: left;">Mithras Threats</td>
+<td style="text-align: left;">13x</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Boss Cards</strong></td>
+<td style="text-align: left;">N/A</td>
+<td style="text-align: left;">Boss Cards #00–22</td>
+<td style="text-align: left;">23x</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">N/A</td>
+<td style="text-align: left;">Order Acolyte</td>
+<td style="text-align: left;">5x</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">N/A</td>
+<td style="text-align: left;">Order Archivist</td>
+<td style="text-align: left;">5x</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">N/A</td>
+<td style="text-align: left;">Triumvirate Informant</td>
+<td style="text-align: left;">4x</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">N/A</td>
+<td style="text-align: left;">Triumvirate Stronghold</td>
+<td style="text-align: left;">3x</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">N/A</td>
+<td style="text-align: left;">Triumvirate Enforcer</td>
+<td style="text-align: left;">3x</td>
+</tr>
+</tbody>
+</table></div>
+<p><em>Note: These sleeves begin with the threat card only. A core card will be added to the other side of the sleeve during gameplay.</em></p>
+<span class="subsection-title">Common Setup</span>
+<ol>
+<li>Core Decks: Divide the 100 unsleeved core cards into 6 decks by level number. Shuffle each deck individually. Place these decks in a face-up row on the table, arranged left to right in ascending order.</li>
+<li>Upgrade Deck: Shuffle the 36 unsleeved upgrade cards into a single deck. Place this deck face down on the table. Reveal the top 6 cards of the deck and place them in a face-up row next to the deck. Note: These cards have 2 different cutouts, but they should still be shuffled together.</li>
+<li>Token Supply: Create a supply with the credit tokens and damage tokens, sorted by type and denomination.</li>
+</ol>
+<span class="subsection-title">Player Setup</span>
+<ol>
+<li>Player Mat: Collect a player mat, health marker, and armor marker. Place the player mat in front of you. Set the markers at 10 on the health track and 0 on the armor track.</li>
+<li>Character Portrait: Choose a character by finding their portrait card and placing it in the portrait space on your player mat.</li>
+<li>Character Deck: Construct your 10-card character deck. Each card consists of a sleeve with 2 starting cards, sleeved back to back. Your character cards are listed on the back of your portrait card. Shuffle the constructed deck and place it in the deck space on your player mat, threat side up. This deck contains 6x Strike / Ceresan Thief, 1x Spare Credits / Virenian Doe, 1x Character Card A / Backalley Blademaster, 1x Character Card B / Sporeling, and 1x Character Card C / Junker Cyclist.</li>
+<li>Starting Hand: Draw 3 cards from your deck. Hold these cards in your hand so that you are viewing the core side, not the threat side.</li>
+<li>Battlefield: Take 3 cards from your deck. Place these cards in a row next to your deck, threat side up.</li>
+<li>Starting Credits: Take credit tokens with a total value of 3 credits from the supply. Place them in the credits space on your player mat.</li>
+<li>Action Point Discs: Find the 6 action point discs of your chosen player color. Place 3 of them in the action points space on your player mat. Set the other 3 aside for now.</li>
+<li>Level Discs: Find the 2 level discs of your chosen player color and stack them together above the level-1 core deck.</li>
+</ol>
+<span class="subsection-title">Boss Setup</span>
+<ol>
+<li>
+<p>Boss Mat: Choose a boss by placing its boss mat in play, then following all setup steps on the back side of the mat. Note: The recommended boss for your first play is the Harbinger.<br>
+   a. Boss Deck: Find the boss cards that match the chosen boss. Construct the boss deck according to the setup steps listed on the back side of the boss mat.<br/>
+   b. Threat Deck: Construct the threat deck according to the setup steps listed on the back side of the boss mat. Place the shuffled threat deck next to the core decks, threat side down.</br></p>
+</li>
+<li>
+<p>Danger Marker: Find the danger marker and place it on the first 0 space of the danger track on the boss mat.</p>
+</li>
+<li>Difficulty Level: Choose a difficulty level: NORMAL, HARD, or EXPERT. This will determine how quickly the danger marker advances during play.</li>
+</ol>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Game Components & Anatomy</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Core Cards</span>
+<p>There are 4 different card types: cores, threats, upgrades, and boss. Most sleeved cards consist of 1 core, 1 threat, and up to 2 upgrades. Boss cards are only one card per sleeve and cannot be upgraded.</p>
+<ol>
+<li>Cost: This value indicates the number of action points required to play the card. Remove that many action point discs from your player mat.</li>
+<li>Faction: This indicates which faction the card belongs to. Many game effects and keywords are linked to these faction types.</li>
+<li>Type: This label indicates whether the card is a tactic or an ally. Tactics are discarded after use, while allies remain in play.</li>
+<li>Effects: This is where the card's effects appear. Some cards have a single effect, while some have multiple effects.</li>
+<li>Level: This value indicates which core deck the card comes from (1–6). Character cards and starting cards are level-0 core cards.</li>
+</ol>
+<p>Cores make up the front side of sleeved cards. They represent the powers, resources, and support available to you.</p>
+<p>Shadowy Confidant<br/>
+ALLY<br/>
+Lose 2, then draw 1 card from the bottom of your deck.<br/>
+Conspire: 2<br/>
+(Conspire: Requires another card of this faction in hand or in play.)</p>
+<span class="subsection-title">Threat Cards</span>
+<p>Threats make up the back side of sleeved cards. They represent the strange monsters and deadly foes that you will face on the field of battle.</p>
+<ol>
+<li>Attack: This value indicates how much damage the threat will deal to you each turn when in play.</li>
+<li>Defense: This value is added to the attack value to determine the total health of the threat. You must deal damage to a threat equal to its health to defeat it.</li>
+<li>Bonus: This text indicates a bonus that you gain when you defeat the threat. Not all threats have a bonus.</li>
+<li>Keyword: This text indicates a keyword that applies to the threat. Not all threats have a keyword.</li>
+</ol>
+<p>Junker Cyclist<br/>
+VEHICLE<br/>
+When Defeated:<br/>
+1<br/>
+FAST</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Game Objective</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Victory Conditions</span>
+<p>The goal of Unstoppable is to defeat the boss, a world-ending menace that threatens the very way of life in your star system. Each boss works differently, and will say on its boss mat how to defeat it. Many bosses require you to deal Boss Damage, a special kind of damage that can only be found on certain cards. You win the game if you defeat the boss.</p>
+<span class="subsection-title">Defeat Conditions</span>
+<p>You lose the game if your health is reduced to zero. You also lose the game if the danger level reaches the maximum danger space.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Turn Structure & Phases</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Turn Overview</span>
+<p>The game takes place over a series of turns. Each turn is broken into 5 phases that are performed in order.</p>
+<span class="subsection-title">A. Upkeep Phase</span>
+<ol>
+<li>Place 3 action point discs in the action points space on your player mat. Those action points are available to be spent in the Main Phase.</li>
+<li>Refresh all exhausted ally cards in play by rotating them back upright. Those ally cards are available to be exhausted in the Main Phase.</li>
+<li>Resolve all active effects that trigger during the Upkeep Phase.</li>
+</ol>
+<span class="subsection-title">B. Draft Phase</span>
+<p>The Draft Phase is when you draft a new card and add it to your hand based on the current position of your level discs.</p>
+<ol>
+<li>Find the core deck where your small level disc is located.</li>
+<li>Draw the top 3 cards of that core deck. Keep 1 of those cards and return the other 2 to the bottom of the same deck.</li>
+<li>Take the top card of the threat deck, without viewing the threat side, and put your chosen core card into the same sleeve.</li>
+<li>Add the newly drafted card to your hand with the core side facing you.</li>
+<li>Reset your small level disc back to where your large level disc is located and stack them together again.</li>
+</ol>
+<p>Note: Both level discs advance permanently when you level up, and your small level disc advances temporarily when you train. Note: You can only look at the threat side of a card while it is an active or on-deck threat.</p>
+<span class="subsection-title">C. Main Phase</span>
+<p>The Main Phase is when you can play cards, exhaust allies, and buy upgrades. You may take these actions any number of times, and in any order, as long as you have the cards, credits, and action points required to do so. The phase ends when you cannot, or choose not to, take any more actions. Each action must be resolved fully before you can take another.</p>
+<span class="subsection-title">D. Threat Phase</span>
+<p>The Threat Phase is when you take damage from the active threats. All threat cards currently on the battlefield in front of you are active threats. This does not include the top card of your deck, which is the on-deck threat. It is possible for there to be no active threats. The amount of damage dealt by each active threat is equal to its attack value. If the card has upgrades on it, any attack value present on the threat side of those upgrades is added to the threat's attack value. For each damage you are dealt, move the armor marker down 1 space on your armor track. If the armor marker reaches zero, move the health marker down 1 space on your health track for each remaining damage. If the health marker reaches zero, you lose immediately! Note: Each active threat always deals damage equal to its attack value. The damage it has taken does not affect the damage it deals to you.</p>
+<span class="subsection-title">E. Cleanup Phase</span>
+<ol>
+<li>Discard all tactic cards from play. Put them in your discard pile.</li>
+<li>Remove all remaining action point discs from your player mat. Unspent action points cannot be saved for later.</li>
+<li>Reset the armor marker to zero on the armor track on your player mat.</li>
+<li>Add new threats to the battlefield until it is refilled to 3 active threats. To add a new threat to the battlefield, move the threat from the top of your deck to the battlefield. The threat that is now revealed on top of your deck becomes the new on-deck threat. If adding new threats empties your deck, level up immediately, then resume adding new threats until there are 3 active threats.</li>
+<li>Advance the danger marker 1 space on the danger track on the boss mat. If the danger marker reaches the skull icon space, you lose immediately!</li>
+</ol>
+<span class="subsection-title">Event Resolution</span>
+<p>An event is a mandatory game effect. Events are usually triggered by attacking or defeating a threat. When triggered, an event must be resolved immediately, even if it interrupts the resolution of another effect. After resolving the event, continue with the resolution of the effect that triggered it. Events include triggering keywords, defeating threats, and leveling up.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Actions & Card Play</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Playing Cards</span>
+<p>To play a card from hand, you must spend action points equal to its cost. Remove that many action point discs from your player mat. When you play a card, put it in front of you, core side up, and resolve its effects. Some cards have a single effect, while others have multiple. If the card has any upgrades, those may add further effects that trigger when played. You may resolve the effects, including those from upgrades, in any order. Effects that you cannot resolve, or choose not to, are forfeited.</p>
+<span class="subsection-title">Tactic Cards</span>
+<p>Tactics are cards with one-time effects. Once played, a tactic card remains in play until the Cleanup Phase of the same turn and is then discarded.</p>
+<span class="subsection-title">Ally Cards &amp; Exhausting</span>
+<p>Allies are cards with repeatable effects. Once played, an ally card remains in play until the next time you level up and is then discarded. To exhaust an ally in play, rotate the card 90 degrees clockwise. Exhausting an ally is separate from playing it. You may only exhaust allies that are in play. When you exhaust an ally, resolve the effects that follow the exhaust icon. Most allies have only 1 exhaust icon, but some have multiple. For an ally with multiple exhaust icons, you must choose only 1 to use for its effects. If the card has any upgrades, those may add further effects that trigger when exhausted. You may resolve the effects, including those from upgrades, in any order. Effects that you cannot resolve, or choose not to, are forfeited. Once an ally has been exhausted, it cannot be exhausted again until it is refreshed during the next Cleanup Phase, or by another card effect.</p>
+<span class="subsection-title">Buying Upgrades</span>
+<p>To buy an upgrade, you must spend credits equal to its cost. Return that amount of credits from your player mat to the supply. Then add the upgrade to any tactic card or ally card in your hand or in play by sliding it into the center of the sleeve between core and threat. Each card can have up to 2 upgrades: 1 top and 1 bottom. Some upgrades have a requirement of either a tactic card or ally card. Once you have sleeved the upgrade, refill the empty slot in the market with another upgrade revealed from the upgrade deck.</p>
+<span class="subsection-title">Defeating Threats</span>
+<p>You may deal damage to any active threats or the on-deck threat by playing cards and exhausting allies. Damage dealt to threats persists between turns and can be tracked with damage tokens. When a threat has taken damage equal to or greater than its health, you have defeated it. The health of each threat is the sum of its attack and defense values. Before resolving any bonus, draw the defeated threat and add it to your hand. Flip the card over and rotate it so that you are viewing the core side. Defeating threats is the primary way to draw cards in Unstoppable!</p>
+<span class="subsection-title">On-Deck Threats</span>
+<p>The top card of your deck is the on-deck threat. You can deal damage to this threat while it is still on top of your deck. But pay attention, because the threat keywords Fast and Taunt apply when the threat is on deck. Many threats have a bonus that triggers when defeated. These bonuses are mandatory and resolve immediately.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Keywords & Icons</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Faction Keywords</span>
+<p>Many cards have effects that are represented by faction keywords. These faction keywords have conditions or variables that are linked to the faction types of the cards in your hand and/or in play. Consider all cards in your hand and in your play area when evaluating a faction keyword. A faction keyword is displayed on a card in bolded text followed by a colon and the remainder of the effect.</p>
+<p>Bargain effects, which are optional, are always followed by a number. This is how many credits you must spend to use it. The cost is reduced by 1 for each card of the same faction as this card in your hand and/or in play (including itself). Costs cannot be reduced below zero.</p>
+<p>Conspire effects, which are mandatory, trigger if there is at least 1 other card of the same faction as this card in your hand or in play. These effects do not scale upward with the number of other cards of the same faction.</p>
+<p>Focus effects, which are mandatory, refer to an X value. The value of X is equal to the number of cards of the same faction as this card in your hand and/or in play (including itself). X is always at least 1 for any card that has a faction type.</p>
+<p>Unite effects, which are mandatory, refer to an X value. The value of X is equal to the number of unique factions present among the cards in your hand and/or in play (including itself). X is always at least 1 for any card that has a faction type. There are 4 factions now, but future releases could introduce more.</p>
+<p>Some factionless cards, like the starting cards, have no faction type. These cards are ignored by faction keywords. If a factionless card receives an upgrade with a faction type, the card does not gain the faction type. If a factionless card receives an upgrade with a faction keyword, the linked effect of the faction keyword might still resolve. For Bargain, the effect still resolves but the cost cannot be reduced. For Conspire, the effect cannot resolve because the card is factionless. For Focus, the effect cannot resolve because the card is factionless. For Unite, the effect still resolves based on your other cards.</p>
+<span class="subsection-title">Threat Keywords</span>
+<p>Many cards have effects that are represented by threat keywords. Some threat keywords are passive effects that apply at all times while the threat is active, while others are effects that trigger in specific circumstances.</p>
+<p>Crazed threats become reckless when they sense desperation. When a Crazed threat is revealed for any reason, compare your current health value to the Crazed X value. If your current health value is equal to or lower than X, the Crazed threat deals itself 2 damage.</p>
+<p>Fast threats overrun the battlefield with their speed. Fast threats do not count toward the limit of 3 active threats. During the Cleanup Phase, you must continue adding threats until there are 3 non-Fast threats on the battlefield and a non-Fast threat on top of your deck.</p>
+<p>Rage threats wreak havoc on your allies. During the Threat Phase, for each Rage threat on the battlefield, you must discard 1 ally from play and put it in your discard pile. Both available allies and exhausted allies can be discarded this way by Rage threats.</p>
+<p>Taunt threats command your attention. When at least 1 Taunt threat is on the battlefield or on top of your deck, you must target a Taunt threat with any damage effect unless stated otherwise. This restriction does not apply to non-damage effects.</p>
+<p>Terror threats drain your steely resolve. When you target a Terror threat with an effect that deals damage, you lose 1 action point. If you have no action points left, the effect still resolves but the loss is ignored. This restriction does not apply to non-damage effects.</p>
+<p>Multiple instances of the same keyword can stack on a single threat. For the Crazed, Rage, and Terror keywords, the effect resolves once for each instance when triggered. For the Fast and Taunt keywords, multiple instances have no effect.</p>
+<span class="subsection-title">Core Icons</span>
+<p>Many cards use effect icons as shorthand for important game effects. These effect icons are explained in detail below.</p>
+<p>Deal X damage: If this damage does not defeat the target threat, take X damage tokens from the supply and place them on the threat to track it. You may target any active threat or the on-deck threat. All damage from each instance of this icon must be dealt to a single threat.</p>
+<p>Gain X credits: Take X credit tokens from the supply and place them in the credits space on your player mat. If the supply runs out, use any suitable substitute.</p>
+<p>Gain X action points: Place X action point discs on your player mat. You cannot have more than 6 action points. If you gain action points when at the maximum, nothing happens.</p>
+<p>Gain X health: Move the health marker up X spaces on your health track. You cannot have more than 10 health. If you gain health when at the maximum, nothing happens.</p>
+<p>Gain X armor: Move the armor marker up X spaces on your armor track. You cannot have more than 10 armor. If you gain armor when at the maximum, nothing happens.</p>
+<p>Train 1 level: Advance your small level disc 1 level, from its current level to the next level. If your small level disc is already at the 6th level, nothing happens.</p>
+<p>Eliminate 1 card: Choose 1 card in your hand, in your discard pile, or in play. Return that card to the box; it will not be used again for the remainder of the game.</p>
+<p>Level X+: This text indicates an effect that only resolves if your large level disc is Level X or higher. Many character cards have effects like this.</p>
+<span class="subsection-title">Threat Icons</span>
+<p>Attack Value: This value is how much damage the threat deals to you during the Threat Phase if active. The health of each threat is its attack value + defense value.</p>
+<p>Defense Value: This value is how much extra damage you must deal to the threat to defeat it. The health of each threat is its attack value + defense value.</p>
+<p>Danger Level: This icon represents the current danger level. The danger level is the number in the danger marker's space of the danger track on the boss mat.</p>
+<span class="subsection-title">Boss Icons</span>
+<p>Boss Damage: Some bosses must be dealt a certain amount of boss damage. The ways you can deal boss damage are specified on their boss mat and/or boss cards.</p>
+<p>Card Elimination: When the danger marker reaches this space, you may spend 1 credit to eliminate 1 card in your hand, in your discard pile, or in play.</p>
+<p>Market Cycle: When the danger marker reaches this space, you may move any number of upgrades from the market to the bottom of the deck, then refill the market.</p>
+<p>Normal Difficulty: If you are playing on Normal difficulty, skip all spaces with a green border when the danger marker advances.</p>
+<p>Hard Difficulty: If you are playing on Hard difficulty, skip all spaces with a yellow border when the danger marker advances.</p>
+<p>Expert Difficulty: If you are playing on Expert difficulty, skip all spaces with a red border when the danger marker advances.</p>
+<p>Maximum Danger: If the danger marker reaches this space on the danger track, you lose!</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Leveling Up</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">When to Level Up</span>
+<p>Leveling up is an event, so the game pauses temporarily while you complete the process. You level up in one of two ways. You level up in the Main Phase if your deck is empty and there are no active threats. When this occurs mid-effect, interrupt the effect to level up, then resume the effect even if its card is no longer in play. You level up in the Cleanup Phase if your deck is empty and a new threat must be added. Complete the process of leveling up, then resume adding new threats until the battlefield is refilled to 3 active threats.</p>
+<span class="subsection-title">Leveling Up Process</span>
+<p>When you level up, resolve these 5 steps in order.</p>
+<ol>
+<li>Advance both level discs 1 space to the right above the row of core decks. Each disc advances 1 space even if they are above different decks.</li>
+<li>Discard all tactic cards and ally cards from play and discard down to 3 cards in hand. Put the discarded cards in your discard pile.</li>
+<li>Optionally eliminate any 1 card in your hand or in your discard pile. Return that card to the box; it will not be used again for the remainder of the game.</li>
+<li>Resolve any boss-specific effects that trigger when you level up. These effects, if any, are printed on the boss mat.</li>
+<li>Reshuffle all cards in your discard pile. Place the shuffled cards in the deck space on your player mat, threat side up.</li>
+</ol>
+  </div>
+</details>
+<details class="section">
+  <summary><span>2-Player Mode</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Setup Changes</span>
+<p>In the 2-player mode, each player controls a separate character, and they must work together to defeat the boss. For the most part, players play as they would in a solo game, however, players share the ability to damage threats in either player's battlefield, meaning players can help each other draw cards. Syncing up with your ally on when to kill threats and how to efficiently allocate your damage will be key. Common setup and boss setup remain the same, but each player performs player setup individually for their chosen character and color.</p>
+<span class="subsection-title">Objective Changes</span>
+<p>The players still must defeat the boss, who is usually twice as difficult. The players lose if either player's health is reduced to zero or if the danger level reaches the maximum danger space.</p>
+<span class="subsection-title">Turn Sequence Adjustments</span>
+<p>Observe the following changes to the turn sequence. During the Upkeep Phase, the players complete this phase simultaneously. During the Draft Phase, the players complete this phase simultaneously. If they are drafting from the same core deck, they decide together who drafts first. They may discuss which card each player should draft. During the Main Phase, the players may take actions in any order, as long as each action is resolved fully before either player takes another. It might be useful for the players to take alternating actions, but this is not required. During the Threat Phase, the players complete this phase simultaneously. Each player is only dealt damage by the threats on their own battlefield. During the Cleanup Phase, the players complete this phase simultaneously. The danger marker only advances 1 space total.</p>
+<span class="subsection-title">Clarifications &amp; Interactions</span>
+<p>The players may target each other's threats with damage and other effects that target threats. This applies to active threats and on-deck threats. The Taunt keyword only applies to the battlefield with the Taunt threat. If Player A has a Taunt threat on their battlefield and Player B does not, neither player can target any of Player A's threats except the Taunt threat, but both players can target Player B's threats without restriction. A defeated threat is added to the hand of the player whose battlefield it came from. If Player A defeats one of Player B's threats, Player B adds the card to their hand, even though they did not defeat it. Any when defeated bonus of a threat goes to the player who defeats the threat. Even if Player A takes a threat down to 1 health, Player B gets the bonus if they deal the killing blow. Players may still only affect themselves with health, armor, credits, action points, and any other effects that affect players.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Scoring & Achievements</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Base Scoring</span>
+<p>If you wish to assess the quality of your victory you can use these rules to determine a score. Note, you only score if you win. Please consider sharing your scores with what hero vs. which boss on Boardgamegeek.com or on Renegade's social media! You gain +100 for a win on normal level, +200 for hard, and +300 for expert. You gain +10 per round remaining before loss (for example, if you win with 0 rounds to spare, you get +0 bonus points). You also gain points equal to your remaining life.</p>
+<span class="subsection-title">Achievement Bonuses</span>
+<p>You can gain additional points for noteworthy accomplishments. Importantly, on the turn in which you win, you may play out the remainder of that turn to the extent possible and desired, in order to try to hit these achievements, but you may not take extra turns. You gain +10 for Power Within if you used the same card in an infinite loop 4 times in a single turn, forcing you to eliminate it. You gain +10 for Transhumanist at the end of the game if every non-boss, non-starting card you own has at least 1 upgrade. You gain +10 for Time to Retire at the end of the game if you have 15+ credits. You gain +10 for Coalition Leader at the end of the game if you own at least 2 cards of each of the 4 factions. You gain +50 for Become Unstoppable! After achieving the win, you keep playing that same turn and finish your level at time of victory AND another level beyond that all in the same turn (you may go beyond level 6 if necessary).</p>
+  </div>
+</details>
+  <p id="no-results">No sections match your search.</p>
+</main>
+<script>
+(function () {
+  var searchEl  = document.getElementById('search');
+  var clearBtn  = document.getElementById('search-clear');
+  var noResults = document.getElementById('no-results');
+  var sections  = Array.from(document.querySelectorAll('details.section'));
+  var matchNav   = document.getElementById('match-nav');
+  var matchCount = document.getElementById('match-count');
+  var matchPrev  = document.getElementById('match-prev');
+  var matchNext  = document.getElementById('match-next');
+
+  var allMarks = [];
+  var currentMark = -1;
+
+  sections.forEach(function (s) {
+    var body = s.querySelector('.section-body');
+    if (body) body.dataset.original = body.innerHTML;
+  });
+
+  var timer;
+
+  searchEl.addEventListener('input', function () {
+    var term = this.value.trim();
+    clearBtn.classList.toggle('visible', term.length > 0);
+    clearTimeout(timer);
+    timer = setTimeout(function () { applySearch(term); }, 180);
+  });
+
+  clearBtn.addEventListener('click', function () {
+    searchEl.value = '';
+    clearBtn.classList.remove('visible');
+    applySearch('');
+    searchEl.focus();
+  });
+
+  matchPrev.addEventListener('click', function () {
+    if (allMarks.length === 0) return;
+    navigateTo((currentMark - 1 + allMarks.length) % allMarks.length);
+  });
+
+  matchNext.addEventListener('click', function () {
+    if (allMarks.length === 0) return;
+    navigateTo((currentMark + 1) % allMarks.length);
+  });
+
+  function navigateTo(index) {
+    if (allMarks[currentMark]) allMarks[currentMark].classList.remove('active');
+    currentMark = index;
+    var mark = allMarks[currentMark];
+    mark.classList.add('active');
+    mark.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    matchCount.textContent = (currentMark + 1) + ' of ' + allMarks.length;
+  }
+
+  function escapeRe(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlightTextNodes(container, re) {
+    var walker = document.createTreeWalker(
+      container, NodeFilter.SHOW_TEXT, null, false
+    );
+    var nodes = [];
+    var n;
+    while ((n = walker.nextNode())) {
+      if (n.nodeValue.trim()) nodes.push(n);
+    }
+    nodes.forEach(function (textNode) {
+      re.lastIndex = 0;
+      if (!re.test(textNode.nodeValue)) return;
+      re.lastIndex = 0;
+      var span = document.createElement('span');
+      span.innerHTML = textNode.nodeValue.replace(
+        re, function (m) { return '<mark>' + m + '</mark>'; }
+      );
+      textNode.parentNode.replaceChild(span, textNode);
+    });
+  }
+
+  function applySearch(term) {
+    var re = term ? new RegExp(escapeRe(term), 'gi') : null;
+    var visibleCount = 0;
+
+    sections.forEach(function (section) {
+      var body    = section.querySelector('.section-body');
+      var summary = section.querySelector('summary');
+
+      if (body) body.innerHTML = body.dataset.original;
+
+      if (!re) {
+        section.classList.remove('search-hidden');
+        section.open = false;
+        return;
+      }
+
+      var titleText = summary ? summary.textContent : '';
+      var bodyText  = body    ? body.textContent    : '';
+
+      re.lastIndex = 0;
+      var inTitle = re.test(titleText);
+      re.lastIndex = 0;
+      var inBody  = re.test(bodyText);
+      re.lastIndex = 0;
+
+      if (inTitle || inBody) {
+        section.classList.remove('search-hidden');
+        section.open = true;
+        if (body) highlightTextNodes(body, new RegExp(escapeRe(term), 'gi'));
+        visibleCount++;
+      } else {
+        section.classList.add('search-hidden');
+      }
+    });
+
+    noResults.style.display = (re && visibleCount === 0) ? 'block' : 'none';
+
+    allMarks = Array.from(document.querySelectorAll('mark'));
+    currentMark = -1;
+
+    if (allMarks.length > 0) {
+      matchNav.classList.add('visible');
+      navigateTo(0);
+    } else {
+      matchNav.classList.remove('visible');
+      matchCount.textContent = '';
+    }
+  }
+})();
+</script>
+</body>
+</html>

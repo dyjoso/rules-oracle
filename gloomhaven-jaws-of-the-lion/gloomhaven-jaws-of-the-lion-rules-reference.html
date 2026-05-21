@@ -1,0 +1,1084 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Gloomhaven - Jaws of the Lion — Rules Reference</title>
+<style>
+:root {
+  --bg:            #f2ede6;
+  --text:          #1a1a1a;
+  --header-bg:     #476192;
+  --section-bg:    #476192;
+  --subsection-bg: #997a63;
+  --rule:          #b0a898;
+  --accent:        #997a63;
+  --table-head:    #476192;
+  --note-bg:       #e8e0d4;
+  --body-bg:       #ffffff;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 15px;
+  line-height: 1.55;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* ── STICKY HEADER ───────────────────────────────────────── */
+.sticky-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--header-bg);
+  padding: 10px 14px 12px;
+  padding-top: max(10px, env(safe-area-inset-top));
+  padding-left: max(14px, env(safe-area-inset-left));
+  padding-right: max(14px, env(safe-area-inset-right));
+  box-shadow: 0 2px 12px rgba(0,0,0,0.4);
+}
+
+.masthead-row {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 9px;
+}
+
+.masthead-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  line-height: 1.1;
+  flex-shrink: 0;
+}
+
+.masthead-subtitle {
+  font-size: 11px;
+  color: rgba(255,255,255,0.45);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.back-link {
+  margin-left: auto;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+  text-decoration: none;
+  flex-shrink: 0;
+  padding-left: 14px;
+  white-space: nowrap;
+}
+.back-link:hover {
+  color: rgba(255,255,255,0.85);
+}
+
+/* ── TOGGLE + BACK ROW ───────────────────────────────────── */
+.toggle-back-row {
+  display: flex;
+  align-items: center;
+  margin-top: 7px;
+}
+
+.search-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-icon {
+  position: absolute;
+  left: 10px;
+  width: 15px;
+  height: 15px;
+  color: rgba(255,255,255,0.4);
+  pointer-events: none;
+  flex-shrink: 0;
+}
+
+#search {
+  width: 100%;
+  padding: 8px 36px 8px 32px;
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 8px;
+  font-size: 15px;
+  background: rgba(255,255,255,0.12);
+  color: #fff;
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+#search::placeholder { color: rgba(255,255,255,0.38); }
+
+#search:focus {
+  background: rgba(255,255,255,0.2);
+  border-color: rgba(255,255,255,0.3);
+}
+
+.search-clear {
+  position: absolute;
+  right: 6px;
+  background: rgba(255,255,255,0.18);
+  border: none;
+  border-radius: 50%;
+  color: rgba(255,255,255,0.8);
+  font-size: 14px;
+  line-height: 1;
+  width: 22px;
+  height: 22px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  flex-shrink: 0;
+}
+
+.search-clear.visible { display: flex; }
+
+mark { background: #ffe066; color: #1a1a1a; border-radius: 2px; padding: 0 1px; }
+mark.active { background: #ff9500; color: #fff; }
+
+/* ── MATCH NAVIGATION ────────────────────────────────────── */
+.match-nav {
+  display: none;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 0 0;
+}
+.match-nav.visible { display: flex; }
+.match-count {
+  color: rgba(255,255,255,0.65);
+  font-size: 13px;
+  flex: 1;
+  text-align: center;
+}
+.match-btn {
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 6px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 15px;
+  line-height: 1;
+  padding: 6px 14px;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+.match-btn:active { background: rgba(255,255,255,0.25); }
+
+/* ── MAIN ────────────────────────────────────────────────── */
+main {
+  padding: 10px 12px 48px;
+  padding-left: max(12px, env(safe-area-inset-left));
+  padding-right: max(12px, env(safe-area-inset-right));
+  padding-bottom: max(48px, env(safe-area-inset-bottom));
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+/* ── NO RESULTS ──────────────────────────────────────────── */
+#no-results {
+  display: none;
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--text);
+  opacity: 0.5;
+  font-size: 14px;
+}
+
+/* ── COLLAPSIBLE SECTIONS ────────────────────────────────── */
+details.section {
+  margin-bottom: 6px;
+  border-radius: 6px;
+  overflow: hidden;
+  scroll-margin-top: 130px;
+}
+
+details.section > summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  min-height: 44px;
+  background: var(--section-bg);
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  list-style: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+details.section > summary::-webkit-details-marker { display: none; }
+
+.chevron {
+  width: 12px;
+  height: 12px;
+  opacity: 0.65;
+  flex-shrink: 0;
+  margin-left: 8px;
+  transition: transform 0.18s ease;
+}
+
+details.section[open] > summary .chevron {
+  transform: rotate(90deg);
+}
+
+.section-body {
+  background: var(--body-bg);
+  padding: 10px 12px 12px;
+  border: 1px solid var(--rule);
+  border-top: none;
+  border-radius: 0 0 6px 6px;
+}
+
+/* ── HEADINGS WITHIN SECTIONS ────────────────────────────── */
+.subsection-title {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: #fff;
+  background: var(--subsection-bg);
+  padding: 4px 12px;
+  margin: 10px -12px 7px;
+}
+
+.label-title {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--section-bg);
+  border-bottom: 1.5px solid var(--rule);
+  padding-bottom: 3px;
+  margin: 10px 0 5px;
+}
+
+.inline-title {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 8px 0 3px;
+}
+
+/* ── BODY TEXT ───────────────────────────────────────────── */
+p { margin-bottom: 7px; }
+b, strong { font-weight: 600; }
+em, i { font-style: italic; }
+
+/* ── LISTS ───────────────────────────────────────────────── */
+ul, ol { padding-left: 20px; margin-bottom: 6px; }
+ul { list-style-type: disc; }
+ol { list-style-type: decimal; }
+ul ul { list-style-type: circle; }
+li { margin-bottom: 3px; }
+li > ul, li > ol { margin-top: 2px; margin-bottom: 0; }
+
+/* ── TABLES ──────────────────────────────────────────────── */
+.table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin-bottom: 6px;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  min-width: 260px;
+}
+thead tr { background: var(--table-head); color: white; }
+thead th {
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  padding: 5px 8px;
+  text-align: left;
+  white-space: nowrap;
+}
+tbody tr:nth-child(even) { background: var(--note-bg); }
+tbody td { padding: 5px 8px; vertical-align: top; }
+
+/* ── BLOCKQUOTE ──────────────────────────────────────────── */
+blockquote {
+  background: var(--note-bg);
+  border-left: 3px solid var(--accent);
+  padding: 6px 10px;
+  margin: 5px 0 7px;
+  font-size: 14px;
+  border-radius: 0 4px 4px 0;
+}
+blockquote p { margin-bottom: 2px; }
+
+/* ── INLINE CODE ─────────────────────────────────────────── */
+code {
+  background: var(--note-bg);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  padding: 1px 4px;
+  font-size: 13px;
+  font-family: inherit;
+  font-weight: 600;
+}
+
+/* ── HR ──────────────────────────────────────────────────── */
+hr { border: none; border-top: 1px solid var(--rule); margin: 8px 0; }
+
+/* ── HIDDEN SECTIONS ─────────────────────────────────────── */
+details.section.search-hidden { display: none; }
+
+/* ── VERSION TOGGLE ──────────────────────────────────────── */
+.toggle-bar {
+  display: inline-flex;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.2);
+}
+.toggle-current,
+.toggle-other {
+  padding: 6px 14px;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  line-height: 1;
+  text-decoration: none;
+  white-space: nowrap;
+  -webkit-tap-highlight-color: transparent;
+}
+.toggle-current {
+  background: rgba(255,255,255,0.18);
+  color: #ffffff;
+  font-weight: 600;
+  cursor: default;
+}
+.toggle-other {
+  color: rgba(255,255,255,0.5);
+}
+.toggle-other:hover {
+  background: rgba(255,255,255,0.08);
+  color: rgba(255,255,255,0.8);
+}
+
+/* ── PRINT ───────────────────────────────────────────────── */
+@media print {
+  .sticky-header { position: static; }
+  details.section[open], details.section { display: block; }
+  .section-body { display: block !important; }
+  .search-wrap, .search-clear, .toggle-bar, .match-nav { display: none; }
+}
+</style>
+</head>
+<body>
+<header class="sticky-header">
+  <div class="masthead-row">
+    <span class="masthead-title">Gloomhaven - Jaws of the Lion</span>
+    <span class="masthead-subtitle">Rules Reference</span>
+  </div>
+  <div class="toggle-back-row"><div class="toggle-bar"><span class="toggle-current">Quick Reference</span><a class="toggle-other" href="gloomhaven-jaws-of-the-lion-rules-refined.html">Full Rules</a></div><a class="back-link" href="../index.html">&#8592; All Games</a></div>
+  <div class="search-wrap">
+    <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+         stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+         aria-hidden="true">
+      <circle cx="11" cy="11" r="8"/>
+      <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+    </svg>
+    <input type="text" id="search" placeholder="Search rules…"
+           autocomplete="off" spellcheck="false" autocorrect="off">
+    <button class="search-clear" id="search-clear" aria-label="Clear search">&#x2715;</button>
+  </div>
+  <div class="match-nav" id="match-nav">
+    <button class="match-btn" id="match-prev" aria-label="Previous match">↑</button>
+    <span class="match-count" id="match-count"></span>
+    <button class="match-btn" id="match-next" aria-label="Next match">↓</button>
+  </div>
+</header>
+<main>
+<hr/>
+<details class="section">
+  <summary><span>1. Setup</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">1.1 Character Setup <em>(Campaign Start Only)</em></span>
+<p>There are four characters available: the <strong>Demolitionist</strong>, the <strong>Red Guard</strong>, the <strong>Hatchet</strong>, and the <strong>Voidwarden</strong>. Up to four players may each control one character. If you are playing alone, you will control two separate characters, which is a more complex experience; if there are two to four players, it is highly recommended that each player controls only a single character.</p>
+<p>To set up your character, find the large and small boxes for your chosen character. Claim the character's <strong>figure</strong> and <strong>mat</strong>, the rectangular <strong>initiative order token</strong> from the character's zip bag, a <strong>hit point dial</strong> from the game box, the <strong>attack modifier deck</strong> (the deck of smaller cards bearing no warning label), and the first seven cards from the larger deck bearing no warning label. Of those seven cards, one is a <strong>player reference card</strong> and six are <strong>ability cards</strong> marked with an "A" in the crown under the title. The two decks with warning labels, the remainder of the large deck, the character sheet pad, and the strip of circular character tokens should remain in the box for now.</p>
+<p>Place your character mat, player reference, six level "A" ability cards, attack modifier deck, and hit point dial in front of you. Set the red side of the hit point dial to the red number shown below the white "1" on the bottom of your character mat. The blue side of the dial is not used at this time. Place your initiative order token near the centre of the table.</p>
+<p>Before beginning the campaign, each player takes one <strong>character sheet</strong> from their character's large box, writes a name in the name field, and marks the "1" next to "Level."</p>
+<span class="subsection-title">1.2 Scenario Setup Checklist</span>
+<p>Perform the following steps before each scenario. Steps marked with a campaign note apply only from that point in the campaign onward.</p>
+<ol>
+<li>
+<p>Open the <strong>Scenario Book</strong> to the correct scenario and place it in the middle of the table. Read the introduction text and special rules before playing.</p>
+</li>
+<li>
+<p>Consult the <strong>scenario key</strong> for the monsters and tokens required.</p>
+</li>
+<li>
+<p>Place each character's <strong>figure</strong> on a different starting hex icon in the Scenario Book, with no two characters on the same hex.</p>
+</li>
+<li>
+<p>Retrieve each required <strong>monster set</strong>: insert the stat card into a stat envelope with the correct level showing; place the standees into plastic stands with their numbers randomised; retrieve the initiative order token. Populate the map by consulting the rank indicator on each monster hex — use the row for the current player count (2, 3, or 4 characters). A <strong>black icon</strong> means no monster is placed; a <strong>white icon</strong> means place a <strong>normal monster</strong> (white stand); a <strong>gold icon</strong> means place an <strong>elite monster</strong> (gold stand). Set up only the monsters in the starting room; do not place monsters in unrevealed rooms.</p>
+</li>
+<li>
+<p>Place <strong>money tokens</strong>, <strong>trap tiles</strong> (with the appropriate number of damage tokens on top), and <strong>treasure tiles</strong> on the hexes depicted in the scenario.</p>
+</li>
+<li>
+<p>Retrieve the shared <strong>monster attack modifier deck</strong> (the 20-card "M" deck), place it next to the monster stat card, and shuffle it. Shuffle all character attack modifier decks.</p>
+</li>
+<li>
+<p>Place all character and monster <strong>initiative order tokens</strong> near the centre of the table.</p>
+</li>
+<li>
+<p>Retrieve and shuffle each monster set's <strong>ability deck</strong> and place it face down next to its stat card. Use the full eight-card ability deck for each monster set. <em>(Scenario 2 onward.)</em></p>
+</li>
+<li>
+<p>Retrieve the <strong>battle goals</strong> deck, shuffle it, and deal two cards to each character in secret. Each character chooses one card to keep and discards the other face down without revealing or discussing it. <em>(Scenario 4 onward.)</em></p>
+</li>
+<li>
+<p>Retrieve the <strong>element board</strong> and place all six element tokens in the <strong>Inert</strong> column. <em>(Scenario 4 onward.)</em></p>
+</li>
+<li>
+<p>Set the <strong>scenario level</strong> (see §10) and rotate all monster stat envelopes to display the corresponding monster level.</p>
+</li>
+</ol>
+<p>When a <strong>supplemental map</strong> is required, the Scenario Book map layout graphic will show a supplemental page attached to the two-page spread with no dividing line between them. Open the <strong>Supplemental Scenario Book</strong> to the indicated page, fold it so only the single page is showing, and line it up next to the Scenario Book.</p>
+<p>When monsters are <strong>spawned</strong> during a scenario as directed by special rules, place each spawned monster at its designated location or the nearest empty hex. Spawned monsters are treated exactly as if they had been set up when a room was revealed and always act in the round in which they are spawned.</p>
+<hr/>
+  </div>
+</details>
+<details class="section">
+  <summary><span>2. Scenario Book Reference</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>Each scenario page contains the following labelled elements:</p>
+<ul>
+<li><strong>A</strong> — Scenario number, title, and city map board location, for ease of reference.</li>
+<li><strong>B</strong> — <strong>Goal</strong> of the scenario. When this is achieved, the scenario is successfully completed.</li>
+<li><strong>C</strong> — <strong>Scenario key</strong>, listing the monsters and tokens required to set up the map.</li>
+<li><strong>D</strong> — <strong>Map layout</strong>, indicating whether the Supplemental Scenario Book is required and how the pages are arranged.</li>
+<li><strong>E</strong> — <strong>Introduction text</strong>. Read before playing.</li>
+<li><strong>F</strong> — <strong>Special rules text</strong>. Read after the introduction; provides additional information not covered by the standard rules.</li>
+<li><strong>G</strong> — <strong>Conclusion text</strong>. Read only after the scenario has been successfully completed.</li>
+<li><strong>H</strong> — <strong>Rewards</strong> for successfully completing the scenario. Read after the conclusion.</li>
+<li><strong>I</strong> — <strong>Tips and rules reminders</strong>. Read as needed during play.</li>
+<li><strong>J</strong> — <strong>Obstacle designations</strong>, signified by a green border on the relevant hexes.</li>
+<li><strong>K</strong> — <strong>Wall designations</strong>. The thick, dark border lines surrounding each scenario's hex area are the walls of the scenario and cannot be crossed.</li>
+</ul>
+<p>When the Supplemental Scenario Book is used only to display extra text that does not fit in the main two-page spread — rather than to provide additional map space — its page icon in the map layout graphic will be separated from the main spread by a dividing line.</p>
+<p><strong>Section breaks</strong> appear within some scenarios and indicate text that should be read only when a specific condition is met, such as when a door with the corresponding number has been opened or when another stated criterion has been satisfied. When a section break's condition is met, read it immediately and follow any special rules it provides. A scenario may contain more than one section break.</p>
+<hr/>
+  </div>
+</details>
+<details class="section">
+  <summary><span>3. Round Structure</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>Gameplay within a scenario is broken into a series of rounds. Every round follows the same sequence:</p>
+<ol>
+<li>Card Selection</li>
+<li>Ordering of Initiative</li>
+<li>Character and Monster Turns</li>
+<li>End of Round</li>
+</ol>
+<p>When the scenario goal is completed, play continues to the end of the current round before the scenario concludes. If the goal is completed on a character's turn, all remaining figures still take their turns for that round.</p>
+<span class="subsection-title">3.1 Card Selection</span>
+<p>Each player simultaneously and privately selects two <strong>ability cards</strong> from their hand and places them face down in front of them. During this step, players may make general statements about their plans and discuss strategy, but they may not show other players their cards or provide specific information about any numerical value or card title.</p>
+<p>Of the two cards chosen, one is designated as the <strong>initiative card</strong>, which determines the character's position in the initiative order for the round based on the <strong>initiative value</strong> shown in the centre of the card — lower numbers act earlier. The initiative card is placed face down beneath the other card, so that when both cards are flipped and revealed, the initiative card is on top and its value is visible.</p>
+<p>Instead of selecting two ability cards, a character may declare that they will perform a <strong>long rest</strong> this round (see §8.3). This declaration is made during the card selection step.</p>
+<span class="subsection-title">3.2 Initiative Order</span>
+<p>Once all players have selected their cards, flip each character's cards to reveal their initiative values. At the same time, flip the top card from each monster set's <strong>ability deck</strong> to determine that set's initiative and abilities for the round. Arrange all initiative order tokens from lowest to highest based on these values.</p>
+<p>If there is a tie between a character and a monster, the character acts first. If there is a tie between two characters, the tiebreaker is the initiative value of their second card.</p>
+<p>When a room is revealed mid-round and an ability card has not yet been flipped for that monster set this round, flip one immediately. If the revealed monsters' initiative is lower than the initiative of the character who opened the door, those monsters act immediately after that character's turn — place their initiative order token next in the order. Otherwise, place their token at the appropriate position in the normal initiative order.</p>
+<span class="subsection-title">3.3 Figure Turns</span>
+<p>Beginning with the figure bearing the lowest initiative value, each figure takes a complete turn before the next figure acts. Characters take their turns as described in §5. Monsters take their turns as described in §6. When multiple monsters share the same initiative (all monsters belonging to the same set act on the same initiative), <strong>elite monsters</strong> act first in ascending standee number order, followed by <strong>normal monsters</strong> in ascending standee number order. Each monster completes its entire turn before the next monster acts.</p>
+<span class="subsection-title">3.4 End of Round</span>
+<p>Once all figures have taken their turn, the round ends. Shuffle the discard pile back into any attack modifier deck that revealed a card bearing a <strong>shuffle icon</strong> during the round. If the element board is in use, move all element tokens one column to the left — from <strong>Strong</strong> to <strong>Waning</strong>, or from <strong>Waning</strong> to <strong>Inert</strong>. Tokens already in the <strong>Inert</strong> column remain there. Begin the next round with card selection.</p>
+<hr/>
+  </div>
+</details>
+<details class="section">
+  <summary><span>4. Terrain and Map Features</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">4.1 Walls</span>
+<p>The hexes of each scenario are contained within thick, dark border lines. These are the <strong>walls</strong> of the scenario; no figure may cross them. Walls also block <strong>line-of-sight</strong> (see §5.2).</p>
+<span class="subsection-title">4.2 Obstacles</span>
+<p>Hexes with a <strong>green border</strong> are <strong>obstacles</strong>. Obstacles cannot be entered by any figure during normal movement and cannot be crossed. Unlike walls, obstacles do not block line-of-sight. Note that some obstacles occupy more than one hex, depending on how many hexes the green border surrounds. When an obstacle is destroyed by the Demolitionist (see §5.3), place <strong>destruction tiles</strong> on each hex of the destroyed obstacle to show those hexes are now normal traversable hexes.</p>
+<span class="subsection-title">4.3 Difficult Terrain</span>
+<p>Hexes with a <strong>purple border</strong> are <strong>difficult terrain</strong>. A figure must spend 2 movement points simultaneously to enter a difficult terrain hex, rather than the usual 1. This additional cost is also taken into account when determining monster focus. <strong>Push</strong> and <strong>Pull</strong> forced movements are not affected by difficult terrain.</p>
+<span class="subsection-title">4.4 Traps</span>
+<p>A hex containing a <strong>trap tile</strong> is a trap hex. When any figure enters a trap hex, the trap is <strong>sprung</strong>: the figure immediately suffers damage equal to the value shown on the damage token placed on the trap, and the trap tile is removed from the map. Traps are not obstacles. When determining focus and movement, all monsters treat trap hexes as obstacles unless moving through a trap is the only way they can reach a valid attack position; in that case, the monster finds the path that moves through the fewest traps possible.</p>
+<span class="subsection-title">4.5 Doors</span>
+<p><strong>Door hexes</strong> are designated by a <strong>blue border</strong>. Until a door is opened, it is treated as a wall for the purposes of line-of-sight and monster movement. A character may move onto a door hex as part of normal movement. When a character enters a door hex for the first time, the door is <strong>opened</strong>: place an <strong>activation token</strong> on the door hex to indicate it is open, then immediately set up all monsters in the newly revealed room. Monsters set up when a room is revealed always act in the round in which they were set up. The character then immediately resumes their turn, including any remaining movement points from the move ability that opened the door. Only monsters in the room where characters start are set up at the beginning of a scenario.</p>
+<span class="subsection-title">4.6 Objectives</span>
+<p>Hexes with a <strong>yellow border</strong> are <strong>objectives</strong>. Objectives are treated as enemies by characters and can be targeted by attacks. However, objectives are unaffected by all negative conditions and by forced movement such as <strong>Push</strong> and <strong>Pull</strong>. No figure may move through an objective hex unless using the <strong>Jump</strong> effect. Objectives are not obstacles. An objective's maximum hit point value is defined by the special rules of the scenario, often using <strong>C</strong>, which represents the number of characters at the start of the scenario. Track damage suffered by an objective by placing damage tokens directly on it. When an objective's current hit point total is reduced to 0, it is destroyed: place a <strong>destruction tile</strong> on it to show that it is now a normal, traversable hex.</p>
+<span class="subsection-title">4.7 Empty Hexes</span>
+<p>A hex is <strong>empty</strong> if it is within the walls of the scenario, is not difficult terrain, and does not contain a figure, obstacle, objective, or trap. Open doors and destroyed obstacles and objectives are all considered empty hexes, unless the hex also contains a figure or trap.</p>
+<hr/>
+  </div>
+</details>
+<details class="section">
+  <summary><span>5. Character Turns</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>On a character's turn, the character performs <strong>one top action</strong> and <strong>one bottom action</strong> — one from each of their two played cards. A character cannot perform two top actions or two bottom actions. Either card may be used first and for either its top or bottom action. The character's choice of which card served as their initiative card no longer matters once the turn begins. An action — the entire half of a card — must be performed in the order written. Any individual ability within an action may be skipped. After the turn, both played cards are placed in the <strong>discard pile</strong> on the left side of the character mat, unless a card bears the <strong>lost icon</strong>, in which case it goes to the <strong>lost pile</strong> on the right side.</p>
+<span class="subsection-title">5.1 Movement</span>
+<span class="label-title">Move</span>
+<p>A <strong>Move X</strong> ability allows a figure to move up to X hexes. The figure does not have to use all available movement points. Figures can move through their allies — characters through characters and monsters through monsters — but movement can never end on an occupied hex containing another figure. Figures cannot move through enemies, obstacles, walls, or objectives.</p>
+<span class="label-title">Jump</span>
+<p>If a move ability is accompanied by the <strong>Jump</strong> effect, each hex of that movement is unaffected by all terrain and by enemy figures. A jumping figure can move through obstacles and enemy figures; it does not spring traps while passing through trap hexes in motion, and it suffers no movement penalty for entering difficult terrain. Figures cannot jump through walls. Any movement using Jump must still end in a viable hex that contains no other figures or obstacles. If a Jump movement ends in a trap hex, the trap is still sprung.</p>
+<span class="label-title">Push and Pull</span>
+<p><strong>Push X</strong> and <strong>Pull X</strong> are forced movement effects that can be attached to attacks or exist as stand-alone abilities.</p>
+<p><strong>Push X</strong> forces the target to move up to X hexes away from the targeting figure. Each individual step of the movement must place the target spatially farther from the targeting figure.</p>
+<p><strong>Pull X</strong> forces the target to move up to X hexes toward the targeting figure. Each individual step of the movement must place the target spatially closer to the targeting figure.</p>
+<p>Targets can be pushed or pulled through their allies, but not through their enemies, obstacles, or walls. If a target is pushed or pulled into a trap hex, the trap is sprung and the target suffers its effects. When a character performs a push or pull, they choose how far and in what direction the target is moved. When a monster performs a push or pull, players still choose the direction, but the target must be moved as far as possible. If there are no viable hexes into which the target can be pushed or pulled, the effect ends immediately. Forced movement from Push and Pull is not affected by difficult terrain.</p>
+<span class="subsection-title">5.2 Attacks</span>
+<span class="label-title">Attack</span>
+<p>An <strong>Attack X</strong> ability allows a figure to cause one targeted enemy within their range to suffer a base X amount of damage, modified by an attack modifier card. Figures cannot attack their allies unless otherwise specified. One <strong>attack modifier card</strong> is drawn from the attacker's deck for each separate target of an attack.</p>
+<span class="label-title">Melee</span>
+<p>If no range value is written beneath an <strong>Attack</strong>, the attack is a <strong>melee attack</strong> and can only target adjacent enemies, unless otherwise specified.</p>
+<span class="label-title">Ranged</span>
+<p>If <strong>Range X</strong> is written beneath an <strong>Attack</strong>, the attack is a <strong>ranged attack</strong> and can target any one enemy within X hexes of the attacker. Range cannot be counted through a wall. If a ranged attack targets an enemy adjacent to the attacker, that attack gains <strong>Disadvantage</strong> (see below).</p>
+<span class="label-title">Line-of-Sight</span>
+<p>When any figure is targeted by an ability, the targeting figure must have a clear <strong>line-of-sight</strong> to the target in order to perform the ability. Line-of-sight is established if a straight line can be drawn from any part of the targeting figure's hex to any part of the target's hex without touching a wall line. Only walls block line-of-sight; obstacles and other figures do not.</p>
+<span class="label-title">Area Effects</span>
+<p>Some attacks allow a figure to target enemies in multiple hexes. The targetable area is shown by a hex diagram using two icons.</p>
+<p>A <strong>grey hex</strong> indicates the hex the active figure currently occupies. An area attack that includes a grey hex is always a melee attack.</p>
+<p>A <strong>red hex</strong> indicates a position in which an enemy can be targeted by the ability. Area attacks, like all other attacks, cannot target allies.</p>
+<p>If an area effect ability specifies a range and includes no grey hex, only one of the red hexes needs to be within the specified range, even if that hex does not contain an enemy. Any ranged area attack that targets an adjacent enemy still gains Disadvantage, and a separate attack modifier card must be drawn for each individual target. As with any targeted ability, figures can only target enemies in hexes they have line-of-sight to. Any rotation or mirroring of an area depiction is valid.</p>
+<span class="label-title">Target X</span>
+<p>Some attacks are followed by <strong>Target X</strong>, meaning the attacker may target up to X different enemies within the attack's range. It is not possible to target the same enemy more than once from a single ability. A separate attack modifier card is drawn for each target.</p>
+<span class="label-title">Attack Modifier Cards</span>
+<p>Any time a figure performs an attack, one card is drawn from the figure's <strong>attack modifier deck</strong> for each separate target. Apply the result as follows.</p>
+<p>A <strong>numerical modifier</strong> is added to or subtracted from the attack value. A <strong>2x card</strong> doubles the attack value. A <strong>null card</strong> causes the attack to deal no damage. The 2x and null cards each bear a <strong>shuffle icon</strong>: if either is drawn, the entire deck is shuffled at the end of the round.</p>
+<p>Each character has their own attack modifier deck. All monsters collectively share one monster attack modifier deck.</p>
+<span class="label-title">Advantage and Disadvantage</span>
+<p>If an attack has <strong>Advantage</strong>, the attacker draws two attack modifier cards and applies whichever result is better. If an attack has <strong>Disadvantage</strong>, the attacker draws two cards and applies whichever result is worse.</p>
+<p>An attack cannot have multiple instances of Advantage or Disadvantage — they do not stack. If an attack has both Advantage and Disadvantage simultaneously, they cancel each other out and the attacker draws a single card as normal.</p>
+<p>In any case of character Advantage where the choice between two drawn cards is ambiguous — for example when comparing a "+1 Wound" card against a "+2" card — the player may choose whichever card they prefer. In the case of ambiguous character Disadvantage, apply the first attack modifier card drawn.</p>
+<span class="label-title">Damage and Killing</span>
+<p>After an attack is resolved and the final attack value has been calculated — modified first by any bonuses and then by the attack modifier card — the target suffers that amount of damage. When a monster suffers damage, place damage tokens equal to that amount in the stat envelope section corresponding to the number on the monster's standee. When the total of damage tokens in a monster's section equals or exceeds the monster's maximum hit point value, the monster is <strong>killed</strong> and removed from the map; all tokens in that section are returned to the tray.</p>
+<span class="subsection-title">5.3 Other Abilities</span>
+<span class="label-title">Suffer Damage</span>
+<p>Some abilities cause figures to <strong>suffer damage</strong> without an attack being made. This damage is not modified by attack modifier cards and is not affected by line-of-sight.</p>
+<span class="label-title">Heal</span>
+<p>A <strong>Heal X</strong> ability allows a figure to cause one ally within the specified range — or themselves — to recover X hit points. Characters recover hit points by rotating the red side of the hit point dial upward. A figure cannot be healed above their maximum hit point value.</p>
+<span class="label-title">Experience</span>
+<p>Some actions have an <strong>experience</strong> value attached to them, denoted by a star icon. When a character takes such an action, they gain the number of experience points shown. Experience gained during a scenario is tracked by rotating the experience wheel on the right side of the character's hit point dial. A character must still perform some part of the accompanying abilities in order to gain the experience — for example, a character cannot gain experience from an attack action if there is no eligible enemy to target. Basic actions (see §5.4) never trigger the experience value of the card used to perform them. If an action's experience is gated behind a specific written condition, that condition must be satisfied for the experience to be gained. Characters do not automatically gain experience from killing monsters.</p>
+<span class="label-title">Loot</span>
+<p>Characters have two ways to collect <strong>money tokens</strong> and <strong>treasure tiles</strong> from the map. First, at the end of each character's turn, that character automatically loots the hex they currently occupy. Second, a <strong>Loot X</strong> ability allows the figure to loot their current hex and all hexes within range X of them.</p>
+<p>When a money token or treasure tile is looted, move it from the map to the character's mat; it will be recorded at the end of the scenario. Money tokens and treasure tiles can only be looted during a scenario — any tokens remaining on the map at the scenario's end are not collected.</p>
+<p>When a monster dies, one <strong>money token</strong> is placed in the hex in which it died, where it may be looted by a character.</p>
+<p>When a character collects a <strong>treasure tile</strong>, remove it from the map, note the number shown on the tile's icon, and refer to that entry in the Treasure Index in the Rules Glossary. The looting character immediately receives the listed reward.</p>
+<span class="label-title">Active Bonuses</span>
+<p>Some actions give a character bonuses that last until the end of the round, the end of the scenario, or until a certain number of uses are exhausted. When such an action is played, place the card in the character's <strong>active area</strong> above their character mat.</p>
+<p><strong>Persistent bonuses</strong> are active from the time the action is played until either the end of the scenario or their allotted uses run out. When placing a persistent bonus card in the active area, place one <strong>character token</strong> on the first use slot. Advance the token one position — moving left to right, top to bottom — each time the effect is triggered. When the token moves off a use slot bearing an experience icon, the character gains that experience. When the token moves off the last use slot, remove the card from the active area and place it in the lost or discard pile depending on whether the action bears the lost icon. A character must activate a persistent bonus and advance the token every time the effect is triggered, even if no benefit is gained.</p>
+<p><strong>Round bonuses</strong> are active from the time the action is played until the end of the round, at which point the card is placed in the lost or discard pile depending on the lost icon.</p>
+<p>Either type of active bonus card may be moved voluntarily to the lost or discard pile at any time before its duration expires; however, doing so immediately removes all bonuses and effects that card was providing.</p>
+<span class="label-title">Shield</span>
+<p><strong>Shield X</strong> is an active bonus. When a figure with Shield X suffers damage from an attack, they reduce that damage by X, to a minimum of 0. This reduction is applied after attack bonuses and the attack modifier card have been factored in. For instance, if an "Attack 2" is performed against a figure with "Shield 1" and a +2 modifier card is drawn, the modifier is applied first, bringing the attack value to 4, and then the shield is applied, so the figure suffers 3 damage. Multiple Shield bonuses stack and may be applied in any order. Shield only reduces damage suffered from attacks — it does not reduce damage from traps or any other non-attack source.</p>
+<span class="label-title">Granting Actions</span>
+<p>Some abilities <strong>grant actions</strong> to other figures — both allies and enemies. The initial text of such an ability specifies who receives the granted action as a targeted effect; the granted action is then described, and all normal rules for attacking and moving apply. If a figure is granted an attack action, it uses its own attack modifier deck unless otherwise specified. A figure granted an action does not take an additional separate turn — it performs the action during the granting figure's turn.</p>
+<span class="label-title">Self</span>
+<p>Some abilities specify the target as <strong>Self</strong>. This means the figure using the ability is the only possible target.</p>
+<span class="label-title">Destroying Obstacles</span>
+<p>The <strong>Demolitionist</strong> has abilities that cause an obstacle within a specified range to be <strong>destroyed</strong>, making the hex or hexes the obstacle occupied traversable. When an obstacle is destroyed, place <strong>destruction tiles</strong> on each hex of the destroyed obstacle — including any hexes that may be out of range of the ability — to show that those hexes are now normal, traversable hexes.</p>
+<span class="subsection-title">5.4 Basic Actions</span>
+<p>Instead of performing the printed action on a card, any card may be used to perform a <strong>basic action</strong>: <strong>Attack 2</strong> as a top action, or <strong>Move 2</strong> as a bottom action. When a card is used for a basic action, it is always placed in the discard pile regardless of any lost icon on that card. Basic actions never trigger the experience value of the card used to perform them.</p>
+<span class="subsection-title">5.5 Elements</span>
+<p>Some actions have an <strong>elemental affinity</strong> associated with them, represented by one of six element icons: Fire, Ice, Air, Earth, Light, or Dark.</p>
+<p><strong>Infusing an element:</strong> If an element icon appears by itself within an action's text, performing any part of that action requires the figure to infuse the battlefield with that element. At the end of the turn in which the action is performed, move the corresponding element token to the <strong>Strong</strong> column of the element board. It is not possible to infuse an element and then consume it on the same turn, because the infusion does not take effect until the end of the turn.</p>
+<p><strong>Consuming an element:</strong> If an element icon appears covered by a consume symbol, followed by a colon and a description, the figure may consume that element to augment the ability. If the corresponding element token is in the <strong>Strong</strong> or <strong>Waning</strong> column, the figure may move it to <strong>Inert</strong> to gain the described augment. If an action contains multiple separate augments, the character may choose which ones to apply.</p>
+<p><strong>Wild icon:</strong> A multicoloured wild icon represents any one of the six elements. If a wild icon appears as an infuse effect, the players choose which element is infused. If it appears as a consume requirement, the players choose which element is consumed.</p>
+<p><strong>Monsters and elements:</strong> Monsters also have abilities that infuse and consume elements, and the same rules apply. Monsters always consume elements if they are able to do so. When a monster set consumes an element, every activated monster of that set gains the benefit — not only the first monster to act that round.</p>
+<span class="subsection-title">5.6 Negating Damage with Lost Cards</span>
+<p>Any time a character suffers damage from any source, the character may choose to negate the entirety of that damage by losing cards instead of reducing their hit point dial. To negate a single source of damage, the character may either lose one card from their <strong>hand</strong> or lose two cards from their <strong>discard pile</strong>. Lost cards are immediately moved to the character's lost pile. Note that the two cards a character has selected to play for the current round are not in their hand during that round — they move to the discard pile during the character's turn. Losing cards to negate damage reduces the number of rounds the character can play before becoming exhausted, but it can be preferable to taking damage that would otherwise reduce the character's hit points to 0.</p>
+<span class="subsection-title">5.7 Character Damage and Exhaustion</span>
+<p>Any time a character suffers damage, reduce their current hit point value by that amount by rotating their hit point dial. If a character's hit point value ever reaches 0, they are immediately <strong>exhausted</strong>: remove the character's figure from the map. An exhausted character can no longer participate in the scenario in any way. If all characters become exhausted, the scenario is immediately lost.</p>
+<p>Exhaustion is not permanent — all characters are fully refreshed at the end of every scenario, even those who became exhausted.</p>
+<hr/>
+  </div>
+</details>
+<details class="section">
+  <summary><span>6. Monster Turns</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">6.1 Monster Ability Cards</span>
+<p>From Scenario 2 onward, each monster set acts according to a card flipped from its <strong>ability deck</strong> during the initiative order step (see §3.2). One card is flipped per monster set — all monsters of the same set act on the same initiative and use the same abilities for the round. If no monsters of a set are currently on the map, do not flip a card for that set.</p>
+<p>Monster ability cards provide <strong>value modifications</strong> to the monster's base stats, rather than absolute values. For example, if a card reads "Attack +1" and the monster's base attack value is 2, the monster performs an <strong>Attack 3</strong> that round. A monster <strong>only performs the abilities listed on its ability card</strong> — if the card does not include a Move ability, the monster does not move. If any ability card bears a <strong>shuffle icon</strong>, all played cards from that deck are shuffled back into the deck at the end of the round.</p>
+<span class="subsection-title">6.2 Monster Focus</span>
+<p>Before a monster does anything else on its turn, it determines a <strong>focus</strong>: the character it will attempt to attack. The focus is the character the monster can perform its attack against using the least amount of movement.</p>
+<p>For a monster performing a <strong>melee attack</strong>, focus is determined by finding the shortest path to a hex adjacent to a character. For a monster performing a <strong>ranged attack</strong>, focus is determined by finding the shortest path to a hex from which it can attack a character within the attack's range.</p>
+<p>Line-of-sight is not required to establish focus. It does not matter whether the monster can actually reach the end of its path this turn — so long as a path exists given infinite movement, the monster will still focus on that character.</p>
+<p>If multiple characters can be reached in the same number of movement steps, the monster focuses on the character who appears earlier in the current initiative order.</p>
+<p>If a character is already adjacent to the monster (for melee) or within range (for ranged), that character becomes the focus without the monster needing to evaluate a path.</p>
+<p>If no valid path exists to reach any character at all, the monster has no focus and will neither move nor attack this turn.</p>
+<span class="subsection-title">6.3 Multi-Target Monster Focus</span>
+<p>If a monster can attack multiple targets on its turn, it first finds its <strong>primary focus</strong> using the normal rules. It then seeks <strong>additional foci</strong> by finding the position from which it can attack its primary focus and the greatest number of additional targets simultaneously, using the minimum required movement to reach that position.</p>
+<p>There may be times when it is unclear how a monster should behave. In those cases, do your best to have the monster behave intelligently and do not worry too much about the specifics.</p>
+<span class="subsection-title">6.4 Monster Movement</span>
+<p>Once a monster has established its focus, it moves toward that focus using the minimum distance necessary, up to its base <strong>Move</strong> value as modified by its ability card. If the monster is already in position to attack its focus, it does not move. If the monster cannot get any closer to its focus because another monster is blocking its path, it also does not move.</p>
+<p><strong>Ranged monsters</strong> attempt to avoid adjacency to their focus, since performing a ranged attack on an adjacent target gains Disadvantage. If a ranged monster is adjacent to its focus and is able to move far enough to no longer be adjacent, it will do so. However, if the monster already has <strong>Muddle</strong> or another source of Disadvantage, it would gain no benefit from moving away — it cannot reduce its Disadvantage further — and so it does not move for this reason. A monster performing a melee attack, or not performing any attack (due to <strong>Disarm</strong> or the absence of an attack ability on its card), moves normally to get adjacent to its focus.</p>
+<p>If it is ever ambiguous which path a monster should take because multiple options are equally viable, the players decide which path the monster takes.</p>
+<span class="subsection-title">6.5 Monster Attack</span>
+<p>Once a monster has moved, if it is now in a valid position to attack its focus, it does so. The monster uses its base <strong>Attack</strong> value as modified by the bonus on its ability card, and draws one card from the <strong>monster attack modifier deck</strong> per target. The targeted character or figure then suffers the resulting amount of damage.</p>
+<span class="subsection-title">6.6 Monster Active Bonuses</span>
+<p>Some monster stat cards show permanent active bonuses displayed to the left of the normal monster stats and to the right of the elite monster stats. These bonuses are always applied regardless of what the monster's ability card dictates. If the bonus is a negative condition, that condition is applied to all of the monster's attacks.</p>
+<span class="subsection-title">6.7 Monster Stat Cards</span>
+<p>The monster <strong>stat card</strong> is inserted into a <strong>stat envelope</strong> so that only the stats for the current scenario level are visible. Rotating the card within the envelope changes the displayed level. The stat card shows the monster's name and current level, <strong>normal</strong> (white) and <strong>elite</strong> (gold) stat columns, the monster's maximum <strong>hit point</strong> value, its base <strong>Move</strong> value, and its base <strong>Attack</strong> value.</p>
+<p>Damage suffered by a monster is tracked by placing <strong>damage tokens</strong> in the section of the stat envelope that corresponds to the number on that monster's standee. When the accumulated damage tokens in a section equal or exceed the monster's maximum hit point value, the monster is killed and removed from the map; all tokens in that section are returned to the tray.</p>
+<span class="subsection-title">6.8 Boss Mechanics</span>
+<p>All bosses use the universal <strong>Boss</strong> ability deck, which consists primarily of cards labelled "Special 1" or "Special 2." These special abilities are described on the boss's own stat card. A boss's stats are often expressed using <strong>C</strong>, which stands for the number of characters in the current scenario.</p>
+<p>Bosses are <strong>immune</strong> to certain negative conditions; the specific immunities are listed on the left side of the stat card, beneath the level indicator.</p>
+<p>A boss with "<strong>—</strong>" for its base Move value cannot move voluntarily, even if a Boss ability card would otherwise provide a Move ability. Such a boss can still be moved by <strong>Push</strong>, <strong>Pull</strong>, and granted actions.</p>
+<p>Some bosses have special abilities too detailed to summarise on the stat card. In these cases, the full description is found in the scenario's special rules.</p>
+<hr/>
+  </div>
+</details>
+<details class="section">
+  <summary><span>7. Conditions</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p><strong>Conditions</strong> may be applied as a stand-alone ability or as an effect attached to an attack. Even if an attack deals no damage, any conditions it specifies are still applied. If a condition is applied to a character, place the corresponding token in the lower-left section of their character mat. If a condition is applied to a monster, place the token in the stat envelope section corresponding to the number on that monster's standee.</p>
+<p><strong>Standard conditions</strong> (Immobilize, Stun, Muddle, Strengthen, Disarm) remain on the target until the end of the target's next full turn. This may occur in the same round if the target has not yet acted this round, or in the following round if they have already acted.</p>
+<p><strong>Poison</strong> and <strong>Wound</strong> persist until removed by a <strong>Heal</strong> ability. <strong>Bless</strong> and <strong>Curse</strong> persist in the attack modifier deck until the relevant card is drawn. All Bless and Curse cards are removed from every attack modifier deck at the end of every scenario. A figure cannot have multiple simultaneous instances of Poison or Wound.</p>
+<span class="subsection-title">7.1 Negative Conditions</span>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Condition</th>
+<th>Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Immobilize</strong></td>
+<td>The figure cannot perform any <strong>Move</strong> abilities.</td>
+</tr>
+<tr>
+<td><strong>Stun</strong></td>
+<td>The figure cannot perform any abilities, including Move and Attack.</td>
+</tr>
+<tr>
+<td><strong>Muddle</strong></td>
+<td>All of the figure's attacks gain <strong>Disadvantage</strong>.</td>
+</tr>
+<tr>
+<td><strong>Disarm</strong></td>
+<td>The figure cannot perform any <strong>Attack</strong> abilities.</td>
+</tr>
+<tr>
+<td><strong>Poison</strong></td>
+<td>All attacks targeting this figure gain a +1 attack bonus applied before the attack modifier card. This condition is removed only when the figure is affected by a Heal, but the Heal does not restore any hit points while Poison is active.</td>
+</tr>
+<tr>
+<td><strong>Wound</strong></td>
+<td>The figure suffers 1 damage at the start of each of their turns. This condition is removed only when the figure is affected by a Heal; the Heal still restores hit points unless the figure also has Poison, in which case both conditions are removed and the Heal has no further effect.</td>
+</tr>
+<tr>
+<td><strong>Curse</strong></td>
+<td>Shuffle one <strong>Curse card</strong> into the figure's attack modifier deck. The card remains in the deck until it is drawn, at which point it is removed. A maximum of 10 Curse cards may be present in any one attack modifier deck at a time. Curse cards for the monster deck are marked with an "m"; Curse cards for character decks are marked with a "<em>". When drawn, a Curse card functions as a </em><em>null card</em>*.</td>
+</tr>
+</tbody>
+</table></div>
+<span class="subsection-title">7.2 Positive Conditions</span>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Condition</th>
+<th>Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Strengthen</strong></td>
+<td>All of the figure's attacks gain <strong>Advantage</strong>.</td>
+</tr>
+<tr>
+<td><strong>Bless</strong></td>
+<td>Shuffle one <strong>Bless card</strong> into the figure's attack modifier deck. The card remains in the deck until it is drawn, at which point it is removed. There are 10 Bless cards in total and they may be placed in any modifier deck. When drawn, a Bless card functions as a <strong>2x card</strong>.</td>
+</tr>
+</tbody>
+</table></div>
+<hr/>
+  </div>
+</details>
+<details class="section">
+  <summary><span>8. Card Management</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">8.1 Discard and Lost Piles</span>
+<p>After a character uses a card, it goes to one of two piles on the character mat. Cards without the <strong>lost icon</strong> go to the <strong>discard pile</strong> on the left side of the mat. Cards bearing the <strong>lost icon</strong> go immediately to the <strong>lost pile</strong> on the right side of the mat. Cards in the lost pile cannot be returned to the character's hand for the remainder of the scenario. The two cards a character has selected to play for the current round are not in their hand during that round — they move to the appropriate pile during the character's turn.</p>
+<span class="subsection-title">8.2 Short Rest</span>
+<p>If a character has at least two cards in their discard pile, they may perform a <strong>short rest</strong> at the end of any round. To short rest, the character takes all cards in their discard pile, shuffles them, and randomly places one face down in their lost pile. The remaining cards are returned to the character's hand and the next round begins as normal.</p>
+<p>If the character would prefer to keep the card that was randomly selected to be lost, they may instead suffer 1 damage and randomly lose a different card from the discard pile. This exchange can only be made once per short rest.</p>
+<span class="subsection-title">8.3 Long Rest</span>
+<p>Instead of selecting two ability cards at the start of a round, a character may declare that they will perform a <strong>long rest</strong>. A long-resting character acts on initiative 99 — after virtually all other figures. On their turn, the character <strong>chooses</strong> one card from their discard pile to transfer to their lost pile, then returns all remaining discard cards to their hand. The character also performs a <strong>Heal 2, Self</strong> action and uprights all <strong>spent</strong> items (those rotated 90° to show they have been used), refreshing them for use again. Monsters and other figures still act normally during a round in which a character is long resting, and the resting character may be attacked.</p>
+<span class="subsection-title">8.4 Exhaustion from Card Loss</span>
+<p>If a character is unable to play two ability cards at the start of a round because they do not have at least two cards in their hand, that character is immediately <strong>exhausted</strong> (see §5.7). This can occur when too many cards have been moved to the lost pile through resting or through the use of actions bearing the lost icon.</p>
+<hr/>
+  </div>
+</details>
+<details class="section">
+  <summary><span>9. Between Scenarios</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">9.1 End of Scenario — All Outcomes</span>
+<p>Whether the scenario was won or lost, all characters fully refresh before the next scenario or session:</p>
+<ul>
+<li>Recover all ability cards — return the full hand, discard pile, and lost pile to the hand.</li>
+<li>Remove all condition tokens from all character mats.</li>
+<li>Return each character's hit point dial to their maximum hit point value, which is the white number shown beneath the character's current level on the character mat.</li>
+<li>Refresh all items: return all <strong>consumed</strong> items (flipped face down) to face-up, and return all <strong>spent</strong> items (rotated 90°) to upright.</li>
+<li>Remove all <strong>Bless</strong> and <strong>Curse</strong> cards from all attack modifier decks.</li>
+</ul>
+<p>To save the game between sessions, place each character's character sheet, attack modifier deck, and current hand of ability cards into their zip bag along with the initiative order token, then return that zip bag and the character mat to the large character box. With the city map board updated and all character materials stored, the campaign can be resumed easily at any time.</p>
+<span class="subsection-title">9.2 Scenario Success — Post-Scenario Steps</span>
+<p>After successfully completing a scenario, perform the following steps:</p>
+<ol>
+<li>
+<p>Read the <strong>conclusion text</strong> and <strong>rewards</strong> in the Scenario Book.</p>
+</li>
+<li>
+<p>Mark the scenario as <strong>complete</strong> on the city map board by filling in the white box on its sticker. Completed scenarios cannot be replayed.</p>
+</li>
+<li>
+<p>If the rewards list a <strong>New Location</strong>, place the corresponding sticker on the city map board in the indicated position.</p>
+</li>
+<li>
+<p>Record <strong>gold</strong>: each character counts the money tokens they collected during the scenario, converts them to gold at the current rate (see §10 for the gold per token at each scenario level), adds any flat gold rewards from the scenario, records the revised total in the gold notes of their character sheet, and returns the money tokens to the tray. Characters cannot share gold or money tokens at any time.</p>
+</li>
+<li>
+<p>Record <strong>experience</strong>: each character records their total experience gained during the scenario (from the experience dial) plus the scenario completion bonus (see §10 for the bonus XP at each scenario level). Record this in the XP notes of the character sheet.</p>
+</li>
+<li>
+<p>Check whether any character has reached the <strong>XP threshold</strong> for the next level and perform leveling up if so (see §9.5). Characters never lose experience and do not reset their experience total when leveling up.</p>
+</li>
+<li>
+<p>Award any <strong>item rewards</strong>: some rewards go to only a single character; the players collectively decide which character receives it.</p>
+</li>
+<li>
+<p>Resolve <strong>battle goal</strong> results: each character who met the criteria of their chosen battle goal during the scenario gains 1 <strong>check mark</strong>. On a failed scenario, no check marks are awarded. Discard all battle goal cards whether or not the goal was met.</p>
+</li>
+<li>
+<p>For every 3 check marks a character has accumulated (tracked in the lower-right area of the character sheet, maximum 18 total), the character earns one <strong>perk</strong> (see §9.6).</p>
+</li>
+<li>
+<p>Encounter a <strong>city event</strong> (see §9.7).</p>
+</li>
+<li>
+<p><strong>Buy, sell, or trade items</strong> (see §9.4).</p>
+</li>
+</ol>
+<p><strong>Card pool advancement:</strong> At certain points in the campaign, characters expand their pool of available ability cards.</p>
+<p>After Scenario 1, each character retrieves their two level "B" cards from their large box and swaps them for the two level "A" cards of the same name, so that each character still has six cards in their available pool. The two "A" cards are permanently retired and will never be used again.</p>
+<p>After Scenario 2, each character retrieves the remainder of their level "1" cards from their large box and adds them to their existing two level "1" cards, then permanently removes all level "A" and level "B" cards. The full set of level "1" cards is now available for the rest of the campaign. Each character's pool of available cards now differs in size depending on their hand limit, shown in the upper right of the character mat.</p>
+<p>After Scenario 4, each character retrieves their three level "X" cards from their large box and adds them to their pool of available ability cards. These cards are available for the rest of the campaign and are intended to give more options and flexibility going into a scenario. Characters are still only ever allowed to bring into a scenario a number of cards equal to their <strong>hand limit</strong> — with more cards now in the pool than the hand limit allows, players must choose which cards to leave behind at the start of each scenario. This decision can be made after reading the upcoming scenario's information. If you are not ready to make those decisions, leave behind the "X" cards; they are generally more complicated and situational than level "1" cards, but under the right circumstances can be very useful.</p>
+<span class="subsection-title">9.3 Scenario Failure</span>
+<p>If all characters become exhausted before the scenario goal is achieved, the scenario is <strong>failed</strong> and must be replayed from the beginning. When resetting a failed scenario, carry over the following into the next attempt: all gold from money tokens collected during the failed attempt, all experience gained, and all rewards received from looting treasure tiles. Treasure tiles, once looted, can only be claimed once per campaign — they do not reset. Everything else in the scenario is reset to its starting state.</p>
+<p>If a scenario is proving consistently difficult, first confirm that no rules are being overlooked. If the scenario is being played correctly and remains too challenging, you may at the start of any attempt rotate all monster stat cards in their envelopes to the level "0" section to reduce the difficulty.</p>
+<span class="subsection-title">9.4 Items</span>
+<p><strong>Available items</strong> are those in the item deck within the currently unlocked index range. Items outside that range are placed on the "Unavailable Items" side of the card divider in the game box; available items are on the other side and may be purchased.</p>
+<p><strong>Buying:</strong> A character pays the gold value shown on an item card to transfer it from the shop supply to their possession. A character can never own more than one copy of the same item.</p>
+<p><strong>Selling:</strong> A character may sell an item they own back to the shop for half its gold value, rounded up, which is added to their total gold.</p>
+<p><strong>Trading:</strong> Players may freely transfer items between characters at any point between scenarios. Gold cannot be traded.</p>
+<p>Each item card shows the item's <strong>gold value</strong>, <strong>item type</strong> (Head, Body, Feet, Hands, or Small), and <strong>item function</strong> describing when and how it can be used. Items generally provide additional abilities or bonuses a character can use on their turn. Using an item is free and can be done in addition to the two actions performed from ability cards. The <strong>quantity</strong> shown on the card indicates how many copies of the item exist in the game.</p>
+<p>The <strong>item usage</strong> icon in the lower-right corner of the card indicates how often the item can be used in a scenario.</p>
+<p>A <strong>consumed</strong> item can be used once per scenario. Once used, flip the card face down to show it has been consumed.</p>
+<p>A <strong>spent</strong> item can be used once per long rest. Once used, rotate the card 90° to show it has been spent. Spent items are refreshed when the character performs a long rest.</p>
+<p>A <strong>persistent</strong> item has no usage icon and can be used whenever the situation described by its function applies.</p>
+<p>No item is permanently removed from a character when used — all items are refreshed at the end of every scenario.</p>
+<p>Characters are not limited in the total number of items they can own, but they may only bring a limited set <strong>into a scenario</strong>: 1 Head item, 1 Body item, 1 Feet item, 2 Hand items, and a number of Small items equal to half their level rounded up (1 Small item at levels 1–2, 2 at levels 3–4, and so on).</p>
+<span class="subsection-title">9.5 Leveling Up</span>
+<p>After any scenario, if a character's total experience equals or exceeds the threshold for the next level shown on their character sheet, the character advances to that level and immediately performs all of the following steps:</p>
+<ol>
+<li>
+<p>Choose <strong>one new ability card</strong> from those at or below the new level and add it to the character's pool of available ability cards. For example, when reaching level 2, choose one of the two available level "2" cards. When reaching level 3, choose one card from either the two level "3" cards or the level "2" card not chosen previously.</p>
+</li>
+<li>
+<p>Gain <strong>one perk</strong> (see §9.6).</p>
+</li>
+<li>
+<p>Increase <strong>maximum hit points</strong>: the new maximum is the white number shown beneath the new level number on the character mat.</p>
+</li>
+</ol>
+<p>Characters never reset their experience total upon leveling up and can never lose experience.</p>
+<p>When a character reaches <strong>level 5</strong>, they open the second pack of ability cards in their character's large box, which contains their higher-level cards and includes special instructions.</p>
+<p><strong>XP thresholds by level:</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th style="text-align: center;">Level</th>
+<th style="text-align: center;">1</th>
+<th style="text-align: center;">2</th>
+<th style="text-align: center;">3</th>
+<th style="text-align: center;">4</th>
+<th style="text-align: center;">5</th>
+<th style="text-align: center;">6</th>
+<th style="text-align: center;">7</th>
+<th style="text-align: center;">8</th>
+<th style="text-align: center;">9</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">XP Required</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">45</td>
+<td style="text-align: center;">95</td>
+<td style="text-align: center;">150</td>
+<td style="text-align: center;">210</td>
+<td style="text-align: center;">275</td>
+<td style="text-align: center;">345</td>
+<td style="text-align: center;">420</td>
+<td style="text-align: center;">500</td>
+</tr>
+</tbody>
+</table></div>
+<span class="subsection-title">9.6 Perks</span>
+<p>Each time a character gains a <strong>perk</strong> — whether through leveling up, accumulating check marks, or a scenario reward — the player chooses any one unchecked perk from the list on the right side of their character sheet, checks the box next to it, and immediately applies that modification to their attack modifier deck. Modifications may include removing unfavourable cards from the deck or adding new, character-specific cards drawn from the separate deck of character attack modifier cards in the character's box (marked with a "Halt!" warning). All perk modifications are <strong>permanent</strong> — choose carefully.</p>
+<p>Check marks are tracked in the lower-right area of the character sheet, below the perks. A character may accumulate a maximum of <strong>18 check marks</strong> in total. One perk is earned for every 3 check marks gained.</p>
+<span class="subsection-title">9.7 City Events</span>
+<p>After each successfully completed scenario, the party encounters a <strong>city event</strong>. Before the first city event of a campaign, retrieve the events deck from the game box and shuffle it.</p>
+<p>Draw the top card and read the introductory text. The card presents two options; the players collectively choose one. Some options are only available if specific requirements are met — for example, a particular character being present. Once — and only once — an option is chosen, flip the card over and read the corresponding outcome (A or B). This consists of additional flavour text followed by specific effects, all of which must be applied if possible.</p>
+<p>After the event is resolved, place the card on the "Encountered Events" side of the card divider in the game box; it is removed from the game permanently. Return the remainder of the deck to the "New Events" side.</p>
+<hr/>
+  </div>
+</details>
+<details class="section">
+  <summary><span>10. Scenario Level Reference</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>The <strong>scenario level</strong> governs monster difficulty and determines trap damage, gold conversion, and completion experience for the scenario. The <strong>recommended (Normal) scenario level</strong> is the average level of all participating characters divided by 2, rounded up.</p>
+<p>Players may freely adjust difficulty: <strong>Easy</strong> is Normal − 1; <strong>Hard</strong> is Normal + 1; <strong>Very Hard</strong> is Normal + 2.</p>
+<p>The <strong>monster level</strong> used in a scenario — the stat group shown in the stat envelope — is always equal to the scenario level.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th style="text-align: center;">Scenario Level</th>
+<th style="text-align: center;">Monster Level</th>
+<th style="text-align: center;">Gold per Token</th>
+<th style="text-align: center;">Trap Damage</th>
+<th style="text-align: center;">Completion XP</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">4</td>
+</tr>
+<tr>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">6</td>
+</tr>
+<tr>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">8</td>
+</tr>
+<tr>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">10</td>
+</tr>
+<tr>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">12</td>
+</tr>
+<tr>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">7</td>
+<td style="text-align: center;">14</td>
+</tr>
+<tr>
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">8</td>
+<td style="text-align: center;">16</td>
+</tr>
+<tr>
+<td style="text-align: center;">7</td>
+<td style="text-align: center;">7</td>
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">9</td>
+<td style="text-align: center;">18</td>
+</tr>
+</tbody>
+</table></div>
+<hr/>
+  </div>
+</details>
+<details class="section">
+  <summary><span>11. Miscellaneous Rules</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p><strong>Player count changes mid-campaign.</strong> If a player cannot attend a session or an extra player wants to join, characters may be added or removed as needed. The game accommodates two to four characters. A newly added character begins at level 1 with all of their level "1" and "X" cards. The scenario level scales to the average level of the characters currently participating, so it is fine if a character falls behind in level or if a new character begins at level 1 while others are at a higher level.</p>
+<p><strong>Monster standees run out during setup.</strong> If there are not enough standees in a set to place all required monsters, set up what is available starting with elite monsters and do not set up the rest.</p>
+<p><strong>Monster Loot abilities.</strong> When a monster uses a Loot ability to collect a money token or treasure tile, return it to the tray — it has no effect on the monster. If a treasure tile is looted by a monster, it can only be recovered by replaying the scenario from the beginning.</p>
+<p><strong>Closing scenarios.</strong> Some scenario rewards instruct the party to <strong>close</strong> specific scenarios, which means marking them off on the city map board so that they can no longer be played. Not all scenarios will be played as part of a campaign — sometimes choices must be made.</p>
+<p><strong>Restarting the campaign.</strong> The city map board is difficult to reverse, but all card decks can be reset. Each card has a white number at its bottom; arrange all decks in ascending order by this number to restore them. Obtain fresh character sheets for each character to begin again.</p>
+<p><strong>Monster behaviour.</strong> If you are uncertain how a monster should behave in a particular situation, an extensive appendix with illustrated examples of monster behaviour is available in the Rules Glossary.</p>
+  </div>
+</details>
+  <p id="no-results">No sections match your search.</p>
+</main>
+<script>
+(function () {
+  var searchEl  = document.getElementById('search');
+  var clearBtn  = document.getElementById('search-clear');
+  var noResults = document.getElementById('no-results');
+  var sections  = Array.from(document.querySelectorAll('details.section'));
+  var matchNav   = document.getElementById('match-nav');
+  var matchCount = document.getElementById('match-count');
+  var matchPrev  = document.getElementById('match-prev');
+  var matchNext  = document.getElementById('match-next');
+
+  var allMarks = [];
+  var currentMark = -1;
+
+  sections.forEach(function (s) {
+    var body = s.querySelector('.section-body');
+    if (body) body.dataset.original = body.innerHTML;
+  });
+
+  var timer;
+
+  searchEl.addEventListener('input', function () {
+    var term = this.value.trim();
+    clearBtn.classList.toggle('visible', term.length > 0);
+    clearTimeout(timer);
+    timer = setTimeout(function () { applySearch(term); }, 180);
+  });
+
+  clearBtn.addEventListener('click', function () {
+    searchEl.value = '';
+    clearBtn.classList.remove('visible');
+    applySearch('');
+    searchEl.focus();
+  });
+
+  matchPrev.addEventListener('click', function () {
+    if (allMarks.length === 0) return;
+    navigateTo((currentMark - 1 + allMarks.length) % allMarks.length);
+  });
+
+  matchNext.addEventListener('click', function () {
+    if (allMarks.length === 0) return;
+    navigateTo((currentMark + 1) % allMarks.length);
+  });
+
+  function navigateTo(index) {
+    if (allMarks[currentMark]) allMarks[currentMark].classList.remove('active');
+    currentMark = index;
+    var mark = allMarks[currentMark];
+    mark.classList.add('active');
+    mark.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    matchCount.textContent = (currentMark + 1) + ' of ' + allMarks.length;
+  }
+
+  function escapeRe(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlightTextNodes(container, re) {
+    var walker = document.createTreeWalker(
+      container, NodeFilter.SHOW_TEXT, null, false
+    );
+    var nodes = [];
+    var n;
+    while ((n = walker.nextNode())) {
+      if (n.nodeValue.trim()) nodes.push(n);
+    }
+    nodes.forEach(function (textNode) {
+      re.lastIndex = 0;
+      if (!re.test(textNode.nodeValue)) return;
+      re.lastIndex = 0;
+      var span = document.createElement('span');
+      span.innerHTML = textNode.nodeValue.replace(
+        re, function (m) { return '<mark>' + m + '</mark>'; }
+      );
+      textNode.parentNode.replaceChild(span, textNode);
+    });
+  }
+
+  function applySearch(term) {
+    var re = term ? new RegExp(escapeRe(term), 'gi') : null;
+    var visibleCount = 0;
+
+    sections.forEach(function (section) {
+      var body    = section.querySelector('.section-body');
+      var summary = section.querySelector('summary');
+
+      if (body) body.innerHTML = body.dataset.original;
+
+      if (!re) {
+        section.classList.remove('search-hidden');
+        section.open = false;
+        return;
+      }
+
+      var titleText = summary ? summary.textContent : '';
+      var bodyText  = body    ? body.textContent    : '';
+
+      re.lastIndex = 0;
+      var inTitle = re.test(titleText);
+      re.lastIndex = 0;
+      var inBody  = re.test(bodyText);
+      re.lastIndex = 0;
+
+      if (inTitle || inBody) {
+        section.classList.remove('search-hidden');
+        section.open = true;
+        if (body) highlightTextNodes(body, new RegExp(escapeRe(term), 'gi'));
+        visibleCount++;
+      } else {
+        section.classList.add('search-hidden');
+      }
+    });
+
+    noResults.style.display = (re && visibleCount === 0) ? 'block' : 'none';
+
+    allMarks = Array.from(document.querySelectorAll('mark'));
+    currentMark = -1;
+
+    if (allMarks.length > 0) {
+      matchNav.classList.add('visible');
+      navigateTo(0);
+    } else {
+      matchNav.classList.remove('visible');
+      matchCount.textContent = '';
+    }
+  }
+})();
+</script>
+</body>
+</html>

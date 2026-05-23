@@ -11,12 +11,12 @@
 :root {
   --bg:            #f2ede6;
   --text:          #1a1a1a;
-  --header-bg:     #2f3481;
-  --section-bg:    #2f3481;
-  --subsection-bg: #8d2dbf;
+  --header-bg:     #2d3b54;
+  --section-bg:    #2d3b54;
+  --subsection-bg: #5f4193;
   --rule:          #b0a898;
-  --accent:        #8d2dbf;
-  --table-head:    #2f3481;
+  --accent:        #5f4193;
+  --table-head:    #2d3b54;
   --note-bg:       #e8e0d4;
   --body-bg:       #ffffff;
 }
@@ -324,6 +324,22 @@ thead th {
 tbody tr:nth-child(even) { background: var(--note-bg); }
 tbody td { padding: 5px 8px; vertical-align: top; }
 
+/* ── ICON TABLE ──────────────────────────────────────────── */
+.table-wrap img {
+  height: 36px;
+  width: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+/* ── INLINE ICONS ────────────────────────────────────────── */
+p img, li img, blockquote img,
+h1 img, h2 img, h3 img, h4 img, h5 img {
+  height: 1.625em;
+  width: auto;
+  vertical-align: -0.2em;
+  margin: 0 4px;
+}
 /* ── BLOCKQUOTE ──────────────────────────────────────────── */
 blockquote {
   background: var(--note-bg);
@@ -419,11 +435,12 @@ details.section.search-hidden { display: none; }
 </header>
 <main>
 <details class="section" open>
-  <summary><span>SLEEVEING GUIDE</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <summary><span>Setup</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
   <div class="section-body">
+<span class="subsection-title">Sleeveing Guide</span>
 <p>Before your first play, you'll need to do some initial preparation by putting cards into the provided sleeves. These sleeves streamline the gameplay and enable the game's unique card-crafting system.</p>
 <p>The tables in the following sections will guide you. Some cards begin each game in sleeves by themselves, while others are sleeved in pairs. Pairs of cards should always be sleeved back to back, so that their fronts face outward.</p>
-<p>The only cards that <em>should not</em> be sleeved during this process are the 100 non-starting core cards and the 36 upgrade cards:</p>
+<p>The only cards that should <em>not</em> be sleeved during this process are the 100 non-starting core cards and the 36 upgrade cards:</p>
 <div class="table-wrap"><table>
 <thead>
 <tr>
@@ -521,39 +538,37 @@ details.section.search-hidden { display: none; }
 </tbody>
 </table></div>
 <p>* These sleeves begin with the threat card only. A core card will be added to the other side of the sleeve during gameplay.</p>
-  </div>
-</details>
-<details class="section">
-  <summary><span>GAME SETUP</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
-  <div class="section-body">
-<span class="subsection-title">A - Common Setup</span>
+<span class="subsection-title">Game Setup</span>
+<span class="label-title">A - Common Setup</span>
 <ol>
-<li>Core Decks: Divide the 100 unsleeved core cards into 6 decks by level number. Shuffle each deck individually. Place these decks in a face-up row on the table, arranged left to right in ascending order.</li>
-<li>Upgrade Deck: Shuffle the 36 unsleeved upgrade cards into a single deck. Place this deck face down on the table. Reveal the top 6 cards of the deck and place them in a face-up row next to the deck. Note: These cards have 2 different cutouts, but they should still be shuffled together.</li>
-<li>Token Supply: Create a supply with the credit tokens and damage tokens, sorted by type and denomination.</li>
+<li><strong>Core Decks:</strong> Divide the 100 unsleeved core cards into 6 decks by level number. Shuffle each deck individually. Place these decks in a face-up row on the table, arranged left to right in ascending order.</li>
+<li><strong>Upgrade Deck:</strong> Shuffle the 36 unsleeved upgrade cards into a single deck. Place this deck face down on the table. Reveal the top 6 cards of the deck and place them in a face-up row next to the deck. Note: These cards have 2 different cutouts, but they should still be shuffled together.</li>
+<li><strong>Token Supply:</strong> Create a supply with the credit tokens and damage tokens, sorted by type and denomination.</li>
 </ol>
-<span class="subsection-title">B - Player Setup</span>
+<span class="label-title">B - Player Setup</span>
 <ol>
 <li><strong>Player Mat:</strong> Collect a player mat, health marker, and armor marker. Place the player mat in front of you. Set the markers at "10" on the health track and "0" on the armor track.</li>
 <li><strong>Character Portrait:</strong> Choose a character by finding their portrait card and placing it in the portrait space on your player mat.</li>
-<li><strong>Character Deck:</strong> Construct your 10-card character deck. Each card consists of a sleeve with 2 starting cards, sleeved back to back. Your character cards are listed on the back of your portrait card. Shuffle the constructed deck and place it in the deck space on your player mat, threat side up.<br>
-   * 6x Strike / Ceresan Thief<br/>
-   * 1x Spare Credits / Virenian Doe<br/>
-   * 1x Character Card A / Backalley Blademaster<br/>
-   * 1x Character Card B / Sporeling<br/>
-   * 1x Character Card C / Junker Cyclist</br></li>
+<li><strong>Character Deck:</strong> Construct your 10-card character deck. Each card consists of a sleeve with 2 starting cards, sleeved back to back. Your character cards are listed on the back of your portrait card. Shuffle the constructed deck and place it in the deck space on your player mat, threat side up.<ul>
+<li>6x Strike / Ceresan Thief</li>
+<li>1x Spare Credits / Virenian Doe</li>
+<li>1x Character Card A / Backalley Blademaster</li>
+<li>1x Character Card B / Sporeling</li>
+<li>1x Character Card C / Junker Cyclist</li>
+</ul>
+</li>
 <li><strong>Starting Hand:</strong> Draw 3 cards from your deck. Hold these cards in your hand so that you are viewing the core side, not the threat side.</li>
 <li><strong>Battlefield:</strong> Take 3 cards from your deck. Place these cards in a row next to your deck, threat side up.</li>
 <li><strong>Starting Credits:</strong> Take credit tokens with a total value of 3 credits from the supply. Place them in the credits space on your player mat.</li>
 <li><strong>Action Point Discs:</strong> Find the 6 action point discs of your chosen player color. Place 3 of them in the action points space on your player mat. Set the other 3 aside for now.</li>
 <li><strong>Level Discs:</strong> Find the 2 level discs of your chosen player color and stack them together above the level-1 core deck.</li>
 </ol>
-<span class="subsection-title">C - Boss Setup</span>
+<span class="label-title">C - Boss Setup</span>
 <ol>
 <li>
-<p><strong>Boss Mat:</strong> Choose a boss by placing its boss mat in play, then following all setup steps on the back side of the mat. Note: The recommended boss for your first play is the Harbinger.<br/>
-   a. <strong>Boss Deck:</strong> Find the boss cards that match the chosen boss. Construct the boss deck according to the setup steps listed on the back side of the boss mat.<br/>
-   b. <strong>Threat Deck:</strong> Construct the threat deck according to the setup steps listed on the back side of the boss mat. Place the shuffled threat deck next to the core decks, threat side down.</p>
+<p><strong>Boss Mat:</strong> Choose a boss by placing its boss mat in play, then following all setup steps on the back side of the mat. Note: The recommended boss for your first play is the Harbinger.<br>
+    a. <strong>Boss Deck:</strong> Find the boss cards that match the chosen boss. Construct the boss deck according to the setup steps listed on the back side of the boss mat.<br/>
+    b. <strong>Threat Deck:</strong> Construct the threat deck according to the setup steps listed on the back side of the boss mat. Place the shuffled threat deck next to the core decks, threat side down.</br></p>
 </li>
 <li>
 <p><strong>Danger Marker:</strong> Find the danger marker and place it on the first "0" space of the danger track on the boss mat.</p>
@@ -563,52 +578,66 @@ details.section.search-hidden { display: none; }
   </div>
 </details>
 <details class="section">
-  <summary><span>CARD ANATOMY</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <summary><span>Card Anatomy</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
   <div class="section-body">
 <span class="subsection-title">Core Cards (126x)</span>
-<p>Shadowy Confidant<br/>
-ALLY<br/>
-Lose 2, then draw 1 card from the bottom of your deck.<br/>
-Conspire: 2<br/>
-(Conspire: Requires another card of this faction in hand or in play.)</p>
 <p>There are 4 different card types: cores, threats, upgrades, and boss. Most sleeved "cards" consist of 1 core, 1 threat, and up to 2 upgrades. Boss cards are only one card per sleeve and cannot be upgraded.</p>
 <ol>
-<li>Cost: This value indicates the number of action points required to play the card. Remove that many action point discs from your player mat.</li>
-<li>Faction: This indicates which faction the card belongs to. Many game effects and keywords are linked to these faction types.</li>
-<li>Type: This label indicates whether the card is a tactic or an ally. Tactics are discarded after use, while allies remain in play.</li>
-<li>Effects: This is where the card's effects appear. Some cards have a single effect, while some have multiple effects.</li>
-<li>Level: This value indicates which core deck the card comes from (1–6). Character cards and starting cards are level-0 core cards.</li>
+<li><strong>Cost:</strong> This value indicates the number of action points required to play the card. Remove that many action point discs from your player mat.</li>
+<li><strong>Faction:</strong> This indicates which faction the card belongs to. Many game effects and keywords are linked to these faction types.</li>
+<li><strong>Type:</strong> This label indicates whether the card is a tactic or an ally. Tactics are discarded after use, while allies remain in play.</li>
+<li><strong>Effects:</strong> This is where the card's effects appear. Some cards have a single effect, while some have multiple effects.</li>
+<li><strong>Level:</strong> This value indicates which core deck the card comes from (1–6). Character cards and starting cards are level-0 core cards.</li>
 </ol>
 <p>Cores make up the front side of sleeved cards. They represent the powers, resources, and support available to you.</p>
 <span class="subsection-title">Threat Cards (65x)</span>
-<p>Junker Cyclist<br/>
-VEHICLE<br/>
-When Defeated:<br/>
-1<br/>
-FAST</p>
 <ol>
-<li>Attack: This value indicates how much damage the threat will deal to you each turn when in play.</li>
-<li>Defense: This value is added to the attack value to determine the total health of the threat. You must deal damage to a threat equal to its health to defeat it.</li>
-<li>Bonus: This text indicates a bonus that you gain when you defeat the threat. Not all threats have a bonus.</li>
-<li>Keyword: This text indicates a keyword that applies to the threat. Not all threats have a keyword.</li>
+<li><strong>Attack:</strong> This value indicates how much damage the threat will deal to you each turn when in play.</li>
+<li><strong>Defense:</strong> This value is added to the attack value to determine the total health of the threat. You must deal damage to a threat equal to its health to defeat it.</li>
+<li><strong>Bonus:</strong> This text indicates a bonus that you gain when you defeat the threat. Not all threats have a bonus.</li>
+<li><strong>Keyword:</strong> This text indicates a keyword that applies to the threat. Not all threats have a keyword.</li>
 </ol>
 <p>Threats make up the back side of sleeved cards. They represent the strange monsters and deadly foes that you will face on the field of battle.</p>
+<span class="subsection-title">Upgrade Cards (36x)</span>
+<p>Upgrades are sleeved between cores and threats. They add modifiers to the core side and the threat side.</p>
+<ol>
+<li><strong>Cost:</strong> This value indicates the amount of credits required to buy the upgrade. Return that many credits to the supply.</li>
+<li>
+<p><strong>Modifiers:</strong> The modifiers in effect for the card that this upgrade is added to. Each card can have 1 matching upgrade per cutout.<br/>
+    2a. Modifier added to the core side.<br/>
+    2b. Modifier added to the threat side.</p>
+</li>
+<li>
+<p><strong>Requirement:</strong> This indicates which type of card this upgrade can be added to. Some upgrades require a tactic or an ally, while others can be added to a card of either type.</p>
+</li>
+<li><strong>Discount:</strong> This indicates a discount to the upgrade cost that applies when it is added to a card of a specific faction.</li>
+</ol>
+<span class="subsection-title">Faction Icons</span>
+<p>Council <img alt="Council" src="icons/page-007_icon_1_council.png"/>, Junker <img alt="Junker" src="icons/page-007_icon_2_junker.png"/>, Silver <img alt="Silver" src="icons/page-007_icon_3_silver.png"/>, Viren <img alt="Viren" src="icons/page-007_icon_4_viren.png"/></p>
   </div>
 </details>
 <details class="section">
-  <summary><span>GAME OBJECTIVE</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <summary><span>Game Objective</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
   <div class="section-body">
-<p>The goal of Unstoppable is to defeat the boss, a world-ending menace that threatens the very way of life in your star system. Each boss works differently, and will say on its boss mat how to defeat it. Many bosses require you to deal Boss Damage , a special kind of damage that can only be found on certain cards.</p>
-<p>• You win the game if... you defeat the boss.<br/>
-• You lose the game if... your health is reduced to zero.<br/>
-• You lose the game if... the danger level reaches .</p>
+<p>The goal of Unstoppable is to defeat the boss, a world-ending menace that threatens the very way of life in your star system. Each boss works differently, and will say on its boss mat how to defeat it. Many bosses require you to deal Boss Damage, a special kind of damage that can only be found on certain cards.</p>
+<ul>
+<li>You win the game if... you defeat the boss.</li>
+<li>You lose the game if... your health is reduced to zero.</li>
+<li>You lose the game if... the danger level reaches [skull icon].</li>
+</ul>
   </div>
 </details>
 <details class="section">
-  <summary><span>TURN SEQUENCE</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <summary><span>Turn Sequence</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
   <div class="section-body">
 <p>The game takes place over a series of turns.</p>
 <p>Each turn is broken into 5 phases that are performed in order:</p>
+<p>A. Upkeep Phase<br/>
+B. Draft Phase<br/>
+C. Main Phase<br/>
+D. Threat Phase<br/>
+E. Cleanup Phase</p>
+<p>This sequence repeats until you win or lose.</p>
 <span class="subsection-title">A. Upkeep Phase</span>
 <ol>
 <li>Place <strong>3 action point discs</strong> in the action points space on your player mat. Those action points are available to be spent in the Main Phase.</li>
@@ -627,7 +656,7 @@ FAST</p>
 <p><em>Note: Both level discs advance permanently when you level up, and your small level disc advances temporarily when you train ↻.</em><br/>
 <em>Note: You can only look at the threat side of a card while it is an active or on-deck threat.</em></p>
 <span class="subsection-title">C. Main Phase</span>
-<p>The Main Phase is when you can play cards, exhaust allies, and buy upgrades.</p>
+<p>The Main Phase is when you can play cards, exhaust <img alt="Exhaust" src="icons/page-010_icon_1_exhaust.png"/> allies, and buy upgrades.</p>
 <p>You may take these actions any number of times, and in any order, as long as you have the cards, credits, and action points required to do so. The phase ends when you cannot, or choose not to, take any more actions.</p>
 <p>Each action must be resolved fully before you can take another.</p>
 <span class="label-title">Playing Cards</span>
@@ -638,16 +667,8 @@ FAST</p>
 <span class="label-title">Repeatable Effects</span>
 <p>Some interactions allow you to repeat certain card effects. However, if you resolve the same effect of the same card for the 4th time in a single turn, you must then eliminate that card. Return that card to the box.</p>
 <span class="label-title">Tactic Cards</span>
-<p>Gadwick's Emporium<br/>
-TACTIC<br/>
-3</p>
 <p>Tactics are cards with one-time effects. Once played, a tactic card remains in play until the Cleanup Phase of the same turn and is then discarded.</p>
 <span class="label-title">Ally Cards</span>
-<p>Rogue Hacker<br/>
-ALLY<br/>
-1<br/>
-1<br/>
-2</p>
 <p>Allies are cards with repeatable effects. Once played, an ally card remains in play until the next time you level up and is then discarded.</p>
 <span class="label-title">Exhausting Allies</span>
 <p>To exhaust an ally in play, rotate the card 90 degrees clockwise. Exhausting an ally is separate from playing it. You may only exhaust allies that are in play.</p>
@@ -661,8 +682,10 @@ ALLY<br/>
 <span class="label-title">Defeating Threats</span>
 <p>You may deal damage to any active threats or the on-deck threat by playing cards and exhausting allies. Damage dealt to threats persists between turns and can be tracked with damage tokens (see p. 15). When a threat has taken damage equal to or greater than its health, you have defeated it. The health of each threat is the sum of its attack and defense values.</p>
 <p>Before resolving any bonus, draw the defeated threat and add it to your hand. Flip the card over and rotate it so that you are viewing the core side. Defeating threats is the primary way to draw cards in <em>Unstoppable</em>!</p>
-<span class="inline-title">On-Deck Threats</span>
+<blockquote>
+<p><strong>On-Deck Threats</strong></p>
 <p>The top card of your deck is the on-deck threat. You can deal damage to this threat while it is still on top of your deck. But pay attention, because the threat keywords Fast (see p. 18) and Taunt (see p. 18) apply when the threat is on deck.</p>
+</blockquote>
 <p>Many threats have a bonus that triggers when defeated. These bonuses are mandatory and resolve immediately.</p>
 <span class="subsection-title">D. Threat Phase</span>
 <p>The Threat Phase is when you take damage from the active threats.</p>
@@ -693,7 +716,18 @@ ALLY<br/>
   </div>
 </details>
 <details class="section">
-  <summary><span>LEVELING UP</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <summary><span>Boss Setup Details</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Skipped Spaces</span>
+<p>Some spaces must be skipped based on the difficulty level you chose during game setup:<br/>
+<img alt="Normal Difficulty" src="icons/page-017_icon_7_normal-difficulty.png"/> NORMAL: Skip all spaces with a green border.<br/>
+<img alt="Hard Difficulty" src="icons/page-017_icon_8_hard-difficulty.png"/> HARD: Skip all spaces with a yellow border.<br/>
+<img alt="Expert Difficulty" src="icons/page-017_icon_9_expert-difficulty.png"/> EXPERT: Skip all spaces with a red border.</p>
+<p>Note: When an effect space on the danger track is skipped due to difficulty level, the effect does not trigger.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Leveling Up</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
   <div class="section-body">
 <p>Leveling up is an "event," so the game pauses temporarily while you complete the process. You level up in one of two ways:</p>
 <span class="subsection-title">Leveling Up in the Main Phase</span>
@@ -706,18 +740,13 @@ ALLY<br/>
 <li>Discard all tactic cards and ally cards from play and discard down to 3 cards in hand. Put the discarded cards in your discard pile.</li>
 <li>Optionally eliminate any 1 card in your hand or in your discard pile. Return that card to the box; it will not be used again for the remainder of the game.</li>
 <li>Resolve any boss-specific effects that trigger when you level up. These effects, if any, are printed on the boss mat.</li>
-<li>Reshuffle all cards in your discard pile. Place the shuffled cards in the deck space on your player mat, threat side up.</li>
+<li>Reshuffle all cards in your discard pile. Place the shuffled cards in the deck space on your player mat, threat side up.## 2-Player Mode</li>
 </ol>
-  </div>
-</details>
-<details class="section">
-  <summary><span>2-PLAYER MODE</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
-  <div class="section-body">
 <p>In the 2-player mode, each player controls a separate character, and they must work together to defeat the boss. For the most part, players play as they would in a solo game, however, players share the ability to damage threats in either player's battlefield, meaning players can help each other draw cards. Syncing up with your ally on when to kill threats and how to efficiently allocate your damage will be key.</p>
 <span class="subsection-title">Game Setup</span>
 <p>Common setup and boss setup remain the same, but each player performs player setup individually for their chosen character and color.</p>
 <span class="subsection-title">Game Objective</span>
-<p>The players still must defeat the boss, who is usually twice as difficult. The players lose if either player's health is reduced to zero or if the danger level reaches</p>
+<p>The players still must defeat the boss, who is usually twice as difficult. The players lose if either player's health is reduced to zero or if the danger level reaches [skull icon].</p>
 <span class="subsection-title">Turn Sequence</span>
 <p>Observe the following changes to the turn sequence:</p>
 <ul>
@@ -738,7 +767,7 @@ ALLY<br/>
   </div>
 </details>
 <details class="section">
-  <summary><span>SCORING YOUR GAME</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <summary><span>Scoring Your Game</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
   <div class="section-body">
 <p>If you wish to assess the quality of your victory you can use these rules to determine a "score". Note, you only score if you win. Please consider sharing your scores with what hero vs. which boss on Boardgamegeek.com or on Renegade's social media!</p>
 <ul>
@@ -762,64 +791,64 @@ ALLY<br/>
   </div>
 </details>
 <details class="section">
-  <summary><span>EFFECT ICONS</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <summary><span>Effect Icons</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
   <div class="section-body">
 <p>Many cards use effect icons as shorthand for important game effects. These effect icons are explained in detail below.</p>
 <span class="subsection-title">Core Icons</span>
-<p><strong>Deal X damage.</strong><br/>
-If this damage does not defeat the target threat, take X damage tokens from the supply and place them on the threat to track it. You may target any active threat or the on-deck threat. All damage from each instance of this icon must be dealt to a single threat.</p>
-<p><strong>Gain X credits.</strong><br/>
-Take X credit tokens from the supply and place them in the credits space on your player mat. If the supply runs out, use any suitable substitute.</p>
-<p><strong>Gain X action points.</strong><br/>
-Place X action point discs on your player mat. You cannot have more than 6 action points. If you gain action points when at the maximum, nothing happens.</p>
-<p><strong>Gain X health.</strong><br/>
-Move the health marker up X spaces on your health track. You cannot have more than 10 health. If you gain health when at the maximum, nothing happens.</p>
-<p><strong>Gain X armor.</strong><br/>
-Move the armor marker up X spaces on your armor track. You cannot have more than 10 armor. If you gain armor when at the maximum, nothing happens.</p>
-<p><strong>Train 1 level.</strong><br/>
-Advance your small level disc 1 level, from its current level to the next level. If your small level disc is already at the 6th level, nothing happens.</p>
-<p><strong>Eliminate 1 card.</strong><br/>
-Choose 1 card in your hand, in your discard pile, or in play. Return that card to the box; it will not be used again for the remainder of the game.</p>
-<p><strong>Level X+</strong><br/>
-<strong>If Level X or higher...</strong><br/>
+<span class="label-title">Deal X damage.</span>
+<p><img alt="Deal Damage" src="icons/page-016_icon_1_deal-damage.png"/> If this damage does not defeat the target threat, take X damage tokens from the supply and place them on the threat to track it. You may target any active threat or the on-deck threat. All damage from each instance of this icon must be dealt to a single threat.</p>
+<span class="label-title">Gain X credits.</span>
+<p><img alt="Gain Credits" src="icons/page-016_icon_2_gain-credits.png"/> Take X credit tokens from the supply and place them in the credits space on your player mat. If the supply runs out, use any suitable substitute.</p>
+<span class="label-title">Gain X action points.</span>
+<p><img alt="Gain Action Points" src="icons/page-016_icon_3_gain-action-points.png"/> Place X action point discs on your player mat. You cannot have more than 6 action points. If you gain action points when at the maximum, nothing happens.</p>
+<span class="label-title">Gain X health.</span>
+<p><img alt="Gain Health" src="icons/page-016_icon_4_gain-health.png"/> Move the health marker up X spaces on your health track. You cannot have more than 10 health. If you gain health when at the maximum, nothing happens.</p>
+<span class="label-title">Gain X armor.</span>
+<p><img alt="Gain Armor" src="icons/page-016_icon_5_gain-armor.png"/> Move the armor marker up X spaces on your armor track. You cannot have more than 10 armor. If you gain armor when at the maximum, nothing happens.</p>
+<span class="label-title">Train 1 level.</span>
+<p><img alt="Train" src="icons/page-016_icon_6_train-1-level.png"/> Advance your small level disc 1 level, from its current level to the next level. If your small level disc is already at the 6th level, nothing happens.</p>
+<span class="label-title">Eliminate 1 card.</span>
+<p><img alt="Eliminate 1 Card" src="icons/page-016_icon_7_eliminate-1-card.png"/> Choose 1 card in your hand, in your discard pile, or in play. Return that card to the box; it will not be used again for the remainder of the game.</p>
+<span class="label-title">Level X+</span>
+<p><img alt="Level X+" src="icons/page-016_icon_8_level-x-or-higher.png"/> <strong>If Level X or higher...</strong><br/>
 This text indicates an effect that only resolves if your large level disc is Level X or higher. Many character cards have effects like this.</p>
 <span class="subsection-title">Threat Icons</span>
-<p><strong>Attack Value</strong><br/>
-This value is how much damage the threat deals to you during the Threat Phase if active. The health of each threat is its attack value + defense value.</p>
-<p><strong>Defense Value</strong><br/>
-This value is how much extra damage you must deal to the threat to defeat it. The health of each threat is its attack value + defense value.</p>
-<p><strong>Danger Level</strong><br/>
-This icon represents the current danger level. The danger level is the number in the danger marker's space of the danger track on the boss mat.</p>
+<span class="label-title">Attack Value</span>
+<p><img alt="Attack Value" src="icons/page-017_icon_1_attack-value.png"/> This value is how much damage the threat deals to you during the Threat Phase if active. The health of each threat is its attack value + defense value.</p>
+<span class="label-title">Defense Value</span>
+<p><img alt="Defense Value" src="icons/page-017_icon_2_defense-value.png"/> This value is how much extra damage you must deal to the threat to defeat it. The health of each threat is its attack value + defense value.</p>
+<span class="label-title">Danger Level</span>
+<p><img alt="Danger Level" src="icons/page-017_icon_3_danger-level.png"/> This icon represents the current danger level. The danger level is the number in the danger marker's space of the danger track on the boss mat.</p>
 <span class="subsection-title">Boss Icons</span>
-<p><strong>Boss Damage</strong><br/>
-Some bosses must be dealt a certain amount of boss damage. The ways you can deal boss damage are specified on their boss mat and/or boss cards.</p>
-<p><strong>Card Elimination</strong><br/>
-When the danger marker reaches this space, you may spend 1 credit to eliminate 1 card in your hand, in your discard pile, or in play.</p>
-<p><strong>Market Cycle</strong><br/>
-When the danger marker reaches this space, you may move any number of upgrades from the market to the bottom of the deck, then refill the market.</p>
-<p><strong>Normal Difficulty</strong><br/>
-If you are playing on Normal difficulty, skip all spaces with a green border when the danger marker advances.</p>
-<p><strong>Hard Difficulty</strong><br/>
-If you are playing on Hard difficulty, skip all spaces with a yellow border when the danger marker advances.</p>
-<p><strong>Expert Difficulty</strong><br/>
-If you are playing on Expert difficulty, skip all spaces with a red border when the danger marker advances.</p>
-<p><strong>Maximum Danger</strong><br/>
-If the danger marker reaches this space on the danger track, you lose!</p>
+<span class="label-title">Boss Damage</span>
+<p><img alt="Boss Damage" src="icons/page-017_icon_4_boss-damage.png"/> Some bosses must be dealt a certain amount of boss damage. The ways you can deal boss damage are specified on their boss mat and/or boss cards.</p>
+<span class="label-title">Card Elimination</span>
+<p><img alt="Card Elimination" src="icons/page-017_icon_5_card-elimination.png"/> When the danger marker reaches this space, you may spend 1 credit to eliminate 1 card in your hand, in your discard pile, or in play.</p>
+<span class="label-title">Market Cycle</span>
+<p><img alt="Market Cycle" src="icons/page-017_icon_6_market-cycle.png"/> When the danger marker reaches this space, you may move any number of upgrades from the market to the bottom of the deck, then refill the market.</p>
+<span class="label-title">Normal Difficulty</span>
+<p><img alt="Normal Difficulty" src="icons/page-017_icon_7_normal-difficulty.png"/> If you are playing on Normal difficulty, skip all spaces with a green border when the danger marker advances.</p>
+<span class="label-title">Hard Difficulty</span>
+<p><img alt="Hard Difficulty" src="icons/page-017_icon_8_hard-difficulty.png"/> If you are playing on Hard difficulty, skip all spaces with a yellow border when the danger marker advances.</p>
+<span class="label-title">Expert Difficulty</span>
+<p><img alt="Expert Difficulty" src="icons/page-017_icon_9_expert-difficulty.png"/> If you are playing on Expert difficulty, skip all spaces with a red border when the danger marker advances.</p>
+<span class="label-title">Maximum Danger</span>
+<p><img alt="Maximum Danger" src="icons/page-017_icon_10_maximum-danger.png"/> If the danger marker reaches this space on the danger track, you lose!</p>
   </div>
 </details>
 <details class="section">
-  <summary><span>FACTION KEYWORDS</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <summary><span>Faction Keywords</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
   <div class="section-body">
 <p>Many cards have effects that are represented by <strong>faction</strong> keywords.</p>
 <p>These faction keywords have conditions or variables that are linked to the faction types of the cards <em>in your hand and/or in play</em>. Consider all cards in your hand and in your play area when evaluating a faction keyword.</p>
 <p>A faction keyword is displayed on a card in bolded text followed by a colon and the remainder of the effect (e.g., "<strong>Conspire</strong>: Refresh 1 ally").</p>
-<span class="label-title">Bargain</span>
+<span class="subsection-title">Bargain</span>
 <p>Bargain effects, which are optional, are always followed by a number. This is how many credits you must spend to use it. The cost is reduced by 1 for each card of the same faction as this card in your hand and/or in play (including itself). Costs cannot be reduced below zero.</p>
-<span class="label-title">Conspire</span>
+<span class="subsection-title">Conspire</span>
 <p>Conspire effects, which are mandatory, trigger if there is at least 1 other card of the same faction as this card in your hand or in play. These effects do not scale upward with the number of other cards of the same faction.</p>
-<span class="label-title">Focus</span>
+<span class="subsection-title">Focus</span>
 <p>Focus effects, which are mandatory, refer to an "X" value. The value of X is equal to the number of cards of the same faction as this card in your hand and/or in play (including itself). X is always at least 1 for any card that has a faction type.</p>
-<span class="label-title">Unite</span>
+<span class="subsection-title">Unite</span>
 <p>Unite effects, which are mandatory, refer to an "X" value. The value of X is equal to the number of unique factions present among the cards in your hand and/or in play (including itself). X is always at least 1 for any card that has a faction type. There are 4 factions now, but future releases could introduce more.</p>
 <p>Some <strong>factionless</strong> cards, like the starting cards, have no faction type. These cards are ignored by faction keywords. If a factionless card receives an upgrade with a faction type, the card does not gain the faction type.</p>
 <p>If a factionless card receives an upgrade with a faction keyword, the linked effect of the faction keyword might still resolve.</p>
@@ -832,20 +861,151 @@ If the danger marker reaches this space on the danger track, you lose!</p>
   </div>
 </details>
 <details class="section">
-  <summary><span>THREAT KEYWORDS</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <summary><span>Threat Keywords</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
   <div class="section-body">
 <p>Many cards have effects that are represented by threat keywords. Some threat keywords are passive effects that apply at all times while the threat is active, while others are effects that trigger in specific circumstances.</p>
-<span class="label-title">Crazed X</span>
+<span class="subsection-title">CRAZED X</span>
 <p>Crazed threats become reckless when they sense desperation. When a Crazed threat is revealed for any reason, compare your current health value to the Crazed "X" value. If your current health value is equal to or lower than X, the Crazed threat deals itself 2 damage.</p>
-<span class="label-title">Fast</span>
+<span class="subsection-title">FAST</span>
 <p>Fast threats overrun the battlefield with their speed. Fast threats do not count toward the limit of 3 active threats. During the Cleanup Phase, you must continue adding threats until there are 3 non-Fast threats on the battlefield and a non-Fast threat on top of your deck.</p>
-<span class="label-title">Rage</span>
+<span class="subsection-title">RAGE</span>
 <p>Rage threats wreak havoc on your allies. During the Threat Phase, for each Rage threat on the battlefield, you must discard 1 ally from play and put it in your discard pile. Both available allies and exhausted allies can be discarded this way by Rage threats.</p>
-<span class="label-title">Taunt</span>
+<span class="subsection-title">TAUNT</span>
 <p>Taunt threats command your attention. When at least 1 Taunt threat is on the battlefield or on top of your deck, you must target a Taunt threat with any damage effect unless stated otherwise. This restriction does not apply to non-damage effects.</p>
-<span class="label-title">Terror</span>
+<span class="subsection-title">TERROR</span>
 <p>Terror threats drain your steely resolve. When you target a Terror threat with an effect that deals damage, you lose 1 action point. If you have no action points left, the effect still resolves but the loss is ignored. This restriction does not apply to non-damage effects.</p>
 <p>Multiple instances of the same keyword can stack on a single threat. For the Crazed, Rage, and Terror keywords, the effect resolves once for each instance when triggered. For the Fast and Taunt keywords, multiple instances have no effect.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Icon Reference</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Icon</th>
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img alt="Council" src="icons/page-007_icon_1_council.png"/></td>
+<td><strong>Council</strong></td>
+<td>Council is a faction type that influences keyword effects and synergies for cards in your hand and play area.</td>
+</tr>
+<tr>
+<td><img alt="Junker" src="icons/page-007_icon_2_junker.png"/></td>
+<td><strong>Junker</strong></td>
+<td>Junker is a faction type that influences keyword effects and synergies for cards in your hand and play area.</td>
+</tr>
+<tr>
+<td><img alt="Silver" src="icons/page-007_icon_3_silver.png"/></td>
+<td><strong>Silver</strong></td>
+<td>Silver is a faction type that influences keyword effects and synergies for cards in your hand and play area.</td>
+</tr>
+<tr>
+<td><img alt="Viren" src="icons/page-007_icon_4_viren.png"/></td>
+<td><strong>Viren</strong></td>
+<td>Viren is a faction type that influences keyword effects and synergies for cards in your hand and play area.</td>
+</tr>
+<tr>
+<td><img alt="Exhaust" src="icons/page-010_icon_1_exhaust.png"/></td>
+<td><strong>Exhaust</strong></td>
+<td>Exhausting an ally rotates it ninety degrees clockwise to activate its special effects until it is refreshed next turn.</td>
+</tr>
+<tr>
+<td><img alt="Deal Damage" src="icons/page-016_icon_1_deal-damage.png"/></td>
+<td><strong>Deal Damage</strong></td>
+<td>Deal Damage places X damage tokens on a target threat to reduce its health and potentially defeat it.</td>
+</tr>
+<tr>
+<td><img alt="Gain Credits" src="icons/page-016_icon_2_gain-credits.png"/></td>
+<td><strong>Gain Credits</strong></td>
+<td>Gain Credits adds X credit tokens from the supply to your player mat for purchasing upgrades.</td>
+</tr>
+<tr>
+<td><img alt="Gain Action Points" src="icons/page-016_icon_3_gain-action-points.png"/></td>
+<td><strong>Gain Action Points</strong></td>
+<td>Gain Action Points adds X discs to your mat, up to a maximum of six, for playing cards.</td>
+</tr>
+<tr>
+<td><img alt="Gain Health" src="icons/page-016_icon_4_gain-health.png"/></td>
+<td><strong>Gain Health</strong></td>
+<td>Gain Health moves your health marker up X spaces on your track, up to a maximum of ten.</td>
+</tr>
+<tr>
+<td><img alt="Gain Armor" src="icons/page-016_icon_5_gain-armor.png"/></td>
+<td><strong>Gain Armor</strong></td>
+<td>Gain Armor moves your armor marker up X spaces on your track, up to a maximum of ten.</td>
+</tr>
+<tr>
+<td><img alt="Train 1 Level" src="icons/page-016_icon_6_train-1-level.png"/></td>
+<td><strong>Train 1 Level</strong></td>
+<td>Train 1 Level advances your small level disc one space to the right to draft from higher decks.</td>
+</tr>
+<tr>
+<td><img alt="Eliminate 1 Card" src="icons/page-016_icon_7_eliminate-1-card.png"/></td>
+<td><strong>Eliminate 1 Card</strong></td>
+<td>Eliminate 1 Card permanently removes a chosen card from your hand, discard pile, or play area for the rest of the game.</td>
+</tr>
+<tr>
+<td><img alt="Level X Or Higher" src="icons/page-016_icon_8_level-X-or-higher.png"/></td>
+<td><strong>Level X Or Higher</strong></td>
+<td>Level X Or Higher restricts an effect to only resolve when your large level disc reaches that threshold.</td>
+</tr>
+<tr>
+<td><img alt="Maximum Danger" src="icons/page-017_icon_10_maximum-danger.png"/></td>
+<td><strong>Maximum Danger</strong></td>
+<td>Maximum Danger indicates the final space on the danger track where reaching it causes an immediate loss.</td>
+</tr>
+<tr>
+<td><img alt="Attack Value" src="icons/page-017_icon_1_attack-value.png"/></td>
+<td><strong>Attack Value</strong></td>
+<td>Attack Value determines the amount of damage a threat deals to you during the Threat Phase.</td>
+</tr>
+<tr>
+<td><img alt="Defense Value" src="icons/page-017_icon_2_defense-value.png"/></td>
+<td><strong>Defense Value</strong></td>
+<td>Defense Value represents the additional damage needed to defeat a threat, combining with attack to determine total health.</td>
+</tr>
+<tr>
+<td><img alt="Danger Level" src="icons/page-017_icon_3_danger-level.png"/></td>
+<td><strong>Danger Level</strong></td>
+<td>Danger Level shows the current position of the danger marker on the boss mat's track.</td>
+</tr>
+<tr>
+<td><img alt="Boss Damage" src="icons/page-017_icon_4_boss-damage.png"/></td>
+<td><strong>Boss Damage</strong></td>
+<td>Boss Damage is a special damage type required to defeat specific bosses as detailed on their mats.</td>
+</tr>
+<tr>
+<td><img alt="Card Elimination" src="icons/page-017_icon_5_card-elimination.png"/></td>
+<td><strong>Card Elimination</strong></td>
+<td>Card Elimination allows you to spend one credit to permanently remove a card when the danger marker reaches this space.</td>
+</tr>
+<tr>
+<td><img alt="Market Cycle" src="icons/page-017_icon_6_market-cycle.png"/></td>
+<td><strong>Market Cycle</strong></td>
+<td>Market Cycle lets you move upgrades from the market to the deck bottom and refill the market when triggered.</td>
+</tr>
+<tr>
+<td><img alt="Normal Difficulty" src="icons/page-017_icon_7_normal-difficulty.png"/></td>
+<td><strong>Normal Difficulty</strong></td>
+<td>Normal Difficulty causes you to skip all green-bordered spaces on the danger track as the marker advances.</td>
+</tr>
+<tr>
+<td><img alt="Hard Difficulty" src="icons/page-017_icon_8_hard-difficulty.png"/></td>
+<td><strong>Hard Difficulty</strong></td>
+<td>Hard Difficulty causes you to skip all yellow-bordered spaces on the danger track as the marker advances.</td>
+</tr>
+<tr>
+<td><img alt="Expert Difficulty" src="icons/page-017_icon_9_expert-difficulty.png"/></td>
+<td><strong>Expert Difficulty</strong></td>
+<td>Expert Difficulty causes you to skip all red-bordered spaces on the danger track as the marker advances.</td>
+</tr>
+</tbody>
+</table></div>
   </div>
 </details>
   <p id="no-results">No sections match your search.</p>

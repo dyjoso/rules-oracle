@@ -1,0 +1,199 @@
+[
+  {
+    "source_image": "page-007.png",
+    "image_dimensions": [
+      908,
+      1191
+    ],
+    "annotations": [
+      {
+        "x1": 210,
+        "y1": 620,
+        "x2": 297,
+        "y2": 736,
+        "name": "council"
+      },
+      {
+        "x1": 351,
+        "y1": 620,
+        "x2": 439,
+        "y2": 739,
+        "name": "junker"
+      },
+      {
+        "x1": 490,
+        "y1": 622,
+        "x2": 580,
+        "y2": 736,
+        "name": "silver"
+      },
+      {
+        "x1": 631,
+        "y1": 622,
+        "x2": 720,
+        "y2": 736,
+        "name": "viren"
+      }
+    ]
+  },
+  {
+    "source_image": "page-010.png",
+    "image_dimensions": [
+      908,
+      1191
+    ],
+    "annotations": [
+      {
+        "x1": 234,
+        "y1": 59,
+        "x2": 280,
+        "y2": 107,
+        "name": "exhaust"
+      }
+    ]
+  },
+  {
+    "source_image": "page-016.png",
+    "image_dimensions": [
+      908,
+      1191
+    ],
+    "annotations": [
+      {
+        "x1": 121,
+        "y1": 306,
+        "x2": 211,
+        "y2": 387,
+        "name": "deal-damage"
+      },
+      {
+        "x1": 124,
+        "y1": 437,
+        "x2": 211,
+        "y2": 516,
+        "name": "gain-credits"
+      },
+      {
+        "x1": 131,
+        "y1": 548,
+        "x2": 202,
+        "y2": 625,
+        "name": "gain-action-points"
+      },
+      {
+        "x1": 122,
+        "y1": 655,
+        "x2": 211,
+        "y2": 732,
+        "name": "gain-health"
+      },
+      {
+        "x1": 131,
+        "y1": 755,
+        "x2": 202,
+        "y2": 832,
+        "name": "gain-armor"
+      },
+      {
+        "x1": 125,
+        "y1": 852,
+        "x2": 207,
+        "y2": 929,
+        "name": "train-1-level"
+      },
+      {
+        "x1": 125,
+        "y1": 948,
+        "x2": 207,
+        "y2": 1028,
+        "name": "eliminate-1-card"
+      },
+      {
+        "x1": 109,
+        "y1": 1064,
+        "x2": 222,
+        "y2": 1124,
+        "name": "level-X-or-higher"
+      }
+    ]
+  },
+  {
+    "source_image": "page-017.png",
+    "image_dimensions": [
+      908,
+      1191
+    ],
+    "annotations": [
+      {
+        "x1": 117,
+        "y1": 130,
+        "x2": 195,
+        "y2": 204,
+        "name": "attack-value"
+      },
+      {
+        "x1": 118,
+        "y1": 230,
+        "x2": 197,
+        "y2": 300,
+        "name": "defense-value"
+      },
+      {
+        "x1": 118,
+        "y1": 327,
+        "x2": 194,
+        "y2": 404,
+        "name": "danger-level"
+      },
+      {
+        "x1": 118,
+        "y1": 495,
+        "x2": 199,
+        "y2": 570,
+        "name": "boss-damage"
+      },
+      {
+        "x1": 116,
+        "y1": 590,
+        "x2": 199,
+        "y2": 673,
+        "name": "card-elimination"
+      },
+      {
+        "x1": 115,
+        "y1": 688,
+        "x2": 200,
+        "y2": 770,
+        "name": "market-cycle"
+      },
+      {
+        "x1": 116,
+        "y1": 790,
+        "x2": 198,
+        "y2": 864,
+        "name": "normal-difficulty"
+      },
+      {
+        "x1": 113,
+        "y1": 886,
+        "x2": 199,
+        "y2": 964,
+        "name": "hard-difficulty"
+      },
+      {
+        "x1": 115,
+        "y1": 983,
+        "x2": 200,
+        "y2": 1061,
+        "name": "expert-difficulty"
+      },
+      {
+        "x1": 114,
+        "y1": 1152,
+        "x2": 201,
+        "y2": 1076,
+        "name": "maximum-danger"
+      }
+    ]
+  }
+]

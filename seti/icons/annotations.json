@@ -1,0 +1,429 @@
+[
+  {
+    "source_image": "page-006.png",
+    "image_dimensions": [
+      1149,
+      1600
+    ],
+    "annotations": [
+      {
+        "x1": 107,
+        "y1": 911,
+        "x2": 161,
+        "y2": 959,
+        "name": "publicity"
+      }
+    ]
+  },
+  {
+    "source_image": "page-007.png",
+    "image_dimensions": [
+      1149,
+      1600
+    ],
+    "annotations": [
+      {
+        "x1": 812,
+        "y1": 777,
+        "x2": 862,
+        "y2": 831,
+        "name": "pass"
+      }
+    ]
+  },
+  {
+    "source_image": "page-008.png",
+    "image_dimensions": [
+      1149,
+      1600
+    ],
+    "annotations": [
+      {
+        "x1": 293,
+        "y1": 448,
+        "x2": 399,
+        "y2": 562,
+        "name": "launch"
+      }
+    ]
+  },
+  {
+    "source_image": "page-010.png",
+    "image_dimensions": [
+      1149,
+      1600
+    ],
+    "annotations": [
+      {
+        "x1": 416,
+        "y1": 431,
+        "x2": 524,
+        "y2": 546,
+        "name": "orbit"
+      }
+    ]
+  },
+  {
+    "source_image": "page-011.png",
+    "image_dimensions": [
+      1149,
+      1600
+    ],
+    "annotations": [
+      {
+        "x1": 69,
+        "y1": 854,
+        "x2": 176,
+        "y2": 969,
+        "name": "land"
+      }
+    ]
+  },
+  {
+    "source_image": "page-012.png",
+    "image_dimensions": [
+      1149,
+      1600
+    ],
+    "annotations": [
+      {
+        "x1": 106,
+        "y1": 137,
+        "x2": 215,
+        "y2": 253,
+        "name": "scan"
+      }
+    ]
+  },
+  {
+    "source_image": "page-013.png",
+    "image_dimensions": [
+      1149,
+      1600
+    ],
+    "annotations": [
+      {
+        "x1": 69,
+        "y1": 717,
+        "x2": 164,
+        "y2": 774,
+        "name": "complete-sector"
+      }
+    ]
+  },
+  {
+    "source_image": "page-014.png",
+    "image_dimensions": [
+      1149,
+      1600
+    ],
+    "annotations": [
+      {
+        "x1": 107,
+        "y1": 138,
+        "x2": 216,
+        "y2": 252,
+        "name": "analyse-data"
+      }
+    ]
+  },
+  {
+    "source_image": "page-015.png",
+    "image_dimensions": [
+      1149,
+      1600
+    ],
+    "annotations": [
+      {
+        "x1": 72,
+        "y1": 134,
+        "x2": 184,
+        "y2": 254,
+        "name": "play-a-card"
+      }
+    ]
+  },
+  {
+    "source_image": "page-016.png",
+    "image_dimensions": [
+      1149,
+      1600
+    ],
+    "annotations": [
+      {
+        "x1": 105,
+        "y1": 134,
+        "x2": 216,
+        "y2": 253,
+        "name": "research"
+      },
+      {
+        "x1": 575,
+        "y1": 644,
+        "x2": 712,
+        "y2": 693,
+        "name": "research-a-tech"
+      }
+    ]
+  },
+  {
+    "source_image": "page-017.png",
+    "image_dimensions": [
+      1149,
+      1600
+    ],
+    "annotations": [
+      {
+        "x1": 69,
+        "y1": 220,
+        "x2": 172,
+        "y2": 360,
+        "name": "probe-tech-01"
+      },
+      {
+        "x1": 569,
+        "y1": 221,
+        "x2": 673,
+        "y2": 362,
+        "name": "probe-tech-02"
+      },
+      {
+        "x1": 69,
+        "y1": 416,
+        "x2": 171,
+        "y2": 553,
+        "name": "probe-tech-03"
+      },
+      {
+        "x1": 570,
+        "y1": 416,
+        "x2": 676,
+        "y2": 556,
+        "name": "probe-tech-04"
+      },
+      {
+        "x1": 68,
+        "y1": 742,
+        "x2": 173,
+        "y2": 884,
+        "name": "telescope-tech-01"
+      },
+      {
+        "x1": 569,
+        "y1": 741,
+        "x2": 676,
+        "y2": 884,
+        "name": "telescope-tech-02"
+      },
+      {
+        "x1": 69,
+        "y1": 945,
+        "x2": 173,
+        "y2": 1088,
+        "name": "telescope-tech-03"
+      },
+      {
+        "x1": 568,
+        "y1": 945,
+        "x2": 675,
+        "y2": 1087,
+        "name": "telescope-tech-04"
+      },
+      {
+        "x1": 568,
+        "y1": 1275,
+        "x2": 674,
+        "y2": 1417,
+        "name": "computer-tech-01"
+      },
+      {
+        "x1": 677,
+        "y1": 1275,
+        "x2": 783,
+        "y2": 1419,
+        "name": "computer-tech-02"
+      },
+      {
+        "x1": 785,
+        "y1": 1273,
+        "x2": 891,
+        "y2": 1420,
+        "name": "computer-tech-03"
+      },
+      {
+        "x1": 895,
+        "y1": 1274,
+        "x2": 1002,
+        "y2": 1418,
+        "name": "computer-tech-04"
+      }
+    ]
+  },
+  {
+    "source_image": "page-021.png",
+    "image_dimensions": [
+      1149,
+      1600
+    ],
+    "annotations": [
+      {
+        "x1": 578,
+        "y1": 619,
+        "x2": 756,
+        "y2": 773,
+        "name": "goal-mission-completed"
+      },
+      {
+        "x1": 62,
+        "y1": 620,
+        "x2": 240,
+        "y2": 774,
+        "name": "goal-tech-set"
+      },
+      {
+        "x1": 579,
+        "y1": 817,
+        "x2": 756,
+        "y2": 972,
+        "name": "goal-mission-pair"
+      },
+      {
+        "x1": 64,
+        "y1": 820,
+        "x2": 237,
+        "y2": 972,
+        "name": "goal-tech-pair"
+      },
+      {
+        "x1": 61,
+        "y1": 1090,
+        "x2": 239,
+        "y2": 1244,
+        "name": "goal-income-set"
+      },
+      {
+        "x1": 580,
+        "y1": 1090,
+        "x2": 756,
+        "y2": 1243,
+        "name": "goal-other-traces"
+      },
+      {
+        "x1": 62,
+        "y1": 1299,
+        "x2": 238,
+        "y2": 1454,
+        "name": "goal-income-type"
+      },
+      {
+        "x1": 581,
+        "y1": 1299,
+        "x2": 754,
+        "y2": 1456,
+        "name": "goal-other-pair"
+      }
+    ]
+  },
+  {
+    "source_image": "page-023.png",
+    "image_dimensions": [
+      1149,
+      1600
+    ],
+    "annotations": [
+      {
+        "x1": 73,
+        "y1": 228,
+        "x2": 141,
+        "y2": 295,
+        "name": "solo-progress-advance"
+      },
+      {
+        "x1": 69,
+        "y1": 337,
+        "x2": 134,
+        "y2": 432,
+        "name": "solo-progress-rival-strength"
+      },
+      {
+        "x1": 85,
+        "y1": 533,
+        "x2": 137,
+        "y2": 580,
+        "name": "credit"
+      },
+      {
+        "x1": 134,
+        "y1": 532,
+        "x2": 185,
+        "y2": 580,
+        "name": "energy"
+      },
+      {
+        "x1": 85,
+        "y1": 584,
+        "x2": 135,
+        "y2": 632,
+        "name": "draw-any-card"
+      },
+      {
+        "x1": 134,
+        "y1": 584,
+        "x2": 185,
+        "y2": 632,
+        "name": "draw-alien-card"
+      },
+      {
+        "x1": 545,
+        "y1": 669,
+        "x2": 587,
+        "y2": 707,
+        "name": "draw-card-top-of-deck"
+      },
+      {
+        "x1": 132,
+        "y1": 820,
+        "x2": 184,
+        "y2": 872,
+        "name": "tuck-income-card"
+      }
+    ]
+  },
+  {
+    "source_image": "page-028.png",
+    "image_dimensions": [
+      1149,
+      1600
+    ],
+    "annotations": [
+      {
+        "x1": 57,
+        "y1": 763,
+        "x2": 104,
+        "y2": 808,
+        "name": "at-a-planet"
+      },
+      {
+        "x1": 58,
+        "y1": 863,
+        "x2": 104,
+        "y2": 908,
+        "name": "in-a-sector"
+      },
+      {
+        "x1": 59,
+        "y1": 972,
+        "x2": 105,
+        "y2": 1017,
+        "name": "mark-a-signal"
+      },
+      {
+        "x1": 57,
+        "y1": 1164,
+        "x2": 106,
+        "y2": 1207,
+        "name": "any-trace"
+      }
+    ]
+  }
+]

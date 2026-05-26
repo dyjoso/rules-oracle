@@ -1,0 +1,212 @@
+[
+  {
+    "source_image": "page-013.png",
+    "image_dimensions": [
+      1577,
+      1577
+    ],
+    "annotations": [
+      {
+        "x1": 18,
+        "y1": 83,
+        "x2": 94,
+        "y2": 159,
+        "name": "hire-one-worker"
+      },
+      {
+        "x1": 18,
+        "y1": 981,
+        "x2": 94,
+        "y2": 1058,
+        "name": "invest-in-a-bonus-tile"
+      }
+    ]
+  },
+  {
+    "source_image": "page-014.png",
+    "image_dimensions": [
+      1577,
+      1577
+    ],
+    "annotations": [
+      {
+        "x1": 74,
+        "y1": 86,
+        "x2": 150,
+        "y2": 161,
+        "name": "buy-sheep"
+      },
+      {
+        "x1": 835,
+        "y1": 88,
+        "x2": 925,
+        "y2": 166,
+        "name": "place-private-building"
+      }
+    ]
+  },
+  {
+    "source_image": "page-015.png",
+    "image_dimensions": [
+      1577,
+      1577
+    ],
+    "annotations": [
+      {
+        "x1": 14,
+        "y1": 87,
+        "x2": 100,
+        "y2": 164,
+        "name": "move-ship"
+      }
+    ]
+  },
+  {
+    "source_image": "page-016.png",
+    "image_dimensions": [
+      1577,
+      1577
+    ],
+    "annotations": [
+      {
+        "x1": 65,
+        "y1": 373,
+        "x2": 166,
+        "y2": 473,
+        "name": "shear-sheep"
+      }
+    ]
+  },
+  {
+    "source_image": "page-017.png",
+    "image_dimensions": [
+      1577,
+      1577
+    ],
+    "annotations": [
+      {
+        "x1": 20,
+        "y1": 77,
+        "x2": 110,
+        "y2": 167,
+        "name": "gain-objective-card"
+      },
+      {
+        "x1": 19,
+        "y1": 1109,
+        "x2": 98,
+        "y2": 1190,
+        "name": "advance-pathfinder"
+      }
+    ]
+  },
+  {
+    "source_image": "page-018.png",
+    "image_dimensions": [
+      1577,
+      1577
+    ],
+    "annotations": [
+      {
+        "x1": 68,
+        "y1": 75,
+        "x2": 150,
+        "y2": 151,
+        "name": "gain-exchange-token"
+      },
+      {
+        "x1": 68,
+        "y1": 394,
+        "x2": 145,
+        "y2": 472,
+        "name": "auxiliary-action"
+      },
+      {
+        "x1": 70,
+        "y1": 953,
+        "x2": 148,
+        "y2": 1031,
+        "name": "remove-hazard"
+      },
+      {
+        "x1": 814,
+        "y1": 951,
+        "x2": 892,
+        "y2": 1031,
+        "name": "gain-gold"
+      },
+      {
+        "x1": 70,
+        "y1": 1274,
+        "x2": 150,
+        "y2": 1355,
+        "name": "move-runholder"
+      }
+    ]
+  },
+  {
+    "source_image": "page-019.png",
+    "image_dimensions": [
+      1577,
+      1577
+    ],
+    "annotations": [
+      {
+        "x1": 808,
+        "y1": 1032,
+        "x2": 905,
+        "y2": 1100,
+        "name": "hm-tiles-1"
+      },
+      {
+        "x1": 1159,
+        "y1": 1032,
+        "x2": 1256,
+        "y2": 1100,
+        "name": "hm-tiles-2"
+      },
+      {
+        "x1": 806,
+        "y1": 1139,
+        "x2": 903,
+        "y2": 1207,
+        "name": "hm-tiles-3"
+      },
+      {
+        "x1": 1160,
+        "y1": 1138,
+        "x2": 1258,
+        "y2": 1206,
+        "name": "hm-tiles-4"
+      },
+      {
+        "x1": 809,
+        "y1": 1246,
+        "x2": 905,
+        "y2": 1315,
+        "name": "hm-tiles-5"
+      },
+      {
+        "x1": 1161,
+        "y1": 1247,
+        "x2": 1258,
+        "y2": 1317,
+        "name": "hm-tiles-6"
+      },
+      {
+        "x1": 809,
+        "y1": 1364,
+        "x2": 906,
+        "y2": 1435,
+        "name": "hm-tiles-7"
+      },
+      {
+        "x1": 1162,
+        "y1": 1365,
+        "x2": 1258,
+        "y2": 1434,
+        "name": "hm-tiles-8"
+      }
+    ]
+  }
+]

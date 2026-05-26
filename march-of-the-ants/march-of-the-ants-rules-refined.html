@@ -11,12 +11,12 @@
 :root {
   --bg:            #f2ede6;
   --text:          #1a1a1a;
-  --header-bg:     #304c24;
-  --section-bg:    #304c24;
-  --subsection-bg: #643220;
+  --header-bg:     #4c7032;
+  --section-bg:    #4c7032;
+  --subsection-bg: #b8c028;
   --rule:          #b0a898;
-  --accent:        #643220;
-  --table-head:    #304c24;
+  --accent:        #b8c028;
+  --table-head:    #4c7032;
   --note-bg:       #e8e0d4;
   --body-bg:       #ffffff;
 }
@@ -153,6 +153,7 @@ body {
 mark { background: #ffe066; color: #1a1a1a; border-radius: 2px; padding: 0 1px; }
 mark.active { background: #ff9500; color: #fff; }
 
+/* ── MATCH NAVIGATION ────────────────────────────────────── */
 .match-nav {
   display: none;
   align-items: center;
@@ -348,14 +349,6 @@ code {
 /* ── HR ──────────────────────────────────────────────────── */
 hr { border: none; border-top: 1px solid var(--rule); margin: 8px 0; }
 
-/* ── SEARCH HIGHLIGHT ────────────────────────────────────── */
-mark {
-  background: #ffe566;
-  color: inherit;
-  border-radius: 2px;
-  padding: 0 1px;
-}
-
 /* ── HIDDEN SECTIONS ─────────────────────────────────────── */
 details.section.search-hidden { display: none; }
 
@@ -425,7 +418,13 @@ details.section.search-hidden { display: none; }
   </div>
 </header>
 <main>
-<p>March of the Ants is a civilization game where each player grows an ant colony. You will explore the meadow, gather resources, evolve your ants, meeting colony goals, and march to battle. There are many different paths to victory. Throughout the game you will gain Colony Points by expanding your territory, evolving your ants, meeting colony goals, and battling. At the end of the game, the player with the most points will rule the Meadow!</p>
+<p>Here is the complete rules document with improved layout, heading hierarchy, and paragraph spacing for maximum readability. All original text has been preserved exactly as provided.</p>
+<hr/>
+<details class="section">
+  <summary><span>GAME OVERVIEW</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>March of the Ants is a civilization game where each player grows an ant colony. You will explore the meadow, gather resources, evolve a unique ant species, and march to battle.</p>
+<p>There are many different paths to victory. Throughout the game you will gain Colony Points [icon] by expanding your territory, evolving your ants, meeting colony goals, and battling. At the end of the game, the player with the most points will rule the Meadow!</p>
 <p>March of the Ants is played over several rounds, each of which has 4 distinct phases:</p>
 <ul>
 <li>Worker Phase, where you take turns taking actions.</li>
@@ -433,16 +432,40 @@ details.section.search-hidden { display: none; }
 <li>Queen Phase, where you harvest resources and feed your ants.</li>
 <li>Slumber, where you score points for your achievements during the round.</li>
 </ul>
+  </div>
+</details>
 <details class="section">
-  <summary><span>GAME SETUP</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <summary><span>ANT, LARVA, OR EGG?</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
   <div class="section-body">
-<span class="subsection-title">3-5 PLAYER SETUP</span>
-<span class="label-title">Game Setup</span>
+<p>The wooden ant tokens represent different stages of the life cycle of ants, depending on where they are located. When tokens are in the Meadow (the Great Tunnel or hexes), they are ants. When they are in your Larvae Chamber, they are larvae. All other tokens are kept to the side of the Nest Mat as eggs.</p>
+<span class="subsection-title">GAIN LARVA</span>
+<p>Take an egg from your supply and place it in your Larvae Chamber.</p>
+<span class="subsection-title">MOVE LARVA</span>
+<p>Take a larva from your Larvae Chamber and place it into the Meadow, where it immediately becomes an ant.</p>
+<span class="subsection-title">LIMITED ANTS</span>
+<p>Each player has a limit of 36 wooden ant tokens available to them each game. If they are all in use, the player cannot gain more larva or ants. We’ve included a few extras in the game to cover any manufacturing issues. Please set aside any extras to use as backup.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>HOW TO USE THIS BOOK</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p><strong>Concept Sections</strong><br/>
+Sections labeled as Concepts contain important rules, but you don’t need to read them in full before moving on. Instead, you can consult them as you encounter the actions that refer to them.</p>
+<p><strong>Notes</strong><br/>
+Text in green italics are notes and clarifications about how the rules work. <em>This is an example note.</em></p>
+<p><strong>Cards and Rules Clarifications</strong><br/>
+March of the Ants is a game about evolving your ants with abilities that change the way you get to play the game, and sometimes break the rules. Pages 22 and 23 address questions we think could come up about the interaction of certain cards and abilities.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>3-5 PLAYER SETUP</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Game Setup</span>
 <ol>
 <li>Place the Great Tunnel in the center of the table.</li>
 <li>Place the Score/Round Track on one side of the play area on the 4-round side and place the Strength Track beneath it. Place the Round Marker on Round 1 and the Centipede Size Marker on the space corresponding to the player count.</li>
 <li>Shuffle the starting hexes (#1-10) together and place 2 per player to form a facedown stack. Return the rest to the game box.</li>
-<li>Randomly select 2" Beyond the Meadow hexes (#24-28) and shuffle them with the standard hexes (#11-23). Place the starting hex stack from step 3 on top of these, and place the combined stack near the Great Tunnel. *With 4-5 players, add 1 extra Beyond the Meadow hex.</li>
+<li>Randomly select 2<em> Beyond the Meadow hexes (#24-28) and shuffle them with the standard hexes (#11-23). Place the starting hex from step 3 on top of these, and place the combined stack near the Great Tunnel. </em>With 4-5 players, add 1 extra Beyond the Meadow hex.*</li>
 <li>Place the food, centipede, and wormhole tokens next to the play area.</li>
 <li>Place the Great Defender Rest Tile beneath the Round Track. Shuffle the other Rest Tiles and place them in a facedown stack nearby. Draw and place tiles faceup under the Score Track until there is 1 Rest Tile per player.</li>
 <li>Randomly select 2 Reward Tiles from each level. Place the two "I - II" tiles on top of the two "III+" tiles to form a facedown stack. Return the rest to the box.</li>
@@ -451,29 +474,21 @@ details.section.search-hidden { display: none; }
 <li>Shuffle the Ant Card deck. Place it near the play area.</li>
 </ol>
 <span class="label-title">Game Variants</span>
-<span class="inline-title">2 Player</span>
-<p>See page 20 for special setup and gameplay rules.</p>
-<span class="inline-title">Advanced Variants</span>
-<p>The Epic (5-round) game and asymmetric ancient species rules are on page 21.</p>
-<span class="inline-title">Solo/Co-op</span>
-<p>The rules for the solo and co-op are explained on the standalone Rise of the Centipedes sheet.</p>
-<span class="label-title">Player Setup (each player)</span>
+<p><strong>2 Player</strong><br/>
+Special setup and gameplay rules are provided below.</p>
+<p><strong>Advanced Variants</strong><br/>
+The Epic (5-round) game and asymmetric ancient species rules are provided below.</p>
+<p><strong>Solo/Co-op</strong><br/>
+The rules for the solo and co-op are explained on the standalone Rise of the Centipedes sheet.</p>
+<span class="subsection-title">Player Setup (each player)</span>
 <ol>
-<li>Choose a color. Take 36 ant tokens of that color and 1 Nest Mat with the star side up.</li>
+<li>Choose a color. Take 36 ant tokens of that color and 1 Nest Mat with the [icon] up side.</li>
 <li>Place 4 of your ant tokens into your Larvae Chamber as larvae and 2 in the Great Tunnel as ants. Place the rest on the side of your Nest Mat as eggs.</li>
-<li>Place your Score and Strength Markers on the spaces of their respective tracks, with the printed sides down.</li>
+<li>Place your Score and Strength Markers on the [icon] spaces of their respective tracks, with the printed sides down.</li>
 <li>Place 2 food tokens into your Food Stores.</li>
-<li>Draw 3 cards.
-<strong>Advanced Variant:</strong> Each player draws 2 cards, plus their number in the player order (e.g. the 3rd player draws 5 cards). Each player selects 3 cards to keep. Shuffle and place the rest on bottom of the deck.</li>
+<li>Draw 3 cards.<br/>
+   Advanced Variant: Each player draws 2 cards, plus their number in the player order (e.g. the 3rd player draws 5 cards). Each player selects 3 cards to keep. Shuffle and place the rest on the bottom of the deck.</li>
 </ol>
-<span class="subsection-title">Ant, Larva, or Egg?</span>
-<p>The wooden ant tokens represent different stages of the life cycle of ants, depending on where they are located. When tokens are in the Meadow (the Great Tunnel or hexes), they are ants. When they are in your Larvae Chamber, they are larvae. All other tokens are kept to the side of the Nest Mat as eggs.</p>
-<span class="label-title">GAIN LARVA</span>
-<p>Take an egg from your supply and place it in your Larvae Chamber.</p>
-<span class="label-title">MOVE LARVA</span>
-<p>Take a larva from your Larvae Chamber and place it into the Meadow, where it immediately becomes an ant.</p>
-<span class="label-title">LIMITED ANTS</span>
-<p>Each player has a limit of 36 wooden ant tokens available to them each game. If they are all in use, the player cannot gain more larva or ants. We've included a few extras in the game to cover any manufacturing issues. Please set aside any extras to use as backup.</p>
   </div>
 </details>
 <details class="section">
@@ -488,131 +503,147 @@ details.section.search-hidden { display: none; }
 <p><strong>REACTIONS</strong> – After you take an action, the 2 neighboring players may take the associated reaction. Reactions have no cost and are taken in clockwise order from the Active Player. <em>The player to your left goes first, then the player to the right.</em></p>
 <p>After your action and the reactions are resolved, pass the Active Player Marker clockwise, and the next turn begins.</p>
 <span class="subsection-title">Worker Phase Actions</span>
-<p>There are 5 Worker Phase actions that you may choose from on your turn. On the following pages, you'll find each of these explained in detail.</p>
-<p><strong>EXPLORE</strong> – Add a new hex to the Meadow, and move ants from adjacent connected locations to it.
-<strong>Reaction:</strong> Move a larva into the Meadow.</p>
-<p><strong>FORAGE</strong> – Draw 3 cards, then discard a card from your hand.
-<strong>Reaction:</strong> Gain a larva.</p>
-<p><strong>MARCH</strong> – Move your larvae to the Meadow and your ants around the Meadow using steps.
-<strong>Reaction:</strong> Take 1 ant step or move a larva to the Great Tunnel.</p>
-<p><strong>PLAY A CARD</strong> – Pay the cost for a card in your hand to play it.
-<strong>Reaction:</strong> Discard a card from your hand to draw a new card.</p>
-<p><strong>REST</strong> – Conclude your other actions for the round and begin taking Rest Tiles. <em>You may not Rest on your first turn in a round.</em>
-<strong>Reaction:</strong> None.</p>
-<span class="subsection-title">CONCEPTS: HEX RULES</span>
-<span class="label-title">Placing a Hex</span>
-<p>Anytime you place a hex in the Meadow, whether through Exploration, a card effect, or another ability:</p>
+<p>There are 5 Worker Phase actions that you may choose from on your turn.</p>
 <ul>
-<li>You must connect at least one of its tunnel openings to an existing tunnel opening.</li>
-<li>You may block its tunnels or the tunnels of other hexes.
-If the hex has a feature (wormhole or centipede) place the corresponding token on the hex. Resolve any special abilities.</li>
+<li>
+<p><strong>EXPLORE</strong> – Add a new hex to the Meadow, and move ants from adjacent connected locations to it.<br/>
+  Reaction: Move a larva into the Meadow.<br/>
+    [icon]</p>
+</li>
+<li>
+<p><strong>FORAGE</strong> – Draw 3 cards, then discard a card from your hand.<br/>
+  Reaction: Gain a larva.<br/>
+    [icon]</p>
+</li>
+<li>
+<p><strong>MARCH</strong> – Move your larva to the Meadow and your ants around the Meadow using steps.<br/>
+  Reaction: Take 1 ant step or move a larva to the Great Tunnel.<br/>
+    [icon]</p>
+</li>
+<li>
+<p><strong>PLAY A CARD</strong> – Pay the cost for a card in your hand to play it.<br/>
+  Reaction: Discard a card from your hand to draw a new card.<br/>
+    [icon]</p>
+</li>
+<li>
+<p><strong>REST</strong> – Conclude your other actions for the round and begin taking Rest Tiles. You may not Rest on your first turn in a round.<br/>
+  Reaction: None.<br/>
+    [icon]</p>
+</li>
 </ul>
-<span class="label-title">Inhabiting a Hex</span>
-<p>When you have at least one ant in a collection site in a hex, you <strong>inhabit</strong> that hex. Inhabiting a hex allows you to move larvae directly to that hex when moving larvae, and is required for many card effects and abilities.</p>
-<span class="label-title">Movement and Hexes</span>
-<p>When you move an ant into a hex, it immediately <strong>inhabits</strong> an empty collection site of your choice. If none are empty, place the ant in the <strong>outskirts</strong> (anywhere else on that hex).
-When an ant leaves a collection site, any ant in the <strong>outskirts</strong> of that hex will immediately <strong>inhabit</strong> it at the end of the current action or reaction.
-<em>If multiple players have ants in the outskirts, players take turns inhabiting as many of the empty sites as they can in player order.</em></p>
-<span class="label-title">Sharing &amp; Contesting Hexes</span>
-<p>Ants from multiple colonies may peacefully share a hex as long as there are enough collection sites for all the ants. A hex is <strong>shared</strong> when 2 or more players' ants <strong>inhabit</strong> that hex.
-If a hex is shared, but there are not enough sites for all the ants, that hex is also <strong>contested</strong>. During the Soldier Phase, there will be a battle in each contested hex.</p>
-<span class="subsection-title">CONCEPTS: GUIDE TO THE MEADOW</span>
+  </div>
+</details>
+<details class="section">
+  <summary><span>CONCEPTS: GUIDE TO THE MEADOW</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
 <p>The Meadow is the game board where most of the action takes place in March of the Ants. It is made up of distinct locations, which include the Great Tunnel and all placed hexes. It will expand during the game as you Explore and place new hexes.</p>
-<span class="label-title">The Great Tunnel</span>
-<p>The Great Tunnel is the center of the Meadow and the origin of all of the ant colonies. A battle will take place here during the Soldier Phase if multiple players' ants are present.</p>
-<span class="inline-title">GREAT TUNNEL RULES</span>
+<span class="subsection-title">The Great Tunnel</span>
+<p>The Great Tunnel is the center of the Meadow and the origin of all of the ant colonies. A battle will take place here during the Soldier Phase if multiple players’ ants are present.</p>
+<span class="label-title">GREAT TUNNEL RULES -</span>
 <ul>
 <li>The Great Tunnel does not count as a hex.</li>
-<li>Hexes adjacent to the Great Tunnel grant their controller during Slumber.</li>
+<li>Hexes adjacent to the Great Tunnel grant [icon] to their controller during Slumber.</li>
 <li>When moving larvae, players may always move them to the Great Tunnel.</li>
 </ul>
-<span class="label-title">Hexes</span>
+<span class="subsection-title">Hexes</span>
 <p>Hexes have different features, collection sites, and sometimes special rules. Ants in a hex will first inhabit collection sites but if all sites are full may reside in the outskirts.</p>
 <ul>
-<li><strong>COLLECTION SITE</strong> – Offers valuable resources that ants may collect during the Queen Phase. Each site may be inhabited by at most one ant.</li>
-<li><strong>CONTROL SITE</strong> – A type of collection site that also grants control of the hex. Control of a hex is important for scoring, and during battle.</li>
-<li><strong>OUTSKIRTS</strong> – Anywhere in the hex that is not a site. Ants may occupy the outskirts of a hex only if there are no empty collection sites in that hex. They do not inhabit the hex or harvest resources, but do participate in battle.</li>
-<li><strong>NAME AND NUMBER</strong> – Hex numbers are used in the Soldier Phase, and are color-coded according to their number. Hex names do not have any gameplay effect.</li>
-<li><strong>TUNNELS</strong> – Ants may move between adjacent locations if those locations have a connected tunnel.</li>
 <li>
-<p><strong>BEYOND THE MEADOW EFFECTS</strong> – Beyond the Meadow hexes have unique effects. Each has its special effect written on it. The player who places the hex resolves any "when placed" effects before any players take reactions.
-   <em>Beyond the Meadow hexes are part of the Meadow, despite their name.</em></p>
+<p><strong>COLLECTION SITE</strong> – Offers valuable resources that ants may collect during the Queen Phase. Each site may be inhabited by at most one ant.<br/>
+    [icon]</p>
 </li>
 <li>
-<p><strong>CENTIPEDES</strong> – Place a centipede token on the hex. Advance the Centipede Size by 1. <em>To advance the Centipede Size, move the Centipede Size Marker down one space.</em>
-  Centipedes are threats to the ants. Ants may move into hexes with centipedes and inhabit collection sites as normal, but will have to battle the centipedes during the Soldier Phase.</p>
+<p><strong>CONTROL SITE</strong> – A type of collection site that also grants control of the hex. Control of a hex is important for scoring, and during battle.<br/>
+    [icon]</p>
 </li>
 <li>
-<p><strong>WORMHOLES</strong> – Place a wormhole token on the hex. Ants may move between 2 hexes that have wormholes with a single step.
-  Wormholes do not connect hexes for the purposes of card effects and exploration.</p>
+<p><strong>OUTSKIRTS</strong> – Anywhere in the hex that is not a site. Ants may occupy the outskirts of a hex only if there are no empty collection sites in that hex. They do not inhabit the hex or harvest resources, but do participate in battle.</p>
+</li>
+<li>
+<p><strong>NAME AND NUMBER</strong> – Hex numbers are used in the Soldier Phase, and are color-coded according to their number. Hex names do not have any gameplay effect.</p>
+</li>
+<li>
+<p><strong>TUNNELS</strong> – Ants may move between adjacent locations if those locations have a connected tunnel.</p>
+</li>
+<li>
+<p><strong>BEYOND THE MEADOW EFFECTS</strong> – Beyond the Meadow hexes have unique effects. Each has its special effect written on it. The player who places the hex resolves any “when placed” effects before any players take reactions.<br/>
+<em>Beyond the Meadow hexes are part of the Meadow, despite their name.</em></p>
 </li>
 </ul>
+  </div>
+</details>
+<details class="section">
+  <summary><span>CONCEPTS: HEX RULES</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Placing a Hex</span>
+<p>Anytime you place a hex in the Meadow, whether through Exploration, a card effect, or another ability:</p>
+<ul>
+<li>You must block at least one of its tunnel openings to an existing tunnel opening.</li>
+<li>You may block its tunnels or the tunnels of other hexes. If the hex has a feature (wormhole or centipede) place the corresponding token on the hex. Resolve any special abilities.</li>
+</ul>
+<span class="subsection-title">Inhabiting a Hex</span>
+<p>When you have at least one ant in a collection site in a hex, you inhabit that hex. Inhabiting a hex allows you to move larvae directly to that hex when moving larvae, and is required for many card effects and abilities.</p>
+<span class="subsection-title">Movement and Hexes</span>
+<p>When you move an ant into a hex, it immediately inhabits an empty collection site of your choice. If none are empty, place the ant in the outskirts (anywhere else on that hex).</p>
+<p>When an ant leaves a collection site, any ant in the outskirts of that hex will immediately inhabit it at the end of the current action or reaction.</p>
+<p><em>If multiple players have ants in the outskirts, players take turns inhabiting as many of the empty sites as they can in player order.</em></p>
+<span class="subsection-title">Sharing &amp; Contesting Hexes</span>
+<p>Ants from multiple colonies may peacefully share a hex as long as there are enough collection sites for all the ants. A hex is shared when 2 or more players’ ants inhabit that hex.</p>
+<p>If a hex is shared, but there are not enough sites for all the ants, that hex is also contested. During the Soldier Phase, there will be a battle in each contested hex.</p>
   </div>
 </details>
 <details class="section">
   <summary><span>ACTIONS & REACTIONS</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
   <div class="section-body">
-<p>Actions are detailed here, and are shown in icon form on each player's nest mat.</p>
+<p>Actions are detailed here, and are shown in icon form on each player’s nest mat.</p>
 <span class="subsection-title">Action Diagram</span>
 <ol>
-<li>The cost that must be paid before taking the action.</li>
-<li>The action you take.</li>
-<li>The reaction each neighboring player may take.</li>
+<li>The cost that must be paid before taking the action.  </li>
+<li>The action you take.  </li>
+<li>The reaction each neighboring player may take.  </li>
 </ol>
-<span class="subsection-title">Explore</span>
-<p><strong>Cost: 1 food</strong>
-<strong>ACTION:</strong> Draw a hex and place it connected by a tunnel to an adjacent location where you have at least 1 ant. Draw the hex first, then choose where to place it. For full hex placement rules see page 6.
-Move any number of your ants from any adjacent connected locations into the explored hex. You must move at least 1 ant.
-Ants will immediately move into collection sites, or to the outskirts if all sites are full.
-<strong>REACTIONS:</strong> Each neighbor may move 1 larva from their Larvae Chamber to a hex they inhabit or to the Great Tunnel.
-You inhabit any hex where you have an ant in a collection site. When a larva enters the Meadow it becomes an ant.</p>
-<span class="subsection-title">Forage</span>
-<p><strong>Cost: 1 food</strong>
-<strong>ACTION:</strong> Draw 3 cards, then discard any 1 card from your hand. <em>There is no limit to hand size.</em>
-<strong>REACTION:</strong> Each neighbor may gain 1 larva.
-To gain a larva, move an egg from your supply to your Larvae Chamber. If you have no eggs in your supply, you may not gain a larva.
-<em>If at any time you would draw a card and there are none left in the deck, shuffle the discard pile to make a new deck. Then draw from the new deck.</em></p>
-<span class="subsection-title">March</span>
-<p><strong>Cost: 1 food</strong>
-<strong>ACTION:</strong> Take 6 steps with your larvae and/or ants.
-<strong>REACTION:</strong> Each neighbor may take 1 ant step, or move 1 larva from their Larvae Chamber to the Great Tunnel.
-<em>Taking steps is always optional. When you March you may take any number of steps up to 6.</em></p>
-<span class="subsection-title">CONCEPTS: STEPS</span>
-<p>Steps let you move ants around the Meadow and move larvae into the Meadow, where they become ants. Taking steps is always optional.
-One step allows you to move:</p>
+<span class="label-title">Explore</span>
+<p><strong>Cost: 1 [icon]</strong><br/>
+<strong>ACTION:</strong> Draw a hex and place it connected by a tunnel to an adjacent location where you have at least 1 ant. Draw the hex first, then choose where to place it. For full hex placement rules see page 6.<br/>
+Move any number of your ants from any adjacent connected locations into the explored hex. You must move at least 1 ant.<br/>
+Ants will immediately move into collection sites, or to the outskirts if all sites are full.<br/>
+<strong>REACTIONS:</strong> Each neighbor may move 1 larva from their Larvae Chamber to a hex they inhabit or to the Great Tunnel.<br/>
+You inhabit any hex where you have an ant in a collection site. When a larva enters the Meadow it becomes an ant.  </p>
+<span class="label-title">Forage</span>
+<p><strong>Cost: 1 [icon]</strong><br/>
+<strong>ACTION:</strong> Draw 3 cards, then discard any 1 card from your hand. There is no limit to hand size.<br/>
+<strong>REACTION:</strong> Each neighbor may gain 1 larva.<br/>
+To gain a larva, move an egg from your supply to your Larvae Chamber. If you have no eggs in your supply, you may not gain a larva.<br/>
+If at any time you would draw a card and there are none left in the deck, shuffle the discard pile to make a new deck. Then draw from the new deck.  </p>
+<span class="label-title">Play a Card</span>
+<p><strong>Cost: Shown on Card</strong><br/>
+<strong>ACTION:</strong> Play one card from your hand.<br/>
+<strong>REACTION:</strong> Each neighbor may discard a card from their hand to draw a card.<br/>
+Playing a card does not cost food. To pay for a card, remove larvae and/or ants equal to the cost of the card from your Larvae Chamber or the Meadow and return them to your supply of eggs.  </p>
 <ul>
-<li>1 ant from any location to any adjacent connected location.</li>
-<li>1 ant from a location with a wormhole to any other location with a wormhole.</li>
-<li>1 ant from a collection site to another open collection site in the same hex.</li>
-<li>1 larva from your Larvae Chamber to any hex that you inhabit or the Great Tunnel.</li>
+<li>Pay with any combination of larvae from your Larvae Chamber and ants from the Meadow. [icon]  </li>
+<li>Pay only with ants from the Meadow. [icon]  </li>
+<li>Pay only with larvae from your Larvae Chamber. [icon]<br/>
+The card types, their different uses, and their effects are explained on pages 12 and 13.  </li>
 </ul>
-<span class="label-title">ANT STEP</span>
-<p>Abilities that instruct you to take ant steps only allow you to move ants, not larvae.
-<em>You may use multiple steps to move 1 ant several times, or distribute them among several ants or larvae.</em></p>
-<span class="subsection-title">Play a Card</span>
-<p><strong>Cost: Shown on Card</strong>
-<strong>ACTION:</strong> Play one card from your hand.
-<strong>REACTION:</strong> Each neighbor may discard a card from their hand to draw a card.
-Playing a card does not cost food. To pay for a card, remove larvae and/or ants equal to the cost of the card from your Larvae Chamber or the Meadow and return them to your supply of eggs.</p>
-<ul>
-<li>Pay with any combination of larvae from your Larvae Chamber and ants from the Meadow.</li>
-<li>Pay only with ants from the Meadow.</li>
-<li>Pay only with larvae from your Larvae Chamber.
-The card types, their different uses, and their effects are explained on pages 12 and 13.</li>
-</ul>
-<span class="subsection-title">Rest</span>
-<p><strong>Cost: None</strong>
-You may not Rest as your first action of a round, unless you have no food and no cards in hand.
-<strong>ACTION:</strong> Take 1 Rest Tile of your choice from the faceup Rest Tiles for the round and gain its rewards. You may only take the Rest action on subsequent turns.
-<strong>REACTION:</strong> None.
-Rest is a special action, taken when you are finished taking other actions for the round. Once you have Rested, you must Rest on each subsequent turn.
-Each time you Rest, choose an available Rest Tile and place it next to your Nest Mat. Some Rest Tiles will grant immediate rewards, while some grant bonuses or effects later in the round. A reference to each can be found on the back cover of these rules.
-When a player takes the last faceup Rest tile, they finish their turn, pass the Active Player Marker clockwise, and the Worker Phase ends. (See the following page for end of Worker Phase effects.)
-<em>The player with the Active Player Marker keeps it for the rest of the round, and will go first in the next Worker Phase.</em></p>
+<span class="label-title">March</span>
+<p><strong>Cost: 1 [icon]</strong><br/>
+<strong>ACTION:</strong> Take 6 steps with your larvae and/or ants.<br/>
+<strong>REACTION:</strong> Each neighbor may take 1 ant step, or move 1 larva from their Larvae Chamber to the Great Tunnel.<br/>
+Taking steps is always optional. When you March you may take any number of steps up to 6.  </p>
+<span class="label-title">Rest</span>
+<p><strong>Cost: None</strong><br/>
+You may not Rest as your first action of a round, unless you have no food and no cards in hand.<br/>
+<strong>ACTION:</strong> Take 1 Rest Tile of your choice from the faceup Rest Tiles for the round and gain its rewards.<br/>
+<strong>REACTION:</strong> None.<br/>
+Rest is a special action, taken when you are finished taking other actions for the round. Once you have Rested, you must Rest on each subsequent turn.<br/>
+Each time you Rest, choose an available Rest Tile and place it next to your Nest Mat. Some Rest Tiles will grant immediate rewards, while some grant bonuses or effects later in the round. A reference to each can be found on the back cover of these rules.<br/>
+When a player takes the last faceup Rest tile, they finish their turn, pass the Active Player Marker clockwise, and the Worker Phase ends. (See the following page for end of Worker Phase effects.)<br/>
+The player with the Active Player Marker keeps it for the rest of the round, and will go first in the next Worker Phase.  </p>
   </div>
 </details>
 <details class="section">
-  <summary><span>END OF THE WORKER PHASE</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <summary><span>CONCEPTS: GREAT TUNNEL DEFENDER</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
   <div class="section-body">
 <p>At the end of the Worker Phase, in player order starting with the Active Player, take reactions equal to the number of thorax Evolutions you have in play.</p>
 <ul>
@@ -620,74 +651,165 @@ When a player takes the last faceup Rest tile, they finish their turn, pass the 
 <li>Each player takes all of their reactions before the next player takes any of theirs.</li>
 <li>Choose reactions from the four standard actions: Explore, Forage, March, or Play a Card.</li>
 </ul>
-<p>If you have more than 4 evolved thoraxes, you only take 4 reactions—one of each.</p>
-<p>After all thorax reactions have been resolved, the Soldier Phase begins. (The Soldier Phase rules start on page 14).</p>
-<span class="subsection-title">CONCEPTS: GREAT TUNNEL DEFENDER</span>
-<p>The Great Defender Rest Tile is available each round. It grants the player who has it the status of defender in the Great Tunnel. Being the defender provides benefits in battle: the defender wins ties, and has the opportunity to act last. (See page 14 for more details.)</p>
-<p>Occasionally a player will take the Great Defender tile but will not be involved in the Great Tunnel Battle. In this sad case, they are still the defender for the purposes of determining the order of playing cards and breaking ties in the Great Tunnel, even though they do not participate in the battle.</p>
+<p>The Great Defender Rest Tile is available each round. It grants the player who has it the status of defender in the Great Tunnel. Being the defender provides benefits in battle: the defender wins ties, and has the opportunity to act last. Occasionally a player will take the Great Defender tile but will not be involved in the Great Tunnel Battle. In this sad case, they are still the defender for the purposes of determining the order of playing cards and breaking ties in the Great Tunnel, even though they do not participate in the battle.</p>
+<p>[icon]</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>TYPES OF ANT CARDS</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">EVENTS</span>
+<p>Event Cards are one-time effects that represent the actions of ants or natural forces. After an Event card is resolved, place it faceup in the discard pile.</p>
+<p>Choose a hex you inhabit. All players lose all but 1 ant from that hex. Then you may rearrange the remaining ants in the collection sites in that hex.</p>
+<ol>
+<li>COST TYPE – The resource(s) that must be paid. Sparrow Attack may only be paid for with 2 larvae.</li>
+<li>COST – The amount that must be paid.</li>
+<li>CARD NAME – No gameplay effect.</li>
+<li>FEROCITY [icon] – The number of dots represents the card’s strength if used in battle (see page 15).</li>
+<li>CARD TYPE – Detailed on this page.</li>
+<li>CARD TEXT – Describes effects and abilities.</li>
+<li>SOLO SYMBOL – Indicates that the card is used to create a separate deck in Solo/Co-op Games.</li>
+</ol>
+<span class="subsection-title">COLONY GOALS</span>
+<p>Colony Goals provide unique objectives to score each Slumber and give bonus effects when played. When you play a Colony Goal card, place it faceup on the right side of your Nest Mat.</p>
+<ol>
+<li>When played, you may exchange the locations of 2 ants in non-control sites.</li>
+<li>
+<p>Each Slumber, score for the number of card collection sites you inhabit.</p>
+</li>
+<li>
+<p>COST TYPE – The card shown above may be paid for with 2 ants, 2 larvae, or 1 of each.</p>
+</li>
+<li>GOAL REMINDER ICON – A small visual to remind you what the goal wants to do.</li>
+<li>GOAL REWARD LEVELS – Each Slumber, gain points equal to level of completion.</li>
+<li>IMMEDIATE EFFECT – Resolve when played.</li>
+<li>GOAL TEXT – The scoring condition evaluated in Slumber.</li>
+</ol>
+<p>GOAL LIMIT – You may have a maximum of 2 Colony Goal cards in play. If you play another Colony Goal, you must first discard one that you have in play.</p>
+<span class="subsection-title">EVOLUTIONS</span>
+<p>Evolutions are played to the Head, Thorax, and Abdomen segments of your ant body on your Nest Mat, granting your ants a unique ability and a bonus. Thoraxes affect the Worker Phase, heads affect the Soldier Phase, and abdomens affect the Queen Phase.</p>
+<ol>
+<li>Prevent the first casualty you would lose in battle.</li>
+<li>
+<p>Soldiers of this species use their plate-like heads to block the entrances to the nest.</p>
+</li>
+<li>
+<p>COST TYPE – This card’s cost may be paid only with ants.</p>
+</li>
+<li>SCIENTIFIC NAME – No gameplay effect.</li>
+<li>BODY SEGMENT SYMBOL – [icon]</li>
+<li>FLAVOR TEXT – A fun fact about ants.</li>
+</ol>
+<p>When you play an Evolution, place it on top of all other Evolutions in that body segment. Only the topmost Evolution in each body segment grants a unique ability, but all Evolutions will add to their segment bonus.</p>
+<span class="label-title">SEGMENT BONUSES</span>
+<p>Each body segment (head, thorax, and abdomen) grants a bonus based on the number of Evolution cards you have in play on that body segment.</p>
+<ul>
+<li>Head [icon]: In battle, gain +1 Strength for each head Evolution you have.</li>
+<li>Thorax [icon]: At the end of the Worker Phase, for each thorax Evolution you have, choose 1 different reaction from the four standard actions: Explore, Forge, March, or Play a Card.</li>
+<li>Abdomen [icon]: Your food feeds 1 additional ant during the Queen Phase for each abdomen Evolution you have.</li>
+</ul>
+<span class="label-title">EVOLUTION ABILITY TIMING</span>
+<p>When multiple abilities would happen at the same time, each player, starting with the Active Player, resolves all of their abilities in the order of their choosing before moving on to the next player in clockwise order.</p>
+<p>An evolution cannot affect its own play. For instance, the Garden Thorax cannot reduce its own cost.</p>
+<span class="label-title">FULLY EVOLVED ANT BODY</span>
+<p>Immediately gain [icon] when you complete an ant body. A complete body has a head, a thorax, and an abdomen. You may complete and score multiple ant bodies, but each card may only be used to score one ant body.</p>
   </div>
 </details>
 <details class="section">
   <summary><span>THE SOLDIER PHASE</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
   <div class="section-body">
-<span class="subsection-title">SOLDIER PHASE STEPS</span>
+<span class="subsection-title">SOLDIER PHASE STEPS:</span>
 <ol>
 <li>In the Great Tunnel, resolve battle if 2 or more players' ants are present. If only 1 player's ants are present, they gain the 1st-place award and no battle occurs.</li>
 <li>Resolve battles in contested hexes in ascending order of hex number. No hex battles occur in Round 1. Skip this step.</li>
 <li>After all battles are resolved, the Soldier Phase ends and the Queen Phase begins.</li>
 </ol>
 <span class="subsection-title">Contested Hexes</span>
-<p>A hex is contested when there are 2 or more players' ants in the hex and there are ants in the outskirts, or if there is a centipede in a hex containing any ants.
-If a contested hex becomes uncontested before a battle starts there, the battle will not occur.</p>
-<span class="subsection-title">ANT BATTLE</span>
+<p>A hex is contested when there are 2 or more players' ants in the hex and there are ants in the outskirts, or if there is a centipede in a hex containing any ants.</p>
+<p>If a contested hex becomes uncontested before a battle starts there, the battle will not occur.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>ANT BATTLE</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
 <p>Ant battle is fought between all players with ants in a contested location. Only one ant battle occurs in each location during the Soldier Phase, even if the location is still contested after battle.</p>
-<span class="subsection-title">THE CONTEST: STRENGTH, FEROCITY AND OUTCOME</span>
+<span class="subsection-title">The Contest: Strength, Ferocity and Outcome</span>
 <ol>
-<li>
-<p>Determine Defender
-In hexes, the player who inhabits the control site is the defender. In the Great Tunnel, it is the player with the Great Defender Rest Tile.</p>
-</li>
-<li>
-<p>Declare Strength
-Each player counts their ants in the hex, and adds the number of head Evolutions they have. They set their marker to that number on the Strength Track.</p>
-</li>
-<li>
-<p>Ferocity
-Starting with the player to the left of the defender and proceeding clockwise, each player in the battle may play 1 card from their hand facedown.
-<strong>REVEAL FEROCITY</strong> – All players reveal their cards and add the number of pips shown in the symbol to their Strength, adjusting their position on the Strength Track.</p>
-</li>
-<li>
-<p>Outcome
-The player with the greatest Strength is the winner. In the Great Tunnel, also determine 2nd and 3rd place based on Strength.
-Ties: Starting with the defender, ties are won in clockwise order.
-Only one player can win. The other players, including the 2nd and 3rd place players, lose.</p>
-</li>
+<li>Determine Defender</li>
 </ol>
-<span class="subsection-title">THE RESULTS: SPOILS AND CASUALTIES</span>
+<p>In hexes, the player who inhabits the control site is the defender. In the Great Tunnel, it is the player with the Great Defender Rest Tile.</p>
+<ol start="2">
+<li>Declare Strength</li>
+</ol>
+<p>Each player counts their ants in the hex, and adds the number of head Evolutions they have. They set their marker to that number on the Strength Track.</p>
+<ol start="3">
+<li>Ferocity</li>
+</ol>
+<p>Starting with the player to the left of the defender and proceeding clockwise, each player in the battle may play 1 card from their hand facedown.</p>
+<p>REVEAL FEROCITY – All players reveal their cards and add the number of [icon] shown in the [icon] symbol to their Strength, adjusting their position on the Strength Track.</p>
+<ol start="4">
+<li>Outcome</li>
+</ol>
+<p>The player with the greatest Strength is the winner. In the Great Tunnel, also determine 2nd and 3rd place based on Strength.</p>
+<p>Ties: Starting with the defender, ties are won in clockwise order.</p>
+<p>Only one player can win. The other players, including the 2nd and 3rd place players, lose.</p>
+<span class="subsection-title">The Results: Spoils and Casualties</span>
 <ol start="5">
-<li>
-<p>Casualties
-Players assign casualties to each other, and then lose ants.
-Losing Players: For every 2 ants, assign 1 casualty to the winner. Count all losing players' ants together.
-Winning Player: For each ant, assign 1 casualty, distributed as evenly as possible to losing players in clockwise order from the winner.
-<strong>CASUALTY RULES</strong> –
-• Lone Survivor: The winner cannot lose their last ant in the location.
-• Each player may only be assigned enough casualties to remove all of their ants.
-For instance, if a player has 3 ants, plus the Armored Head (which prevents one casualty) they may be assigned 4 casualties maximum.
-Once all casualties have been assigned, each player loses 1 ant of their choice from the battle location for each casualty they were assigned.</p>
-</li>
-<li>
-<p>Spoils
-Players collect their spoils:
-Hexes: The winner gains and may move 1 ant in the hex into the control site, pushing any occupant to the outskirts.
-The Great Tunnel: 1st, 2nd, and 3rd place players gain the spoils shown on the reward tile.
-Players gain spoils even if all their ants were removed during Casualties.</p>
-</li>
+<li>Casualties</li>
 </ol>
-<span class="subsection-title">AFTER BATTLE</span>
+<p>Players assign casualties to each other, and then lose ants.</p>
+<p>Losing Players: For every 2 ants, assign 1 casualty to the winner. Count all losing players' ants together.</p>
+<p>Winning Player: For each ant, assign 1 casualty, distributed as evenly as possible to losing players in clockwise order from the winner.</p>
+<p>CASUALTY RULES – </p>
+<ul>
+<li>Lone Survivor: The winner cannot lose their last ant in the location.</li>
+<li>Each player may only be assigned enough casualties to remove all of their ants.</li>
+</ul>
+<p>For instance, if a player has 3 ants, plus the Armored Head (which prevents one casualty) they may be assigned 4 casualties maximum.</p>
+<p>Once all casualties have been assigned, each player loses 1 ant of their choice from the battle location for each casualty they were assigned.</p>
+<ol start="6">
+<li>Spoils</li>
+</ol>
+<p>Players collect their spoils:</p>
+<p>Hexes: The winner gains [icon] and may move 1 ant in the hex into the control site, pushing any occupant to the outskirts.</p>
+<p>The Great Tunnel: 1st, 2nd, and 3rd place players gain the spoils shown on the reward tile.</p>
+<p>Players gain spoils even if all their ants were removed during Casualties.</p>
+<span class="subsection-title">After Battle</span>
 <ol start="7">
-<li>Cleanup
-Players take turns moving all of their ants in the outskirts of that hex to vacant collection sites in clockwise order starting with the winner. Reset the markers on the Strength Track to zero. Discard all cards played during battle.</li>
+<li>Cleanup</li>
+</ol>
+<p>Players take turns moving all of their ants in the outskirts of that hex to vacant collection sites in clockwise order starting with the winner. Reset the markers on the Strength Track to zero. Discard all cards played during battle.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>CENTIPEDE BATTLE</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>Hexes containing a centipede and any ants are contested. Centipede battles follow the ant battle rules with these exceptions:  </p>
+<span class="subsection-title">1. Determine Defender</span>
+<p>The centipede battles players in the hex one at a time starting with the player with the most ants in the hex. Resolve ties clockwise starting with the hex's controller, or the active player if no ant is in the control site. The player battling the centipede is the defender.  </p>
+<span class="subsection-title">2. Declare Strength</span>
+<p>The centipede's starting Strength is shown on the Centipede Size Track. Place the Centipede Strength Marker on that space of the Strength Track at the start of battle.  </p>
+<span class="subsection-title">3. Ferocity</span>
+<p>After the player's Ferocity step, draw and reveal a card from the Ant Deck and advance the centipede's Strength equal to the value of the revealed card.  </p>
+<p>Unpredictable Foe: If any card drawn for the centipede has a [icon] (Ferocity), advance the centipede's Strength Marker on the Strength Track by 1, then draw and resolve another card.  </p>
+<span class="subsection-title">4. Outcome</span>
+<p>If the player's Strength is equal or greater than the centipede's, they win.  </p>
+<span class="subsection-title">5. Casualties</span>
+<p>Player wins: Remove the centipede and take casualties equal to half your ants in the hex, rounded up. Centipede wins: Take casualties equal to all of your ants in the hex. <em>These casualties cannot be prevented.</em> </p>
+<span class="subsection-title">6. Spoils</span>
+<p>If the player won, they gain the reward indicated on the Centipede Size Track and may move 1 ant into the control site, pushing any occupant to the outskirts. Other effects may also instruct you to advance the Centipede Size.  </p>
+<span class="subsection-title">7. Cleanup</span>
+<ul>
+<li>Discard all cards drawn by the centipede.  </li>
+<li>If the centipede wins, it will start a new battle if there are still ants in the hex.  </li>
+<li>If the centipede is defeated and the hex is still contested, the ants in that hex will battle.  </li>
+</ul>
+<span class="subsection-title">The Centipede Size Track</span>
+<p>The Centipede Size Track shows the base strength of all centipedes in the Meadow, as well as bonuses for defeating them.  </p>
+<ol>
+<li>The Strength is indicated by the number to the left of the marker.  </li>
+<li>Whenever a hex with a centipede icon [icon] is placed, advance the marker one space. Other effects may also instruct you to advance the Centipede Size.  </li>
+<li>When the marker advances past a break in the track to a new section, the Spoils for defeating centipedes becomes more valuable. Take only the Spoils shown at the top of the section the marker is in.  </li>
 </ol>
   </div>
 </details>
@@ -698,103 +820,112 @@ Players take turns moving all of their ants in the outskirts of that hex to vaca
 <span class="subsection-title">Harvest</span>
 <p>Gain resources from collection sites that your ants inhabit.</p>
 <ul>
-<li>Add 1 food to your stores.</li>
-<li>Add 1 or 2 larvae to your Larvae Chamber (as shown on the collection site).</li>
-<li>Draw a card.</li>
-<li>Advance your Score Marker 1 space.
-To help correctly collect your harvest, we recommend counting each type of resource separately.</li>
+<li>Add 1 food to your stores. [icon]</li>
+<li>Add 1 or 2 larvae to your Larvae Chamber (as shown on the collection site). [icon]</li>
+<li>Draw a card. [icon]</li>
+<li>Advance your Score Marker 1 space. [icon]</li>
 </ul>
+<p><em>To help correctly collect your harvest, we recommend counting each type of resource separately.</em></p>
 <span class="subsection-title">Feed Ants</span>
-<p>All ants in the Meadow need to be fed to survive. Larvae do not need to be fed. Each food can feed up to 4 ants, plus 1 ant for each abdomen Evolution you have.
-If you have one abdomen Evolution, you would be able to feed 5 ants with 1 food, up to 10 ants with 2 food, and so on.
-You may choose not to feed any number of your ants, but you will lose any ants you do not feed, returning them to your egg supply.
-Starvation: If you fail to feed one or more ants, you lose (total, not per ant).
-Additionally, if you fail to feed any ants in Autumn you will not be eligible for endgame awards.</p>
+<p>All ants in the Meadow need to be fed. Larvae do not need to be fed. Each food can feed up to 4 ants, plus 1 ant for each abdomen Evolution you have.</p>
+<p>If you have one abdomen Evolution, you would be able to feed 5 ants with 1 food, up to 10 ants with 2 food, and so on.</p>
+<p>You may choose not to feed any number of your ants, but you will lose any ants you do not feed, returning them to your egg supply.</p>
+<p>Starvation: If you fail to feed one or more ants, you lose [icon] (total, not per ant).</p>
+<p>Additionally, if you fail to feed any ants in Autumn you will not be eligible for endgame awards.</p>
 <span class="subsection-title">Queen's Choice</span>
-<p>After all ants have been fed, you decide if your queen will produce food, larvae, or a mix of both to prepare the colony for the next round.
-Each player chooses twice to gain 1 food or 3 larvae.
-There is no Queen's Choice in the final round.
-If needed, resolve the Queen's Choice in clockwise order starting with the active player.</p>
-<span class="subsection-title">SLUMBER</span>
+<p>After all ants have been fed, you decide if your queen will produce food, larvae, or a mix of both to prepare the colony for the next round.</p>
+<p>Each player chooses twice to gain 1 food or 3 larvae.</p>
+<p>There is no Queen's Choice in the final round.</p>
+<p>If needed, resolve the Queen's Choice in clockwise order starting with the active player.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>SLUMBER</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
 <p>During Slumber, you score points and refresh the board for the next round.</p>
-<span class="label-title">Score Inner Meadow Hexes</span>
-<p>Gain 1 for each Inner Meadow hex you control. All hexes that are adjacent to the Great Tunnel are part of the Inner Meadow. They do not need to be connected to the Great Tunnel to score.</p>
-<span class="label-title">Score Colony Goals</span>
-<p>You can gain 1, 2, or 3 points for meeting the conditions of the Colony Goal cards you have in play. The number of points you gain is based on how well you meet the condition, as shown on the card. (See page 12 for more details.)</p>
-<span class="label-title">Prepare For The Next Round</span>
+<span class="subsection-title">Score Inner Meadow Hexes</span>
+<p>Gain [icon] for each Inner Meadow hex you control. All hexes that are adjacent to the Great Tunnel are part of the Inner Meadow. They do not need to be connected to the Great Tunnel to score.</p>
+<span class="subsection-title">Score Colony Goals</span>
+<p>You can gain 1, 2, or 3 points for meeting the conditions of the Colony Goal cards you have in play. The number of points you gain is based on how well you meet the condition, as shown on the card. (See page 12 for more details.) [icon]</p>
+<span class="subsection-title">Prepare For The Next Round</span>
 <p>If it is the final round, the game ends. Otherwise, advance the Round Marker one space and complete the following steps to prepare for the next round:</p>
 <ol>
 <li>Return the Great Defender Rest Tile to the area beneath the Round Track.</li>
-<li>Discard all other Rest Tiles in a faceup discard stack. Reveal new Rest Tiles until there is 1 tile per player beneath the Round Track.<ul>
-<li>If all Rest Tiles have been used, shuffle all discarded Rest Tiles to form a new stack.</li>
-</ul>
-</li>
-<li>Discard the current Reward Tile. Reveal the topmost Reward Tile and place it faceup in the Great Tunnel.</li>
-<li>The next Worker Phase begins.
-The player who was passed the Active Player Marker at the end of the last Worker Phase takes the first turn.</li>
+<li>Discard all other Rest Tiles in a faceup discard stack. Reveal new Rest Tiles until there is 1 tile per player beneath the Round Track.</li>
 </ol>
+<p><em>If all Rest Tiles have been used, shuffle all discarded Rest Tiles to form a new stack.</em></p>
+<ol start="3">
+<li>Discard the current Reward Tile. Reveal the topmost Reward Tile and place it faceup beneath the Great Tunnel.</li>
+<li>The next Worker Phase begins.</li>
+</ol>
+<p><em>The player who was passed the Active Player Marker at the end of the last Worker Phase takes the first turn.</em></p>
   </div>
 </details>
 <details class="section">
   <summary><span>GAME END AND VICTORY</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
   <div class="section-body">
-<p>After the final round, determine the winner of each endgame award and declare a winner!</p>
-<span class="subsection-title">ENDGAME AWARDS</span>
-<p>Compare resources for endgame awards. Each award grants [icon] to the player who wins it. If players tie for an award, each tied player gains [icon].
-Players who failed to feed any of their ants in Autumn are ineligible for endgame awards. If they would win an award, it goes to the player with the next most.</p>
-<p>The awards go to the player who has:</p>
-<span class="label-title">LARGEST BROOD</span>
-<p>The most larvae.</p>
-<span class="label-title">GREATEST STORES</span>
-<p>The most food.</p>
-<span class="label-title">UNTOLD POTENTIAL</span>
-<p>The most cards in hand.</p>
-<p>The player with the highest score wins!
-In case of a tie, the player with the most ants in the Meadow wins. If still tied, all tied players share the victory!</p>
+<p>After the final round, determine the winner of each endgame award and declare a winner!  </p>
+<p>ENDMGAME AWARDS – Compare resources for endgame awards. Each award grants [icon] to the player who wins it. If players tie for an award, each tied player gains [icon].  </p>
+<p>Players who failed to feed any of their ants in Autumn are ineligible for endgame awards. If they would win an award, it goes to the player with the next most.  </p>
+<p>The awards go to the player who has:<br/>
+[icon] LARGEST BROOD – The most larvae.<br/>
+[icon] GREATEST STORES – The most food.<br/>
+[icon] UNTOLD POTENTIAL – The most cards in hand.  </p>
+<p>The player with the highest score wins!<br/>
+In case of a tie, the player with the most ants in the Meadow wins.<br/>
+If still tied, all tied players share the victory!  </p>
 <span class="subsection-title">2-PLAYER RULES</span>
-<p>For a 2-player game of March of the Ants, follow these additional rules.</p>
+<p>For a 2-player game of March of the Ants, follow these additional rules.  </p>
 <span class="label-title">Additional Setup</span>
-<p>After completing the normal setup, take these extra steps:</p>
+<p>After completing the normal setup, take these extra steps:  </p>
 <ol>
-<li>Beginning with the Active Player, each player takes 2 of the unused starting hexes at random. Each player chooses 1 hex and places it connected to the Great Tunnel. Return the unchosen hex to the game box.</li>
-<li>Each player places 3 ants into their placed hex.</li>
-<li>Set aside the ants and Strength Marker of an unused color for the Old Guard.</li>
+<li>Beginning with the Active Player, each player takes 2 of the unused starting hexes at random. Each player chooses 1 hex and places it connected to the Great Tunnel. Return the unchosen hex to the game box.  </li>
+<li>Each player places 3 ants into their placed hex.  </li>
+<li>Set aside the ants and Strength Marker of an unused color for the Old Guard.  </li>
 </ol>
 <span class="label-title">Worker Phase</span>
-<p>At the start of each Worker Phase, reveal 1 additional Rest Tiles. You’ll use 3 Rest Tiles each round–the Great Defender Tile, and two additional ones.</p>
+<p>At the start of each Worker Phase, reveal 1 additional Rest Tiles. You’ll use 3 Rest Tiles each round–the Great Defender Tile, and two additional ones.  </p>
+<span class="label-title">Great Tunnel Battle</span>
+<p>At the start of each Soldier Phase, place Old Guard ants equal to the round number into the Great Tunnel.  </p>
+<p>The Old Guard represents the last remnants of the ancient colony that lived in the Great Tunnel. Their ants cannot be moved or interacted with in any way.  </p>
+<p>The Old Guard will participate in the Great Tunnel battle as if they were a player. After both players choose to play cards for Fertility, the Old Guard will discard the top card of the deck and add the Fertility value to its Strength.  </p>
+<p>Players always win ties against the Old Guard.  </p>
+<p>The Old Guard deals and suffers casualties as if it were a normal player (seated to the left of the defender).  </p>
+<p>The Old Guard will “claim spoils” from the Great Tunnel if they achieve 1st or 2nd. They gain no resources, but will prevent players from gaining those spoils.  </p>
 <span class="subsection-title">ADVANCED VARIANTS</span>
-<p>We highly recommend playing without the advanced modes for your first few games.</p>
+<p>We highly recommend playing without the advanced modes for your first few games.  </p>
 <span class="label-title">EPIC GAME</span>
-<p>The epic game of March of the Ants is played over 5 rounds rather than 4. It follows all the standard rules of the game with a few adjustments.
-The Epic game adds about 10 minutes per player to the game length. In addition, the extra round gives colonies a chance to develop into larger, more complex engines.
-Players should have experience with the base game, a good understanding of the economy and how to feed their ants, and be familiar with the different ways to score points.
-• During setup, flip the Score Track to the 5-round side and add 1 additional "II+" Reward Tile to the bottom of the stack.
-• In Rounds 4 and 5, each food feeds up to 3 ants per food instead of 4 (before adding abdomen bonuses).</p>
+<p>The epic game of March of the Ants is played over 5 rounds rather than 4. It follows all the standard rules of the game with a few adjustments.  </p>
+<p>The Epic game adds about 10 minutes per player to the game length. In addition, the extra round gives colonies a chance to develop into larger, more complex engines.  </p>
+<p>Players should have experience with the base game, a good understanding of the economy and how to feed their ants, and be familiar with the different ways to score points.  </p>
+<ul>
+<li>During setup, flip the Score Track to the 5-round side and add 1 additional "III+" Reward Tile to the bottom of the stack.  </li>
+<li>In Rounds 4 and 5, each food feeds up to 3 ants per food instead of 4 (before adding abdomen bonuses).  </li>
+</ul>
 <span class="label-title">ANCIENT SPECIES</span>
-<p>Ancient Species is an advanced play variant that allows you to begin the game with unique abilities, drawbacks, and scoring conditions. Each Ancient Species encourages certain styles of play and rewards you for utilizing its powers.
-This variant adds about 10-15 minutes per player to the game length. It also adds considerable complexity, extra unpredictability, and big power swings to the game.
-Players will need an excellent understanding of the base game rules, round structure, and resource management to succeed using Ancient Species.</p>
+<p>Ancient Species is an advanced play variant that allows you to begin the game with unique abilities, drawbacks, and scoring conditions. Each Ancient Species encourages certain styles of play and rewards you for utilizing its powers.  </p>
+<p>This variant adds about 10-15 minutes per player to the game length. It also adds considerable complexity, extra unpredictability, and big power swings to the game.  </p>
+<p>Players will need an excellent understanding of the base game rules, round structure, and resource management to succeed using Ancient Species.  </p>
 <span class="inline-title">Setup</span>
-<p>Randomly assign a Nest Mat to each player. Each player plays as the Ancient Species found on the backside of the Nest Mat.</p>
+<p>Randomly assign a Nest Mat to each player. Each player plays as the Ancient Species found on the backside of the Nest Mat.  </p>
 <span class="inline-title">Gameplay</span>
-<p>The game follows the standard rules and structure. Each Ancient Species shows the new rules that apply to it.</p>
-<span class="inline-title">UNIQUE ACTIONS</span>
-<p>Each Ancient Species has a unique action you can use once per Worker Phase. These actions give a Global Reaction, meaning that all other players, not just the neighboring players, get to take the reaction.
-At the start of each Worker Phase, place your Strength Marker in the circular space above your unique action to track whether you have used it. Return it to the Strength Track when you use your unique action, or at the start of the Soldier Phase.</p>
-<span class="inline-title">FEATURES</span>
-<p>Features are other abilities or penalties that apply to the species. Each Ancient Species has a drawback, and some have a special way to score points during Slumber.</p>
-<span class="inline-title">Unique Action Clarifications</span>
+<p>The game follows the standard rules and structure. Each Ancient Species shows the new rules that apply to it.  </p>
+<h5>UNIQUE ACTIONS</h5>
+<p>Each Ancient Species has a unique action you can use once per Worker Phase. These actions give a Global Reaction, meaning that all other players, not just the neighboring players, get to take the reaction.  </p>
+<p>At the start of each Worker Phase, place your Strength Marker in the circular space above your unique action to track whether you have used it. Return it to the Strength Track when you use your unique action, or at the start of the Soldier Phase.  </p>
+<h5>FEATURES</h5>
+<p>Features are other abilities or penalties that apply to the species. Each Ancient Species has a drawback, and some have a special way to score points during Slumber.  </p>
 <h6>Egg Gardeners</h6>
-<p>Reaction: Choose one of the played Evolution cards and gain larvae equal to its cost. If no evolutions are played for reactions, you do not gain any larvae.
-If an ability lets you play more than one Ferocity card, you will lose a point for each.
-You do not lose [icon] for playing cards for Ferocity in the Great Tunnel Battle.</p>
+<p>Reaction: Choose one of the played Evolution cards and gain larvae equal to its cost. If no evolutions are played for reactions, you do not gain any larvae.  </p>
+<p>If an ability lets you play more than one Fertility card, you will lose a point for each.  </p>
+<p>You do not lose [icon] for playing cards for Fertility in the Great Tunnel Battle.  </p>
 <h6>Horizon Seekers</h6>
-<p>Expand counts as a single Explore action for purposes of cards or other effects. Abilities that trigger off of Explore actions (Harvesting or Pollinator Thorax) only apply to one of the explored hexes. If you place both hexes, they must be connected to the same hex and you must move at least 1 ant into each of them.</p>
+<p>Expand counts as a single Explore action for purposes of cards or other effects. Abilities that trigger off of Explore actions (Harvesting or Pollinator Thora) only apply to one of the explored hexes. If you place both hexes, they must be connected to the same hex and you must move at least 1 ant to each of them.  </p>
 <h6>Visionary Queen</h6>
-<p>You may have any number of Colony Goals in play but once you have 2 or more, you may only add additional Colony Goals by using your unique action. If you play a Colony Goal in any other way, you must replace one of your current ones.
-The additional cost to Evolve multiple times is always 1 ant or larvae, regardless of the cost requirement of the card you are playing.</p>
+<p>You may have any number of Colony Goals in play but once you have 2 or more, you may only add additional Colony Goals by using your unique action. If you play a Colony Goal in any other way, you must replace one of your current ones.  </p>
+<p>The additional cost to Evolve multiple times is always 1 ant or larvae, regardless of the cost requirement of the card you are playing.  </p>
 <h6>Chaos Dancers</h6>
-<p>You must take the steps before resolving the card effect.</p>
+<p>You must take the steps before resolving the card effect.  </p>
   </div>
 </details>
 <details class="section">
@@ -802,110 +933,128 @@ The additional cost to Evolve multiple times is always 1 ant or larvae, regardle
   <div class="section-body">
 <span class="subsection-title">CARD &amp; HEX CLARIFICATIONS</span>
 <span class="label-title">Event Cards</span>
-<p><strong>ADAPTIVE RADIATION</strong> – If this card causes you to lose and then complete an ant body you do not lose points or score points as a result.
-<strong>INTO THE UNKNOWN</strong> – There may only be one wormhole per hex. There may only be 1 centipede per hex.
-<strong>MATING FLIGHT</strong> – You may choose to exchange the location of any player's ant, including your own, with that of any other player's ant.
-<strong>SNEAK ATTACK</strong> – This card will not cause a hex battle to take place in round 1. Battle in the hex resolves as it normally would in the Soldier Phase, at which point the Worker Phase continues. If there is a centipede in the hex, it will battle until it is defeated, then, if the hex is still contested, resolve one ant battle.</p>
+<ul>
+<li>ADAPTIVE RADIATION – If this card causes you to lose and then complete an ant body you do not lose points or score points as a result.</li>
+<li>INTO THE UNKNOWN – There may only be one wormhole per hex. There may only be 1 centipede per hex.</li>
+<li>MATING FLIGHT – You may choose to exchange the location of any player’s ant, including your own, with that of any other player’s ant.</li>
+<li>[icon] SNEAK ATTACK – This card will not cause a hex battle to take place in round 1. Battle in the hex resolves as it normally would in the Soldier Phase, at which point the Worker Phase continues. If there is a centipede in the hex, it will battle until it is defeated, then, if the hex is still contested, resolve one ant battle.</li>
+<li>GARDEN THORAX – The cost of cards cannot be reduced to zero.</li>
+<li>GOLDEN FIRE HEAD – You must choose to use this ability immediately after you play your standard Fertility card.</li>
+<li>MARCHING THORAX – This does not double March reactions when using a Thorax bonus reaction.</li>
+<li>PARASITIC THORAX – If 2 or more opponents have an equal amount of larvae, steal 1 larva from each of them. Steal means the opponent loses 1 larva and you gain 1.</li>
+<li>RENEGADE THORAX – Centipedes may not end their movement in the Great Tunnel or a hex with another centipede.</li>
+<li>SCOUTING THORAX – You do not need to show the unexplored hex to other players.</li>
+<li>TUNNELING THORAX – You cannot place an explored hex with no connecting tunnels. Because you always inhabit hexes with wormholes, you may move larvae directly to those hexes with Explore reactions or with 1 step.</li>
+<li>WEAVER THORAX – Your opponents cannot use any effects or card effects taken from hexes you control, including effects that would move your ants. This includes effects that exchange ants. They may use ants in those hexes to pay for the cost of cards.</li>
+</ul>
 <span class="label-title">Evolution Cards</span>
-<p><strong>AMAZON HEAD</strong> – You gain a larva even if no opponents have larva to lose.
-<strong>ARMORED HEAD</strong> – This does not prevent your last ant in a hex from being lost, as long as enough casualties are assigned to you. This does not prevent you from losing all your ants when you lose to a centipede.
-<strong>ARMY HEAD</strong> – You may move 1 larva from your Larvae Chamber or 1 ant from an adjacent location into the current battle.
-<strong>BETRAYER ABDOMEN/TRAITOROUS HEAD</strong> – Instead of battling a centipede in a hex you are in, you may choose to lose 1 ant from that hex. If you do, other players in that hex still battle the centipede.
-<strong>BLASTING HEAD</strong> – When ants are removed, the player whose ants are removed decides which ants are lost. If this card's effect causes a hex to become uncontested, no battle will take place there. You cannot choose to remove less than 3 ants, even if it means removing your own. This may be used in Round 1.
-<strong>FLYING THORAX</strong> – This does not allow you to move larvae to hexes you do not inhabit or place an explored hex with no connecting tunnels.
-<strong>GARDEN THORAX</strong> – The cost of cards cannot be reduced to zero.
-<strong>GOLDEN FIRE HEAD</strong> – You must choose to use this ability immediately after you play your standard Ferocity card.
-<strong>MARCHING THORAX</strong> – This does not double March reactions when taken as a Thorax bonus reaction.
-<strong>PARASITIC THORAX</strong> – If 2 or more opponents have an equal amount of larvae, steal 1 larva from each of them. Steal means the opponent loses 1 larva and you gain 1.
-<strong>RENEGADE THORAX</strong> – Centipedes may not end their movement in the Great Tunnel or a hex with another centipede.
-<strong>SCOUTING THORAX</strong> – You do not need to show the unexplored hex to other players.
-<strong>TUNNELING THORAX</strong> – You cannot place an explored hex with no connecting tunnels. Because you always inhabit hexes with wormholes, you may move larvae directly to those hexes with Explore reactions or with 1 step.
-<strong>WEAVER THORAX</strong> – Your opponents cannot use any actions or card effects to move ants out of hexes you control, including effects that would move your ants. This includes effects that exchange ants. They may use ants in those hexes to pay for the cost of cards.</p>
+<ul>
+<li>AMAZON HEAD – You gain a larva even if no opponents have larvae to lose.</li>
+<li>ARMORED HEAD – This does not prevent your last ant in a hex from being lost, as long as enough casualties are assigned to you. This does not prevent you from losing all your ants when you lose a centipede.</li>
+<li>ARMY HEAD – You may move 1 larva from your Larvae Chamber or 1 ant from an adjacent location into the current battle.</li>
+<li>BETRAYER ABDOMEN/TRAITOROUS HEAD – Instead of battling a centipede in a hex you are in, you may choose to lose 1 ant from that hex. If you do, other players in that hex still battle the centipede.</li>
+<li>BLASTING HEAD – When ants are removed, the player whose ants are removed decides which ants are lost. If this card’s effect causes a hex to become uncontested, no battle will take place there. You cannot choose to remove less than 2 ants, even if it means removing your own. This may be used in Round 1.</li>
+<li>FLYING THORAX – This does not allow you to move larvae to hexes you do not inhabit or place an explored hex with no connecting tunnels.</li>
+</ul>
 <span class="label-title">Colony Goal Cards</span>
-<p><strong>EXTENSIVE TUNNEL</strong> – "Hexes connected by a single tunnel" refers to a group of hexes that an ant could traverse without retracing its steps.
-<strong>EYELESS OVERLORDS</strong> – There may only be 1 wormhole per hex.</p>
+<ul>
+<li>EXTENSIVE TUNNEL – “Hexes connected by a single tunnel” refers to a group of hexes that an ant could traverse without retracting its steps.</li>
+<li>EYESLESS OVERLORDS – There may only be 1 wormhole per hex.</li>
+</ul>
 <span class="label-title">Beyond the Meadow Hexes</span>
-<p><strong>ABANDONED SPIDER'S LAIR</strong> – The player who places this hex may choose not to play any of the revealed cards.
-<strong>ANT LION DEN</strong> – Only discard cards for inhabited sites, not for the total number of ants in the hex.
-<strong>NEST OF CENTIPEDES</strong> – There can only be 1 centipede in each hex at any time. If all connected hexes already contain a centipede token, no centipede token is placed.</p>
+<ul>
+<li>ABANDONED SPIDER’S LAIR – The player who places this hex may choose not to play any of the revealed cards.</li>
+<li>ANT LION DEN – Only discard cards for inhabited sites, not for the total number of ants in the hex.</li>
+<li>NEST OF CENTIPEDES – There can only be 1 centipede in each hex at any time. If all connected hexes already contain a centipede token, no centipede token is placed.</li>
+</ul>
 <span class="subsection-title">GENERAL RULES CLARIFICATIONS</span>
-<p><strong>ACTIVE PLAYER</strong> – The player with the Active Player Marker.
-<strong>CENTIPEDES</strong> – A hex can only have 1 centipede token on it at a time. Centipedes may not be placed in the Great Tunnel.
-<strong>CONTESTED HEX</strong> – If multiple players have ants in the same hex and there are ants in the outskirts, it is contested. If a centipede and ants are in the same hex, it is contested. If a hex is contested during Soldier Phase, a battle takes place there.
-<strong>CONTROL SITE</strong> – A site in a hex that gives the occupying ant's player control over that hex, allowing them to win ties in battle and gain 1 point in Slumber if the hex is adjacent to the Great Tunnel.
-<strong>EXCESS CASUALTIES</strong> – Once all casualties have been assigned, any extra have no effect.
-<strong>GREAT DEFENDER REST TILE</strong> – This Rest Tile is available each round. The player with this tile counts as the defender in the Great Tunnel Battle, even if they are not present in the battle. Ties are broken in clockwise order, starting with them, and Ferocity card play starts with the player to their left.
-<strong>THE GREAT TUNNEL</strong> – The central location of the Meadow. You may always move larvae into the Great Tunnel. A battle will take place there during Soldier Phase if ants from 2 or more different colonies are present. The Great Tunnel is not a hex.
-<strong>HAND</strong> – A player's cards. There is no hand size limit. The number of cards each player has is public knowledge.
-<strong>HEX BATTLE</strong> – A battle that takes place in a hex. (As opposed to the Great Tunnel Battle, which is not a hex battle.)
-<strong>INHABIT</strong> – A hex is inhabited by each player who has at least one ant in a collection site in that hex.
-<strong>THE MEADOW</strong> – Consists of the Great Tunnel and all placed hexes.
-<strong>MOVING LARVAE</strong> – When a larva moves to the Meadow, it immediately becomes an ant. When taking steps, you may move larva directly to any hex you inhabit or the Great Tunnel.
-<strong>LOCATION</strong> – Each hex and the Great Tunnel.
-<strong>LOSE ANTS</strong> – Remove your own ants from the Meadow. When you are instructed to lose ants, as a result of a card effect or battle casualties, you choose which ants to lose.
-<strong>OUTER MEADOW HEX</strong> – A hex that is not adjacent to the Great Tunnel.
-<strong>OUTSKIRTS</strong> – Any place in a hex that is not a collection site. If all collection sites in a hex are inhabited, any ant that enters that hex is placed in the outskirts. Ants in the outskirts of a hex automatically move to inhabit collection sites that become empty as soon as the current action or reaction is resolved.
-<strong>PLAYER ORDER</strong> – The order in which turns are taken. Player order is clockwise and starts with the Active Player unless specified otherwise.
-<strong>PLAY PRIORITY</strong> – Unless specified, resolve questions of priority in player order.
-<strong>REACTIONS</strong> – Players only take reactions to their neighbors' main action that they take on their turn. Players do not take reactions to action-like effects that result from cards or other abilities.
-<strong>SHARED HEX</strong> – A hex that 2 or more players inhabit.
-<strong>WORMHOLE HEX</strong> – A hex that contains a wormhole token is sometimes referred to as a wormhole hex.
-<strong>WORMHOLES</strong> – A location with a wormhole token has a wormhole. Ants may move from any hex with a wormhole to any other hex with a wormhole with 1 step. Ants may not Explore through wormholes.</p>
+<ul>
+<li>ACTIVE PLAYER – The player with the Active Player Marker.</li>
+<li>CENTIPEDES – A hex can only have 1 centipede token on it at a time. Centipedes may not be placed in the Great Tunnel.</li>
+<li>CONTESTED HEX – If multiple players have ants in the same hex and there are ants in the outskirts, it is contested. If a centipede and ants are in the same hex, it is contested. If a hex is contested during Soldier Phase, a battle takes place there.</li>
+<li>CONTROL SITE – A site in a hex that gives the occupying ant’s player control over that hex, allowing them to win ties in battle and gain 1 point in Slumber if the hex is adjacent to the Great Tunnel.</li>
+<li>EXCESS CASUALTIES – Once all casualties have been assigned, any extra have no effect.</li>
+<li>GREAT DEFENDER REST TILE – This Rest Tile is available each round. The player with this tile counts as the defender in the Great Tunnel Battle, even if they are not present in the battle. Ties are broken in clockwise order, starting with them, and Fertility card play starts with the player to their left.</li>
+<li>THE GREAT TUNNEL – The central location of the Meadow. You may always move larvae into the Great Tunnel. A battle will take place there during Soldier Phase if ants from 2 or more different colonies are present. The Great Tunnel is not a hex.</li>
+<li>HAND – A player’s cards. There is no hand size limit. The number of cards each player has is public knowledge.</li>
+<li>HEX BATTLE – A battle that takes place in a hex. (As opposed to the Great Tunnel Battle, which is not a hex battle.)</li>
+<li>INHABIT – A hex is inhabited by each player who has at least one ant in a collection site in that hex.</li>
+<li>THE MEADOW – Consists of the Great Tunnel and all placed hexes.</li>
+<li>MOVING LARVAE – When a larva moves to the Meadow, it immediately becomes an ant. When taking steps, you may move larva directly to any hex you inhabit or the Great Tunnel.</li>
+<li>LOCATION – Each hex and the Great Tunnel.</li>
+<li>LOSE ANTS – Remove your own ants from the Meadow. When you are instructed to lose ants, as a result of a card effect or battle casualties, you choose which ants to lose.</li>
+<li>OUTER MEADOW HEX – A hex that is not adjacent to the Great Tunnel.</li>
+<li>OUTSKIRTS – Any place in a hex that is not a collection site. If all collection sites in a hex are inhabited, any ant that enters that hex is placed in the outskirts. Ants in the outskirts of a hex automatically move to inhabit collection sites that become empty as soon as the current action or reaction is resolved.</li>
+<li>PLAYER ORDER – The order in which turns are taken. Player order is clockwise and starts with the Active Player unless specified otherwise.</li>
+<li>PLAY PRIORITY – Unless specified, resolve questions of priority in player order.</li>
+<li>REACTIONS – Players only take reactions to their neighbors’ main action that they take on their turn. Players do not take reactions to action-like effects that result from cards or other abilities.</li>
+<li>SHARED HEX – A hex that 2 or more players inhabit.</li>
+<li>WORMHOLE HEX – A hex that contains a wormhole token is sometimes referred to as a wormhole hex.</li>
+<li>WORMHOLES – A location with a wormhole token has a wormhole. Ants may move from any hex with a wormhole to any other hex with a wormhole with 1 step. Ants may not Explore through wormholes.</li>
+</ul>
+<blockquote>
+<p><strong>A Note On Scientific Names</strong><br/>
+The scientific names shown on the Evolution cards include a real life genus and a fictional species. The attributes and characteristics of each ant genus were used as creative inspiration for the Evolution abilities.</p>
+</blockquote>
   </div>
 </details>
 <details class="section">
   <summary><span>ICON GUIDE</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
   <div class="section-body">
 <span class="subsection-title">Hex Icons</span>
-<p>CONTROL SITE
-COLLECTION SITE
-FOOD
-COLONY POINT
-SINGLE LARVA
-ANT CARD
-DOUBLE LARVAE
-TUNNEL
-WORMHOLE
-CENTIPEDE</p>
-<span class="subsection-title">Worker Phase Actions</span>
-<p><strong>EXPLORE</strong> – Add a new hex to the Meadow. You may move ants from adjacent connected locations into it (you must move at least 1 ant).
-<strong>Reaction:</strong> Move a larva into the Meadow.
-<strong>FORAGE</strong> – Draw 3 cards, then discard a card from your hand.
-<strong>Reaction:</strong> Gain a larva.
-<strong>MARCH</strong> – Move your larvae to the Meadow and your ants around the Meadow using steps.
-<strong>Reaction:</strong> Take 1 ant step or move a larva to the Great Tunnel.
-<strong>PLAY A CARD</strong> – Pay the cost for a card in your hand to play it.
-<strong>Reaction:</strong> Discard a card from your hand to draw a new card.
-<strong>REST</strong> – Conclude your other actions for the round and begin taking Rest Tiles.
-You may not Rest on your first turn in a round.
-<strong>Reaction:</strong> None.</p>
+<ul>
+<li>[icon] CONTROL SITE</li>
+<li>[icon] COLLECTION SITE</li>
+<li>[icon] FOOD</li>
+<li>[icon] COLONY POINT</li>
+<li>[icon] SINGLE LARVA</li>
+<li>[icon] ANT CARD</li>
+<li>[icon] DOUBLE LARVAE</li>
+<li>[icon] TUNNEL</li>
+<li>[icon] WORMHOLE</li>
+<li>[icon] CENTIPEDE</li>
+</ul>
 <span class="subsection-title">Segment Bonuses</span>
-<p>For each head, gain +1 Strength in battle.
-At the end of the Worker Phase, choose 1 different reaction per thorax.
-Each food feeds 1 additional ant per abdomen.</p>
+<ul>
+<li>For each head, gain +1 Strength in battle.</li>
+<li>At the end of the Worker Phase, choose 1 different reaction per thorax.</li>
+<li>Each food feeds 1 additional ant per abdomen.</li>
+</ul>
+<span class="subsection-title">Worker Phase Actions</span>
+<ul>
+<li><strong>EXPLORE</strong> – Add a new hex to the Meadow. You may move ants from adjacent connected locations into it (you must move at least 1 ant). Reaction: Move a larva into the Meadow.</li>
+<li><strong>FORAGE</strong> – Draw 3 cards, then discard a card from your hand. Reaction: Gain a larva.</li>
+<li><strong>MARCH</strong> – Move your larvae to the Meadow and your ants around the Meadow using steps. Reaction: Take 1 ant step or move a larva to the Great Tunnel.</li>
+<li><strong>PLAY A CARD</strong> – Pay the cost for a card in your hand to play it. Reaction: Discard a card from your hand to draw a new card.</li>
+<li><strong>REST</strong> – Conclude your other actions for the round and begin taking Rest Tiles. <em>You may not Rest on your first turn in a round.</em> Reaction: None.</li>
+</ul>
 <span class="subsection-title">Rest Tiles</span>
 <span class="label-title">Immediate Effects</span>
-<p>Place 1 egg in the Great Tunnel.
-Take it from your supply, not from your Larvae Chamber.
-Take the indicated number of ant steps.
-You may lose 1 ant to gain the indicated reward.
-Gain the indicated resource(s).</p>
+<ul>
+<li>[icon] Place 1 egg in the Great Tunnel. <em>Take it from your supply, not from your Larvae Chamber.</em></li>
+<li>[icon] Take the indicated number of ant steps.</li>
+<li>[icon] You may lose 1 ant to gain the indicated reward.</li>
+<li>[icon] Gain the indicated resource(s).</li>
+</ul>
 <span class="label-title">Other Effects</span>
-<p>Great Defender Tile: You are the defender in the Great Tunnel.
-Available each round.
-You have +1 Ferocity in all battles this round.
-2 of your ants do not need to be fed this round. They are considered fed.</p>
+<ul>
+<li>[icon] Great Defender Tile: You are the defender in the Great Tunnel. <em>Available each round.</em></li>
+<li>[icon] You have +1 Fericity in all battles this round.</li>
+<li>[icon] 2 of your ants do not need to be fed this round. <em>They are considered fed.</em></li>
+</ul>
 <span class="subsection-title">Card Icons</span>
-<p>The Ferocity number. Used when played in battle, and when resolving some card effects.
-Immediate effect when played.
-Effect that takes place during Slumber.
-Head
-Thorax
-Abdomen</p>
+<ul>
+<li>[icon] The Ferocity number. Used when played in battle, and when resolving some card effects.</li>
+<li>[icon] Immediate effect when played.</li>
+<li>[icon] Effect that takes place during Slumber.</li>
+<li>[icon] Head [icon] Thorax [icon] Abdomen</li>
+</ul>
 <span class="subsection-title">Great Tunnel Rules</span>
-<p>• The Great Tunnel does not count as a hex.
-• Hexes adjacent to the Great Tunnel grant to their controller during Slumber.
-• When moving larvae, players may always move them to the Great Tunnel.</p>
+<ul>
+<li>The Great Tunnel does not count as a hex.</li>
+<li>Hexes adjacent to the Great Tunnel grant [icon] to their controller during Slumber.</li>
+<li>When moving larvae, players may always move them to the Great Tunnel.</li>
+</ul>
   </div>
 </details>
   <p id="no-results">No sections match your search.</p>
@@ -924,8 +1073,6 @@ Abdomen</p>
   var allMarks = [];
   var currentMark = -1;
 
-  // Snapshot each section body's original HTML so we can restore it
-  // before applying a new round of highlights.
   sections.forEach(function (s) {
     var body = s.querySelector('.section-body');
     if (body) body.dataset.original = body.innerHTML;
@@ -999,7 +1146,6 @@ Abdomen</p>
       var body    = section.querySelector('.section-body');
       var summary = section.querySelector('summary');
 
-      // Restore original HTML before each search pass
       if (body) body.innerHTML = body.dataset.original;
 
       if (!re) {

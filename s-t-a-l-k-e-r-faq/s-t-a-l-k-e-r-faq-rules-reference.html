@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>S.T.A.L.K.E.R. - FAQ — Rules Reference</title>
+<style>
+:root {
+  --bg:            #f2ede6;
+  --text:          #1a1a1a;
+  --header-bg:     #1a2a3a;
+  --section-bg:    #1a2a3a;
+  --subsection-bg: #c8873a;
+  --rule:          #b0a898;
+  --accent:        #c8873a;
+  --table-head:    #1a2a3a;
+  --note-bg:       #e8e0d4;
+  --body-bg:       #ffffff;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 15px;
+  line-height: 1.55;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* ── STICKY HEADER ───────────────────────────────────────── */
+.sticky-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--header-bg);
+  padding: 10px 14px 12px;
+  padding-top: max(10px, env(safe-area-inset-top));
+  padding-left: max(14px, env(safe-area-inset-left));
+  padding-right: max(14px, env(safe-area-inset-right));
+  box-shadow: 0 2px 12px rgba(0,0,0,0.4);
+}
+
+.masthead-row {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 9px;
+}
+
+.masthead-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  line-height: 1.1;
+  flex-shrink: 0;
+}
+
+.masthead-subtitle {
+  font-size: 11px;
+  color: rgba(255,255,255,0.45);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.back-link {
+  margin-left: auto;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+  text-decoration: none;
+  flex-shrink: 0;
+  padding-left: 14px;
+  white-space: nowrap;
+}
+.back-link:hover {
+  color: rgba(255,255,255,0.85);
+}
+
+/* ── TOGGLE + BACK ROW ───────────────────────────────────── */
+.toggle-back-row {
+  display: flex;
+  align-items: center;
+  margin-top: 7px;
+}
+
+.search-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-icon {
+  position: absolute;
+  left: 10px;
+  width: 15px;
+  height: 15px;
+  color: rgba(255,255,255,0.4);
+  pointer-events: none;
+  flex-shrink: 0;
+}
+
+#search {
+  width: 100%;
+  padding: 8px 36px 8px 32px;
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 8px;
+  font-size: 15px;
+  background: rgba(255,255,255,0.12);
+  color: #fff;
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+#search::placeholder { color: rgba(255,255,255,0.38); }
+
+#search:focus {
+  background: rgba(255,255,255,0.2);
+  border-color: rgba(255,255,255,0.3);
+}
+
+.search-clear {
+  position: absolute;
+  right: 6px;
+  background: rgba(255,255,255,0.18);
+  border: none;
+  border-radius: 50%;
+  color: rgba(255,255,255,0.8);
+  font-size: 14px;
+  line-height: 1;
+  width: 22px;
+  height: 22px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  flex-shrink: 0;
+}
+
+.search-clear.visible { display: flex; }
+
+mark { background: #ffe066; color: #1a1a1a; border-radius: 2px; padding: 0 1px; }
+mark.active { background: #ff9500; color: #fff; }
+
+/* ── MATCH NAVIGATION ────────────────────────────────────── */
+.match-nav {
+  display: none;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 0 0;
+}
+.match-nav.visible { display: flex; }
+.match-count {
+  color: rgba(255,255,255,0.65);
+  font-size: 13px;
+  flex: 1;
+  text-align: center;
+}
+.match-btn {
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 6px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 15px;
+  line-height: 1;
+  padding: 6px 14px;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+.match-btn:active { background: rgba(255,255,255,0.25); }
+
+/* ── MAIN ────────────────────────────────────────────────── */
+main {
+  padding: 10px 12px 48px;
+  padding-left: max(12px, env(safe-area-inset-left));
+  padding-right: max(12px, env(safe-area-inset-right));
+  padding-bottom: max(48px, env(safe-area-inset-bottom));
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+/* ── NO RESULTS ──────────────────────────────────────────── */
+#no-results {
+  display: none;
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--text);
+  opacity: 0.5;
+  font-size: 14px;
+}
+
+/* ── COLLAPSIBLE SECTIONS ────────────────────────────────── */
+details.section {
+  margin-bottom: 6px;
+  border-radius: 6px;
+  overflow: hidden;
+  scroll-margin-top: 130px;
+}
+
+details.section > summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  min-height: 44px;
+  background: var(--section-bg);
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  list-style: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+details.section > summary::-webkit-details-marker { display: none; }
+
+.chevron {
+  width: 12px;
+  height: 12px;
+  opacity: 0.65;
+  flex-shrink: 0;
+  margin-left: 8px;
+  transition: transform 0.18s ease;
+}
+
+details.section[open] > summary .chevron {
+  transform: rotate(90deg);
+}
+
+.section-body {
+  background: var(--body-bg);
+  padding: 10px 12px 12px;
+  border: 1px solid var(--rule);
+  border-top: none;
+  border-radius: 0 0 6px 6px;
+}
+
+/* ── HEADINGS WITHIN SECTIONS ────────────────────────────── */
+.subsection-title {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: #fff;
+  background: var(--subsection-bg);
+  padding: 4px 12px;
+  margin: 10px -12px 7px;
+}
+
+.label-title {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--section-bg);
+  border-bottom: 1.5px solid var(--rule);
+  padding-bottom: 3px;
+  margin: 10px 0 5px;
+}
+
+.inline-title {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 8px 0 3px;
+}
+
+/* ── BODY TEXT ───────────────────────────────────────────── */
+p { margin-bottom: 7px; }
+b, strong { font-weight: 600; }
+em, i { font-style: italic; }
+
+/* ── LISTS ───────────────────────────────────────────────── */
+ul, ol { padding-left: 20px; margin-bottom: 6px; }
+ul { list-style-type: disc; }
+ol { list-style-type: decimal; }
+ul ul { list-style-type: circle; }
+li { margin-bottom: 3px; }
+li > ul, li > ol { margin-top: 2px; margin-bottom: 0; }
+
+/* ── TABLES ──────────────────────────────────────────────── */
+.table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin-bottom: 6px;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  min-width: 260px;
+}
+thead tr { background: var(--table-head); color: white; }
+thead th {
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  padding: 5px 8px;
+  text-align: left;
+  white-space: nowrap;
+}
+tbody tr:nth-child(even) { background: var(--note-bg); }
+tbody td { padding: 5px 8px; vertical-align: top; }
+
+/* ── BLOCKQUOTE ──────────────────────────────────────────── */
+blockquote {
+  background: var(--note-bg);
+  border-left: 3px solid var(--accent);
+  padding: 6px 10px;
+  margin: 5px 0 7px;
+  font-size: 14px;
+  border-radius: 0 4px 4px 0;
+}
+blockquote p { margin-bottom: 2px; }
+
+/* ── INLINE CODE ─────────────────────────────────────────── */
+code {
+  background: var(--note-bg);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  padding: 1px 4px;
+  font-size: 13px;
+  font-family: inherit;
+  font-weight: 600;
+}
+
+/* ── HR ──────────────────────────────────────────────────── */
+hr { border: none; border-top: 1px solid var(--rule); margin: 8px 0; }
+
+/* ── HIDDEN SECTIONS ─────────────────────────────────────── */
+details.section.search-hidden { display: none; }
+
+/* ── VERSION TOGGLE ──────────────────────────────────────── */
+.toggle-bar {
+  display: inline-flex;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.2);
+}
+.toggle-current,
+.toggle-other {
+  padding: 6px 14px;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  line-height: 1;
+  text-decoration: none;
+  white-space: nowrap;
+  -webkit-tap-highlight-color: transparent;
+}
+.toggle-current {
+  background: rgba(255,255,255,0.18);
+  color: #ffffff;
+  font-weight: 600;
+  cursor: default;
+}
+.toggle-other {
+  color: rgba(255,255,255,0.5);
+}
+.toggle-other:hover {
+  background: rgba(255,255,255,0.08);
+  color: rgba(255,255,255,0.8);
+}
+
+/* ── PRINT ───────────────────────────────────────────────── */
+@media print {
+  .sticky-header { position: static; }
+  details.section[open], details.section { display: block; }
+  .section-body { display: block !important; }
+  .search-wrap, .search-clear, .toggle-bar, .match-nav { display: none; }
+}
+</style>
+</head>
+<body>
+<header class="sticky-header">
+  <div class="masthead-row">
+    <span class="masthead-title">S.T.A.L.K.E.R. - FAQ</span>
+    <span class="masthead-subtitle">Rules Reference</span>
+  </div>
+  <div class="toggle-back-row"><div class="toggle-bar"><span class="toggle-current">Quick Reference</span><a class="toggle-other" href="s-t-a-l-k-e-r-faq-rules-refined.html">Full Rules</a></div><a class="back-link" href="../index.html">&#8592; All Games</a></div>
+  <div class="search-wrap">
+    <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+         stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+         aria-hidden="true">
+      <circle cx="11" cy="11" r="8"/>
+      <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+    </svg>
+    <input type="text" id="search" placeholder="Search rules…"
+           autocomplete="off" spellcheck="false" autocorrect="off">
+    <button class="search-clear" id="search-clear" aria-label="Clear search">&#x2715;</button>
+  </div>
+  <div class="match-nav" id="match-nav">
+    <button class="match-btn" id="match-prev" aria-label="Previous match">↑</button>
+    <span class="match-count" id="match-count"></span>
+    <button class="match-btn" id="match-next" aria-label="Next match">↓</button>
+  </div>
+</header>
+<main>
+<details class="section" open>
+  <summary><span>Setup</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Initial Board Layout &amp; Room Configuration</span>
+<ul>
+<li><strong>Cover</strong> – First paragraph should have an additional sentence at the end: "All spaces in a <strong>Room</strong> have the same <strong>[icon]</strong> value, which is usually presented in one or two edge spaces of a <strong>Room</strong>."</li>
+<li>To the right of „Buying and Selling” there should be the following sidebox:<br/>
+<strong>Mission Specific Equipment Cards</strong><br/>
+  Some <strong>Equipment</strong> cards state „-” as their <strong>[icon]</strong> value. Such cards can’t be sold or discarded unless the game clearly instructs you to do so. They usually represent objects too specific or too dangerous even for the greediest smugglers to take interest in them.</li>
+</ul>
+<span class="subsection-title">Token &amp; Component Distribution</span>
+<ul>
+<li><strong>B2 Punchboard</strong> – Space Anomaly tile – Don't move/place your <strong>Attention</strong> token while on this tile!</li>
+<li><strong>ZS Tokens</strong> – Flooded Room – There should be a Wall texture between two spaces on the token.</li>
+<li><strong>PSTurn Tokens</strong> – Sorter – The effect should be: "Whenever you gain an <strong>Equipment</strong> card from the „Pick Up” <strong>Basic Action</strong>, you may flip this token to gain +1 card from the same deck."</li>
+<li><strong>-10 [icon] Token</strong> – One of the sides should be a -20 <strong>[icon]</strong>. If you need to mark that an <strong>Enemy</strong> lost 20 <strong>[icon]</strong>, place a Universal marker on the -10 <strong>[icon]</strong> token.</li>
+<li><strong>Bunker</strong> – the replacement effect condition should be: "Whenever a Stalker would gain any <strong>[icon]</strong> from resolved <strong><a href="anywhere on the Map">icon</a></strong>, while no Stalker has the Key token, roll the <strong>[icon]</strong>."</li>
+</ul>
+<span class="subsection-title">Starting Conditions &amp; Player Stash</span>
+<ul>
+<li>page 2 S.107 – First rules sentence should be: "You may now sell any <strong>Artifacts</strong> you have in your <strong>Stash</strong> for their <strong>[icon]</strong> value."</li>
+<li>Mission B2 – fourth bullet should be: "If you failed <strong>Mission B2</strong>, return 5 × <strong>Spatial Anomaly Exit</strong> tokens to the box. Otherwise, return them to the <strong>Mission</strong> box B1."</li>
+</ul>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Turn Structure & Actions</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Action Economy Fundamentals</span>
+<ul>
+<li>
+<p>Q: Can I skip 1 or more <strong>Actions</strong>? My <strong>Stalker</strong> is on a space with <strong>Radiation</strong> and wants to stay there but has several actions left.<br/>
+  A: You can't skip <strong>Actions</strong>. Stalkers must perform two Standard <strong>Actions</strong> <strong>[icon]</strong> per <strong>Turn</strong> (as it marks the flow of time and the influence of the irradiated area on you).</p>
+</li>
+<li>
+<p>page 7 – Knife <strong>Action</strong> – Mamon should additionally roll 1 yellow die in addition to the 3 dice thanks to his Ex-Monolith Ability as it affects all <strong>Attacks</strong>.</p>
+</li>
+</ul>
+<span class="subsection-title">Standard vs. Free Actions</span>
+<ul>
+<li>The flow of time and action execution is strictly governed by the requirement to perform two Standard <strong>Actions</strong> per <strong>Turn</strong>. Free <strong>Actions</strong> may be performed alongside these mandatory steps, but cannot replace them.</li>
+</ul>
+<span class="subsection-title">Turn Progression &amp; Token Sliding</span>
+<ul>
+<li>Q: An Event caused me to slide 1 of my <strong>Turn</strong> token down once. How can I now perform the required 2 Standard <strong>Actions</strong> <strong>[icon]</strong> during that <strong>Turn</strong>.<br/>
+  A: You perform as much as you can during that <strong>Turn</strong>.</li>
+</ul>
+<span class="subsection-title">Forced Actions &amp; Critical Injuries</span>
+<ul>
+<li>
+<p>Q: My <strong>Turn</strong> token is on the bottom slot before I carried out that <strong>Turn</strong> (I have a <strong>Critical Injury</strong> and slid that <strong>Turn</strong> token down from an Event effect). Do I have to carry out that <strong>Turn</strong>?<br/>
+  A: Yes you have to carry out that <strong>Turn</strong>. You may still perform Free <strong>Actions</strong>, but that also means that <strong>Enemies</strong> may <strong>Attack</strong> you at the end of your <strong>Turn</strong>.</p>
+</li>
+<li>
+<h4>028 – first part of both Stalkers and <strong>Enemies</strong> effect should be: "Move the least number of spaces to Move out of the way."</h4>
+</li>
+<li>
+<h4>160 – Second rules paragraph should be: For each <strong>[icon]</strong> rolled choose one:</h4>
+<p>– Move the Vehicle token by up to 1 space.<br/>
+  – Turn the Vehicle token by 90 degrees.</p>
+</li>
+<li>
+<h4>281 – Last paragraph should be: "Lose 6<strong>HP</strong> and discard a <strong>[icon]</strong>. You may discard 4 <strong>Equipment</strong> cards OR 1 Food Item to ignore this effect."</h4>
+</li>
+<li>
+<h4>332 – Last sentence of the script should be: During your <strong>Turn</strong> you can surface anytime you want, if you do so, place your Stalker in a larger Flooded Room space (i.e. the space not behind the Wall).</h4>
+</li>
+</ul>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Movement & Space Interaction</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Stalker Movement Fundamentals</span>
+<ul>
+<li>page 20 – Stalker Movement Rules first bullet – To Move X spaces, simply Move your Stalker to an adjacent space X times. Spaces divided with Impassable Terrain or a Wall aren’t considered adjacent for Movement purposes.</li>
+</ul>
+<span class="subsection-title">Adjacency &amp; Line of Sight</span>
+<ul>
+<li>The definition of adjacency strictly excludes any spaces separated by Impassable Terrain or Walls. This boundary condition directly impacts Range checks, <strong>Line of Sight</strong> (LoS) calculations, and targeting validity for both Stalkers and Enemies.</li>
+</ul>
+<span class="subsection-title">Anomaly Space Interaction</span>
+<ul>
+<li>Spatial interactions with Anomalies are governed by specific movement exceptions and symbol covering rules detailed in the <em>Anomalies, Artifacts &amp; Detection</em> section. Standard Movement logic applies unless explicitly overridden by Anomaly effects or card text.</li>
+</ul>
+<span class="subsection-title">Special Movement Effects (Attention, Walls, Doors)</span>
+<ul>
+<li>
+<h4>ENVIRONMENT – A2-12a – Effect on Stalkers should be: "Stalkers: Lose 10<strong>HP</strong>, gain a <strong>[icon]</strong>."</h4>
+</li>
+<li>
+<h4>Toxic Cloud – The following should be above Fate Trigger part: Toxic Cloud can Move through Windows and Impassable Terrains.</h4>
+</li>
+<li>
+<h4>L3-01a Poppy Field – Instead of "Slumber:" it should be "The triggering Entity:"</h4>
+</li>
+<li>
+<h4>Enemies – Zombie – Was missing parts of text</h4>
+<br/>
+  Attack:<br/>
+  ○ Go forward 1 space instead of <strong>Attacking</strong>. This Movement can't be interrupted.<br/>
+  Special – Braindead:<br/>
+  Go forward up to 1 space.</li>
+</ul>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Combat & Weapons</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Attack Fundamentals &amp; Targeting</span>
+<ul>
+<li>page 28 – Enemy Wounds – Second point has 1 wrong icon. It should be: "If an <strong>Enemy</strong> suffered this Wound due to the effect of a <strong>[icon]</strong>, they will still gain the new <strong>[icon]</strong>."</li>
+<li>
+<h4>A3-06a – The <strong>Action</strong> should be: <strong>[icon]Reload HMG</strong>: Discard the Loaded Ammo Belt. Flip this card and place 3 <strong>[icon]</strong> on it.</h4>
+</li>
+<li>
+<h4>A3-14a – This card additionally should discard all Exoskeleton Upgrades from the mentioned <strong>Enemy</strong>.</h4>
+</li>
+</ul>
+<span class="subsection-title">Ranged Attacks &amp; Weapon Traits</span>
+<ul>
+<li>
+<p>Q: Does the “Effective” trait of my Weapon allow me to draw an additional Wounds card when I deal one? Does it stack with Laser Sight’s (Attachment) effect allowing me to draw 3 Wound cards?<br/>
+  A: No. It allows you to draw 2 cards and choose 1 of them to resolve instead of drawing 1. As they both replace the standard rules in the same way these effects do not stack.</p>
+</li>
+<li>
+<p>Q: When <strong>Attacking</strong> with a Blast effect, what are those? (ZS)<br/>
+  A: Attacks with Blast effect are Attack with Items that have the Blast type, Attacks with Weapon that have the Blast trait and you successfully apply it with <strong>[icon]</strong>, and special effects that state that they are treated as Attack with Blast effect.</p>
+</li>
+<li>
+<p>Q: When <strong>Attacking</strong> with a Burst Attack can you target <strong>Enemies</strong> on the same space or only on adjacent ones?<br/>
+  A: You can target different Enemies on the same space.</p>
+</li>
+<li>
+<p>Q: When <strong>Attacking</strong> with a Burst Attack do all Targets have to be in Accurate Range for the Accurate side of the green dice to work?<br/>
+  A: No. Only the main target of the <strong>Attack</strong> has to be in the Accurate Range.</p>
+</li>
+<li>
+<p>Q: When <strong>Attacking</strong> with a Burst Attack I can freely distribute the <strong>[icon]</strong> between multiple Targets. Does it mean I can use it to easily commit the right amount of <strong>[icon]</strong> for odd/even hit values on Portergieist and Bloodsucker?<br/>
+  A: Yes as long as there’s another possible Target for that Burst Attack so you can allocate the remaining <strong>[icon]</strong> to them.</p>
+</li>
+</ul>
+<span class="subsection-title">Area Effects (Blast, Burst, Grenades)</span>
+<ul>
+<li>Q: Can I shoot without any <strong>Enemies</strong> just for the sake of making noise? (I want to put a <strong>[icon]</strong> token down) And the same question applies to Frag Grenade or Flashbang.<br/>
+  A: You can’t perform Attacks with Weapons without a Target, but both Frag Grenade and Flashbang chose a space not a Target and they indeed can be used without Enemies on that space.</li>
+</ul>
+<span class="subsection-title">Damage, Wounds &amp; Health Application</span>
+<ul>
+<li>All damage application follows the strict resolution order of declaring targets, verifying range/LoS, resolving dice/traits, and finally applying wounds or health loss to Stalkers and Enemies. Specific thresholds and survival mitigations are detailed in the <em>Radiation, Health &amp; Survival</em> section.</li>
+</ul>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Enemy Activation & Behavior</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Enemy Activation Triggers</span>
+<ul>
+<li>
+<p>Q: Do <strong>Enemies</strong> without a team token Activate? If yes, when?<br/>
+  A: They Activate whenever the Activation card states that <strong>[icon]</strong> do something and may Activate whenever the Activation card states that <strong>[icon]</strong> closest Enemies do something.</p>
+</li>
+<li>
+<p>Q: I resolve an Unknown token that shows an Enemy color that isn't assigned to any <strong>Enemy</strong>. What happens?<br/>
+  A: Nothing happens. It should be treated as “X” Unknown token.</p>
+</li>
+</ul>
+<span class="subsection-title">Pathfinding &amp; Movement Logic</span>
+<ul>
+<li>Q: When moving Human enemies, if ALL of the possible paths to their target space contain an Anomaly symbol, do they go by the safest route? For example, a bandit is trying to get to space. One route is 5 spaces away but goes through a red symbol. The other route is 9 spaces but goes through a green symbol? Do they choose the longer route?<br/>
+  A: Human Enemies will move as follows: They will follow the shortest safe path (without anomalies) towards the target. If there is no safe path, they follow the shortest dangerous path (with anomalies) towards the target. If there are multiple dangerous paths that are the same distance, choose the safest path.</li>
+</ul>
+<span class="subsection-title">Combat Triggering &amp; Rotation</span>
+<ul>
+<li>
+<p>Q: During a Movement, an <strong>Enemy</strong> gains a LoS to a Target. Should I immediately rotate that <strong>Enemy</strong> to face the Target and/or Attack them?<br/>
+  A: No. The Movement is interrupted and ends immediately without any additional rotations (this can also happen if the <strong>Enemy</strong> already has LoS to a Target before they move). The <strong>Enemy</strong> will only Attack if it’s requested by the <strong>Enemy</strong> Activation card and will rotate during the Attack.</p>
+</li>
+<li>
+<p>Q: During a Movement an <strong>Enemy</strong> entered a space with an Attention token. Does something happen?<br/>
+  A: No additional effect happens, but usually the <strong>Enemy</strong> would stop their Movement if they were Moving toward the Attention token.</p>
+</li>
+<li>
+<p>Q: What if some parts of the <strong>Enemy</strong> Activation card can’t be resolved? What if they become available/unavailable during the resolution of that Part.<br/>
+  A: If a given <strong>Enemy</strong> can’t perform a part of an <strong>Enemy</strong> Activation card (eg. it doesn't have a Target in LoS to Attack) they skip that part. Enemies Activate one by one depending on their proximity to the Targets this can change during resolution of that point on the <strong>Enemy</strong> Activation cards (due to Attacks, Deaths, Pushes, and so on) due to that order of those Activations and their validity can change during that point. For example Enemy didn’t have a Target in LoS, but another <strong>Enemy</strong> Pushed a Stalker into their LoS. As the <strong>Enemy</strong> just gained a Target in their LoS they may Attack them.</p>
+</li>
+</ul>
+<span class="subsection-title">Special Enemy Behaviors (Team, Unknown, Human)</span>
+<ul>
+<li>
+<p>Q: When moving Human enemies, if ALL of the possible paths to their target space contain an Anomaly symbol, do they go by the safest route?<br/>
+  A: Human Enemies will move as follows: They will follow the shortest safe path (without anomalies) towards the target. If there is no safe path, they follow the shortest dangerous path (with anomalies) towards the target. If there are multiple dangerous paths that are the same distance, choose the safest path.</p>
+</li>
+<li>
+<p>Q: In ZS mission "Escape" there is a Locked Door and there are <strong>Enemies</strong> behind the door. As Locked Door is treated as a Wall these <strong>Enemies</strong> are completely cut off Players. Can those enemies go outside the Door toward Attention or they stay inside until the player opens the Door?<br/>
+  A: As a general rule if an <strong>Enemy</strong> doesn't have a legal path (e.g. by being surrounded by Walls) toward an Object of Interest they should Move toward to they won't Move.</p>
+</li>
+</ul>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Anomalies, Artifacts & Detection</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Detection Fundamentals &amp; Range</span>
+<ul>
+<li>
+<p>Q: I detected an Artifact but I don’t like where it appeared (e.g. it's in place that can't be reached). Can I detect it again?<br/>
+  A: Detectors only allow you to detect Artifacts that are currently under the Anomaly standee. If it was detected it's already placed on the Map and can't be detected again (even if it's in an unreachable place).</p>
+</li>
+<li>
+<p>Q: Echo Detector has Range 0. Does mean that I can use it only from Anomaly center space (Range 0 of Artifact’s current position)?<br/>
+  A: No. Detectors can be used within specified Range of any Anomaly space, not just the center.</p>
+</li>
+<li>
+<p>Q: When using Borsuk's Anomaly Knowledge, do I have to place the additional <strong>[icon]</strong> on the same Anomaly space?<br/>
+  A: No. You may place it on any space that has an Anomaly symbol that is within Range 3 of Borsuk.</p>
+</li>
+</ul>
+<span class="subsection-title">Artifact Placement &amp; Symbol Interaction</span>
+<ul>
+<li>
+<p>Q: I Detected an Artifact, and the rolled symbol is under an <strong>Enemy</strong>. Can I place the Artifact on the enemy space, covering the same symbol as the Enemy is covering?<br/>
+  A: Yes, you can.</p>
+</li>
+<li>
+<p>Q: I Detect an Artifact, roll the die but I don’t like where the Artifact should be placed. Can I not place it on the rolled symbol or perform the Action again to move it somewhere else?<br/>
+  A: When you detect an Artifact you must place it on the rolled symbol. Detectors can only move the Artifact from under the Anomaly so they can't be used again to move the Artifact to a different spot.</p>
+</li>
+<li>
+<p>Q: Enemy moves into a Magnet Anomaly and Activates it but there is a wall between them and the Anomaly center. Should they: 1) Not move because the wall stops them. 2) Move through (over) the wall. 3) Take the shortest path around the wall. Additionally should they move only up to their Movement or to the Anomaly center space? What about Stalkers?<br/>
+  A: In both situations it’s the same. Move the model the shortest distance around the wall to the space with Anomaly center.</p>
+</li>
+</ul>
+<span class="subsection-title">Entity Activation &amp; Anomaly Effects</span>
+<ul>
+<li>
+<p>Q: A bolt covers the <strong>[icon]</strong> Anomaly symbol. Stalker moves into the same space and covers the <strong>[icon]</strong> as it's now the highest one. At the end of turn the bolt is removed. Do you place your stalker on the <strong>[icon]</strong> now because Entities are always placed on the "highest" symbol? Or does that rule only apply at the time you are actually moving?<br/>
+  A: Entities do not move from one symbol to another when it becomes uncovered. Covering symbols only happens after Movement after rolling for Anomaly Activation.</p>
+</li>
+<li>
+<p>Q: An Entity Activated the Springboard Anomaly but there are no spaces with the rolled symbol or all of those spaces are fully occupied. What happens?<br/>
+  A: If there are no such spaces nothing happens. If the space is fully occupied: in case of a Stalker they would Push Away 1 Entity from such space, in case of an <strong>Enemy</strong> nothing happens.</p>
+</li>
+<li>
+<p>Q: Enemy is spawned (due to Unknown token) on a space with Anomaly symbol. Should they roll for Anomaly Activation and/or should they cover the highest symbol on that space?<br/>
+  A: Entities placed on a space don’t Activate the Anomaly but they cover the highest Anomaly symbol on the space they were placed on.</p>
+</li>
+</ul>
+<span class="subsection-title">Specific Artifact &amp; Detector Rules</span>
+<ul>
+<li>Stoneflower: <strong>[icon] Before you roll for Defense, you may increase your Defense by 2 [icon]. If you do, gain a [icon].</strong></li>
+</ul>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Radiation, Health & Survival</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Radiation Dosage &amp; Map Modifiers</span>
+<ul>
+<li>page 44 – Radiation Exposure – Quick rules reference is missing one threshold. It should be: "If you’re on the yellow, orange, red, or black threshold ..."</li>
+</ul>
+<span class="subsection-title">Armor Interaction with Radiation</span>
+<ul>
+<li>Q: I have an Armor with -4 Map Radiation. Do I apply the -4 to every instance I would increase my Radiation dosage?<br/>
+  A: No. Armour’s – Map Radiation applies to the Radiation dosage obtained from the Map spaces and whenever the game mentions that a Radiation dosage gained can be modified by your Armor.</li>
+</ul>
+<span class="subsection-title">Injury Thresholds &amp; Health Tracking</span>
+<ul>
+<li>Q: I pick up an Artifact and immediately equip it. Do I add its Radiation to my Geiger counter?<br/>
+  A: No. Equipping Artifacts</li>
+</ul>
+<span class="subsection-title">Survival Actions &amp; Equipment Loss</span>
+<ul>
+<li>
+<h4>079, 270, 296, 396 – The explosion effect was missing the clarification that it also affected components like Door, Silo, etc. – "For each Entity and Other Component..., resolve:"</h4>
+</li>
+<li>Helicopter Assault – 12 ★: Discard this card. See script 071.</li>
+<li>Radioactive Wreck – 1 <strong>Action</strong> has wrong condition it should be: <strong><a href="only if there are at least 2 Stalkers on Radioactive Wreck spaces">icon</a></strong> Try to push the wreck: See script 160.</li>
+</ul>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Mission Progression & Campaign</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Objective Tracking &amp; Achievement Stickers</span>
+<ul>
+<li>page 14 – "If you have Additional Objective (A3-15b) card: • Update your Achievements on the Zone Map with sticker 10. “Enemy of the Monolith”. The Monolith remembers that you have slain one of their best." should be: "Otherwise: • Update your Achievements on the Zone Map with sticker 11. “Enemy of the Monolith”. The Monolith remembers that you have slain one of their best."</li>
+<li>Mission B2 – fourth bullet should be: "If you failed <strong>Mission B2</strong>, return 5 × Spatial Anomaly Exit tokens to the box. Otherwise, return them to the Mission box B1."</li>
+</ul>
+<span class="subsection-title">Script Execution Zone Rules</span>
+<ul>
+<li>
+<h4>Goga card should be left for rules reference in case any Mine token remains in play. "Discard the Goga standee and-card from the game."</h4>
+</li>
+<li>
+<h4>098 – First rules sentence should be: Move the target Enemy along the LoS of your shot until it reaches the first Wall, Impassable Terrain, or Map edge.</h4>
+</li>
+<li>
+<h4>066 – Add at the end of the script: After resolving the Mine explosion, discard the Mine token.</h4>
+</li>
+<li>
+<h4>246 – Last sentence should be: "Then, discard the Dead Body token and card."</h4>
+</li>
+<li>
+<h4>262 – At the end of the script add: Discard the Stunner token and card.</h4>
+</li>
+<li>
+<h4>340 – The rules text should be: "Place the <strong>[icon]</strong> token on the space with the Silo token. Then, discard the Silo card."</h4>
+</li>
+</ul>
+<span class="subsection-title">Campaign Binder &amp; Mission Transitions</span>
+<ul>
+<li>page 15 – Add the following as the last sentence of Mission Summary:<br/>
+<strong>Now, go back to the Zone Navigation, step 6 in the Campaign binder, and continue.</strong></li>
+</ul>
+<span class="subsection-title">Mission-Specific Exceptions</span>
+<ul>
+<li>Specific mission objectives, zone survival triggers, and campaign transition protocols must be followed in strict chronological order. All scriptbook corrections and token return rules apply immediately upon triggering the corresponding condition.</li>
+</ul>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Component Errata & Reference</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Zone Survival Cards</span>
+<ul>
+<li><strong>Toxic Cloud</strong> – The following should be above Fate Trigger part: Toxic Cloud can Move through Windows and Impassable Terrains.</li>
+<li><strong>Radioactive Wreck</strong> – 1 Action has wrong condition it should be: <strong><a href="only if there are at least 2 Stalkers on Radioactive Wreck spaces">icon</a></strong> Try to push the wreck: See script 160.</li>
+<li><strong>Helicopter Assault</strong> – 12 ★: Discard this card. See script 071.</li>
+<li><strong>Open Space Around</strong> – Replace the effect part of the card with: "Stalkers may Move to this card from any Outdoor space on the edge of the Map as if they were adjacent spaces. When Stalker enters this card their Movement ends and they can't leave this card until the Fate Triggers step. Stalkers on this card may still perform Actions but don't have a LoS or Range to any space on the Map. All Stalkers on this card are considered to be on the same space."</li>
+<li><strong>Bunker</strong> – the replacement effect condition should be: "Whenever a Stalker would gain any <strong>[icon]</strong> from resolved <strong><a href="anywhere on the Map">icon</a></strong>, while no Stalker has the Key token, roll the <strong>[icon]</strong>."</li>
+<li><strong>Explosion</strong> – Should have additional information: "Place the <strong>[icon]</strong> token (from the Zone Survival tokens pool) on any space of this Room. Discard that [icon] at the end of this Round."</li>
+</ul>
+<span class="subsection-title">Scriptbook Text Corrections</span>
+<ul>
+<li><strong>001</strong> – First rules sentence should be: Move the target Enemy along the LoS of your shot until it reaches the first Wall, Impassable Terrain, or Map edge.</li>
+<li><strong>028</strong> – first part of both Stalkers and Enemies effect should be: "Move the least number of spaces to Move out of the way."</li>
+<li><strong>160</strong> – Second rules paragraph should be: For each <strong>[icon]</strong> rolled choose one: – Move the Vehicle token by up to 1 space. – Turn the Vehicle token by 90 degrees.</li>
+<li><strong>198</strong> – the last sentence of the second bullet should be: "If you rolled less than 2 <strong>[icon]</strong>, each Enemy on space with the Enemy that lobbed the grenade suffers an Attack of 10 <strong>[icon]</strong> against their torso." First rules paragraph should be: You may Move up to 5 spaces. Don’t place or Move your Attention token unless you end your Movement in the Enemy’s LoS.</li>
+<li><strong>246</strong> – Last sentence should be: "Then, discard the Dead Body token and card."</li>
+<li><strong>262</strong> – At the end of the script add: Discard the Stunner token and card.</li>
+<li><strong>281</strong> – Last paragraph should be: "Lose 6HP and discard a <strong>[icon]</strong>. You may discard 4 Equipment cards OR 1 Food Item to ignore this effect."</li>
+<li><strong>332</strong> – Last sentence of the script should be: During your Turn you can surface anytime you want, if you do so, place your Stalker in a larger Flooded Room space (i.e. the space not behind the Wall).</li>
+<li><strong>340</strong> – The rules text should be: "Place the <strong>[icon]</strong> token on the space with the Silo token. Then, discard the Silo card."</li>
+<li><strong>066, 079, 270, 296, 396</strong> – The explosion effect was missing the clarification that it also affected components like Door, Silo, etc. – "For each Entity and Other Component..., resolve:"</li>
+<li><strong>047, 270</strong> – Goga card should be left for rules reference in case any Mine token remains in play. "Discard the Goga standee and-card from the game."</li>
+</ul>
+<span class="subsection-title">Token &amp; Punchboard Updates</span>
+<ul>
+<li><strong>-10 [icon] Token</strong> – One of the sides should be a -20 <strong>[icon]</strong>. If you need to mark that an Enemy lost 20 <strong>[icon]</strong>, place a Universal marker on the -10 <strong>[icon]</strong> token.</li>
+<li><strong>B2 Punchboard</strong> – Space Anomaly tile – Don't move/place your Attention token while on this tile!</li>
+<li><strong>ZS Tokens</strong> – Flooded Room – There should be a Wall texture between two spaces on the token.</li>
+<li><strong>PSTurn Tokens</strong> – Sorter – The effect should be: "Whenever you gain an Equipment card from the „Pick Up” Basic Action, you may flip this token to gain +1 card from the same deck."</li>
+</ul>
+<span class="subsection-title">Lost Territories &amp; Environmental Cards</span>
+<ul>
+<li><strong>A2-12a</strong> – Effect on Stalkers should be: "Stalkers: Lose 10HP, gain a <strong>[icon]</strong>."</li>
+<li><strong>A3-06a</strong> – The Action should be: <strong>[icon]Reload HMG</strong>: Discard the Loaded Ammo Belt. Flip this card and place 3 <strong>[icon]</strong> on it.</li>
+<li><strong>A3-14a</strong> – This card additionally should discard all Exoskeleton Upgrades from the mentioned Enemy.</li>
+<li><strong>W-AI Wander Around</strong> – If there is <strong>[icon]</strong> on the map: Step 1 disclaimer should read as follows: "Enemies that were already in a Room Move toward the next closest Room instead."</li>
+<li><strong>L3-01a Poppy Field</strong> – Instead of "Slumber:" it should be "The triggering Entity:"</li>
+<li><strong>Zombie</strong> – Was missing parts of text<br/>
+  Attack:<br/>
+  ○ Go forward 1 space instead of Attacking. This Movement can't be interrupted.<br/>
+  Special – Braindead:<br/>
+  Go forward up to 1 space.</li>
+</ul>
+  </div>
+</details>
+  <p id="no-results">No sections match your search.</p>
+</main>
+<script>
+(function () {
+  var searchEl  = document.getElementById('search');
+  var clearBtn  = document.getElementById('search-clear');
+  var noResults = document.getElementById('no-results');
+  var sections  = Array.from(document.querySelectorAll('details.section'));
+  var matchNav   = document.getElementById('match-nav');
+  var matchCount = document.getElementById('match-count');
+  var matchPrev  = document.getElementById('match-prev');
+  var matchNext  = document.getElementById('match-next');
+
+  var allMarks = [];
+  var currentMark = -1;
+
+  sections.forEach(function (s) {
+    var body = s.querySelector('.section-body');
+    if (body) body.dataset.original = body.innerHTML;
+  });
+
+  var timer;
+
+  searchEl.addEventListener('input', function () {
+    var term = this.value.trim();
+    clearBtn.classList.toggle('visible', term.length > 0);
+    clearTimeout(timer);
+    timer = setTimeout(function () { applySearch(term); }, 180);
+  });
+
+  clearBtn.addEventListener('click', function () {
+    searchEl.value = '';
+    clearBtn.classList.remove('visible');
+    applySearch('');
+    searchEl.focus();
+  });
+
+  matchPrev.addEventListener('click', function () {
+    if (allMarks.length === 0) return;
+    navigateTo((currentMark - 1 + allMarks.length) % allMarks.length);
+  });
+
+  matchNext.addEventListener('click', function () {
+    if (allMarks.length === 0) return;
+    navigateTo((currentMark + 1) % allMarks.length);
+  });
+
+  function navigateTo(index) {
+    if (allMarks[currentMark]) allMarks[currentMark].classList.remove('active');
+    currentMark = index;
+    var mark = allMarks[currentMark];
+    mark.classList.add('active');
+    mark.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    matchCount.textContent = (currentMark + 1) + ' of ' + allMarks.length;
+  }
+
+  function escapeRe(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlightTextNodes(container, re) {
+    var walker = document.createTreeWalker(
+      container, NodeFilter.SHOW_TEXT, null, false
+    );
+    var nodes = [];
+    var n;
+    while ((n = walker.nextNode())) {
+      if (n.nodeValue.trim()) nodes.push(n);
+    }
+    nodes.forEach(function (textNode) {
+      re.lastIndex = 0;
+      if (!re.test(textNode.nodeValue)) return;
+      re.lastIndex = 0;
+      var span = document.createElement('span');
+      span.innerHTML = textNode.nodeValue.replace(
+        re, function (m) { return '<mark>' + m + '</mark>'; }
+      );
+      textNode.parentNode.replaceChild(span, textNode);
+    });
+  }
+
+  function applySearch(term) {
+    var re = term ? new RegExp(escapeRe(term), 'gi') : null;
+    var visibleCount = 0;
+
+    sections.forEach(function (section) {
+      var body    = section.querySelector('.section-body');
+      var summary = section.querySelector('summary');
+
+      if (body) body.innerHTML = body.dataset.original;
+
+      if (!re) {
+        section.classList.remove('search-hidden');
+        section.open = false;
+        return;
+      }
+
+      var titleText = summary ? summary.textContent : '';
+      var bodyText  = body    ? body.textContent    : '';
+
+      re.lastIndex = 0;
+      var inTitle = re.test(titleText);
+      re.lastIndex = 0;
+      var inBody  = re.test(bodyText);
+      re.lastIndex = 0;
+
+      if (inTitle || inBody) {
+        section.classList.remove('search-hidden');
+        section.open = true;
+        if (body) highlightTextNodes(body, new RegExp(escapeRe(term), 'gi'));
+        visibleCount++;
+      } else {
+        section.classList.add('search-hidden');
+      }
+    });
+
+    noResults.style.display = (re && visibleCount === 0) ? 'block' : 'none';
+
+    allMarks = Array.from(document.querySelectorAll('mark'));
+    currentMark = -1;
+
+    if (allMarks.length > 0) {
+      matchNav.classList.add('visible');
+      navigateTo(0);
+    } else {
+      matchNav.classList.remove('visible');
+      matchCount.textContent = '';
+    }
+  }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,1239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>S.T.A.L.K.E.R. — Rules Reference</title>
+<style>
+:root {
+  --bg:            #f2ede6;
+  --text:          #1a1a1a;
+  --header-bg:     #bc942e;
+  --section-bg:    #bc942e;
+  --subsection-bg: #73bf11;
+  --rule:          #b0a898;
+  --accent:        #73bf11;
+  --table-head:    #bc942e;
+  --note-bg:       #e8e0d4;
+  --body-bg:       #ffffff;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 15px;
+  line-height: 1.55;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* ── STICKY HEADER ───────────────────────────────────────── */
+.sticky-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--header-bg);
+  padding: 10px 14px 12px;
+  padding-top: max(10px, env(safe-area-inset-top));
+  padding-left: max(14px, env(safe-area-inset-left));
+  padding-right: max(14px, env(safe-area-inset-right));
+  box-shadow: 0 2px 12px rgba(0,0,0,0.4);
+}
+
+.masthead-row {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 9px;
+}
+
+.masthead-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  line-height: 1.1;
+  flex-shrink: 0;
+}
+
+.masthead-subtitle {
+  font-size: 11px;
+  color: rgba(255,255,255,0.45);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.back-link {
+  margin-left: auto;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+  text-decoration: none;
+  flex-shrink: 0;
+  padding-left: 14px;
+  white-space: nowrap;
+}
+.back-link:hover {
+  color: rgba(255,255,255,0.85);
+}
+
+/* ── TOGGLE + BACK ROW ───────────────────────────────────── */
+.toggle-back-row {
+  display: flex;
+  align-items: center;
+  margin-top: 7px;
+}
+
+.search-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-icon {
+  position: absolute;
+  left: 10px;
+  width: 15px;
+  height: 15px;
+  color: rgba(255,255,255,0.4);
+  pointer-events: none;
+  flex-shrink: 0;
+}
+
+#search {
+  width: 100%;
+  padding: 8px 36px 8px 32px;
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 8px;
+  font-size: 15px;
+  background: rgba(255,255,255,0.12);
+  color: #fff;
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+#search::placeholder { color: rgba(255,255,255,0.38); }
+
+#search:focus {
+  background: rgba(255,255,255,0.2);
+  border-color: rgba(255,255,255,0.3);
+}
+
+.search-clear {
+  position: absolute;
+  right: 6px;
+  background: rgba(255,255,255,0.18);
+  border: none;
+  border-radius: 50%;
+  color: rgba(255,255,255,0.8);
+  font-size: 14px;
+  line-height: 1;
+  width: 22px;
+  height: 22px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  flex-shrink: 0;
+}
+
+.search-clear.visible { display: flex; }
+
+mark { background: #ffe066; color: #1a1a1a; border-radius: 2px; padding: 0 1px; }
+mark.active { background: #ff9500; color: #fff; }
+
+/* ── MATCH NAVIGATION ────────────────────────────────────── */
+.match-nav {
+  display: none;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 0 0;
+}
+.match-nav.visible { display: flex; }
+.match-count {
+  color: rgba(255,255,255,0.65);
+  font-size: 13px;
+  flex: 1;
+  text-align: center;
+}
+.match-btn {
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 6px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 15px;
+  line-height: 1;
+  padding: 6px 14px;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+.match-btn:active { background: rgba(255,255,255,0.25); }
+
+/* ── MAIN ────────────────────────────────────────────────── */
+main {
+  padding: 10px 12px 48px;
+  padding-left: max(12px, env(safe-area-inset-left));
+  padding-right: max(12px, env(safe-area-inset-right));
+  padding-bottom: max(48px, env(safe-area-inset-bottom));
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+/* ── NO RESULTS ──────────────────────────────────────────── */
+#no-results {
+  display: none;
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--text);
+  opacity: 0.5;
+  font-size: 14px;
+}
+
+/* ── COLLAPSIBLE SECTIONS ────────────────────────────────── */
+details.section {
+  margin-bottom: 6px;
+  border-radius: 6px;
+  overflow: hidden;
+  scroll-margin-top: 130px;
+}
+
+details.section > summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  min-height: 44px;
+  background: var(--section-bg);
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  list-style: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+details.section > summary::-webkit-details-marker { display: none; }
+
+.chevron {
+  width: 12px;
+  height: 12px;
+  opacity: 0.65;
+  flex-shrink: 0;
+  margin-left: 8px;
+  transition: transform 0.18s ease;
+}
+
+details.section[open] > summary .chevron {
+  transform: rotate(90deg);
+}
+
+.section-body {
+  background: var(--body-bg);
+  padding: 10px 12px 12px;
+  border: 1px solid var(--rule);
+  border-top: none;
+  border-radius: 0 0 6px 6px;
+}
+
+/* ── HEADINGS WITHIN SECTIONS ────────────────────────────── */
+.subsection-title {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: #fff;
+  background: var(--subsection-bg);
+  padding: 4px 12px;
+  margin: 10px -12px 7px;
+}
+
+.label-title {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--section-bg);
+  border-bottom: 1.5px solid var(--rule);
+  padding-bottom: 3px;
+  margin: 10px 0 5px;
+}
+
+.inline-title {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 8px 0 3px;
+}
+
+/* ── BODY TEXT ───────────────────────────────────────────── */
+p { margin-bottom: 7px; }
+b, strong { font-weight: 600; }
+em, i { font-style: italic; }
+
+/* ── LISTS ───────────────────────────────────────────────── */
+ul, ol { padding-left: 20px; margin-bottom: 6px; }
+ul { list-style-type: disc; }
+ol { list-style-type: decimal; }
+ul ul { list-style-type: circle; }
+li { margin-bottom: 3px; }
+li > ul, li > ol { margin-top: 2px; margin-bottom: 0; }
+
+/* ── TABLES ──────────────────────────────────────────────── */
+.table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin-bottom: 6px;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  min-width: 260px;
+}
+thead tr { background: var(--table-head); color: white; }
+thead th {
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  padding: 5px 8px;
+  text-align: left;
+  white-space: nowrap;
+}
+tbody tr:nth-child(even) { background: var(--note-bg); }
+tbody td { padding: 5px 8px; vertical-align: top; }
+
+/* ── BLOCKQUOTE ──────────────────────────────────────────── */
+blockquote {
+  background: var(--note-bg);
+  border-left: 3px solid var(--accent);
+  padding: 6px 10px;
+  margin: 5px 0 7px;
+  font-size: 14px;
+  border-radius: 0 4px 4px 0;
+}
+blockquote p { margin-bottom: 2px; }
+
+/* ── INLINE CODE ─────────────────────────────────────────── */
+code {
+  background: var(--note-bg);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  padding: 1px 4px;
+  font-size: 13px;
+  font-family: inherit;
+  font-weight: 600;
+}
+
+/* ── HR ──────────────────────────────────────────────────── */
+hr { border: none; border-top: 1px solid var(--rule); margin: 8px 0; }
+
+/* ── HIDDEN SECTIONS ─────────────────────────────────────── */
+details.section.search-hidden { display: none; }
+
+/* ── VERSION TOGGLE ──────────────────────────────────────── */
+.toggle-bar {
+  display: inline-flex;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.2);
+}
+.toggle-current,
+.toggle-other {
+  padding: 6px 14px;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  line-height: 1;
+  text-decoration: none;
+  white-space: nowrap;
+  -webkit-tap-highlight-color: transparent;
+}
+.toggle-current {
+  background: rgba(255,255,255,0.18);
+  color: #ffffff;
+  font-weight: 600;
+  cursor: default;
+}
+.toggle-other {
+  color: rgba(255,255,255,0.5);
+}
+.toggle-other:hover {
+  background: rgba(255,255,255,0.08);
+  color: rgba(255,255,255,0.8);
+}
+
+/* ── PRINT ───────────────────────────────────────────────── */
+@media print {
+  .sticky-header { position: static; }
+  details.section[open], details.section { display: block; }
+  .section-body { display: block !important; }
+  .search-wrap, .search-clear, .toggle-bar, .match-nav { display: none; }
+}
+</style>
+</head>
+<body>
+<header class="sticky-header">
+  <div class="masthead-row">
+    <span class="masthead-title">S.T.A.L.K.E.R.</span>
+    <span class="masthead-subtitle">Rules Reference</span>
+  </div>
+  <div class="toggle-back-row"><div class="toggle-bar"><span class="toggle-current">Quick Reference</span><a class="toggle-other" href="s-t-a-l-k-e-r-rules-refined.html">Full Rules</a></div><a class="back-link" href="../index.html">&#8592; All Games</a></div>
+  <div class="search-wrap">
+    <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+         stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+         aria-hidden="true">
+      <circle cx="11" cy="11" r="8"/>
+      <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+    </svg>
+    <input type="text" id="search" placeholder="Search rules…"
+           autocomplete="off" spellcheck="false" autocorrect="off">
+    <button class="search-clear" id="search-clear" aria-label="Clear search">&#x2715;</button>
+  </div>
+  <div class="match-nav" id="match-nav">
+    <button class="match-btn" id="match-prev" aria-label="Previous match">↑</button>
+    <span class="match-count" id="match-count"></span>
+    <button class="match-btn" id="match-next" aria-label="Next match">↓</button>
+  </div>
+</header>
+<main>
+<details class="section" open>
+  <summary><span>Setup</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Component Inventory</span>
+<p><strong>Paper</strong></p>
+<ul>
+<li>1 Rulebook</li>
+<li>1 Mission guide/Scriptbook</li>
+<li>1 Gameplay Example</li>
+<li>40 Coupons</li>
+<li>4 Zone Map with stickers</li>
+</ul>
+<p><strong>Cards</strong><br/>
+<em>Standard cards</em></p>
+<ul>
+<li>27 Weapon cards</li>
+<li>11 Anomaly cards</li>
+<li>12 High Attention (Red) Enemy Activation cards</li>
+<li>10 Low Attention (Yellow) Enemy Activation cards</li>
+<li>16 Contact cards</li>
+<li>3 Control cards</li>
+<li>21 Lost Territories cards</li>
+</ul>
+<p><em>Small cards</em></p>
+<ul>
+<li>38 Item cards</li>
+<li>26 Artifact cards</li>
+<li>33 Attachment cards</li>
+<li>26 Armor cards</li>
+<li>20 Enemy Wound cards</li>
+</ul>
+<p><em>Oversized cards</em></p>
+<ul>
+<li>12 Stalker cards</li>
+<li>18 Random Event cards</li>
+<li>5 Help cards</li>
+<li>17 Enemy cards</li>
+</ul>
+<p><strong>Tokens</strong></p>
+<ul>
+<li>24 [icon] Unknown tokens</li>
+<li>31 [icon] Loot tokens</li>
+<li>4 [icon] Enemy team tokens</li>
+<li>5 [icon] Artifact tokens</li>
+<li>54 Enemy standees</li>
+<li>20 Anomaly standees</li>
+<li>10 [icon] Pin down tokens</li>
+<li>10 [icon] Exposed tokens</li>
+<li>4 [icon] Focus tokens</li>
+<li>16 [icon] Bolt tokens</li>
+<li>4 [icon] No Visibility tokens</li>
+<li>4 [icon] Attention tokens</li>
+<li>8 Turn tokens</li>
+<li>4 [icon] Container tokens</li>
+<li>8 Critical Injury tokens</li>
+<li>1 Pseudogiant carcass token</li>
+<li>1 Dog Companion token</li>
+<li>9 [icon] Enemy - HP tokens</li>
+<li>2 Trap tokens</li>
+<li>2 Entrance tokens</li>
+</ul>
+<p><strong>Plastic</strong></p>
+<ul>
+<li>6 [icon] Stalker dice</li>
+<li>6 [icon] Equipment dice</li>
+<li>1 [icon] Anomaly die</li>
+<li>10 [icon] Pistol Magazines</li>
+<li>10 [icon] Rifle Magazines</li>
+<li>10 [icon] Shotgun Magazines</li>
+<li>36 [icon] Universal/Ammo markers</li>
+<li>4 [icon] Stalker HP markers</li>
+<li>24 small +3 big standee bases</li>
+<li>6 sets of plastic pins</li>
+</ul>
+<p><strong>Other</strong></p>
+<ul>
+<li>4 PDA - Player boards</li>
+<li>4 Geiger counters</li>
+<li>2 Solo Stalker Turn overlays</li>
+<li>15 Map tiles</li>
+<li>3 Lost Territory tiles</li>
+<li>6 Mission boxes*</li>
+<li>1 Campaign binder with 1 cardholder and 2 dividers</li>
+<li>1 Stash</li>
+<li>1 Enemy facing sticker sheet</li>
+<li>Zone Survival components**</li>
+</ul>
+<p><strong>Models</strong></p>
+<ul>
+<li>4 Stalker models</li>
+<li>1 Dog Companion model</li>
+</ul>
+<p>*Contents of the Mission boxes can be found on pages 4 and 5 of the Scriptbook (back of the Mission guide).<br/>
+** Zone Survival mode components are listed in the Zone Survival Rules &amp; Scripts booklet.</p>
+<span class="subsection-title">Starting the Campaign: Step-by-Step</span>
+<p>To start a new Campaign, perform the following tasks in order:</p>
+<ol>
+<li><strong>Learn about the game:</strong> Review the rulebook chapters: Zone Exploration, Mission Setup, Mission Map, and Playing the Mission.</li>
+<li><strong>Check the Gameplay Example:</strong> Play through the short scenario to verify understanding of core mechanics.</li>
+<li><strong>Prepare Core Components:</strong> Take out the Campaign binder, Stash (plastic envelope), and Zone Map from the box. These are used during Zone Exploration.</li>
+<li><strong>Slot Starting Cards:</strong> Find Contact cards C01 (Sidorovich), C08 (Guide), and C99 (Patron) in the box. Place them in any order into the slots of the Campaign binder’s cardholder.</li>
+<li><strong>Choose Stalkers:</strong> Each player chooses 1 Stalker card and 1 Stalker model. Models are universal; choose whichever you prefer. Recommended first-playthrough Stalkers: Borsuk, Mamon, Milady, Velel. These Stalkers remain with you for the whole Campaign. Each player then chooses a color and takes the corresponding components: PDA, Attention token, Plastic ring. Place the plastic ring on the model. Place the Stalker card in the middle of the PDA. Place the Attention token in the slot near Pockets.</li>
+<li><strong>Gain Starting Equipment:</strong> Gain 5000 [icon] regardless of team size and place them in your Stash to be split between your team. Additionally, each Stalker starts with a Leather Jacket Armor card (take 1 per Stalker from the deck and place it in your Stash).</li>
+<li><strong>Ready to Start:</strong> Open the Campaign binder on the first page (Zone Navigation) and follow its instructions to begin.</li>
+</ol>
+<p><strong>Replaying the Campaign</strong><br/>
+Before starting a second or subsequent Campaign, reset all components. Use a new Zone Map and reset the contents of all Mission boxes using the full component lists found in the Mission Scriptbook pages 4-5.</p>
+<span class="subsection-title">Mission Guide Structure &amp; Setup Workflow</span>
+<p>During each Mission, you must set up the board according to the Mission guide. The guide is split into three sections:</p>
+<p><strong>Prologue</strong><br/>
+Read this when you choose a Mission on the Zone Map. It contains story introduction and hints for preparation. Choosing a Mission does not start it immediately; you will return to the Campaign binder to explore further, visit Traders, or meet Contacts before starting.</p>
+<p><strong>Setup</strong><br/>
+This section contains all instructions to prepare the Mission Map. Mission-specific cards and tokens are in the corresponding Mission box. Follow the two-page setup instructions step-by-step. On these pages, you only see the connection between setup instructions and the prepared map; all detailed rules are in the Rulebook.</p>
+<p><em>Example Setup Workflow (Mission A1):</em></p>
+<ol>
+<li><strong>Map Setup:</strong> Place specified Map Tiles (1-5) as shown. Place starting overlay cards (A1-02a, A1-03a, etc.) on the map. Keep remaining Environment cards next to the map as the Environment deck.</li>
+<li><strong>Environment Setup:</strong> Take out all Environment cards from the Mission box. Find and read the Mission Objective card (A1-0a), place it next to the map. Randomly select one of each duplicate card (A1-05a, A1-07a) and return the other copies to the box. Draw 1 random Gravitational Anomaly card and 1 Electro Anomaly card face up next to the map. Draw 1 random Gravitational overlay (3, 5, or 8) and place it on the map pointing top. Draw 1 random Electric overlay (6, 7, or 11) and place it so the triangle tip points to each Anomaly center. Place matching Anomaly standees on those overlays.</li>
+<li><strong>Other Setups:</strong> Place Stalker models on "Starting Point" spaces. For Enemies: Find specific Enemy cards (e.g., Bandit Rifle, Bandit Shotgun), mark them with [icon] tokens, and place them next to the map. Place corresponding standees on marked spaces. For the Event Deck: Take all Mission Event cards from the box. Randomly return one duplicate (II), stack the rest in numerical order face down (I on top, VIII on bottom). Leave the Random Event card in the box. The Mission begins; start the first Round.</li>
+</ol>
+<p><em>Note:</em> Not all components in a Mission box are used during setup. Only use what is instructed. Full contents of each Mission box are listed in the Scriptbook pages 4-5 for reference or reset purposes.</p>
+<p><strong>Epilogue</strong><br/>
+Read this after finishing a Mission. It continues the story and details rewards (Equipment, Coupons, Contacts, stickers adding points of interest to the Zone Map, unlocking new Missions).</p>
+<span class="subsection-title">Optional Modes &amp; Expansion Setup</span>
+<p><strong>Single Stalker Mode</strong><br/>
+Recommended for solo play to preserve atmosphere. Play with only 1 Stalker.</p>
+<ul>
+<li><strong>Turn Overlays:</strong> Place special Turn overlays on your PDA. This allows you to perform 3 Standard Actions instead of 2 per Turn, for a total of 6 per Round. Each Enemy with LoS to your Stalker Attacks your Stalker twice during the Enemies &amp; Zone Phase.</li>
+<li><strong>Lead Stalker:</strong> You are always the Lead Stalker and never lose the token. When you perform the [icon] Action from the Lead Stalker token, flip it; it is unflipped by the Event card's End of Round effect.</li>
+<li><strong>Critical Injury:</strong> Place Critical Injuries in the same spot as usual. On the Turn overlay, a Critical Injury covers 2 slots, causing you to lose 2 Standard Actions during that Turn.</li>
+</ul>
+<p><strong>Lost Territories</strong><br/>
+An optional expansion adding new areas for Campaigns or Zone Survival Scenarios. Use after gaining experience with the game.</p>
+<ul>
+<li><strong>Components:</strong> 8 Setup cards, 13 Lost Territories Environment cards, 3 Lost Territory tiles, 2 Entrance tokens.</li>
+<li><strong>Adding to Game:</strong> After finishing Map setup for a Mission/Scenario, draw 1 Lost Territories Setup card and resolve it. It specifies where to place the Entrance token, which tile to use, and any additional Environment cards. Environment cards start with "L".</li>
+<li><strong>Reaching the Territory:</strong> Each tile has an Entrance. Place the Entrance token on the Map as instructed. Spaces with a Lost Territories Entrance are adjacent for Movement and Range measurement, but you cannot draw Line of Sight <em>through</em> the Entrance token. You can throw Grenades/Bolts across, Enemies can follow, but Weapons requiring LoS cannot be used.</li>
+<li><strong>Setup Instructions:</strong> Draw 1 random Setup card before Round 1. It shows where to place the Entrance token (players decide if multiple spaces available), which tile to place next to the Map, which L-01a Environment card to use, and reminder instructions for traversal.</li>
+</ul>
+<hr/>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Campaign & Mission Overview</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Game Identity &amp; Golden Rules</span>
+<p><strong>S.T.A.L.K.E.R. Universe</strong><br/>
+The game takes place in an alternate version of the Chornobyl Nuclear Power Plant Exclusion Zone, formed after the 1986 accident and a second incident in the 2000s. The mutated irradiated area hosts anomalies, mutants, and warring factions (Monolith, Duty, Freedom, traders, bandits). Players take on the role of Stalkers exploring for artifacts, personal motivations, or survival. The Zone is a hostile, living microcosmos.</p>
+<p><strong>Golden Rules</strong><br/>
+In unclear situations, follow these rules:</p>
+<ol>
+<li><strong>Cards before Rulebook:</strong> If a card’s text directly contradicts the Rulebook, the card takes precedence.</li>
+<li><strong>Limited Components:</strong> All components are limited. If an effect requires a component that isn’t available and doesn’t specify otherwise, that part of the effect is ignored (e.g., if an Anomaly causes a Stalker to lose 7HP and gain [icon] but all [icon] tokens are used, the Stalker only loses 7HP).</li>
+<li><strong>Uncaring Zone:</strong> The Zone reacts almost as if it has a mind of its own. Whenever you have an unclear situation, rule in the player’s disfavor.</li>
+</ol>
+<span class="subsection-title">Campaign Flow &amp; Story Tracking</span>
+<p><strong>Campaign Structure</strong><br/>
+One Campaign playthrough consists of playing a series of consecutive Missions with one group of Stalkers. Each Campaign requires a fresh Zone Map to mark progress and a separate Stash (Stalker groups don’t share belongings).</p>
+<p><strong>Stories</strong><br/>
+Each Mission is part of a Story providing overarching narrative. Outcomes impact the Campaign. Stories have letters (e.g., A1, A2) shown in the Mission guide and on the Zone Map. You do not need to finish one Story to begin another. Save the Zone Map and Stash contents after finishing all Corebox Stories; upcoming expansions will use your Campaign state.</p>
+<p><strong>Stalker Count [icon]</strong><br/>
+Some game effects change based on the number of Stalkers in a Mission. Each player controls 1 Stalker. To add a new Stalker to the Campaign group, choose a Stalker card for them and equip them using Stash contents.</p>
+<span class="subsection-title">Gear Management &amp; PDA Setup</span>
+<p><strong>PDA &amp; Equipment Overview</strong><br/>
+The PDA (Player Board) holds your Equipment and Stalker info. It contains:</p>
+<ol>
+<li><strong>Stalker slot:</strong> Place your Stalker card here.</li>
+<li><strong>Turn slots:</strong> Place Turn tokens here. Slide them down to mark performed Standard Actions. Contains Critical Injury tokens that block part of the slot, limiting available Actions per Turn.</li>
+<li><strong>Weapon slot:</strong> Holds equipped Weapon card, up to 2 matching Weapon Attachments, and the Magazine track for Ammo markers.</li>
+<li><strong>Armor slot:</strong> Holds equipped Armor card and up to 1 Armor Attachment.</li>
+<li><strong>Artifact slots:</strong> Top slot holds the Artifact with highest Base Radiation value. Below it is an Artifact Container token (if applicable) and up to 2 additional Artifacts whose radiation values are covered by the PDA.</li>
+<li><strong>Backpack:</strong> Holds Items and unused Equipment cards. Base capacity is 6 Equipment cards. Exceeding capacity forces you to discard excess immediately after equipping actions finish. Only Item cards can be used while in the Backpack; others must be equipped via "Prepare" Action.</li>
+<li><strong>Pockets:</strong> Hold [icon] Magazines and Mission-specific tokens. Use [icon] here for "Bolts &amp; Nuts" and "Decoy" Actions.</li>
+<li><strong>Attention slot:</strong> Place your Attention token here when not on the Map.</li>
+<li><strong>HP track:</strong> Mark current HP value here. Drop to 0 HP gains a Critical Injury. Third Critical Injury = Death.</li>
+</ol>
+<p><strong>Losing and Healing HP</strong><br/>
+Lose HP by moving marker right (to 0). Heal by moving left (up to Max HP).</p>
+<p><strong>Lead Stalker</strong><br/>
+A moving title tied to one Stalker at a time. The Lead Stalker breaks ties. Represented by a token. Flip and pass to next Stalker to choose: Heal 2HP or Gain [icon]. While holding the token, you may perform an Action to flip it and pass it left; they cannot use its effect until unflipped during End of Round. You may perform this even if gaining nothing.</p>
+<p><strong>Stash &amp; Zone Exploration</strong><br/>
+Before each Mission, perform Zone Exploration using the Campaign binder and Zone Map. Visit locations on the Zone Map by adding stickers. Mark completed locations by crossing them out. Choose 1 Mission location and up to 1 New Contact or Stash location per Navigation phase. Read specified scripts/back of Mission guide for outcomes.</p>
+<p><strong>Contacts</strong><br/>
+Represent Characters/Animals met during Campaign. Resolve up to 3 slotted Contact cards per Zone Management phase. Types: Loner (small tasks/payment), Traders (buy/sell Equipment), Companions (take 1 on a Mission), Contracts (take 1 additional objective for [icon]). Double-faced: "a" side for Zone Exploration, "b" side for Mission rules. Buy/Sell: Gain/Discard Coupons equal to good’s value (round down to next 50). Trading modifies values. Buy: place in Stash or immediately equip. Sell: discard and return to correct deck/token compartment.</p>
+<p><strong>Going on a Mission</strong><br/>
+Prepare Stalkers before departing. Each Stalker must have at least 1 Armor and 1 Weapon at all times. Before each Mission: Set HP to Max value. Pack few Bolts in Pockets and Focus on the Mission. Fully load each Weapon. Set Radiation dosage on Geiger counter. Artifacts require at least 1 Detector Attachment card in the team to retrieve, though gathering them is recommended.</p>
+<p><strong>Post-Mission Cleanup</strong><br/>
+After each Mission, choose to save Campaign or continue. Clear table per instructions.</p>
+<span class="subsection-title">Stalker Selection &amp; Starting Conditions</span>
+<p>Each player chooses 1 Stalker card and model. Models are universal. Recommended starters: Borsuk (Zone explorer), Mamon (lone fighter), Milady (sneaky sniper), Velel (versatile tank). These remain fixed for the Campaign. Each player picks a color and takes corresponding PDA, Attention token, and plastic ring. Place ring on model, Stalker card in center of PDA, Attention token near Pockets. Gain 5000 [icon] total for the team into Stash. Each Stalker starts with 1 Leather Jacket Armor card in Stash.</p>
+<hr/>
+  </div>
+</details>
+<details class="section">
+  <summary><span>The Mission Map & Core Mechanics</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Map Layout &amp; Space Rules</span>
+<p><strong>Tiles &amp; Spaces</strong><br/>
+Each Mission Map consists of several Map tiles oriented as shown in setup diagrams. Numbers indicate required tiles. Each tile has a number in one corner and is divided into spaces of different sizes/properties.</p>
+<ul>
+<li><strong>Water Spaces [icon]:</strong> Marked with [icon]. No Entity may enter or move through them.</li>
+<li><strong>Entities:</strong> Living beings traversing the Zone: Stalkers (player characters), Companions (Stalker helpers), Enemies (hostile Humans/Mutants).</li>
+<li><strong>Thickness of Space Edge:</strong> Visual thickness has no gameplay effect.</li>
+<li><strong>Space Size:</strong> Determines Entity capacity. Smallest is 1x1 grid square (holds 1 Entity). Larger spaces combine squares; capacity increases proportionally. Fragments not a full 1x1 square do not add capacity.</li>
+</ul>
+<p><strong>Fully Occupied Space</strong><br/>
+A space with a number of Entities equal to its size is fully occupied.</p>
+<ul>
+<li>Enemies cannot end Movement in a fully occupied space.</li>
+<li>Stalkers ending Movement in a fully occupied space Push one Entity from that space 1 space Away (Stalkers first if present). If no Entity can be Pushed to create a slot, you cannot end Movement there.</li>
+</ul>
+<p><strong>Buildings and Rooms</strong><br/>
+Rooms are areas fully enclosed by Walls, Doors, and Windows. Multiple neighboring Rooms create a Building. Effects may reference Indoor (any space in any Room) or Outdoor (spaces not in any Room).</p>
+<span class="subsection-title">Pathfinding &amp; Proximity</span>
+<p><strong>Space Edges</strong><br/>
+Two spaces sharing an edge in at least one of four cardinal directions are adjacent. Five connection types change interaction:</p>
+<ol>
+<li><strong>Open edge:</strong> Entities can Move, draw LoS, measure Range through it. Most common.</li>
+<li><strong>Impassable Terrain:</strong> Entities cannot Move but can draw LoS and measure Range through it. Forms lone structures or separates Map parts (e.g., water).</li>
+<li><strong>Wall:</strong> Entities cannot Move, draw LoS, nor measure Range through it. Spaces separated by a Wall aren't adjacent. Forms lone structures or buildings.</li>
+<li><strong>Door:</strong> Part of Walls treated as Open edges. Entities can Move, draw LoS, measure Range through it. Represent entrances.</li>
+<li><strong>Window:</strong> Treated differently: Stalkers and Human Enemies treat as Open edges; Psionic Enemies treat as Impassable Terrain; all other Enemies treat as Walls.</li>
+</ol>
+<p>If two different edges of two tiles connect, treat as one edge of the higher restriction: Wall &gt; Impassable Terrain &gt; Open edge.</p>
+<p><strong>Range</strong><br/>
+Measured between two spaces. Equal to the lowest number of edges crossed. Not measured in a straight line.</p>
+<ul>
+<li>Range 0 effects apply only to your space.</li>
+<li>"Within Range X" affects spaces at Range X and lower.</li>
+<li>"Within Range X+" affects spaces at Range X and higher.</li>
+</ul>
+<p><strong>Closest Object and Shortest Route</strong><br/>
+To find the closest object:</p>
+<ol>
+<li>Visualize shortest routes (least number of spaces between). Human Enemies ignore routes containing uncovered Anomaly symbols (unless no other routes exist).</li>
+<li>Choose the object with the shortest route.</li>
+<li>Tiebreaker: Choose the route with the least number of corners.</li>
+<li>If still tied, Lead Stalker decides.</li>
+</ol>
+<span class="subsection-title">Line of Sight &amp; Visibility</span>
+<p><strong>Line of Sight (LoS)</strong><br/>
+Determines if two Entities can see each other. Always measured between spaces.</p>
+<ul>
+<li>Check all cardinal directions individually for Stalkers; check directions depending on Facing for Enemies.</li>
+<li>Check spaces horizontally/vertically connected to Entity's space in the checked direction. Repeat until reaching Map edge, end of Sight Range, or a LoS blocking effect (Wall or No Visibility token). Compare LoS to all spaces reachable with Movement without changing direction.</li>
+<li>An Entity always has LoS to its own space.</li>
+<li>An Entity has LoS to all those spaces and can see each Entity present there.</li>
+<li>Entities, Anomalies, and most tokens do not block LoS unless clearly stated.</li>
+</ul>
+<p><strong>[icon] NO VISIBILITY</strong><br/>
+No Entity can draw LoS to, from, or through a space with this token (treated as having a Wall in each edge for LoS purposes). Entities on the same space with [icon] can still Target each other. Removed during Enemies &amp; Zone Phase.</p>
+<span class="subsection-title">Environment Cards &amp; Map Tokens</span>
+<p><strong>Environment Cards</strong><br/>
+Each Mission has a unique set influencing the Map, providing hints, or changing rules. Two main types:</p>
+<ul>
+<li><strong>Map overlays:</strong> Placed directly on tiles, adding Actions/Triggers or changing spaces/connections. Text oriented consistently for correct placement.</li>
+<li><strong>Notes:</strong> Kept next to Map. Textful cards with single-use instructions, hints, or additional rules.</li>
+</ul>
+<p><em>Action Choices and Costs:</em> Note cards may offer multiple Actions. Some marked with [icon] require sliding Turn token down once (may increase Radiation dose).</p>
+<p><em>Double Faced Cards:</em> Most are double-faced ("a" front, "b" back). Follow game instructions to keep correct face showing. Stack Environment deck with front face up by default.</p>
+<p><em>Flipping an Environment Card:</em> </p>
+<ul>
+<li>Overlay: Place back on Map in direct neighborhood or using visual cue.</li>
+<li>Note: Resolve effects, then usually discard. If not discarded, place next to Map for ongoing rules/info.</li>
+</ul>
+<p><em>Discarding and Removing:</em> Discard goes to Mission box. Remove goes separately (won't be used again in Campaign).</p>
+<p><strong>Tokens on Mission Map</strong></p>
+<ul>
+<li><strong>[icon] BOLT:</strong> Kept in Pockets. Placed on Map via "Bolts &amp; Nuts" Action to cover Anomaly symbols by Range 3. Covered symbols ignored for Anomaly Activation rolls. Removed during Enemies &amp; Zone Phase.</li>
+<li><strong>[icon] ARTIFACT:</strong> Usually hidden under Anomaly standee, placed on Map with Detector Armor Attachment. Covered symbols ignored for Activation rolls. Gained via "Pick Up" Action by drawing an Artifact card matching the Anomaly type (or random if unavailable/non-Anomaly space).</li>
+<li><strong>[icon] LOOT:</strong> Equipment scattered throughout Zone (Bolts, Items, Weapons, Artifacts). Placed in stacks on same space. Resolve top token from stack when picking up. If unflipped, flip and gain visible reward. Discard the flipped ? to the side; it cannot be used again this Mission.</li>
+<li><strong>[icon] UNKNOWN ENEMY:</strong> Represents reinforcements. Placed in stacks on one space. Resolve top token: If ×, discard. If [color]/[color]/[color]/[color], place 1 or 2 corresponding standees facing arrow direction. If placed at least 1 standee, discard ?. If not enough standees in pool, draw an Enemy Activation card (Red if at least 1 Red token on Map, else Yellow). Activate only 1 Enemy matching the color that should be placed but couldn't, closest to resolved ?. Discard ?. Resolve multiple/no ? one by one. No ? on Map = nothing happens.</li>
+<li><strong>Placing Enemies and fully occupied spaces:</strong> If new Enemy standee should be placed on fully occupied space, place it on closest available space facing direction of space it couldn't be placed on.</li>
+</ul>
+<span class="subsection-title">Radiation Hotspots &amp; Cover</span>
+<p><strong>Map Radiation [icon]</strong><br/>
+Radiation is a dangerous part of the Zone. Not all areas are contaminated. Visual intensity changes colors: 1-2 [icon] yellow, 3-4 orange, 5+ red.<br/>
+Each time a Stalker slides their Turn token (after resolving effect or Standard Action causing slide), if on a space with [icon], increase Radiation dosage on Geiger counter equal to the space's [icon] value. Reduced by Armor’s Map Radiation modifier.<br/>
+<em>Free Actions:</em> Don't cause you to slide Turn token down, so don't increase Radiation dose from spaces on your current space.<br/>
+<em>Radiation During Movement:</em> If Movement caused sliding a Turn token and you moved to/from/through spaces with [icon], increase dosage only once equal to the highest value found. Reduced by Armor modifier.</p>
+<p><strong>Cover [icon]</strong><br/>
+Spaces with this icon contain Cover, making it harder to hit Targets unless close. Represents obstacles/hiding spots.<br/>
+Whenever an Entity on a space with [icon] is Attacked and Attacker isn't on same space (or in same Room for Buildings), reduce ★ successes from Stalkers' Attacks and [icon] damage from Enemies' Attacks equal to the [icon] value.</p>
+<hr/>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Round Structure & Player Actions</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Phase Overview &amp; Turn Economy</span>
+<p><strong>Game Round Structure</strong><br/>
+Each Mission is played through several Rounds until objective met, Stalker dies, or time runs out. Each Round consists of three Phases:</p>
+<ol>
+<li><strong>Event Phase:</strong> Draw/read new Event card, apply Instant rules.</li>
+<li><strong>Players Phase:</strong> Each player carries out two Turns performing Actions.</li>
+<li><strong>Enemies &amp; Zone Phase:</strong> Enemies Activate, Stalkers suffer Radiation effects, End of Round effects apply.</li>
+</ol>
+<p><strong>Event Information</strong><br/>
+Part of Event cards resolved during Enemies &amp; Zone Phase, but you may read it when Active to plan Actions.</p>
+<p><strong>Event Phase</strong><br/>
+Mark passage of time and narrate. Draw top Event card, read, resolve Instant effects, place next to deck. Proceed to Players Phase.<br/>
+Decks consist of:</p>
+<ul>
+<li><strong>Mission Event:</strong> Story progression/Mission specific. Unique per Mission. Multiple variants with same number picked randomly when building deck.</li>
+<li><strong>Random Event:</strong> Small story twists (loot, radiation spikes). Added during Mission.</li>
+</ul>
+<p>Card structure: Name, Number, Story, Instant effects (resolve immediately on draw, may grant extra Actions but don't slide Turn token unless specified), End of Round effects (resolved at end of Enemies &amp; Zone Phase). Marked effects vary (add Random Events, spawn Enemies). Unmarked effects are always same (final instructions between Rounds).</p>
+<p><strong>Players Phase &amp; Turns</strong><br/>
+Stalkers carry out Turns clockwise. Lead Stalker starts first Round.<br/>
+Each Stalker carries out two Turns per Round (each represented by one Turn token). During each Turn, perform 2 Standard Actions [icon]. When all finish both Turns, proceed to Enemies &amp; Zone Phase.</p>
+<p><strong>Turns</strong><br/>
+One Turn must finish before next begins. During each Turn, Stalker must perform 2 Standard Actions and may perform unlimited Free Actions. Each Standard Action slides Turn token down once. When Token reaches bottom slot and no additional Free Actions desired, Turn ends.<br/>
+<em>Markers on Turn tokens:</em> Effects may place [icon] on Turn token. Increase number of Standard Actions per Turn. When performing Standard Action while having at least 1 [icon], discard 1 [icon] instead of sliding Turn token down. During End of Round, discard remaining [icon].</p>
+<p><strong>End of Stalker's Turn</strong><br/>
+After each Turn, Enemies with LoS to that Stalker may React by Attacking (reminded on PDA when Token reaches bottom).</p>
+<p><strong>Passing the Turn</strong><br/>
+Player may pass before Turn begins. Proceed to next Stalker. Passing doesn't lose Turn; you can postpone until better situation arises but must carry out eventually.</p>
+<span class="subsection-title">Core Basic Actions</span>
+<p>Basic Actions are known to every Stalker (listed on Help card). One Action must finish before next begins. Other Actions come from Environment cards and Equipment.<br/>
+Actions have two icons:</p>
+<ul>
+<li>[icon] Standard Action: Slide Turn token once. Limited per short span.</li>
+<li>[icon] Free Action: No slide required. Unlimited per Turn, before/after/between Standard Actions.</li>
+</ul>
+<p><strong>[icon] Movement:</strong> Move up to 3 spaces. Most common. Results in moving/placing Attention token.<br/>
+<em>Rules:</em> Move X spaces = move to adjacent space X times. Impassable Terrain/Wall without Window aren't adjacent. Enter space with Enemy = interrupt and immediately end. End on fully occupied space = Push one Entity from that space (Stalkers first) to adjacent space (Move from if possible). If no slot created, can't end there. Move through fully occupied spaces without Enemies allowed. Move from space with Enemy = rotate Enemy standee to face adjacent space you Move to.<br/>
+<em>Attention:</em> Move through space in Enemy LoS = place [icon] on first space moved through that is no longer in Enemy LoS. End Movement in Enemy LoS = place [icon] on your space. End Movement and [icon] not placed on Map = move/place [icon] on your space.<br/>
+<em>Radiation:</em> If Movement caused sliding Turn token and you moved to/from/through spaces with [icon], increase dosage equal to highest value found (reduced by Armor).<br/>
+<em>Triggers:</em> During Movement, check if entered space with [icon] or Anomaly symbols ([icon], [icon], [icon]). Resolve triggered effects. If applies immediately and doesn't end Movement, continue after resolving.</p>
+<p><strong>[icon] Careful Movement:</strong> Move 1 space. Cannot move from/to Enemy LoS. Don't move/place Attention token.</p>
+<p><strong>[icon] Prepare:</strong> Gain 1 [icon] (Focus). Gain 1 [icon] (Bolt). Then, any number of times in any order, Stalkers on your space may: Exchange Artifact/Attachment/Armor/Item/Weapon/Magazine/[icon]/Personal Important Finding with another Stalker on same space. Move Weapon between Weapon slot and Backpack (Ammo stays on Weapon). Move Armor between Armor slot and Backpack. Install/Uninstall Attachment from Armor/Weapon. Move Artifact between Artifact slot and Backpack.</p>
+<p><strong>[icon] Reload:</strong> If have [icon], treat as [icon] (don't discard that [icon]). Discard 1 Magazine from Pockets matching Weapon type (Pistol/Rifle/Shotgun) to add ★ to Weapon to reach its Ammo capacity.</p>
+<p><strong>[icon] Pick up:</strong> Choose 1 [icon] (Loot) or [icon] (Artifact) on your space. If unflipped [icon], flip it, gain rewards, discard it. When picking up [icon], gain Artifact card matching Anomaly type.</p>
+<p><strong>[icon] Decoy:</strong> Cannot perform if you have [icon] on Map. Discard 1 [icon] from Pockets. Choose space within Range 3 of Stalker. Place [icon] there. If any Enemies on chosen/adjacent spaces, draw Red Enemy Activation card and resolve it, but only Activate Enemies on chosen/adjacent spaces. If any of those Enemies have LoS to any Attention token, move that Attention token by 1 toward its owner.</p>
+<p><strong>Bolts &amp; Nuts:</strong> Place 1 [icon] from Pockets onto chosen Anomaly symbol within Range 3. Covered symbols ignored for Activation rolls. Removed during Enemies &amp; Zone Phase.</p>
+<p><strong>Knife:</strong> Attack Action. Must be on same space as Enemy to Attack. Pick Body Part, roll 3 [icon]. If kill target, reduce your Attention.</p>
+<p><strong>Other Actions &amp; Where to Find Them:</strong></p>
+<ul>
+<li><strong>Weapons:</strong> Each has at least one Attack Action requiring Ammo. Examples: SAW-OFF (Accurate Range 0-1, Max Range 2, Blast hits all Enemies on Target's space), FRAG GRENADE (Throw Range 2, Place [icon] on chosen space, Roll 4 ★, Attack all Enemies within that space. Stalkers: Target Torsos. Enemies: Target Head. Discard card.), EYE FIRE ([icon] to move Attention token to space within Range 2 of Stalker).</li>
+<li><strong>Environment Cards:</strong> Interact via Actions written on them.</li>
+<li><strong>Items:</strong> Each has its own Action (single-use, discarded after use). Kept in Backpack. Can be used while stored.</li>
+<li><strong>Artifacts:</strong> Some provide unique Actions.</li>
+</ul>
+<p><strong>Instant Triggers and Additional Rules</strong><br/>
+Triggers appear on Environment/Anomaly cards. Specify if applied immediately during Action or after finishing. Immediate application won't end Action unless instructed. Marked with [icon]/[icon]/[icon] color depending on card. Examples: Grenade Launcher (After Attack, may use [icon] from Grenade Item as [icon]), Improved Artifact Container (May use IMPROVED regardless of Armor), SLIME CHEMICAL (Whenever Enemy within Range 1 Attacks, may increase Radiation dose by 3 to deal [icon] to that Enemy).</p>
+<span class="subsection-title">Combat Sequence: Attacks &amp; Defense</span>
+<p><strong>Attacks Overview</strong><br/>
+Actions engaging Enemies. Found on Weapons and some cards. Basic Attack: Knife Action. Require Range and/or LoS to target's space. Usually only target Enemy models unless stated otherwise.</p>
+<p><strong>Attack Sequence (Stalkers)</strong></p>
+<ol>
+<li>Choose Attack Action and valid Target. Weapon Attacks: Target within Max Range and in LoS. Some state minimum Range. Non-Weapon specify Range and LoS requirement.</li>
+<li>Slide Turn token if [icon] and spend Ammo if needed.</li>
+<li>Place required Attention token. If places [icon] and doesn't specify where, place on your space. If places [icon] and you have [icon] anywhere on Map, do not place [icon]. If in Enemy LoS, always have [icon] on your space.</li>
+<li>Target Body Part. If Attack allows picking, do so. Otherwise target Torso. Body Parts have different To Hit tables.</li>
+<li>Roll dice. Weapon: roll [icon] from Stalker card + additional [icon] specified by Attack. Non-Weapon specify number of [icon]/[icon]. Roll any additional [icon]/[icon] from other components (commonly Weapon Attachments).</li>
+<li>If have [icon] or effect allowing reroll, do so now.</li>
+<li>Resolve roll results: Spend rolled [icon] to apply additional effects (same effect multiple times if enough [icon]). Count [icon] and compare to To Hit value of targeted Body Part. Resolve highest reached threshold effect. Weapon Attack within Accurate Range: treat [icon] as 4 [icon]. If Light/Heavy Wound, draw Enemy Wound card and apply outcome. If no threshold reached, miss. Unspent [icon] can be spent for additional effects.</li>
+<li>If fail to kill Enemy, rotate Enemy to face your Stalker.</li>
+</ol>
+<p><strong>Masks [icon]:</strong> On [icon] dice, sides contain [icon] symbols. Spent to apply additional Weapon effects (may be applied multiple times, choose different if more available as long as cost paid). Subtract required [icon] from roll result. May be used before/after Hit check.</p>
+<p><strong>Attacking Multiple Enemies:</strong></p>
+<ul>
+<li><strong>Burst/Full Auto Attacks:</strong> Spread [icon] rolled and additional effects between main Target and any Enemy adjacent to it and in your LoS (don't need same cardinal direction).</li>
+<li><strong>Blast effects:</strong> Shotgun trait/Blast Items hit all Enemies on one or more spaces. Roll dice once, apply same [icon] result to all hit.</li>
+</ul>
+<p><strong>Multiple rerolls:</strong> No limit to how many times a die can be rerolled as long as from different source.</p>
+<p><strong>Enemy Wounds</strong><br/>
+Light/Heavy Wound (from Attacks/Anomalies): Draw top Enemy Wounds deck card, resolve corresponding outcome. Discard after. Six outcomes:</p>
+<ol>
+<li>Gain [icon]: Place token near standee.</li>
+<li>Gain [icon] and [icon]: Place both tokens. If due to [icon] effect, still gain new [icon]. Only exception of having two [icon] at once (one immediately discarded).</li>
+<li>If already has [icon], Push Away. Else gain [icon]. Either place token or if already had [icon], Move 1 space farther from you (can't be interrupted). If no possible space farther, don't Move.</li>
+<li>[icon]: Lose 1 HP. Usually death (most have 1 HP). If &gt;1 HP, place token near standee/card.</li>
+<li>If already has [icon], [icon]. Else gain [icon]. Either place token or if already had [icon], lose 1 HP.</li>
+<li>[icon]: Shuffle deck. Lose 1 HP. Usually death.</li>
+</ol>
+<p><strong>Enemy Death</strong><br/>
+HP drops to/below 0: Die. Remove standee, return to pool (can arrive later via [icon] tokens). Humans drop 1 [icon] on space. Mutants drop none.</p>
+<span class="subsection-title">Weapon Systems &amp; Attachments</span>
+<p><strong>Weapons</strong><br/>
+Only 1 equipped at a time; others in Backpack. Recommended to always have 1. Features: Name, Accurate Range (best distance, [icon] counts as 4 ★ instead of 2 ★), Maximum Range (max Attack distance, 0 to max), Ammo (type Pistol/Rifle/Shotgun/Special and max capacity. Represented by [red square] next to Weapon or on card in Backpack. Discard to perform Attacks. Start Missions fully loaded.), Attachment slots (up to 2. Match slots on Weapon/Attachment cards to install.), Weapon trait (various effects during Attacks based on [icon] rolled or always), Attack Actions (1 or 2 per Weapon. Each has: Action cost [blue square]/[white square], Ammo cost [red square] to discard, Attack type, [green dice icon] number of [icon] rolled in addition to Stalker's [yellow dice icon], Attention placement, Additional effects like Body Part pick, extra ★/[icon], special requirements.), Coupon value, Tier (I to III core game, I most common/weakest).</p>
+<p><strong>Weapon Attachments</strong><br/>
+Up to 2 slots per Weapon. 1 Attachment per slot. Not all work for each; slots must match. Type not only factor; some boost specific Attack types unavailable for that Weapon. Modify smartly. Core game has specific slot types; one accommodates two different types. One side of [icon] is specially marked with additional effects during Attacks.</p>
+<p><strong>Magazines</strong><br/>
+Three types: Pistol, Rifle, Shotgun. Match Ammo types. Used for "Reload" Action. Discard matching Magazine to add ★ to Weapon to reach capacity. Reload equipped or Backpack Weapon.</p>
+<hr/>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Enemy Activation & Combat Phases</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Phase Execution Order</span>
+<p><strong>Enemies &amp; Zone Phase</strong><br/>
+Mark passage of time. Feel Radiation effects, temporary effects vanish, new Enemies appear, Enemies Activate to hunt you. Steps resolved in order:</p>
+<ol>
+<li>Enemy Activation.</li>
+<li>Radiation Exposure &amp; Dosage reduction.</li>
+<li>Discard tokens [icon], [icon], [icon].</li>
+<li>Attention reduction.</li>
+<li>End of Round effects.</li>
+</ol>
+<span class="subsection-title">Enemy Activation Cards &amp; Decks</span>
+<p><strong>Enemy Activation</strong><br/>
+Enemies Activated according to card. If at least 1 [icon] token anywhere on Map, draw Red Enemy Activation card and resolve. Else draw Yellow card.</p>
+<p><strong>Swarming (Red Card)</strong></p>
+<ol>
+<li>[icon] Enemies Move up to X toward closest [icon].</li>
+<li>[icon] Enemies Move up to 2 spaces toward closest [icon].</li>
+<li>[icon] Enemies Attack Target in LoS. Enemies have +X during this Attack.</li>
+<li>Enemies perform their Special.<br/>
+<em>Exposed:</em> Enemies in LoS of any Stalker gain a [icon].</li>
+</ol>
+<p><strong>Checking the Disturbance (Yellow Card)</strong><br/>
+<em>IF NO [icon] ON MAP:</em> 1. [icon] Enemies Move up to X toward closest Room. Enemies already in Room move to next closest instead.<br/>
+<em>IF [icon] ON MAP:</em> 1. [icon] +X Enemies closest to any Attention: Move up to X toward closest Attention. 2. [icon] Enemies with Target in LoS: Move up to X toward closest space with and no LoS to any target. This Movement can't be interrupted.</p>
+<p>Cards focus on looking for Stalkers/checking Attention or covering Map areas/ignoring placed Attention. Resolve each point top to bottom. Each point one Enemy at a time, fully resolved before next point. If multiple Activated, start closest to point of interest (usually closest Attention token). Tiebreaker order: [icon] → [icon] → [icon] → [icon].</p>
+<p>Card Instructions:</p>
+<ul>
+<li>[color]/[color]/[color]/[color] +1 Enemies Move up to X toward Y. Specified Enemies move up to X spaces toward point of interest until reach target or interrupted.</li>
+<li>[color]/[color]/[color]/[color] Enemies Go forward up to X. Specified Enemies move straight ahead (rotate before if needed) until Move X spaces or interrupted.</li>
+<li>[color] Enemies Attack a Target in LoS. Enemies seeing Target during this point Attack, prioritizing Stalkers. Different colors modify [icon] damage.</li>
+<li>Look around: Rotate standee clockwise until full 360° rotation or see Target in LoS (stop).</li>
+<li>[color]/[color]/[color]/[color] Enemies perform their Special. All specified color Enemies perform Special if possible (usually retreat, sometimes offensive).</li>
+<li>If an Enemy has LoS to any Attention by 2 spaces toward its owner: Allows "catching up" to Stalkers. When sees Attention token without owner, deduces where Stalker is hiding.</li>
+</ul>
+<p><strong>Stalkers' scaling [icon]:</strong> Some effects influenced by number of Stalkers. Represents numeric value equal to team size.<br/>
+<strong>All Enemies [icon]:</strong> Refers to all Enemies on Map, including those without colored team token.<br/>
+<strong>Target:</strong> Not everyone is opponent. Stalkers may only directly Attack/Target Enemies. Enemies may Target Stalkers and Enemies from different team. Companion cards state if they can be Targeted by Enemies.</p>
+<span class="subsection-title">Entity Types &amp; Targeting Rules</span>
+<p><strong>Enemy Types</strong></p>
+<ul>
+<li><strong>Human:</strong> Treat Windows as Open edges. On death, place 1 [icon] on space. Sight usually limited to long Range front, short sides, nothing back. Special usually allows retreat.</li>
+<li><strong>Psionic:</strong> Treat Windows as Impassable Terrain. Don't drop [icon] on death. Sight usually high all directions. Special usually allows retreat.</li>
+<li><strong>Mutant:</strong> Unless Psionic, treat Windows as Walls. Don't drop [icon] on death. Sight not always high but always see at least Range 1 back. Special usually allows retreat.</li>
+</ul>
+<p><strong>Enemy Tokens and Teams</strong><br/>
+Most Enemies marked with token in one of four colors differentiating behavior (Activation cards).</p>
+<ul>
+<li>Green: Boss-like monsters, lethally dangerous individuals.</li>
+<li>Red: Elite guards, enforcers, mutants hunting in small groups.</li>
+<li>Yellow: Pack mutants, groups of humans (bandits).</li>
+<li>Blue: Horde Enemies, little coordination, rely on numbers.</li>
+</ul>
+<p>Tokens have sides marked "1" and "2". Same number = same team, won't Target each other. Unmarked Enemy always opposing to Teams 1 &amp; 2. Example: Bandits share Team "2", won't Target each other but may Attack Snork (Team "1").</p>
+<span class="subsection-title">Enemy Movement &amp; Positioning</span>
+<p><strong>Enemy Movement Rules</strong><br/>
+Two types:</p>
+<ul>
+<li><strong>Move:</strong> Toward target, choosing shortest route. Follow route rotating towards space they will Move to before moving. Repeat as many times as Move Action indicates, stop at target or max distance. If didn't reach destination and aren't facing direction to continue, rotate towards that direction.</li>
+<li><strong>Go forward:</strong> Patrolling without paying mind to surroundings. Goes directly ahead, rotating 90° only if can't proceed farther. Rotates least number of times (clockwise tie) until can Go forward again.</li>
+</ul>
+<p>Accompanied by numeric value representing spaces. Sometimes indicated with [icon] referring to Movement value on Enemy card. Example: Zombie "Move up to 2" allows Move 1 space, but "Go forward up to 2" allows Move 2 spaces.</p>
+<p><strong>Movement Interruption</strong><br/>
+Enemies aware of surroundings. If spot Target, won't blindly follow first attention. At any point during Movement, if gains LoS to possible Target or already had LoS to Target, immediately end Movement (e.g., if should Move but already have Target in LoS, won't even rotate). Some Movement specify can't be interrupted. Interruption doesn't cause immediate Attack/Action. If interruption occurred during Enemy Activation card, continue resolving normally.</p>
+<p><strong>High Attention [icon]:</strong> Whenever Enemy gains LoS to Stalker, that Stalker must place [icon] on their space.</p>
+<p><strong>Enemy Movement and Fully Occupied Spaces</strong><br/>
+Can't end Movement in fully occupied space. If would happen, ends in adjacent space along route. If also fully occupied, chooses next shortest route instead. Can Move through fully occupied spaces without possible Targets, but can't be interrupted on that space. Example: Snork Moves toward closest [icon]. Path to it doesn't contain corners. Reaches space with blue Stalker's [icon] through fully occupied space by two other Snorks; Movement won't be interrupted.</p>
+<p><strong>Rotation during Movement:</strong> Move to adjacent space always facing that space. Sometimes rotate before. Rotation doesn't decrease spaces allowed, may cause interruption.<br/>
+<strong>Shortest route:</strong> Requires least number of spaces moved. Tiebreakers on page 14.</p>
+<span class="subsection-title">Enemy Attacks, Reactions &amp; End of Turn</span>
+<p><strong>Enemy Attack</strong><br/>
+Perform when instructed by Activation card or when Stalker ends Turn in Enemy LoS. All hit you. Only Armor, Cover, Defense roll decrease HP loss. Each Enemy has one Attack Action on card. Properties: Type (Ranged vs Charge), Additional effects, Damage [icon], Range (spaces).</p>
+<blockquote>
+<p><strong>Charge:</strong> If not within Range 1 of Target, Move up to [icon] toward Target. Can't be interrupted, otherwise follows all Movement rules. Usually reaches any Target in LoS.</p>
+</blockquote>
+<p><strong>Enemy Attack Sequence</strong></p>
+<ol>
+<li>Choose Target in LoS: At least one Stalker in LoS? Choose closest (same space = players decide). No Stalkers but other Target? Choose closest (same space = players decide). No Targets in LoS? Attack ends. Can Charge? Do so now.</li>
+<li>Rotate Enemy facing Target.</li>
+<li>Enemy deals [icon] indicated by Attack. Check modifiers: Covers [icon] reduce [icon] equal to their value against Attacks made outside that space/Room.</li>
+<li>Continue depending on Target:<br/>
+<strong>Stalkers:</strong> 5A. Attacked Stalker rolls [icon] equal to Armor Defense. Check modifiers. 6A. If have [icon]/reroll effect, do so. 7A. Count your [icon] and subtract from received [icon]. 8A. Lose HP equal to remaining [icon].<br/>
+<strong>Enemies:</strong> 5B. Compare Attacker's [icon] with Torso To Hit value treating [icon] as same number of [icon]. Resolve highest threshold effect. If miss, nothing. If Light/Heavy Wound, draw Wound card. 6B. If fail to kill, rotate Target standee facing each other.</li>
+</ol>
+<p><strong>Enemy Reaction</strong><br/>
+If standing in enemy view, expect React by Attacking after Stalker Turn ends. Only Stalker whose Turn ended can be Target (unless Enemy card states otherwise). Prioritize Stalker whose Turn ended over others even if closer/also in LoS. Charge Attacks may hit multiple targets on one space.</p>
+<p><strong>Enemy Facing</strong><br/>
+Properly place standees; facing influences LoS. Art front, black background back. Use orange triangle stickers to mark front on bases. Example: Snork Attacks gray Stalker. Roll Defense. Check bonuses (Stone Flower Artifact grants 2 [icon] but gains [icon]). Reroll result used. Final outcome compared to Attack damage.</p>
+<p><strong>End of Round Effects</strong><br/>
+During this step, resolve all End of Round effects (mostly on Event cards). Multiple effects: resolve in any order, but always resolve Event card effects last. Divided into: Marked effects (vary, add Random Events/spawn Enemies) and Unmarked effects (always same, final instructions between Rounds).</p>
+<span class="subsection-title">Zone Management &amp; Cleanup Steps</span>
+<p><strong>Discarding Tokens</strong><br/>
+Marks passage of time. Anomalies disturbed with Bolts reactivate. Discard all [icon] and [icon] from Map. All Enemies discard their [icon].</p>
+<p><strong>Attention Reduction</strong><br/>
+Most alert enemy won't hunt forever. Reduce Attention token of each Stalker not in Enemy LoS. When reduce [icon], flip to [icon] side. When reduce [icon], return to PDA.</p>
+<hr/>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Radiation, Anomalies & Artifact Management</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Anomaly Structure &amp; Activation Rules</span>
+<p><strong>Anomalations</strong><br/>
+Areas defying physics, exclusively in Zone. Represented by: Anomaly card (rules/effects), Anomaly overlay with standee (foil with symbols delineating area of effect, standee in center). Main source of Artifacts.</p>
+<p><strong>Anomaly Die</strong><br/>
+D10 with sides: 1× [icon] (10%), 2× [icon] (20%), 3× [icon] (30%), 4× [icon] (40%). Number of "petals" corresponds to probability.</p>
+<p><strong>Range to Anomaly</strong><br/>
+Measure to any space containing that Anomaly's symbols.</p>
+<p><strong>Inactive Anomalations</strong><br/>
+Overlays without standee are inactive and considered nonexistent for rules not directly referring to them.</p>
+<p><strong>Anomaly Center</strong><br/>
+Where standee and [icon] placed. Always contains all 4 Anomaly symbols; highly dangerous to enter.</p>
+<p><strong>Anomaly Activation</strong><br/>
+Each overlay has spread of symbols ([icon], [icon], [icon], [icon]) differentiating activation probability. After Entity finishes Movement, if Moved to/from/through one or more spaces with symbols, roll [icon]. If currently uncovered symbol on any of those spaces matches roll result, resolve Activation effect affecting all described targets. Entering multiple Anomalies requires separate roll for each. Stalkers may discard [icon] to reroll for Activation. Any symbols currently covered by [icon], [icon], or Entities are ignored (each instance must be covered separately). Each different symbol moved through increases chance. Moving through same symbol multiple times does nothing.</p>
+<span class="subsection-title">Artifact Retrieval &amp; Symbol Blocking</span>
+<p><strong>Retrieving Artifacts from Anomalies</strong><br/>
+Artifacts start under Anomaly standees. Can't be picked up until using Action from Detector Attachment card to pinpoint location, placing [icon] on specified Anomaly symbol for obtaining via "Pick up" Action. When performing "Pick up" to resolve [icon], gain Artifact card matching type of Anomaly.</p>
+<p><strong>Blocking Anomaly Symbols</strong><br/>
+Three ways to block:</p>
+<ul>
+<li>[icon] placed on it (usually "Bolts &amp; Nuts").</li>
+<li>[icon] placed on it (taking from under Anomaly with Detector).</li>
+<li>Entity ends Movement/placed on space with symbol. After rolling for Activation, Entity covers highest uncovered symbol possible [icon] → [icon] → [icon].<br/>
+Space still treated as Anomaly space even if all symbols covered. Coverage only affects activation probability.</li>
+</ul>
+<span class="subsection-title">Map Radiation Accumulation</span>
+<p><strong>Map Radiation [icon]</strong><br/>
+Radiation is a dangerous part of the Zone. Not all areas contaminated. Visual intensity: 1-2 [icon] yellow, 3-4 orange, 5+ red. Each time Stalker slides Turn token (after resolving effect or Standard Action causing slide), if on space with [icon], increase Radiation dosage on Geiger counter equal to space's [icon] value. Reduced by Armor’s Map Radiation modifier. Free Actions don't cause sliding, so don't increase dose from spaces on your current space. If Movement caused sliding and moved to/from/through spaces with [icon], increase dosage only once equal to highest value found. Reduced by Armor modifier.</p>
+<span class="subsection-title">Radiation Exposure &amp; Dosage Management</span>
+<p><strong>Radiation Exposure &amp; Dosage Reduction</strong><br/>
+Patient killer. Bigger dose, worse. During this step, each Stalker on yellow, orange, red, or black threshold suffers from Radiation Exposure. Then, each reduces dosage until reaching next lower [icon]. Then, each below Artifact's base Radiation dosage increases dosage to match value.</p>
+<p><em>Exposure:</em> Check Geiger position, roll required [icon], lose HP equal to [icon] rolled.<br/>
+0-3: green – no dice.<br/>
+4-7: yellow – 1[icon].<br/>
+8-11: orange – 2[icon].<br/>
+12-15: red – 3[icon].<br/>
+16: black – 4[icon].</p>
+<p><em>Critical Radiation dose:</em> If would increase above 16 (enter gray area), immediately roll 4 [icon], lose HP equal to [icon] rolled, then set dosage to 16.</p>
+<hr/>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Status Effects & Reference Materials</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Attention &amp; Status Token Management</span>
+<p><strong>Attention [icon][icon]</strong><br/>
+If you do stuff, someone notices. Attracts Enemies. Influences behavior during Enemy Activation step. Placing doesn't immediately cause React.<br/>
+<em>Low Attention:</em> Symbolises noises/signs Enemies may ignore (moving fast, silenced blow). If only [icon] tokens or none on Map, Enemies won't necessarily follow, may patrol.<br/>
+<em>High Attention:</em> Symbolises noises/signs Enemies will follow (shooting, moving right before eyes). At least 1 [icon] makes behavior aggressive/focused on source.<br/>
+As long as you have [icon] on Map, no effect can place your [icon]. As long as Enemy has LoS to Stalker, you have [icon] on your space and no effect can move/place/reduce your [icon].<br/>
+<em>Reduction:</em> Some effects reduce Attention. Reduce [icon]: flip to [icon] side. Reduce [icon]: return to PDA.</p>
+<p><strong>Status Tokens</strong><br/>
+Stalkers/Enemies may gain:</p>
+<ul>
+<li><strong>[icon] Critical Injury:</strong> Heavy bleeding/broken rib/concussion. Negative status when HP drops to 0. Place token above one Turn token. While having it, Stalker can only perform one Standard Action during that Turn. Lose more HP while at 0 = gain second token above other Turn token. Single source of HP loss causes only 1 Critical Injury. Increase HP above 0 = discard all Critical tokens from PDA, but don't slide Turn tokens up (lost due to Critical can't be recovered same Round).</li>
+<li><strong>[icon] Pin down:</strong> Knocked down/slip/stun. Hinders Actions. Stalkers: Place on top of Turn tokens. Only perform [icon] Discard your [icon]. Can't perform other [icon]/[icon] until get rid. Must discard as first thing. Only affected Stalker can discard. Gain during one Enemy Activation card's steps = won't Activate during remaining steps. If would React at end of Stalker Turn, discard instead. All discard during Discard tokens step.</li>
+<li><strong>[icon] Exposed:</strong> Attack destroys furniture/injures enemy. Makes Entity more susceptible. Place next to standee/model. Each can have 1. Stalkers: When Attacked, increase [icon] by 3. Discard token. Usually means lose 3HP more unless Defense compensates. After Moving, discard. Enemies: If would suffer Light Wound, suffer Heavy instead. If Heavy, suffer [icon] (death). Discard token. After Moving, discard.</li>
+<li><strong>[icon] Focus:</strong> Positive status from many Actions (most common "Prepare"). Each Stalker can have 1. If has, may discard to reroll any number of chosen dice during Attack/Defense/Anomaly Activation roll. Some Actions check for or require spending it. E.g., as long as has [icon], may perform "Reload" as [icon] instead of [icon].</li>
+</ul>
+<span class="subsection-title">Entity Types &amp; Quick Comparison Matrix</span>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Attribute</th>
+<th>Stalkers</th>
+<th>Companions</th>
+<th>Humans</th>
+<th>Psionics</th>
+<th>Mutants</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Sight</strong></td>
+<td>Unlimited Sight Range in all directions.</td>
+<td>Unlimited Sight Range in all directions.</td>
+<td>Sight usually limited to long Range front, short sides, nothing back.</td>
+<td>Sight usually high same values all directions.</td>
+<td>Sight not always high but always see at least Range 1 back.</td>
+</tr>
+<tr>
+<td><strong>Facing</strong></td>
+<td>Facing unimportant.</td>
+<td>Facing unimportant.</td>
+<td>Sight depends on facing. Change during Movement, Attacks, Look Around, Target leaves space.</td>
+<td>Sight depends on facing. Change during Movement, Attacks, Look Around, Target leaves space.</td>
+<td>Sight depends on facing. Change during Movement, Attacks, Look Around, Target leaves space.</td>
+</tr>
+<tr>
+<td><strong>Attention</strong></td>
+<td>Depending on Actions, can place [icon] or [icon].</td>
+<td>Can't place [icon] or [icon].</td>
+<td>Attracted to [icon] and [icon]. As long as see Stalker, that Stalker has their [icon] on their space.</td>
+<td>Attracted to [icon] and [icon]. As long as see Stalker, that Stalker has their [icon] on their space.</td>
+<td>Attracted to [icon] and [icon]. As long as see Stalker, that Stalker has their [icon] on their space.</td>
+</tr>
+<tr>
+<td><strong>Attacks and Targets</strong></td>
+<td>May only directly Attack/Target Enemies.</td>
+<td>Actions specify possible Targets.</td>
+<td>May Target Stalkers and Enemies from different team. Companion cards state if Targeted by Enemies.</td>
+<td>May Target Stalkers and Enemies from different team. Companion cards state if Targeted by Enemies.</td>
+<td>May Target Stalkers and Enemies from different team. Companion cards state if Targeted by Enemies.</td>
+</tr>
+<tr>
+<td><strong>Statuses</strong></td>
+<td>Can gain [icon], [icon], [icon], Critical Injury.</td>
+<td>Can't gain any statuses.</td>
+<td>Can gain [icon] and [icon].</td>
+<td>Can gain [icon] and [icon].</td>
+<td>Can gain [icon] and [icon].</td>
+</tr>
+<tr>
+<td><strong>Death</strong></td>
+<td>Death results in losing Mission.</td>
+<td>Companion card specifies. Usually flees battlefield.</td>
+<td>On death, place 1 [icon] on space, return standee to Enemy Pool.</td>
+<td>On death, return standee to Enemy Pool. Don't place any [icon].</td>
+<td>On death, return standee to Enemy Pool. Don't place any [icon].</td>
+</tr>
+<tr>
+<td><strong>Windows</strong></td>
+<td>Treat as Open edges (Move, LoS, Range).</td>
+<td>Treat as Impassable Terrain (can LoS/Range, not Move).</td>
+<td>Treat as Open edges (Move, LoS, Range).</td>
+<td>Treat as Impassable Terrain (can LoS/Range, not Move).</td>
+<td>Unless Psionic, treat as Walls.</td>
+</tr>
+<tr>
+<td><strong>Movement interruption</strong></td>
+<td>Interrupted when entering space with Enemy.</td>
+<td>Interrupted when entering space with Enemy.</td>
+<td>Interrupted when gains LoS to possible Target, or already had LoS (movement doesn't occur at all).</td>
+<td>Interrupted when gains LoS to possible Target, or already had LoS (movement doesn't occur at all).</td>
+<td>Interrupted when gains LoS to possible Target, or already had LoS (movement doesn't occur at all).</td>
+</tr>
+<tr>
+<td><strong>Fully occupied spaces</strong></td>
+<td>Move through without Enemies. Push one Entity if end in fully occupied.</td>
+<td>Move through without Enemies. Can't end in fully occupied space.</td>
+<td>Move through without possible Targets, can't be interrupted there. Can't end in fully occupied space.</td>
+<td>Move through without possible Targets, can't be interrupted there. Can't end in fully occupied space.</td>
+<td>Move through without possible Targets, can't be interrupted there. Can't end in fully occupied space.</td>
+</tr>
+<tr>
+<td><strong>Anomalations</strong></td>
+<td>Each Entity can Activate Anomalies and block symbol when ending Movement/placed on space.</td>
+<td>Each Entity can Activate Anomalies and block symbol when ending Movement/placed on space.</td>
+<td>Each Entity can Activate Anomalies and block symbol when ending Movement/placed on space.</td>
+<td>Each Entity can Activate Anomalies and block symbol when ending Movement/placed on space.</td>
+<td>Each Entity can Activate Anomalies and block symbol when ending Movement/placed on space.</td>
+</tr>
+<tr>
+<td><strong>Space occupation</strong></td>
+<td>Each Entity occupies 1 slot on their space.</td>
+<td>Each Entity occupies 1 slot on their space.</td>
+<td>Each Entity occupies 1 slot on their space.</td>
+<td>Each Entity occupies 1 slot on their space.</td>
+<td>Each Entity occupies 1 slot on their space.</td>
+</tr>
+</tbody>
+</table></div>
+<span class="subsection-title">Comprehensive Glossaries &amp; Indexes</span>
+<p><strong>Icon Glossary</strong><br/>
+<em>Dice:</em> Equipment dice (various numbers of ★), Stalker dice ([icon] and ★), Anomaly die (uneven distribution: 1x [icon], 2x [icon], 3x [icon], 4x [icon]), Success (★ from Equipment/Stalker roll), Mask ([icon] result for additional effects), / / / Anomaly symbol (specific result/symbol), Accurate side (one side of [icon] counts as 4 ★ instead of 2 ★).<br/>
+<em>Tokens:</em> Artifact (unique items with powerful abilities), Loot (Equipment scattered to pick up), Unknown Enemy (Enemies arriving during Mission), / / / / / / Unknown Enemy (Specific type for preparing stacks), Lost Territories Entrance (Marks space connecting to tile), Bolt (Bolts in Zone, used as decoys/safe passages), Focus (Positive status, discard to reroll dice), Pin down (Negative status hindering Actions), Exposed (Negative status making Entity more susceptible), No visibility (Obstructs vision, no LoS to/from/through), Low Attention (Noises/signs Enemies may ignore), High Attention (Noises/signs Enemies will follow).<br/>
+<em>Enemies:</em> Horde Enemy (common/numerous), Elite Enemy (tough/hard-hitting/few), Boss Enemy (rare/dangerous), / / / / Refer to specified color, All Enemies (Refers all including those without token), / / / / Enemy team and color (Differentiates behavior, sides "1"/"2" define team), Movement (Base value), HP (Maximum), HP loss (Tokens reducing HP, 0 = death), Damage (Strength of Attack).<br/>
+<em>Map:</em> Map Radiation (Appears on spaces, causes dose increase/HP loss), Trigger (Refers Windows/adjacent spaces), Window (Refers Windows/adjacent spaces), Cover (Improves survival, reduces [icon] from Attacks and ★ from Stalker Attacks by 1), Water space (Impassable, can measure Range/LoS through).<br/>
+<em>Other:</em> Standard Action (Slide Turn token once, usually 2 per Turn), Free Action (Unlimited), / / Additional rule (Enhance Actions/passive effects), Universal marker/Ammo (Track things, Weapon Ammo), Stalker number (Numeric value equal to team size), – (Irradiation of Artifacts, increase dosage to match highest equipped if lower), / / Pistol/Rifle/Shotgun Ammo (Weapon/Magazine types), Special Ammo (Exotic weapons), Coupons (Currency).</p>
+<p><strong>Standee Glossary</strong><br/>
+<em>Enemies:</em> 6 Snorks, 6 Rodents, 5 Dogs, 4 Ticks, 2 Controllers, 2 Bloodsuckers, 2 Crawls, 1 Chimera, 1 Pseudogiant, 1 Poltergeist, 1 Izlom, 8 Zombies, 4 Military (Mercenary, Monolithian), 1 Hornhead, 2 Exoskeleton (Dalk), 8 Bandits (3 Shotgun, 3 Rifle, 2 MG; all can represent same card if not specified).<br/>
+<em>Anomalations:</em> 3 Electric (Electro, Tesla), 3 Fire (Burner, Comet, Popper), 3 Chemical (Bubble, Fruit Punch), 3 Gravitational I (Whirligig, Springboard), 2 Gravitational II (Magnet), 3 Gravitational III (Razor), 1 Special (Fridge, False Mirror), 2 Spatial (Space).<br/>
+<em>Overlays:</em> 1 Special (98), 3 Fire (2, 9, 10), 3 Chemical (1, 4, 12), 3 Gravitational (3, 5, 8), 3 Electric (6, 7, 11).</p>
+<span class="subsection-title">Quick Reference Guidelines</span>
+<p><strong>MAP RADIATION [icon]:</strong> After sliding Turn token (usually by performing Standard Action), increase Radiation dosage by highest value of [icon] found on spaces present in during that Action. Reduced by Armor's Map Radiation modifier.</p>
+<p><strong>RADIATION EXPOSURE:</strong> During Enemies &amp; Zone Phase or when instructed, suffer from Radiation Exposure. Check Geiger counter position. If yellow, red, or black threshold, roll required [icon] dice, lose HP equal to [icon] rolled. 0-3 green: no dice. 4-7 yellow: 1[icon]. 8-11 orange: 2[icon]. 12-15 red: 3[icon]. 16+ black: 4[icon].</p>
+<p><strong>ATTENTION [icon][icon]:</strong> As long as you have [icon] on Map, no effect can place your [icon]. As long as Enemy has LOS to Stalker, you have [icon] on your space and no effect can move/place/reduce your [icon]. If Move through space in Enemy's LOS, place your [icon] on first space moved through that is no longer in Enemy's LOS. If end Movement and [icon] isn't placed on Map, move/place your [icon] on your space.<br/>
+<em>Attention Reduction:</em> Some effects reduce Attention. Reduce [icon]: flip to [icon] side. Reduce [icon]: return to PDA.</p>
+<p><strong>ANOMALY ACTIVATION:</strong> After Entity finishes Movement, if Moved to/from/through one or more spaces with Anomaly symbols, roll [icon]. If rolled symbol present on any of those spaces, Activate according to Anomaly card.</p>
+<p><strong>STALKER MOVEMENT RULES:</strong> Move X spaces = move to adjacent space X times. Impassable Terrain/Wall without Window aren't adjacent. Enter space with Enemy = interrupt and immediately end. End on fully occupied space = Push one Entity (Stalkers first) to adjacent space (Move from if possible). If no slot created, can't end there. Move from space with Enemy = rotate Enemy standee to face adjacent space you Move to.</p>
+<p><strong>ENEMY TYPES:</strong><br/>
+<em>Human:</em> Treat Windows as Open edges. On death, place 1 [icon] on space. Sight limited front/sides/back. Special allows retreat.<br/>
+<em>Psionic:</em> Treat Windows as Impassable Terrain. Don't drop [icon] on death. Sight high all directions. Special allows retreat.<br/>
+<em>Mutant:</em> Unless Psionic, treat Windows as Walls. Don't drop [icon] on death. Sight not always high but see at least Range 1 back. Special allows retreat.</p>
+<p><strong>STALKER ATTACK SEQUENCE:</strong></p>
+<ol>
+<li>Choose Attack Action and valid Target.</li>
+<li>Slide Turn token if [icon] and spend Ammo if needed.</li>
+<li>Place required Attention token.</li>
+<li>Target Body Part.</li>
+<li>Roll dice.</li>
+<li>Reroll if allowed.</li>
+<li>Resolve: Spend [icon] for effects. Count [icon] (Accurate Range treats [icon] as 4 [icon]) vs To Hit threshold. Resolve highest effect/Wound card if hit/miss. Unspent [icon] for effects.</li>
+<li>If fail to kill, rotate Enemy facing Stalker.</li>
+</ol>
+  </div>
+</details>
+  <p id="no-results">No sections match your search.</p>
+</main>
+<script>
+(function () {
+  var searchEl  = document.getElementById('search');
+  var clearBtn  = document.getElementById('search-clear');
+  var noResults = document.getElementById('no-results');
+  var sections  = Array.from(document.querySelectorAll('details.section'));
+  var matchNav   = document.getElementById('match-nav');
+  var matchCount = document.getElementById('match-count');
+  var matchPrev  = document.getElementById('match-prev');
+  var matchNext  = document.getElementById('match-next');
+
+  var allMarks = [];
+  var currentMark = -1;
+
+  sections.forEach(function (s) {
+    var body = s.querySelector('.section-body');
+    if (body) body.dataset.original = body.innerHTML;
+  });
+
+  var timer;
+
+  searchEl.addEventListener('input', function () {
+    var term = this.value.trim();
+    clearBtn.classList.toggle('visible', term.length > 0);
+    clearTimeout(timer);
+    timer = setTimeout(function () { applySearch(term); }, 180);
+  });
+
+  clearBtn.addEventListener('click', function () {
+    searchEl.value = '';
+    clearBtn.classList.remove('visible');
+    applySearch('');
+    searchEl.focus();
+  });
+
+  matchPrev.addEventListener('click', function () {
+    if (allMarks.length === 0) return;
+    navigateTo((currentMark - 1 + allMarks.length) % allMarks.length);
+  });
+
+  matchNext.addEventListener('click', function () {
+    if (allMarks.length === 0) return;
+    navigateTo((currentMark + 1) % allMarks.length);
+  });
+
+  function navigateTo(index) {
+    if (allMarks[currentMark]) allMarks[currentMark].classList.remove('active');
+    currentMark = index;
+    var mark = allMarks[currentMark];
+    mark.classList.add('active');
+    mark.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    matchCount.textContent = (currentMark + 1) + ' of ' + allMarks.length;
+  }
+
+  function escapeRe(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlightTextNodes(container, re) {
+    var walker = document.createTreeWalker(
+      container, NodeFilter.SHOW_TEXT, null, false
+    );
+    var nodes = [];
+    var n;
+    while ((n = walker.nextNode())) {
+      if (n.nodeValue.trim()) nodes.push(n);
+    }
+    nodes.forEach(function (textNode) {
+      re.lastIndex = 0;
+      if (!re.test(textNode.nodeValue)) return;
+      re.lastIndex = 0;
+      var span = document.createElement('span');
+      span.innerHTML = textNode.nodeValue.replace(
+        re, function (m) { return '<mark>' + m + '</mark>'; }
+      );
+      textNode.parentNode.replaceChild(span, textNode);
+    });
+  }
+
+  function applySearch(term) {
+    var re = term ? new RegExp(escapeRe(term), 'gi') : null;
+    var visibleCount = 0;
+
+    sections.forEach(function (section) {
+      var body    = section.querySelector('.section-body');
+      var summary = section.querySelector('summary');
+
+      if (body) body.innerHTML = body.dataset.original;
+
+      if (!re) {
+        section.classList.remove('search-hidden');
+        section.open = false;
+        return;
+      }
+
+      var titleText = summary ? summary.textContent : '';
+      var bodyText  = body    ? body.textContent    : '';
+
+      re.lastIndex = 0;
+      var inTitle = re.test(titleText);
+      re.lastIndex = 0;
+      var inBody  = re.test(bodyText);
+      re.lastIndex = 0;
+
+      if (inTitle || inBody) {
+        section.classList.remove('search-hidden');
+        section.open = true;
+        if (body) highlightTextNodes(body, new RegExp(escapeRe(term), 'gi'));
+        visibleCount++;
+      } else {
+        section.classList.add('search-hidden');
+      }
+    });
+
+    noResults.style.display = (re && visibleCount === 0) ? 'block' : 'none';
+
+    allMarks = Array.from(document.querySelectorAll('mark'));
+    currentMark = -1;
+
+    if (allMarks.length > 0) {
+      matchNav.classList.add('visible');
+      navigateTo(0);
+    } else {
+      matchNav.classList.remove('visible');
+      matchCount.textContent = '';
+    }
+  }
+})();
+</script>
+</body>
+</html>

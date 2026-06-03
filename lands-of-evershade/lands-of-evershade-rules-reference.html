@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Lands of Evershade — Rules Reference</title>
+<style>
+:root {
+  --bg:            #f2ede6;
+  --text:          #1a1a1a;
+  --header-bg:     #6b6c45;
+  --section-bg:    #6b6c45;
+  --subsection-bg: #1a2a29;
+  --rule:          #b0a898;
+  --accent:        #1a2a29;
+  --table-head:    #6b6c45;
+  --note-bg:       #e8e0d4;
+  --body-bg:       #ffffff;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 15px;
+  line-height: 1.55;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* ── STICKY HEADER ───────────────────────────────────────── */
+.sticky-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--header-bg);
+  padding: 10px 14px 12px;
+  padding-top: max(10px, env(safe-area-inset-top));
+  padding-left: max(14px, env(safe-area-inset-left));
+  padding-right: max(14px, env(safe-area-inset-right));
+  box-shadow: 0 2px 12px rgba(0,0,0,0.4);
+}
+
+.masthead-row {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 9px;
+}
+
+.masthead-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  line-height: 1.1;
+  flex-shrink: 0;
+}
+
+.masthead-subtitle {
+  font-size: 11px;
+  color: rgba(255,255,255,0.45);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.back-link {
+  margin-left: auto;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+  text-decoration: none;
+  flex-shrink: 0;
+  padding-left: 14px;
+  white-space: nowrap;
+}
+.back-link:hover {
+  color: rgba(255,255,255,0.85);
+}
+
+/* ── TOGGLE + BACK ROW ───────────────────────────────────── */
+.toggle-back-row {
+  display: flex;
+  align-items: center;
+  margin-top: 7px;
+}
+
+.search-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-icon {
+  position: absolute;
+  left: 10px;
+  width: 15px;
+  height: 15px;
+  color: rgba(255,255,255,0.4);
+  pointer-events: none;
+  flex-shrink: 0;
+}
+
+#search {
+  width: 100%;
+  padding: 8px 36px 8px 32px;
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 8px;
+  font-size: 15px;
+  background: rgba(255,255,255,0.12);
+  color: #fff;
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+#search::placeholder { color: rgba(255,255,255,0.38); }
+
+#search:focus {
+  background: rgba(255,255,255,0.2);
+  border-color: rgba(255,255,255,0.3);
+}
+
+.search-clear {
+  position: absolute;
+  right: 6px;
+  background: rgba(255,255,255,0.18);
+  border: none;
+  border-radius: 50%;
+  color: rgba(255,255,255,0.8);
+  font-size: 14px;
+  line-height: 1;
+  width: 22px;
+  height: 22px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  flex-shrink: 0;
+}
+
+.search-clear.visible { display: flex; }
+
+mark { background: #ffe066; color: #1a1a1a; border-radius: 2px; padding: 0 1px; }
+mark.active { background: #ff9500; color: #fff; }
+
+/* ── MATCH NAVIGATION ────────────────────────────────────── */
+.match-nav {
+  display: none;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 0 0;
+}
+.match-nav.visible { display: flex; }
+.match-count {
+  color: rgba(255,255,255,0.65);
+  font-size: 13px;
+  flex: 1;
+  text-align: center;
+}
+.match-btn {
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 6px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 15px;
+  line-height: 1;
+  padding: 6px 14px;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+.match-btn:active { background: rgba(255,255,255,0.25); }
+
+/* ── MAIN ────────────────────────────────────────────────── */
+main {
+  padding: 10px 12px 48px;
+  padding-left: max(12px, env(safe-area-inset-left));
+  padding-right: max(12px, env(safe-area-inset-right));
+  padding-bottom: max(48px, env(safe-area-inset-bottom));
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+/* ── NO RESULTS ──────────────────────────────────────────── */
+#no-results {
+  display: none;
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--text);
+  opacity: 0.5;
+  font-size: 14px;
+}
+
+/* ── COLLAPSIBLE SECTIONS ────────────────────────────────── */
+details.section {
+  margin-bottom: 6px;
+  border-radius: 6px;
+  overflow: hidden;
+  scroll-margin-top: 130px;
+}
+
+details.section > summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  min-height: 44px;
+  background: var(--section-bg);
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  list-style: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+details.section > summary::-webkit-details-marker { display: none; }
+
+.chevron {
+  width: 12px;
+  height: 12px;
+  opacity: 0.65;
+  flex-shrink: 0;
+  margin-left: 8px;
+  transition: transform 0.18s ease;
+}
+
+details.section[open] > summary .chevron {
+  transform: rotate(90deg);
+}
+
+.section-body {
+  background: var(--body-bg);
+  padding: 10px 12px 12px;
+  border: 1px solid var(--rule);
+  border-top: none;
+  border-radius: 0 0 6px 6px;
+}
+
+/* ── HEADINGS WITHIN SECTIONS ────────────────────────────── */
+.subsection-title {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: #fff;
+  background: var(--subsection-bg);
+  padding: 4px 12px;
+  margin: 10px -12px 7px;
+}
+
+.label-title {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--section-bg);
+  border-bottom: 1.5px solid var(--rule);
+  padding-bottom: 3px;
+  margin: 10px 0 5px;
+}
+
+.inline-title {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 8px 0 3px;
+}
+
+/* ── BODY TEXT ───────────────────────────────────────────── */
+p { margin-bottom: 7px; }
+b, strong { font-weight: 600; }
+em, i { font-style: italic; }
+
+/* ── LISTS ───────────────────────────────────────────────── */
+ul, ol { padding-left: 20px; margin-bottom: 6px; }
+ul { list-style-type: disc; }
+ol { list-style-type: decimal; }
+ul ul { list-style-type: circle; }
+li { margin-bottom: 3px; }
+li > ul, li > ol { margin-top: 2px; margin-bottom: 0; }
+
+/* ── TABLES ──────────────────────────────────────────────── */
+.table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin-bottom: 6px;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  min-width: 260px;
+}
+thead tr { background: var(--table-head); color: white; }
+thead th {
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  padding: 5px 8px;
+  text-align: left;
+  white-space: nowrap;
+}
+tbody tr:nth-child(even) { background: var(--note-bg); }
+tbody td { padding: 5px 8px; vertical-align: top; }
+
+/* ── BLOCKQUOTE ──────────────────────────────────────────── */
+blockquote {
+  background: var(--note-bg);
+  border-left: 3px solid var(--accent);
+  padding: 6px 10px;
+  margin: 5px 0 7px;
+  font-size: 14px;
+  border-radius: 0 4px 4px 0;
+}
+blockquote p { margin-bottom: 2px; }
+
+/* ── INLINE CODE ─────────────────────────────────────────── */
+code {
+  background: var(--note-bg);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  padding: 1px 4px;
+  font-size: 13px;
+  font-family: inherit;
+  font-weight: 600;
+}
+
+/* ── HR ──────────────────────────────────────────────────── */
+hr { border: none; border-top: 1px solid var(--rule); margin: 8px 0; }
+
+/* ── HIDDEN SECTIONS ─────────────────────────────────────── */
+details.section.search-hidden { display: none; }
+
+/* ── VERSION TOGGLE ──────────────────────────────────────── */
+.toggle-bar {
+  display: inline-flex;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.2);
+}
+.toggle-current,
+.toggle-other {
+  padding: 6px 14px;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  line-height: 1;
+  text-decoration: none;
+  white-space: nowrap;
+  -webkit-tap-highlight-color: transparent;
+}
+.toggle-current {
+  background: rgba(255,255,255,0.18);
+  color: #ffffff;
+  font-weight: 600;
+  cursor: default;
+}
+.toggle-other {
+  color: rgba(255,255,255,0.5);
+}
+.toggle-other:hover {
+  background: rgba(255,255,255,0.08);
+  color: rgba(255,255,255,0.8);
+}
+
+/* ── PRINT ───────────────────────────────────────────────── */
+@media print {
+  .sticky-header { position: static; }
+  details.section[open], details.section { display: block; }
+  .section-body { display: block !important; }
+  .search-wrap, .search-clear, .toggle-bar, .match-nav { display: none; }
+}
+</style>
+</head>
+<body>
+<header class="sticky-header">
+  <div class="masthead-row">
+    <span class="masthead-title">Lands of Evershade</span>
+    <span class="masthead-subtitle">Rules Reference</span>
+  </div>
+  <div class="toggle-back-row"><div class="toggle-bar"><span class="toggle-current">Quick Reference</span><a class="toggle-other" href="lands-of-evershade-rules-refined.html">Full Rules</a></div><a class="back-link" href="../index.html">&#8592; All Games</a></div>
+  <div class="search-wrap">
+    <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+         stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+         aria-hidden="true">
+      <circle cx="11" cy="11" r="8"/>
+      <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+    </svg>
+    <input type="text" id="search" placeholder="Search rules…"
+           autocomplete="off" spellcheck="false" autocorrect="off">
+    <button class="search-clear" id="search-clear" aria-label="Clear search">&#x2715;</button>
+  </div>
+  <div class="match-nav" id="match-nav">
+    <button class="match-btn" id="match-prev" aria-label="Previous match">↑</button>
+    <span class="match-count" id="match-count"></span>
+    <button class="match-btn" id="match-next" aria-label="Next match">↓</button>
+  </div>
+</header>
+<main>
+<details class="section" open>
+  <summary><span>Setup</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Components &amp; Supply Breakdown</span>
+<p>This section details the complete component list for the Core Box of <strong>Lands of Evershade</strong>. The box also contains three Adventures: “Into the Whitewell”, “Ashes of Heavens” and “Song of Luada”, each with separate components marked with specific codes (e.g., ItW for “Into the Whitewell”). Component lists for each Adventure are found in that Adventure’s Storybook. The Standard edition of the game contains standees and tokens instead of some listed components.</p>
+<ul>
+<li><strong>Tokens</strong>: 12 Portrait tokens, 60 Attribute tokens, 12 Race tokens, 12 Profession tokens, 22 Origin tokens, 16 Personal Secret tokens, 63 Skill tokens, 8 Dangerous/Empty space tokens, 8 Dangerous/Blocked space tokens, 20 Divinum tokens, 10 Mobility tokens, 20 Condition tokens, 60 Advancement tokens, 9 Achievement tokens, 25 HP Limit tokens, 25 Boons tokens, 30 Brill tokens, 204 Item tokens, 5 Time tokens, 48 Effect tokens, 4100/200 HP tokens, 1 Decision token, 5 HP dials, 20 Terror tokens.</li>
+<li><strong>Boards</strong>: 5 Character boards, 5 Hotbars, 1 Story Tracker.</li>
+<li><strong>Books</strong>: This Rulebook, Player’s Handbook, Start here! Booklet.</li>
+<li><strong>Cards (Standard &amp; Oversized)</strong>: 3 Enemy cards, Party's Inventory cards, 82 Camp cards, 8 Help cards, 12 Advancement cards, 52 Companion cards.</li>
+<li><strong>Cards (Small)</strong>: 328 Action cards, 2 Partner cards (solo).</li>
+<li><strong>Sheets</strong>: 1 Camp Sheet, 1 Cover Sheet.</li>
+<li><strong>Dice</strong>: 7 Divinum dice, 16 D12 dice (In Gamefound edition, all 1s are replaced with [icon] and all 12s are replaced with [icon]).</li>
+<li><strong>Markers</strong>: 40 Universal markers or tokens, 5 Colored rings or standee bases, 10 Fate markers or tokens, 15 Activation markers or tokens, 5 Exp markers.</li>
+<li><strong>Models</strong>: 16 Character models or standees, 45 Enemy standees, 12 Companion (Humanoid) standees, 4 Companion (Pet) models or standees, 1 Party model or standee, 3 Danger models or standees, 6 Quest models or standees.</li>
+<li><strong>Others</strong>: 1 Initiative bag, 5 Maps of Evershade (only in Gamefound edition), 5 Pouch boxes or bags, 10 Dial pins, 5 Save Sheets (only in Standard edition).</li>
+</ul>
+<span class="subsection-title">Starting a New Adventure: First Play</span>
+<p>This section applies to players who have never played <strong>Lands of Evershade</strong> before. It guides you through your first setup and leads directly into the “Into the Whitewell” Adventure, which contains helpful Tutorials and introduces game rules gradually.</p>
+<p><strong>Important</strong>: Creating each new Character involves choosing from a long list of races, professions, origins, paths and Companions. All steps between here and the final setup step may take up to an hour per player. In larger groups, consider devoting the first game session to building your Party: perform all setup steps and return to the game after you are rested and ready to play.</p>
+<p>a) <strong>Prepare core components</strong>.</p>
+<ul>
+<li>Ensure all components are in the places indicated by the unboxing instructions found in the Start Here document.</li>
+<li>All types of Item and Character tokens must be in separate compartments.</li>
+<li>All cards must be sorted by number in card trays.</li>
+<li>Prepare a pool of D12s and a set of Divinum dice, or standard RPG dice (D4, D6, D8, D10, D12, D20).</li>
+<li>Place the Story Tracker in the center of the table so that there is space for at least one Sheet to the left and one to the right of it.</li>
+<li>Find all three books required to embark on the first Adventure: this Rulebook, the Player’s Handbook, and the “Into the Whitewell” Storybook. The setup steps will continue throughout all three of them.</li>
+</ul>
+<p>b) <strong>Add the components of Into the Whitewell</strong>.</p>
+<ul>
+<li>Take all cards and tokens from the “Into the Whitewell” Adventure box and add them to the game box.</li>
+<li>Cards, sheets and tokens from “Into the Whitewell” have the ItW tag next to their number. Do not place components with any other Adventure tags in the box for now.</li>
+<li>Find all Into the Whitewell Sheets (ItW 1–16) and place them in one stack under the Cover Sheet. The Cover Sheet prevents accidental spoilers; you should not look at these Sheets until the game asks you to place them in the Story Tracker.</li>
+</ul>
+<p>c) <strong>Start building your Party</strong>.</p>
+<ul>
+<li>Go to Chapter 2 of the Player’s Handbook and follow the “Create a Character (Setup Step 2 of 4)” instructions to build your first Character. After creating the first Character, the Handbook will guide you further. You will not return to this Rulebook until after the first Act of the starting Adventure.</li>
+</ul>
+<span class="subsection-title">Returning to an Existing Adventure</span>
+<p>This section applies to returning players who know the game and have already played the “Into the Whitewell” Adventure.</p>
+<p>a) <strong>Prepare the core components</strong>.</p>
+<ul>
+<li>Ensure all components are in the places indicated by the unboxing instructions.</li>
+<li>All types of Item and Character tokens must be in separate compartments.</li>
+<li>All cards must be sorted by number in card trays.</li>
+<li>Prepare a pool of D12s and a set of Divinum dice, or standard RPG dice (D4, D6, D8, D10, D12, D20).</li>
+<li>Place the Story Tracker in the center of the table so that there is space for at least one Sheet to the left and one to the right of it.</li>
+<li>Find all three books required to embark on the first Adventure: this Rulebook, the Player’s Handbook, and the “Into the Whitewell” Storybook. The setup steps will continue throughout all three of them.</li>
+</ul>
+<p>b) <strong>Choose an Adventure</strong>. Advanced and Expert Adventures require an experienced Party. If you wish to play with existing, saved Characters, use the list below to find an Adventure of appropriate difficulty:</p>
+<ul>
+<li>You have completed no Adventures → Choose a Starting Adventure</li>
+<li>You have completed a Starting Adventure → Choose an Advanced Adventure</li>
+<li>You have completed an Advanced Adventure → Choose an Expert Adventure</li>
+</ul>
+<p><strong>Important</strong>: All Characters need to have the same number of completed Adventures.</p>
+<p>c) <strong>Add the chosen Adventure’s components</strong>.</p>
+<ul>
+<li>Take all cards and tokens from this Adventure’s box and add them to the game box. Cards, Sheets and tokens from each Adventure have a text tag that abbreviates their title (e.g., AoH for Ashes of Heavens). If there is no space for these components in the box, ensure you have moved the components of previously played Adventures back to their boxes.</li>
+<li>Find all Sheets for this Adventure and place them in one stack under the Cover Sheet.</li>
+</ul>
+<p>d) <strong>If you have a Party of saved Characters</strong>, go to the Storybook for the chosen Adventure and follow the “Setting Off: Existing Party (Setup Step 4 of 4)” instructions. You may skip Setup Steps 2 and 3.</p>
+<p>e) <strong>If you have no Characters</strong>, go to Chapter 2 of the Player’s Handbook and follow the “Create a Character (Setup Step 2 of 4)” instructions to build your first Character.</p>
+<span class="subsection-title">Saving &amp; Restoring the Game</span>
+<p>The game provides a convenient place to save after completing each Act. If you wish to stop playing and save the game in any other place, you can take notes and photos of the current state of the game to be able to restore it later.</p>
+<p><strong>To save the game at the end of an Act</strong>, resolve all the following steps:</p>
+<ol>
+<li>Note down which Act of the Adventure you have completed.</li>
+<li>Save each Character in a Character tray: place all cards, Hotbars and Character boards in trays and cover them with a lid. You do not need to disassemble the Character boards; the lids will hold everything securely in place.</li>
+<li>Return all other tokens and cards to the component trays.</li>
+<li>Place the Story Tracker in the tray and cover it with a lid. Do not remove any marks from the Story Tracker; the lid will hold them securely in place.</li>
+<li>Place all components, trays, and pouches in the box.</li>
+</ol>
+<p><em>Note: In the Standard edition of the game, there are no special lids for saving the game. Instead, use the provided Save Sheet to note down the current state of the game.</em></p>
+<p><strong>To restore the game</strong>, follow the instructions in the “Resuming the Adventure” section at the beginning of the Storybook. This includes:</p>
+<ol>
+<li>Restoring all Characters with all their tokens, Items, Action cards, HP, Exp, etc.</li>
+<li>Restoring the Story Tracker with all marks and tokens.</li>
+<li>Going to the appropriate entry, depending on the Act.</li>
+</ol>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Character Creation & Status Trackers</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Core Concepts &amp; The Golden Rules</span>
+<ul>
+<li><strong>Rounding values</strong>: Each time you have to count fractional values, round them up to whole numbers.</li>
+<li><strong>Component limits</strong>: Most components in the game have a limited supply. If you are to draw, use, or place a component and all copies of it are already in play, ignore the effect. Universal markers, HP dials, and dice are the only exception. In rare cases, when you have run out of these components, find and use a substitute.</li>
+<li><strong>Order of effect resolution</strong>: In the rare case where you must resolve multiple game effects at the same time, players may choose the order of resolution.</li>
+<li><strong>Detailed effects overwrite basic rules</strong>: If you find effects on any component that in some way contradict the rules from this rulebook, the detailed effect takes precedence.</li>
+</ul>
+<span class="subsection-title">Party Definition &amp; Model Representation</span>
+<p>When adventurers join forces, they form a <strong>Party</strong>. A Party consists of a minimum of two Characters and potentially some Companions. If playing solo, the Party will consist of a player Character traveling with a Partner—a stronger Companion to help them. The Party fights and explores together, and makes their decisions about the story as a team.</p>
+<p>In Combat, Characters always occupy different spaces. That is why they do not follow Party rules during combat, even though they are still referred to as Party Members. A Party Member refers to all Characters and all Companions in play. Party Members are in one Party whenever:</p>
+<ul>
+<li>There is no physical representation of the Party or the Characters in play.</li>
+<li>They are represented by the Party model.</li>
+<li>They are represented by separate Character models, but share the same space on the current Sheet of the Adventure.</li>
+</ul>
+<span class="subsection-title">Character Board &amp; Hotbar Layout</span>
+<p>All information about a Character is stored in the form of tokens and markers on a <strong>Character board</strong>. The <strong>Hotbar</strong> is a complementary board for Action &amp; Reaction cards.</p>
+<ul>
+<li><strong>A)</strong> Hit Points (HP). The endurance and stamina of your Character.</li>
+<li><strong>B)</strong> Basic Attributes: Strength (STR), Agility (AGI), Intellect (INT) or Charisma (CHA).</li>
+<li><strong>C)</strong> Divinum (DIV). A power to reshape reality, originating from the Higher Realm.</li>
+<li><strong>D)</strong> Mobility (MOB). Your Character's movement range during Combat.</li>
+<li><strong>E)</strong> Boons &amp; Terror. Positive and negative ongoing effects that affect your Character.</li>
+<li><strong>F)</strong> Character tokens. The collection of keywords representing all major life experiences of your Character.</li>
+<li><strong>G)</strong> Equipment. Equipped Weapons, Armor and ready-to-use Items.</li>
+<li><strong>H)</strong> Storage for Brill and Fate [icon].</li>
+<li><strong>I)</strong> Advancement trees. You will slot any earned Advancement tokens here to represent choices made during the Character's development.</li>
+<li><strong>J)</strong> Experience. This measures the Exp points gained by the Character and shows how many more you need to gain the next Advancement.</li>
+<li><strong>K)</strong> Hotbar. The space for your Character's prepared Action and Reaction cards. The bottom four spaces will become available after a Character reaches a set number of Advancements.</li>
+</ul>
+<span class="subsection-title">Stats: Attributes, Mobility &amp; Divinum</span>
+<ul>
+<li><strong>Attributes (ATT)</strong>: Strength (STR), Agility (AGI), Intellect (INT), Charisma (CHA). These describe the basic abilities of a Character and define the base number of dice used during Rolls. Attributes are marked with appropriate tokens in the Character board and may range from 1 to 6. Attributes may be increased with Advancements.</li>
+<li><strong>Mobility (MOB)</strong>: Defines how quick a Character is and how fast they can run. In Combat, it shows how many spaces the Character may move in a single turn. It is sometimes also checked during Exploration.</li>
+<li><strong>Divinum (DIV)</strong>: A mysterious substance of gods that can be used to reshape reality. Each Character has a value of DIV on their Character board. The token indicates how many and what type of dice (e.g., D6, D8 or D12+D4) the Character uses when asked to roll for Divinum. Some Rolls in the game will additionally require the use of a Divinum die. In the game, depending on the context, Divinum might be referenced with its name, DIV tag or icons [icon] for full value or [icon] for half of the value. When a Character is instructed to increase their DIV use the following progression: D4 → D6 → D8 → D10 → D12 → D12+D4 → D20 → D20+D6.</li>
+</ul>
+<span class="subsection-title">Keywords &amp; Range Checks</span>
+<p>In <strong>Lands of Evershade</strong>, each Character has multiple keywords that define them. These keywords are often checked by dialogue choices, gameplay options, and various mechanics. The keywords are written in <em>bold italics</em>. Also the names of your profession and race are considered keywords. All the keywords you currently have can be found on:</p>
+<ol>
+<li>Tokens in the Character space of your Character board.</li>
+<li>Tokens in the Equipment space of your Character board.</li>
+<li>Face up Action and Reaction cards currently on the Hotbar.</li>
+<li>Your Companion card (except in Combat).</li>
+<li>The space your model currently occupies and the Sheet you are currently playing.</li>
+</ol>
+<p>Keywords have a strict <strong>Active vs Inactive</strong> state. Keywords on components in the Pouch or on face-down Action cards are <strong>Inactive</strong> and cannot be used. Some keyword checks are worded differently on purpose. Instead of checking if you have the keyword, they may check more specific, or broader conditions. For example, an Action on a tactical grid requires a <em>Ranged</em> keyword anywhere within range 1 of you. This means, if another Character with a <em>Ranged</em> keyword is on the adjacent space, you meet the requirements of that Action, even though you do not have the <em>Ranged</em> keyword yourself.</p>
+<span class="subsection-title">Inventory: Equipment, Pouch &amp; Brill</span>
+<ul>
+<li><strong>Equipment</strong>: The place on the Character board to store equipped items. It consists of 3 spaces for handheld Items, one for headgear, one for chestpiece, one for footwear and 4 for small Items. Additionally, there is a larger slot to keep Fate and Brill.</li>
+<li><strong>Hotbar</strong>: This additional board shows which Action cards the Character has prepared at the moment. Action cards come in 3 different types (Offensive, Defensive and Support), and each card has to occupy a matching slot—one card per slot. Action cards may be granted by class Advancements or currently equipped Items. Additional slots (marked with a lock and a number) are available after reaching a set number of Advancements.</li>
+<li><strong>Pouch</strong>: The personal storage of a Character. All Items and Action cards not currently in use, as well as Advancement tokens, are placed in the Pouch. Characters can reequip Items and Action cards from the Pouch during Camp. All keywords on components in the Pouch are <strong>Inactive</strong> and cannot be used. However, if the story checks a requirement of an Item, the requirement is met regardless if it is in the Equipment or Pouch.</li>
+<li><strong>Brill</strong>: The currency used in <strong>Lands of Evershade</strong>. Each Character has their own Brill stored in the inventory space on their Character board. When the Party gains Brill, it may be divided between the Characters in any way, unless stated otherwise. When Brill has to be spent, the Party may divide the cost however they like, unless stated otherwise.</li>
+</ul>
+<span class="subsection-title">Status Trackers: HP, Terror &amp; Conditions</span>
+<ul>
+<li><strong>HP</strong>: Represents minor injuries, vigor and stamina during Combat. These points reset at each Camp Phase and in some story moments. Characters may also regain HP with heal effects. Maximum HP is marked on the Character board with the HP limiters. During Exploration, after reaching 0 HP, a Character gains the Injury Condition and 1 Fate, then rolls their DIV die and restores a number of HP equal to the result. In Combat, when a Character drops to 0 HP, they are Knocked Out or Eliminated.</li>
+<li><strong>Conditions</strong>: Represented by tokens such as Injury or Trauma, these are more serious, lingering afflictions. There are 4 different Conditions: Injury, Trauma, Sunbleached and Dimrot. A Character can never have both Sunbleached and Dimrot Conditions at once—if they would gain one of them while having the other, simply flip the token to the other side. If a Character would gain a second Sunbleached or Dimrot they gain an Injury instead. If a Character has three Condition tokens and has to gain a fourth, they die.</li>
+<li>
+<p><strong>Character Death</strong>: Any time a Character has three tokens in the Condition slots of their Character board, and receive another (fourth) Condition, they die! Death might also be a result of other game effects, for example, Terror. When a Character dies, resolve all steps below:<br/>
+  a) If this player has the Decision token, pass it clockwise.<br/>
+  b) All other Characters gain 1 Terror [icon].<br/>
+  c) Put all the Quest Items in the Pouch of the Character with the Decision token. Put all other Items of the dead Character in Pouches of other Characters, divided in any way players agree on.<br/>
+  d) Share the Brill of the Character in any way the players agree on.<br/>
+  e) If the Character has a Companion, give the Companion to any other Character of their choice.<br/>
+  f) The rest of the Party continues the game. From now on, only Characters remaining in play are counted when effects check their number [icon].<br/>
+  g) In the meantime, the player without a Character may create a new Character following the “Re-joining an Adventure in Progress” instructions in Chapter 2 of the Player’s Handbook. The new Character will join the Party during the next Camp Phase.<br/>
+  h) In the very rare case where all Characters die before the Camp Sheet resolves, your Adventure is unfortunately over. Reset your game, create new Characters, and start over!</p>
+</li>
+<li>
+<p><strong>Terror [icon]</strong>: Represents a Character’s mental fatigue that results from fear, effects of chaotic magic, or witnessing gruesome scenes. Each Character has 4 Boons&amp;Terror slots on their Character board. Received Terror tokens are placed in these slots and can be mitigated with various effects, similarly to damage.<br/>
+  • If a Character should receive Terror tokens beyond the number of slots, ignore the excess tokens.<br/>
+  • Each Character with 4 Terror tokens must resolve the rules of the Terror Effects Help card.<br/>
+  • If you cannot add a Terror token, because some slots are taken by Boons (see below), discard a chosen Boon before you slot in a Terror token.</p>
+</li>
+</ul>
+<span class="subsection-title">Advancements &amp; Boons</span>
+<ul>
+<li>
+<p><strong>Experience and Advancements</strong>: During an Adventure, the Characters will gain Experience points (Exp). They represent new knowledge and skills that mark the Character’s progress as an adventurer. Exp is tracked on the right side of the Character board. Whenever the marker in the Exp track reaches the current topmost empty space, the Character gains an Advancement! When that happens, resolve the following:<br/>
+  • Remove the bottom Advancement token from the Exp track and place it in your Pouch.<br/>
+  • Place the marker in the Exp track on the bottom slot (0). If needed, continue gaining the remaining Exp. During Camp, the Characters will have an opportunity to Advance if they have any Advancement tokens in their Pouch. The rules for Advancements and contents of each Advancement Tree can be found in the Player’s Handbook. [icon] Advancing your Character unlocks new options on the Hotbar and Advancement trees. For example, a Hotbar slot with this icon can be used after at least 1 Advancement token has been allocated.</p>
+</li>
+<li>
+<p><strong>Boons</strong>: One-use bonuses that you gain as results of blessings, inspiration, and various positive auras. They come in two types: beige basic Boons and green Greater Boons. If you are instructed to gain a Boon, gain a basic one of a chosen type unless stated otherwise. Each Character has 4 Boons&amp;Terror slots on their Character board. The received Boon tokens are placed there.<br/>
+  • If a Character should receive Boons beyond the number of slots, ignore the excess tokens.<br/>
+  • If you cannot add a Boon, because some slots are taken by Terror (see above), instead of gaining this Boon, discard a Terror token.<br/>
+  • Boons may temporarily increase your Attributes, decrease the Difficulty of a Roll, or add a DIV die to the Roll.<br/>
+  • In order to use a Boon, declare it before taking an Action that may benefit from the Boon and discard the token.</p>
+</li>
+<li>
+<p><strong>Boon Types</strong>:<br/>
+  +1 STR | +1 AGI | +1 INT | +1 CHA | +1 D4 DIV | -1 [icon] (Roll Difficulty)<br/>
+<strong>Greater Boons</strong>: +3 STR | +3 AGI | +3 INT | +3 CHA | +1 D12 DIV</p>
+</li>
+</ul>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Exploration Rules & Narrative Flow</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">The Storybook &amp; Narrative Structure</span>
+<p>The story in an Adventure is presented in a <strong>Storybook</strong>. It contains numbered entries with story descriptions and choices. When navigating the Storybook, entries will redirect you to other entries (e.g., "Go to 100"), instruct you to mark your decisions in the Story Tracker, progress Time and much more.</p>
+<ul>
+<li><strong>Entries</strong>: Numbered for your current Adventure. All entries are sorted in ascending order, though not all entry numbers are used. An icon followed by a number shows that the appropriate Storybook entry might be read in this space. This usually requires performing an Action from the Secret Sheet.</li>
+<li><strong>Redirects</strong>: A Storybook will frequently instruct you to go to different entries depending on keywords and marks that you have or choices the Party makes. Whenever you find a redirection with a requirement that you meet (this might be a keyword, Item, mark or anything else), you must follow this redirection immediately—even if only one person in the Party has it—and disregard any other text below the redirection.</li>
+<li><strong>Choices</strong>: In many places, a Storybook will give you multiple choices. These always start with the word "choose". You may read all the text in each choice before committing to one. However, if the outcomes redirect to any additional entries, you may not go there before you make your decision. If a choice has a requirement, your Party needs to match this requirement to make that choice. It is enough for one Party Member to fulfill the requirement! Unless the Character who makes the choice is specified, the choice belongs to the entire Party. The Party can only pick one of the available options. If you cannot come to an agreement, you should discuss and try to convince each other which decision makes the most sense. If you still cannot resolve the situation, you should hold a vote about which option to choose. If the vote is tied, the owner of the Decision token has to use it to break the stalemate. After they do that, they have to pass the Decision token to the next player clockwise.</li>
+<li><strong>Restricted Paragraphs</strong>: In some parts of a Storybook, you will find paragraphs that have separate requirements you need to match to read them. Sometimes those restrictions may refer to single Characters, who may read the paragraph following the restriction. This part might be read by the whole Party if any of the Characters have the keyword. Alternatively, it may be read only by Characters that meet the requirement and is not read out loud for the entire Party. The player may share the information with the rest of the Party or keep it as a secret to himself.</li>
+</ul>
+<span class="subsection-title">Making Choices &amp; Resolving Markers</span>
+<p>The <strong>Story Tracker</strong> is used to track the consequences of your choices. When an effect tells you to mark a slot in the Story Tracker (A–Z), place a marker in the slot with the letter mentioned in the effect. If you have to mark a slot that is already marked, ignore this effect. Sometimes the game checks the state of the Story Tracker using two types of icons: one checks whether a slot is marked, and the other checks whether it is not marked. Sometimes you might be instructed to clear parts of the Story Tracker—in such cases, remove the marks from all listed slots of the Story Tracker and keep all that were not listed. Pay close attention to this process, as doing it incorrectly may disrupt the consequences of your choices!</p>
+<span class="subsection-title">Time Tokens &amp; Sheet Progression</span>
+<p>The bottom of the Story Tracker has a round space for a <strong>Time token</strong>—it may count hours or days, and sometimes even more abstract things. The rules and setup of specific Time tokens are described in the Adventures that use them. The current state of the Time token is shown by the arrow on the left of the slot. If you have to progress the Time token, rotate it clockwise. If a Time token is reduced, rotate it anti-clockwise.</p>
+<span class="subsection-title">Secretsheets &amp; Map Navigation</span>
+<p><strong>Secret Sheets</strong> are numbered boards used to represent the environment and various scenes you will encounter during an Adventure. The Storybook instructs you when to place a new Sheet or discard the one you no longer need. The Story Tracker has room for two Secret Sheets—one on the left and the second on the right side. All the unused Secret Sheets should be placed under the Cover Sheet to prevent accidental spoilers. Each Secret Sheet has its special rules and Actions applying to this part of Exploration or Combat.</p>
+<p>A subtype to Secret Sheets are <strong>Combat Sheets</strong>. They contain grid spaces and are used to resolve Combats. All the Secret Sheets are hidden under the Cover Sheet. When you are instructed to place a Secret Sheet, find the Sheet from the current Adventure by its number under the Cover Sheet, and place it in one of the empty spaces in the Story Tracker. When you are instructed to discard a Secret Sheet, place it under the Cover Sheet. If there are any components on the discarded Sheet, discard them as well.</p>
+<p>Secret Sheets contain two types of spaces:</p>
+<ul>
+<li><strong>Grid spaces</strong>: Square and only large enough to fit one standard Character or Enemy model. They are primarily used in Combat.</li>
+<li><strong>Large spaces</strong>: Can be of any shape (including large squares) and have no limit to models or markers you can place in them.<br/>
+Spaces are considered connected if they share a Passable (regular or special) border. Diagonal squares in a square grid are not connected. During the game you might be instructed to place tokens that modify the spaces, such as: Dangerous space token, Empty space token or Blocked space token.</li>
+</ul>
+<span class="subsection-title">Environmental Hazards &amp; Triggers</span>
+<ul>
+<li><strong>Dangerous space</strong>: This type of space is often used to represent chasms, pools of deadly acid, and other hazardous parts of the environment. Dangerous spaces may be freely entered, but they usually have some negative effect defined by the Sheet or printed on the space itself. Enemies can enter Dangerous spaces and suffer the same effects as Characters. Some effects like Push or Pull may force Enemies to enter such spaces. Enemies on their own will not enter them if it would kill them.</li>
+<li><strong>Trigger icon [icon]</strong>: This icon shows that an instant effect will happen when the Party or a Party Member enters it. In Combat, the current movement of a Party Member ends on entering a space with [icon]. Continue resolving the current Activation afterward.</li>
+<li><strong>Other icons on spaces</strong>: Other icons may be present on spaces. They do not have inherent effects—they are usually used to set up Combat, or spawn new Enemies mid fight. These icons may also be mentioned by the special rules of the Secret Sheet.</li>
+<li><strong>Markers, Danger and Quest models</strong>: Storybook or Secret Sheet Actions often place, count or refer to markers somewhere in the game area. Those might represent a multitude of different things from civilians trapped in a cave to the collected influence toward your cause. Special rules on the Secret Sheet or the Storybook will explain each time what those universal markers are in each context. Adventures also use Danger and Quest models and place them on the Secret Sheets. The Danger model may represent a group of Enemies roaming the area or hazardous conditions. The Quest model is usually a point of interest—a quest location or objective to achieve.</li>
+</ul>
+<span class="subsection-title">Exploration Rolls &amp; Support</span>
+<p><strong>Rolls</strong> are one of the main and most used mechanisms in the game. They are made to determine the outcome of your Actions by using twelve-sided dice (D12). When the Character that resolves it is not specified, the Party has to select one Character to perform it. Other Characters may Support the Roll if they meet the conditions. To perform a Roll follow the instructions below:<br/>
+a) This Character takes a number of D12 dice equal to their Attribute (ATT) matching the one in the Roll. Apply Roll modifiers if the Character meets Conditions.<br/>
+b) Other Characters in a Party can sometimes Support the Roll.<br/>
+c) All Characters roll their dice separately, at the same time.<br/>
+d) Characters may pay Fate to reroll their dice before accepting the result. Count the total number of Successes in the Roll. Any die with a result equal to or higher than the DIFFICULTY counts as 1 Success and any naturally rolled 12 instead counts as 2 Successes regardless of the Difficulty.<br/>
+e) Find the outcome with the highest Success value that matches the total number of Successes you have. If your number was too low for any Successful outcome, resolve the Failure [icon] outcome instead. Outcomes may use different values instead of set numbers. For example, [icon] requires at least as many Successes as the number of Characters in the game, and [icon] at least half the number of Characters in the game (rounded up).<br/>
+f) If [icon] is not listed in the outcomes, it means that failing this Roll has no effect.<br/>
+g) At the end of the Roll any naturally rolled 1 on a die grants 1 Fate for the Character who rolled it. Clean up the dice and resolve the outcome. If the Roll was failed, the Character who performed the Roll gains 1 Fate.</p>
+<p><strong>Supporting</strong> means to roll additional dice to help another Character when they perform a Roll. The following rules apply to Exploration:</p>
+<ul>
+<li>If Characters are in a Party, and one of them is performing a Roll, all other Characters who meet the conditions of at least one modifier may Support them.</li>
+<li>Each Supporting Character rolls only the dice they receive from modifiers.</li>
+<li>If a Supporting Character meets more than one modifier condition, they must still choose a single keyword to apply the modifier.</li>
+<li>Modifiers with conditions that are not related to keywords can only be applied by the Character who performs the Roll, and never by the Supporting Characters.</li>
+<li>Any Successes rolled are added to the performing Character's Roll.</li>
+<li>Any other effects related to the dice values rolled by the Supporting Characters, such as gaining Fate, are resolved by the Supporting Character.</li>
+</ul>
+<p><strong>Divinum in Rolls</strong>: The Character making the Roll adds a Divinum die indicated by the Divinum value on their board to the pool of D12 dice. Each Roll that uses a DIV die has its own rules for its use, usually specified in the Roll's outcome and usually uses icons as the full value [icon] or half of the value [icon] rolled. DIV dice do not count toward determining the number of Successes or gaining Fate. Some game effects may allow you to add more DIV dice to the roll. In such cases, the DIV results are added together.</p>
+<p><strong>Roll Modifiers</strong>: Most Roll modifiers are positive, providing additional dice or lowering the Difficulty Level [icon]. However, some are also negative. When applying them, follow these rules:</p>
+<ol>
+<li>The Character performing the Roll has to apply every modifier for which they meet any of the listed conditions.</li>
+<li>Apply each modifier once, even if the Character meets more than one of these conditions. Even when you have several different keywords that enable one modifier, you do not apply this modifier several times!</li>
+<li>If the Character meets the same condition multiple times, apply the modifier the same number of times. This means having two instances of the same keyword allows you to apply that modifier twice.</li>
+<li>Modifiers can never reduce the number of dice rolled below 1 or reduce the [icon] below 2.</li>
+</ol>
+<p>In the case of an "Each Character performs a Roll" instruction, each Character has to roll separately and they cannot Support one another.</p>
+<span class="subsection-title">Camp Phase &amp; Rest Procedures</span>
+<p>Characters rest on a <strong>Camp Sheet</strong>—a special type of a Secret Sheet with holders for Camp cards. Each slot in the Camp Sheet is marked with a letter (A–H)—Camp cards can only be slotted in holders with corresponding letters. Camp allows the Party to regain HP, reorganize their Equipment, Advance their Characters, and interact with their Companions. Whenever the game asks you to resolve a <strong>Camp Phase</strong>, place the Camp Sheet in the available space of the Story Tracker, and follow the procedure listed on the Sheet. Here is an overview of the Camp Phase:</p>
+<ul>
+<li><strong>Step 1. Performing Advancements</strong> – Characters with Advancement tokens in their Pouches may spend them to gain new cards and abilities from their Profession or Secondary Advancement Trees.</li>
+<li><strong>Step 2. Rest</strong> – Each Party Member heals all HP. Each Character refreshes all their Action cards ignoring all costs and restrictions.</li>
+<li><strong>Step 3. Recquip</strong> – Characters may exchange Items and Companions. Then, they can equip items from their Pouches and change Action cards on their Hotbar.</li>
+<li><strong>Steps 4&amp;5. Expand and upgrade Camp</strong> – The Party may add new Camp cards or improve the current ones (with entries marked as P found in the Player's Handbook).</li>
+<li><strong>Step 6.</strong> The Party may recruit new Companions.</li>
+<li><strong>Step 7.</strong> The Party may replace Camp cards. Place unused Camp cards in the Party Inventory.</li>
+<li><strong>Steps 8&amp;9. Resolve Camp Actions</strong> – Each Character may resolve one Action from any Camp card. Place the Character models on the cards to indicate what they are doing. Only Characters on the same Camp card may Support another one's Rolls.</li>
+<li><strong>Step 10. Clean up</strong> – Discard the Camp Sheet along with all models and markers on it.</li>
+</ul>
+<p>Once the Camp Phase is complete, return to the same place that asked you to resolve the Camp Phase (an entry, a card, or a Sheet), and continue the game.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Combat Turn Structure & Initiative</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Combat Setup &amp; Component Placement</span>
+<p>Combat is played in Rounds, each divided into Activations of Characters and Enemies. The Round ends after all Party Members and Enemies perform their Activation. Over the course of a Round, each Character and each Enemy will become Activated. The order is decided by drawing tokens from the <strong>Initiative bag</strong>.</p>
+<p>The setup of each Combat is described in the Storybook. A Combat setup will typically prepare the following components:</p>
+<ul>
+<li>Secret Sheet with grid spaces.</li>
+<li>Initiative bag and Activation tokens.</li>
+<li>Enemy cards that form a row (the card on the left will be Activated first).</li>
+<li>Enemy Activation cards that form small face-down decks under some Enemies.</li>
+<li>Enemy models.</li>
+<li>Character models.</li>
+</ul>
+<span class="subsection-title">Initiative Bag &amp; Activation Tokens</span>
+<p>The <strong>Initiative bag</strong> determines the order of Activations in Combat. Characters and Enemies Activate one by one according to the drawn tokens. The initial number of Activation tokens is always determined by the Combat setup in the Storybook. However, various game effects can add tokens to the bag. To determine whether a Character or an Enemy is Activated next, draw a token from the Initiative bag. Depending on the type of token drawn, resolve the effects below:</p>
+<ul>
+<li><strong>White token</strong> – The Party decides together which non-activated Character to Activate. Place the token on their Character board and resolve their Activation.</li>
+<li><strong>Black token</strong> – Place the token on the first Enemy card from the left without an Activation token and resolve its Activation.</li>
+<li><strong>Dual token</strong> – Count the number of white and black Activation tokens already drawn from the bag. If there are more black tokens, treat this token as white. Otherwise, if there are more white tokens (or there is a tie), treat it as a black token.</li>
+</ul>
+<span class="subsection-title">Round Structure &amp; Character Activation Order</span>
+<p>Activated Characters perform two Actions. Activated Enemies first resolve the rules on their Enemy card, and then the top Activation card from their Activation deck. After the Activation, draw another token and resolve another Activation to continue the Combat.</p>
+<p>The Round ends after all Party Members or all Enemies are fully Activated. This means either all Enemies have a black token on their cards or all Characters have a white token on their boards. When that happens, resolve all remaining Activations as specified:</p>
+<ul>
+<li>If any Enemy cards have not been Activated yet, Activate them, going from left to right.</li>
+<li>If any Characters have not been Activated yet, Activate them in the order chosen by players.</li>
+</ul>
+<p>Then, return all Activation tokens from Characters and Enemies to the Initiative bag. Start the next round. Note: In a rare case, when there are no more tokens in the Initiative bag to draw, resolve all remaining Enemy Activations from left to right and then all Character Activations in a chosen order.</p>
+<span class="subsection-title">Ending the Combat Round</span>
+<p>The Round ends after all Party Members or all Enemies are fully Activated. This means either all Enemies have a black token on their cards or all Characters have a white token on their boards. When that happens, resolve all remaining Activations as specified:</p>
+<ul>
+<li>If any Enemy cards have not been Activated yet, Activate them, going from left to right.</li>
+<li>If any Characters have not been Activated yet, Activate them in the order chosen by players.</li>
+</ul>
+<p>Then, return all Activation tokens from Characters and Enemies to the Initiative bag. Start the next round. Note: In a rare case, when there are no more tokens in the Initiative bag to draw, resolve all remaining Enemy Activations from left to right and then all Character Activations in a chosen order.</p>
+<span class="subsection-title">Enemy Activation Sequence</span>
+<p>After drawing an Enemy (black) token from the Initiative bag, place it on the leftmost Enemy card that does not have an Activation token on it yet. If all Enemies have already been Activated once, Activate all the remaining Characters and end the Round. When an Enemy Activates, draw the topmost Enemy Activation card from its Activation deck and resolve it from top to bottom. If the Enemy has an additional effect on its Enemy card, include it in the Activation. Then, place the drawn Enemy Activation card face-up at the bottom of the Activation deck.</p>
+<p>Enemy Activation cards determine the Actions taken by Enemies during Combat. Each card contains several numbered Actions that the Enemy performs in their Activation. Each Action may target a different Party Member. If an Enemy Action cannot be fulfilled, resolve as much of it as possible. Enemies do not make any attack Rolls—they deal a set amount of damage. However, your Character can use Reactions to defend against attacks.</p>
+<span class="subsection-title">Knocked Out, Elimination &amp; Combat Flow States</span>
+<ul>
+<li><strong>Knocked Out</strong>: If a Character is Knocked Out, they cannot further participate in Combat, until they get Stabilized. They gain 1 Fate and 1 Injury Condition. Discard their model from the Secret Sheet along with all Effect tokens of that Character, and other Effect tokens affecting this Character. Place one Effect token of that Character in the space where their model was. Other Characters may target this Effect token with Actions that Stabilize (e.g., First Aid). Other than that, this Character is immune to any effects.</li>
+<li><strong>Elimination</strong>: Some game effects may Eliminate a Character from Combat instead—if that happens, reduce their HP to 0, but they do not gain an Injury unless stated otherwise. They cannot be brought back during this Combat and their Effect token is not placed on the Secret Sheet (or it is discarded if it is already there). After the Combat, the Character who was Knocked Out or Eliminated rolls their DIV and restores a number of HP equal to the result. If the Knocked Out or Elimination happens during a Character's Action, that Action is interrupted.</li>
+</ul>
+<span class="subsection-title">Victory Conditions &amp; Defeat Triggers</span>
+<p>Combat continues until the Objective listed on the Sheet is achieved (causing you to resolve the Victory entry) or the Party is Defeated. Achieving Victory instantly ends the Combat, including the currently resolved Action. The Party is Defeated when all Characters are Knocked Out or Eliminated (in other words, each of the Characters has 0 HP). In such a case, immediately resolve the Defeat entry of your current Sheet. A Partner in solo mode counts as a Character for this purpose, but other Companions do not.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Actions, Activations & Combat Items</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Character Activation Overview</span>
+<p>Each time a white token is drawn from the Initiative bag, one of the Characters will Activate. At the beginning of the Activation, you refresh all their Action cards—flip them from the dark side to the light side. Some Action cards may have additional conditions or costs to be refreshed. During the Activation, resolve 2 Actions—you may spend them on Basic Actions, Action cards or Resolve Sheet Actions. Some Actions do not count against this limit—they are called "free Actions".</p>
+<span class="subsection-title">Basic Actions &amp; Movement</span>
+<p>Each Character has access to <strong>Basic Actions</strong>—Move and First Aid. They are listed on the Help card.</p>
+<ul>
+<li><strong>Move</strong>: When you use a Move Action, move your model up to a number of spaces equal to your MOB value. You can only move to connected spaces (not diagonally). You cannot cross Impassable borders. You cannot move through spaces with Enemy models. You may go through spaces with Party Members, but cannot end movement on an occupied space.</li>
+<li><strong>First Aid</strong>: This text allows you to help a Knocked Out Character to get back into the fight. It can be used on an Effect token representing a Knocked Out Character in range 1 by performing the following Roll: Roll for AGI or INT [icon], +1 die: Medicine, Survival, [icon]: Stabilize.</li>
+<li><strong>Stabilize</strong>: Many effects in the game may allow you to Stabilize a Knocked Out Character. When that happens, they roll their DIV to regain HP, place their model on the Secret Sheet in place of the Effect token (discarding it in the process), refresh all their Action cards and gain 1 [icon]. If the space with the Effect token is occupied, the Character model should be placed on the closest, empty, non-dangerous space.</li>
+</ul>
+<span class="subsection-title">Refreshing Sheets &amp; Hotbar Management</span>
+<p><strong>Refreshing a card</strong> means to flip it from the dark side to the light side. Action cards refresh at the beginning of an Activation, unless the red text on the card says otherwise. Some Actions (mostly Defensive Reactions) might be additionally refreshed at any time by paying the Fate listed on the card. Other cards might have different costs and moments to be refreshed—all written in blue. Start of your Activation: Do not refresh this card, unless you pay 1 [icon]. Anytime: Pay 1 [icon] to refresh this card.</p>
+<span class="subsection-title">Combat Support &amp; Insight Reactions</span>
+<p>During Combat, Characters cannot Support each other the same way they do during Exploration. In Combat, each time a Party Member performs a Roll, other Party Members may use one of their Reactions to Support the Roll. The Reaction must allow you to do so, and all requirements of range have to be fulfilled. The main way to Support each other’s Rolls is with the “Combat Insight” Reaction cards. Characters may use a Reaction if the timing allows for it. Each Character may use any number of Reactions against a single effect. Defensive Reactions are an exception to that—only one can be used against each attack. Each time a Party Member performs a Roll, other Party Members may use one of their Reactions to Support the Roll. The Reaction must allow you to do so, and all requirements of range have to be fulfilled.</p>
+<span class="subsection-title">Combat Items &amp; Free Actions</span>
+<p><strong>Item Actions</strong> are a special type of Actions that appear only on some Item tokens. Items can be used only in Combat. The access to keywords they provide or to passive effects is an exception and it can be done also during Exploration. Using an Item Action is free and is not included in the limit of two Actions per Activation. You may use Item Actions during your Activation before or after taking an Action or in a moment specified by the token (even outside of your Activation). When you use an Item Action, discard the token from your Inventory to your Pouch. You can equip it again during the Camp Phase. The effect of the Item Action is always stated on the back of the Item, and the front side stands only for a reminder.</p>
+<p>Some Items may contain <strong>passive effects</strong>, shown inside the frame. You may use the benefit at any time without having to move the Item token to the Pouch. This may include additional armor points or additional damage dealt with attacks. Armor from multiple sources, including Items, adds together. Additional [icon] might be gained from only one weapon at a time. The damage that is dealt with a weapon gains the keywords of that weapon, which may be important for Weaknesses and Resistances.</p>
+<span class="subsection-title">Sheet Actions in Combat</span>
+<p>Some Combat Secret Sheets may include additional tools and Actions for Party Members to use. They come in three different types:</p>
+<ul>
+<li><strong>Printed Action cards</strong> – Party Members may use those Actions as if they were on their Hotbar. They are not flipped after use, but might be restricted to a single use per Activation.</li>
+<li><strong>Additional Action cards</strong> – similar to standard Action cards, but placed next to the Secret Sheet. Party Members may use them as if they were on their Hotbars. They are flipped after use.</li>
+<li><strong>Non-card Sheet Actions</strong> – additional, other Actions. Party Members may spend one of their Actions during Activation to resolve them, similarly to a Basic Action.</li>
+</ul>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Enemies, Companions & Special Models</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Enemy Types &amp; Setup</span>
+<p>Enemies are divided into four categories:</p>
+<ul>
+<li><strong>Boss</strong> – Top threat of the encounter. Bosses follow all standard rules for an Enemy, but a Secret Sheet might introduce additional special rules for this type of Enemy.</li>
+<li><strong>Elite</strong> – Strong Enemy. It follows all standard rules for an Enemy.</li>
+<li><strong>Minion</strong> – Lesser and weaker Enemies. They serve as helpers for the big bad guy. Minions have multiple models that share one Enemy card. When Activated, Minions act one by one, in alphabetical order (in the special edition shown on the rings and in the standard edition printed on the standee) resolving all Actions from their Activation card.</li>
+<li><strong>Environment</strong> – They do use an Enemy card but usually have no Activation deck. They represent the environment in which the battle takes place. When you Activate them, simply resolve the effect on their card.</li>
+</ul>
+<span class="subsection-title">Enemy Movement &amp; Targeting Rules</span>
+<p>Enemies do not have a set movement value. Instead, they move a number of spaces written on the Activation card. When moving, an Enemy follows a set of rules:</p>
+<ul>
+<li>Enemies cannot move through Impassable borders.</li>
+<li>Enemies do not move through Dangerous spaces if entering them would kill that Enemy.</li>
+<li>Enemies cannot move through spaces occupied by Party Members (Characters, Companions, etc).</li>
+<li>Enemies can move through spaces occupied by other Enemies, but they cannot end their movement in a space occupied by an Enemy.<br/>
+When an Enemy moves toward something, each space has to get them closer to the target. When moving away, the Enemy has to end their movement in a space further from the target than the one it started in.</li>
+</ul>
+<p><strong>Targeting</strong>: Enemy Actions will target Characters, spaces on the Sheet, or other components. If targeting conditions are met by more than one target, players choose the outcome. The most common targeting conditions are:</p>
+<ul>
+<li>[icon] – The Enemy targets the closest Party Member (regardless of cover).</li>
+<li>[icon] or [icon] – The Enemy targets the Party Member with the highest number of targeting icons present on Action cards in the Hotbar. Both the front and back of a card may contain those symbols, but only the currently visible side contributes its icons toward Enemy targeting. An Enemy can only target Characters or objects that are in range of their Action. If there is no valid target, the Action is skipped.<br/>
+Enemies may target multiple Party Members with a single Action. In such a case target a set number of Party Members starting with the ones who have the most targeting icons.</li>
+</ul>
+<span class="subsection-title">Enemy HP &amp; Defeating Foes</span>
+<p>The HP of Enemies is written on their card. Minions always have 1 HP each, and HP for Boss and Elite Enemies is tracked on their HP dials. To defeat an Enemy, you must deal enough damage to reduce their HP to 0. When this happens, remove the Enemy's model from the Secret Sheet and flip their card. If the Enemy is represented with more than one model, flip its card only after you have removed the last model for that Enemy. When the Enemy card is flipped, discarded or changed during Combat, discard all components from it (markers, Effect tokens, etc.), except the Activation token if this Enemy has already Activated this round. From this moment on, that Enemy does not take part in Combat—it cannot be targeted by any effects. Enemies with their cards flipped may still resolve some effects. If the card states "Do not Activate this Enemy" the card is fully skipped in the Initiative order. Some Enemy cards have a formula that calculates their starting HP based on the number of Characters ([icon] or [icon]). Enemies may heal above their starting HP. Note: In some late game Combats, while playing 3+ Characters, the Enemy HP may exceed 100. To mark it use the 100/200 HP token.</p>
+<span class="subsection-title">Companions: Rules &amp; Interaction</span>
+<p><strong>Companions</strong> help Characters during the game. The Party might have up to 2 Companions distributed among Characters as they wish. Companions can be exchanged between players during the Camp Phase.</p>
+<ul>
+<li><strong>HP and Terror</strong>: Companions have their maximum HP indicated on their card and tracked on HP dial. Companions cannot gain Conditions. They can never have more HP than that. If a Companion doesn’t have a maximum HP listed on their card, they can gain as many HP as the HP dial allows. When a Companion’s HP reaches 0 during Combat, discard their model—they won’t participate in this Combat anymore, but will be healed during the Camp Phase. When a Companion’s HP reaches 0 outside of Combat, they cannot be used until healed. Instead of gaining Terror, Companions lose HP according to the number indicated on their card. Instead of healing Terror, Companions gain 1 HP for each point of Terror healed.</li>
+<li><strong>Fate, Boons, and Items</strong>: Companions cannot gain and use Fate (including from Rolls), Boons, and Items. When they would gain Fate from any other source, they heal that many HP instead. Items gained by Companions are instead gained by the Character who has their card.</li>
+</ul>
+<span class="subsection-title">Solo Play: The Partner Variant</span>
+<p>If you are playing solo, one of your Companions is your <strong>Partner</strong>. Find a Partner card matching their highest ATT and place it next to the Companion card. Playing with a Partner adds 1 to [icon]. This card modifies the Companion Attributes, gives them additional keywords, and changes the number of their targeting icons. It also gives the Partner two special skills:</p>
+<ol>
+<li><strong>Support</strong>: If the space next to the skill is not marked, they may Support you with 1 die and mark the space. The space refreshes when the Partner would normally refresh their Action cards.</li>
+<li><strong>Reroll</strong>: Once per Roll, they may reroll any number of their dice.<br/>
+A Partner is rule-wise more similar to a Character than to a Companion. It is considered a Character during Exploration, Combat, and Camp. During Exploration, Partners can perform Rolls on their own and may Support Character’s Rolls with their keywords as long as they are in a Party. During Combat, a Partner resolves their own Activations. They have a slot for an Activation token. At the beginning of Partner Activation, remove the marker from their skill slot (Support) and refresh their card. Then, resolve their Activation by performing two Actions. A Partner may be Knocked Out and Stabilized or Eliminated. During the Camp Phase, Partners may use Camp Actions, with some restrictions in the form of non-Partner Actions. A Partner follows all other rules regarding Companions.</li>
+</ol>
+<span class="subsection-title">Summoned Allies</span>
+<p>During Combat, players may add helpers to their side. They come in the form of <strong>Summons</strong>. When an effect allows a Character to add a Summon to the Combat, take the Summon card and spawn a corresponding model on the Secret Sheet. The effect should specify where to put this model, and if it does not, put the model on any closest, empty space on the grid. Summons do not count toward the limit of 2 Companions. Summons might be Activated in the same way as Companions, right before or after the Activation of the Character who has their card. The Summon is discarded from Combat if:</p>
+<ul>
+<li>Their HP is reduced to 0.</li>
+<li>The Character (or Enemy) who Summoned them is Knocked Out or Eliminated.</li>
+<li>The Combat ends.<br/>
+If you have to discard the Summon, discard both its card and model.</li>
+</ul>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Combat Mechanics & Tactical Systems</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Mapping Range &amp; Line of Sight</span>
+<p>Many rules and cards require you to count spaces or check if the target is in range, measured in spaces. These spaces can be counted through Impassable borders. Below are the most common terms related to range, with explanations.</p>
+<ul>
+<li><strong>Connected space</strong> – any space that shares a Passable border with your space. Diagonal squares in a square grid are not connected.</li>
+<li><strong>Range (R#)</strong> – describes how far the target of the effect may be from the source of the effect. The game does not use the concept of line of sight—it is assumed that all models see one another, with range being the most common restriction when determining if the Action may or may not target something. All spaces up to the mentioned number are within range—this means R1 is included in R2 and so on.</li>
+<li><strong>In line</strong> – an effect which originates from a Character or Enemy and may affect targets in any space in a line of connected spaces. Effects may include: dealing [icon], moving and so on.</li>
+</ul>
+<span class="subsection-title">Defensive Positioning &amp; Cover</span>
+<p>Characters and Enemies can use terrain in Combat to gain <strong>Cover</strong> and protect themselves better against attacks and other hostile effects. When performing an attack that targets a model in Cover, that model gets +2 armor against this attack. A model has Cover if it is in a space with an Impassable border. This Cover bonus applies against all damage dealt by anyone on the other side of this Impassable border. For a large Enemy to benefit from Cover, all spaces from one side of the model have to have an Impassable border.</p>
+<span class="subsection-title">Armor &amp; Damage Application</span>
+<p>Both Characters and Enemies may have <strong>armor</strong>. Whenever damage [icon] is dealt to a Party Member or Enemy, reduce that amount by their armor [icon]. If there are multiple effects of armor for a single Character or Enemy, they add together. There may also be effects that allow the attacker to ignore the armor of the attacked model. In such a case, temporarily reduce the armor value by the value of the Ignore Armor effect. This may reduce the value down to 0. Some effects in the game may instruct Characters or Enemies to lose a set number of HP instead of dealing [icon]—this will be marked as “lose HP” and will disregard armor.</p>
+<span class="subsection-title">Resistances, Weaknesses &amp; Negative Effects</span>
+<p>During Adventures, Characters may gain access to different weapons and spells. Some of them may deal different types of damage—for example: Divinum, Fire, Ice, Thunder, Light, Darkness, etc. Some Enemies may have <strong>Resistance</strong> or <strong>Weakness</strong> to some of the damage types. They are marked on their cards with either “Weakness: …” or “Resistance: …” respectively. Each time this Enemy is dealt damage of this type, apply the corresponding modifier. Weaknesses and Resistances are applied after armor. Some Enemies may have a Weakness/Resistance to either melee or ranged attacks. This does not check the type of damage dealt, but rather what kind of weapon was used during this attack. If the Action card has a “requires melee”, its damage is considered damage from a melee attack.</p>
+<span class="subsection-title">Repositioning: Push, Pull &amp; Crashing</span>
+<p>During Combat, some effects allow you to manipulate the positioning of both Party Members and Enemies. They come in the form of Push and Pull effects.</p>
+<ul>
+<li><strong>Push</strong> moves the target by the number of spaces away in a line from the source of the effect.</li>
+<li><strong>Pull</strong> moves the target toward the source of the effect and it does not need to be resolved in a line as long as each space moved is closer.<br/>
+When a model is Pushed and there is no possible space for it to move away (due to other models or impassable border), the model is dealt <strong>Crashing damage</strong> equal to the remaining Push value. That [icon] is reduced by armor.</li>
+</ul>
+<span class="subsection-title">Active Effects &amp; Token Management</span>
+<p>Some Action tokens use <strong>Effect tokens</strong> to mark ongoing effects that affect the game. Effect tokens can be placed on both Secret Sheet spaces and on Character portraits and Enemy cards participating in Combat. Effect tokens do not block spaces that they occupy.</p>
+<ul>
+<li>If the effect says to place an Effect token on a Character, Companion or Enemy, place the token on the appropriate portrait or card. Usually the Action that placed the Effect token will specify how it works in the game.</li>
+<li>Each Character has access to 8 Effect tokens in their color with two different icons.</li>
+<li>One token has to be placed on a card that is the source of the effect and the other tokens are used to mark what is affected by it.</li>
+<li>A Character may have up to 2 effects that use Effect tokens in play at any given moment. If they were to have a third, they may discard all Effect tokens with one icon first to accommodate it.</li>
+<li>Enemies may also use Effect tokens—they are marked with a square.</li>
+</ul>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Reference Appendix & Campaign Progression</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Symbols &amp; Icon Glossary</span>
+<ul>
+<li>[icon] – Success – Each die result equal to or higher than the [icon]</li>
+<li>[icon] – Roll outcome equal to one or more Successes</li>
+<li>[icon] – Failure – Number of Successes lower than any Roll outcome</li>
+<li>[icon] – Difficulty Level</li>
+<li>[icon] – Enemy Difficulty Level</li>
+<li>[icon] – Character Number</li>
+<li>[icon] – Half of the Character Number</li>
+<li>[icon] – Rolled DIV value</li>
+<li>[icon] – Half of the rolled DIV value</li>
+<li>[icon] – Damage</li>
+<li>[icon] – Terror</li>
+<li>[icon] – Fate</li>
+<li>[icon] – Targeting icon</li>
+<li>[icon] – Targeting icon</li>
+<li>[icon] – Closest Party Member</li>
+<li>[icon] – Armor</li>
+<li>[icon] – Enemy Effect token</li>
+<li>[icon] – Instant effect when entering</li>
+<li>[icon] – Marked Story mark in the Story Tracker</li>
+<li>[icon] – Not marked Story mark in the Story Tracker<br/>
+ATT – Attribute | STR – Strength | AGI – Agility | INT – Intellect | CHA – Charisma | DIV – Divinum | PM – Party Member | CH – Character | EN – Enemy</li>
+</ul>
+<span class="subsection-title">Optional Rules &amp; Campaign Variants</span>
+<ul>
+<li><strong>Signalized Activations</strong>: To make Combat less random, you can reveal one Enemy Activation card for each Enemy at the start of each Round, instead of when that Enemy Activates. This change will make Combats more predictable and take longer to play.</li>
+<li><strong>Meaningful and Critical Failures</strong>: To increase the impact of Failure outcomes in Rolls, you can use any combination of the following rules: a) "1" dice results only give Fate if you fail your entire Roll. b) Each "1" result subtracts 1 Success from your Roll. If this would cause the number of Successes to decrease below 0, treat the outcome as 0 Successes. Remember that these rules, especially when used together, affect the Fate token economy and increase the difficulty of the game.</li>
+<li><strong>Friendly Fire</strong>: Players may decide to include the rule that all area-of-effects hit all models present in the affected area regardless if it's a Character, Enemy, or Companion. Or for the sake of immersion players may decide each time if the effect should or should not hit other combatants.</li>
+<li><strong>Companions</strong>: To make the game more difficult, if your Party has any Companions, treat your Character Number as 1 higher.</li>
+</ul>
+<span class="subsection-title">Quick-Reference Tables</span>
+<p>The following index provides quick reference to key rules and mechanics by topic:<br/>
+Act | Action | Card | Enemy | Activation | Advancement | Adventure | Armor | Attribute | Boon | Border | Brill | Camp | Chapter | Combat | Companion | Condition | Cover | Damage | Types | Prevent | Danger model | Death | Difficulty | Divinum | Effect token | Entry | Exp | Equipment | Fate | Grid | Hotbar | HP | Initiative | Item | Keyword | Mark | Mobility | Move | Outcome | Partner | Party | Pouch | Pull | Push | Range | Reaction | Refresh | Resistance | Roll | Modifier | Secret Sheet | Space | Stabilize | Storybook | Success | Summon | Support | Combat | Targeting | Terror | Time token | Quest model | Weakness</p>
+<span class="subsection-title">Campaign End Game &amp; Epic Scenarios</span>
+<p>Each Adventure takes from 12–18 hours, and is most often divided into 3–6 hour Chapters, each of which with two 1–3 hour Acts. Once a Character completes their final Adventure (Expert level Adventure), they can either embark on one of the deadly, dangerous <strong>Epic scenarios</strong> or <strong>retire</strong>, making way for a new generation of adventurers. While playing an Adventure, keep in mind that you should use the components from the base game, as well as the components from the current Adventure—this includes the Storybook, the Secret Sheets and other components marked with an appropriate code (e.g., 'ItW' for the 'Into the Whitewell' Adventure). The campaign progression flows from Starting level for beginners, to Advanced level for experienced Characters, and Expert level serving as a conclusion of the journey for veteran Characters. After an Expert level Adventure, the Character may embark on the last, deadly Epic scenario or retire.</p>
+  </div>
+</details>
+  <p id="no-results">No sections match your search.</p>
+</main>
+<script>
+(function () {
+  var searchEl  = document.getElementById('search');
+  var clearBtn  = document.getElementById('search-clear');
+  var noResults = document.getElementById('no-results');
+  var sections  = Array.from(document.querySelectorAll('details.section'));
+  var matchNav   = document.getElementById('match-nav');
+  var matchCount = document.getElementById('match-count');
+  var matchPrev  = document.getElementById('match-prev');
+  var matchNext  = document.getElementById('match-next');
+
+  var allMarks = [];
+  var currentMark = -1;
+
+  sections.forEach(function (s) {
+    var body = s.querySelector('.section-body');
+    if (body) body.dataset.original = body.innerHTML;
+  });
+
+  var timer;
+
+  searchEl.addEventListener('input', function () {
+    var term = this.value.trim();
+    clearBtn.classList.toggle('visible', term.length > 0);
+    clearTimeout(timer);
+    timer = setTimeout(function () { applySearch(term); }, 180);
+  });
+
+  clearBtn.addEventListener('click', function () {
+    searchEl.value = '';
+    clearBtn.classList.remove('visible');
+    applySearch('');
+    searchEl.focus();
+  });
+
+  matchPrev.addEventListener('click', function () {
+    if (allMarks.length === 0) return;
+    navigateTo((currentMark - 1 + allMarks.length) % allMarks.length);
+  });
+
+  matchNext.addEventListener('click', function () {
+    if (allMarks.length === 0) return;
+    navigateTo((currentMark + 1) % allMarks.length);
+  });
+
+  function navigateTo(index) {
+    if (allMarks[currentMark]) allMarks[currentMark].classList.remove('active');
+    currentMark = index;
+    var mark = allMarks[currentMark];
+    mark.classList.add('active');
+    mark.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    matchCount.textContent = (currentMark + 1) + ' of ' + allMarks.length;
+  }
+
+  function escapeRe(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlightTextNodes(container, re) {
+    var walker = document.createTreeWalker(
+      container, NodeFilter.SHOW_TEXT, null, false
+    );
+    var nodes = [];
+    var n;
+    while ((n = walker.nextNode())) {
+      if (n.nodeValue.trim()) nodes.push(n);
+    }
+    nodes.forEach(function (textNode) {
+      re.lastIndex = 0;
+      if (!re.test(textNode.nodeValue)) return;
+      re.lastIndex = 0;
+      var span = document.createElement('span');
+      span.innerHTML = textNode.nodeValue.replace(
+        re, function (m) { return '<mark>' + m + '</mark>'; }
+      );
+      textNode.parentNode.replaceChild(span, textNode);
+    });
+  }
+
+  function applySearch(term) {
+    var re = term ? new RegExp(escapeRe(term), 'gi') : null;
+    var visibleCount = 0;
+
+    sections.forEach(function (section) {
+      var body    = section.querySelector('.section-body');
+      var summary = section.querySelector('summary');
+
+      if (body) body.innerHTML = body.dataset.original;
+
+      if (!re) {
+        section.classList.remove('search-hidden');
+        section.open = false;
+        return;
+      }
+
+      var titleText = summary ? summary.textContent : '';
+      var bodyText  = body    ? body.textContent    : '';
+
+      re.lastIndex = 0;
+      var inTitle = re.test(titleText);
+      re.lastIndex = 0;
+      var inBody  = re.test(bodyText);
+      re.lastIndex = 0;
+
+      if (inTitle || inBody) {
+        section.classList.remove('search-hidden');
+        section.open = true;
+        if (body) highlightTextNodes(body, new RegExp(escapeRe(term), 'gi'));
+        visibleCount++;
+      } else {
+        section.classList.add('search-hidden');
+      }
+    });
+
+    noResults.style.display = (re && visibleCount === 0) ? 'block' : 'none';
+
+    allMarks = Array.from(document.querySelectorAll('mark'));
+    currentMark = -1;
+
+    if (allMarks.length > 0) {
+      matchNav.classList.add('visible');
+      navigateTo(0);
+    } else {
+      matchNav.classList.remove('visible');
+      matchCount.textContent = '';
+    }
+  }
+})();
+</script>
+</body>
+</html>

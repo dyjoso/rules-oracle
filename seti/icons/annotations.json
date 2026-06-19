@@ -12,6 +12,20 @@
         "x2": 161,
         "y2": 959,
         "name": "publicity"
+      },
+      {
+        "x1": 106,
+        "y1": 1024,
+        "x2": 211,
+        "y2": 1069,
+        "name": "start-res-2"
+      },
+      {
+        "x1": 107,
+        "y1": 1098,
+        "x2": 162,
+        "y2": 1144,
+        "name": "start-res-3"
       }
     ]
   },
@@ -44,6 +58,13 @@
         "x2": 399,
         "y2": 562,
         "name": "launch"
+      },
+      {
+        "x1": 503,
+        "y1": 1117,
+        "x2": 535,
+        "y2": 1143,
+        "name": "move"
       }
     ]
   },
@@ -70,6 +91,27 @@
       1600
     ],
     "annotations": [
+      {
+        "x1": 744,
+        "y1": 832,
+        "x2": 823,
+        "y2": 903,
+        "name": "pink-trace"
+      },
+      {
+        "x1": 828,
+        "y1": 831,
+        "x2": 906,
+        "y2": 903,
+        "name": "yellow-trace"
+      },
+      {
+        "x1": 911,
+        "y1": 831,
+        "x2": 989,
+        "y2": 903,
+        "name": "blue-trace"
+      },
       {
         "x1": 69,
         "y1": 854,
@@ -108,6 +150,13 @@
         "x2": 164,
         "y2": 774,
         "name": "complete-sector"
+      },
+      {
+        "x1": 766,
+        "y1": 721,
+        "x2": 849,
+        "y2": 766,
+        "name": "1pub-per-pers"
       }
     ]
   },
@@ -156,6 +205,13 @@
         "x2": 216,
         "y2": 253,
         "name": "research"
+      },
+      {
+        "x1": 246,
+        "y1": 231,
+        "x2": 284,
+        "y2": 267,
+        "name": "rotate"
       },
       {
         "x1": 575,
@@ -381,6 +437,13 @@
         "name": "draw-card-top-of-deck"
       },
       {
+        "x1": 198,
+        "y1": 819,
+        "x2": 250,
+        "y2": 871,
+        "name": "adv4"
+      },
+      {
         "x1": 132,
         "y1": 820,
         "x2": 184,
@@ -423,6 +486,218 @@
         "x2": 106,
         "y2": 1207,
         "name": "any-trace"
+      }
+    ]
+  },
+  {
+    "source_image": "page-009.png",
+    "image_dimensions": [
+      1149,
+      1600
+    ],
+    "annotations": [
+      {
+        "x1": 897,
+        "y1": 586,
+        "x2": 940,
+        "y2": 626,
+        "name": "probe"
+      },
+      {
+        "x1": 977,
+        "y1": 583,
+        "x2": 1020,
+        "y2": 626,
+        "name": "lander"
+      },
+      {
+        "x1": 681,
+        "y1": 1063,
+        "x2": 723,
+        "y2": 1098,
+        "name": "1pub"
+      }
+    ]
+  },
+  {
+    "source_image": "page-018.png",
+    "image_dimensions": [
+      1149,
+      1600
+    ],
+    "annotations": [
+      {
+        "x1": 618,
+        "y1": 1266,
+        "x2": 735,
+        "y2": 1302,
+        "name": "buy-a-card"
+      },
+      {
+        "x1": 104,
+        "y1": 1335,
+        "x2": 439,
+        "y2": 1374,
+        "name": "resource-exchange"
+      }
+    ]
+  },
+  {
+    "source_image": "page-022.png",
+    "image_dimensions": [
+      1149,
+      1600
+    ],
+    "annotations": [
+      {
+        "x1": 683,
+        "y1": 758,
+        "x2": 1002,
+        "y2": 862,
+        "name": "solo-objectives"
+      }
+    ]
+  },
+  {
+    "source_image": "page-024.png",
+    "image_dimensions": [
+      1149,
+      1600
+    ],
+    "annotations": [
+      {
+        "x1": 632,
+        "y1": 491,
+        "x2": 1077,
+        "y2": 152,
+        "name": "solo-turns"
+      }
+    ]
+  },
+  {
+    "source_image": "page-025.png",
+    "image_dimensions": [
+      1149,
+      1600
+    ],
+    "annotations": [
+      {
+        "x1": 72,
+        "y1": 170,
+        "x2": 339,
+        "y2": 305,
+        "name": "solo-orbiter"
+      },
+      {
+        "x1": 73,
+        "y1": 919,
+        "x2": 282,
+        "y2": 1054,
+        "name": "solo-telescope"
+      }
+    ]
+  },
+  {
+    "source_image": "page-026.png",
+    "image_dimensions": [
+      1149,
+      1600
+    ],
+    "annotations": [
+      {
+        "x1": 108,
+        "y1": 167,
+        "x2": 366,
+        "y2": 258,
+        "name": "solo-analyse"
+      },
+      {
+        "x1": 107,
+        "y1": 530,
+        "x2": 366,
+        "y2": 676,
+        "name": "solo-species"
+      }
+    ]
+  },
+  {
+    "source_image": "page-027.png",
+    "image_dimensions": [
+      1149,
+      1600
+    ],
+    "annotations": [
+      {
+        "x1": 98,
+        "y1": 352,
+        "x2": 172,
+        "y2": 415,
+        "name": "solo-task1"
+      },
+      {
+        "x1": 93,
+        "y1": 467,
+        "x2": 178,
+        "y2": 533,
+        "name": "solo-task2"
+      },
+      {
+        "x1": 101,
+        "y1": 591,
+        "x2": 166,
+        "y2": 646,
+        "name": "solo-task3"
+      },
+      {
+        "x1": 103,
+        "y1": 697,
+        "x2": 167,
+        "y2": 761,
+        "name": "solo-task4"
+      },
+      {
+        "x1": 104,
+        "y1": 802,
+        "x2": 166,
+        "y2": 868,
+        "name": "solo-task5"
+      },
+      {
+        "x1": 104,
+        "y1": 906,
+        "x2": 165,
+        "y2": 982,
+        "name": "solo-task6"
+      },
+      {
+        "x1": 111,
+        "y1": 1028,
+        "x2": 164,
+        "y2": 1084,
+        "name": "solo-task7"
+      }
+    ]
+  },
+  {
+    "source_image": "page-019.png",
+    "image_dimensions": [
+      1149,
+      1600
+    ],
+    "annotations": [
+      {
+        "x1": 88,
+        "y1": 1374,
+        "x2": 124,
+        "y2": 1408,
+        "name": "draw-any"
+      },
+      {
+        "x1": 87,
+        "y1": 1473,
+        "x2": 124,
+        "y2": 1508,
+        "name": "draw-blind"
       }
     ]
   }

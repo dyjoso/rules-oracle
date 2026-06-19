@@ -153,6 +153,7 @@ body {
 mark { background: #ffe066; color: #1a1a1a; border-radius: 2px; padding: 0 1px; }
 mark.active { background: #ff9500; color: #fff; }
 
+/* ── MATCH NAVIGATION ────────────────────────────────────── */
 .match-nav {
   display: none;
   align-items: center;
@@ -325,12 +326,29 @@ tbody td { padding: 5px 8px; vertical-align: top; }
 
 /* ── ICON TABLE ──────────────────────────────────────────── */
 .table-wrap img {
-  height: 28px;
+  height: 36px;
   width: auto;
   display: block;
   margin: 0 auto;
 }
 
+/* ── INLINE ICONS ────────────────────────────────────────── */
+p img, li img, blockquote img,
+h1 img, h2 img, h3 img, h4 img, h5 img {
+  height: 1.625em;
+  width: auto;
+  vertical-align: -0.2em;
+  margin: 0 4px;
+}
+/* Sizes chosen in the Resolve-icons stepper (override the default above). */
+img.rule-icon--double { height: 3.25em; }
+img.rule-icon--full {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 0.5em auto;
+  vertical-align: baseline;
+}
 /* ── BLOCKQUOTE ──────────────────────────────────────────── */
 blockquote {
   background: var(--note-bg);
@@ -355,14 +373,6 @@ code {
 
 /* ── HR ──────────────────────────────────────────────────── */
 hr { border: none; border-top: 1px solid var(--rule); margin: 8px 0; }
-
-/* ── SEARCH HIGHLIGHT ────────────────────────────────────── */
-mark {
-  background: #ffe566;
-  color: inherit;
-  border-radius: 2px;
-  padding: 0 1px;
-}
 
 /* ── HIDDEN SECTIONS ─────────────────────────────────────── */
 details.section.search-hidden { display: none; }
@@ -434,160 +444,266 @@ details.section.search-hidden { display: none; }
 </header>
 <main>
 <details class="section" open>
-  <summary><span>Game Goal</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <summary><span>Setup</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
   <div class="section-body">
-<p>During a round, players collect essences and take actions until everyone passes. The goal is to have the most victory points, with a minimum of 10 points required to win. Components begin <strong>straightened</strong> and can be <strong>turned</strong> sideways as part of power costs; turned components cannot use most powers until straightened. At the end of each round, victory is checked. If no player has won, components are straightened and play continues.</p>
+<span class="subsection-title">Setup Steps</span>
+<ol>
+<li>Put the 8 magic items, tray of essences, and 5x essence chips in the center to form the supply.</li>
+<li>Next to them, set out the 5 Places of Power. Later games: for each Place of Power, randomly select which side to use. <em>(For First Game setup, see <code>## First Game Setup</code>.)</em></li>
+<li>Shuffle the monuments. Set out 2 of them face up and form a draw pile with the rest.</li>
+<li>Give 1 of each essence (including Gold) to each player, to form their initial essence pools.</li>
+<li>Select a First Player, who takes the First Player token.</li>
+<li>Shuffle the mages and artifacts separately. Deal 2 mages and 8 artifacts to each player. Return the others to the box. Each player examines their cards. <em>(For First Game setup, see <code>## First Game Setup</code>.</em></li>
+</ol>
+<p>After examining their cards, each player shuffles their artifacts to form their deck, offering it to an opponent to cut, and then draws 3 artifacts as their initial hand.</p>
+<p>Each player then selects 1 Mage. Reveal them. Return unused mages to the box.</p>
+<ol start="7">
+<li>In counter-clockwise (reverse) order, starting with the player to the right of the First Player, each player chooses 1 magic item. Begin play with the First Player.</li>
+</ol>
+<span class="subsection-title">First Game Setup</span>
+<p>First Game (for step 2): use their preset sides.</p>
+<p>First Game (for step 6): instead, give each player a preset 3-card hand, labeled 1 / 2 / 3 / 4 in their lower right corners, and the matching mage. Deal 5 artifacts face down (unseen) to form each player's deck.</p>
+<span class="subsection-title">Setup Tips</span>
+<p>Tip: Do you have dragons, creatures, or ways to make gold? This may suggest Places of Power that will work well for you or if you can buy several monuments.</p>
   </div>
 </details>
 <details class="section">
-  <summary><span>Setup</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <summary><span>Components</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
   <div class="section-body">
-<ol>
-<li>
-<p>Place the 8 <strong>magic items</strong>, tray of <strong>essences</strong>, and five <strong>5x essence chips</strong> in the center to form the <strong>supply</strong>.</p>
-</li>
-<li>
-<p>Set out the 5 <strong>Places of Power</strong> next to the supply. For each Place of Power, randomly select which side to use.</p>
-</li>
-<li>
-<p>Shuffle the <strong>monuments</strong>. Set out 2 face up and form a draw pile with the rest.</p>
-</li>
-<li>
-<p>Give 1 of each <strong>essence</strong> (including <strong>Gold</strong>) to each player to form their initial <strong>essence pools</strong>.</p>
-</li>
-<li>
-<p>Select a <strong>First Player</strong>, who takes the <strong>First Player token</strong>.</p>
-</li>
-<li>
-<p>Shuffle the <strong>mages</strong> and <strong>artifacts</strong> separately. Deal 2 mages and 8 artifacts to each player. Return the others to the box. Each player examines their cards, shuffles their artifacts to form their deck, offers it to an opponent to cut, and draws 3 artifacts as their initial hand. Each player then selects 1 mage, reveals it, and returns unused mages to the box.</p>
-</li>
-<li>
-<p>In counter-clockwise order, starting with the player to the right of the First Player, each player chooses 1 magic item. Begin play with the First Player.</p>
-</li>
-</ol>
-<span class="subsection-title">First Game Setup</span>
-<p>Instead of step 6, give each player a preset 3-card hand labeled 1, 2, 3, or 4 in the lower right corner, along with the matching mage. Deal 5 artifacts face down to form each player's deck.</p>
+<span class="subsection-title">Component Types</span>
+<p><strong>Mages</strong> and <strong>items</strong> are chosen during setup and begin in play. Each round, when a player passes, they will turn in their item for a new one.</p>
+<p>Each player has a personal deck of 8 <strong>artifacts</strong>, 3 of which form their initial hand. Artifacts are put into play by paying their placement cost in essences. Some artifacts are also Dragons or Creatures. A few artifacts are worth points.</p>
+<p><strong>Monuments</strong> and <strong>Places of Power</strong> are claimed from the center by paying their placement cost in essences. Once claimed, a monument or Place of Power cannot be taken by another player. Monuments and Places of Power provide the majority of players’ points.</p>
+<span class="subsection-title">Essences and Essence Pools</span>
+<p><strong>Essences</strong> are Calm, Death, Elan, Gold, or Life. Your <strong>Essence Pool</strong> consists of the essences you have, not on components, that you can spend to pay costs. </p>
+<p>The essences supplied are not a limit. As needed, put an essence on a "5x" essence chip to be 5 essences of that color. You may make change at any time.</p>
+<span class="subsection-title">Abilities and Powers (Overview)</span>
+<p>Components with <strong>Collect</strong> abilities provide essences at the start of each round.</p>
+<p>Many components have 1 or more <strong>powers</strong>. Powers have both a cost and an effect. Many costs include turning that component; once a component is turned, its powers, except for certain “React” powers, cannot be used.</p>
+<span class="subsection-title">Turned vs. Straightened Components</span>
+<p>Turning a component sideways is usually done as part of a power's cost. Once a component is turned, its powers cannot be used until it is straightened. At the end of each round, if no player has won, components are straightened and play continues with a new round.</p>
   </div>
 </details>
 <details class="section">
   <summary><span>Round Structure</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
   <div class="section-body">
-<p>A game typically lasts 4–6 rounds. In each round, follow these phases in order:</p>
-<ol>
-<li><strong>Collect Phase</strong></li>
-<li><strong>Action Phase</strong></li>
-<li><strong>Victory Check &amp; Cleanup</strong></li>
-</ol>
-<span class="subsection-title">1. Collect Phase</span>
-<span class="label-title">Collect Abilities</span>
-<p>Each player resolves <strong>Collect</strong> abilities and/or takes <strong>essences</strong> from their <strong>components</strong> in any order. For each Collect ability on your components, take from the <strong>supply</strong> the essences shown and add them to your <strong>essence pool</strong>. If an essence has a number, take that number of that essence; otherwise, take 1. If "+"s separate the essences, take all of them. If "/"s separate the essences, choose 1 of them. If a grey pentagon number is listed, choose any mix of essences that equal that number, subject to any restrictions noted after the symbol. Some components list a Collect cost and an effect which occurs if this cost is not paid. These may be resolved after taking other essences.</p>
-<span class="label-title">Taking Essences</span>
-<p>Players may also take any essences on their components during this step. You may take essences off some components and not others, but if you take any essences off a given component, you must take all of them. You may take all the essences from a Place of Power, but doing so will result in a loss of victory points.</p>
-<span class="label-title">Supply Management</span>
-<p>The essences in the supply are not a limit. As needed, put an essence on a <strong>5x essence chip</strong> to represent 5 essences of that color. You may make change at any time. Players usually collect their essences simultaneously, but may request that this step be done in player order, clockwise, starting with the First Player.</p>
-<span class="subsection-title">2. Action Phase</span>
-<span class="label-title">Turn Order &amp; Actions</span>
-<p>Starting with the <strong>First Player</strong> and continuing clockwise, each player does 1 action until all players have passed. A player who passes cannot do an action later in this step. Available actions are:</p>
+<span class="subsection-title">Phases of a Round</span>
+<p>A game typically lasts 4-6 rounds. In each round, do these steps:</p>
+<p><strong>1 Collect essences:</strong></p>
 <ul>
-<li><strong>Place an artifact</strong> from your hand in front of you, paying its <strong>placement cost</strong>.</li>
-<li><strong>Claim a monument or Place of Power</strong> from the center, placing it in front of you and paying its cost. As all monuments cost 4 Gold, you may claim either one of the two monuments on display or the top card of the monument deck. If you claim a monument on display, replace it with the top card from the monument deck if possible. Once claimed, a monument or Place of Power cannot be taken by another player.</li>
-<li><strong>Discard an artifact</strong> from your hand to gain 1 Gold or any 2 other essences (either the same or different). Tuck a discarded artifact sideways, face up, under your artifact deck to distinguish your discards from your turned artifacts. Your discards may be inspected by other players at any time.</li>
-<li><strong>Use a power</strong> on one of your straightened components.</li>
-<li><strong>Pass</strong>, ending your actions for this round.</li>
+<li>do any Collect abilities, and</li>
+<li>may take essences from components.</li>
 </ul>
-<span class="label-title">Placement Costs &amp; Discounts</span>
-<p>A component's placement cost is shown in its upper left corner. Pay the essences shown to the supply. If an essence has a number, pay that number of that essence; otherwise, pay 1. If the essence is a pentagon icon, pay any essence. If it lists a number with a pentagon, pay any mix of essences equal to that number. Some artifacts are also <strong>Dragons</strong> or <strong>Creatures</strong>, or both. Discount abilities that reduce a placement cost are cumulative with each other and possibly a power being used to place a component. If a cost is reduced below 0, it becomes 0. Two artifacts have a cost of "0" and may be placed for free as an action. All placed or claimed components begin play straightened.</p>
-<span class="label-title">Passing Procedure</span>
-<p>If you are the first to pass in a round, take the First Player token and flip it over to its Passed side. Swap your magic item for a different one in the supply, flipping the new magic item over to its Passed side. Then, draw 1 card if possible. If you have no cards in your deck, reshuffle your discards to form a new deck. Once a player passes, that player cannot do more actions that round and ignores all <strong>Life loss</strong>, but can still gain essences from rivals' powers.</p>
-<span class="subsection-title">3. Victory Check &amp; Cleanup</span>
-<p>Victory is checked immediately after the last player passes. A player must have 10 or more victory points to win. The player with the highest score wins the game. The First Player token is worth 1 point when checking victory. If no player has won, straighten all turned components and begin the next round.</p>
+<p><strong>2 Do actions, 1 per turn, clockwise from the First Player:</strong></p>
+<ul>
+<li>place an artifact,</li>
+<li>claim a monument or Place of Power,</li>
+<li>discard a card for 1 Gold or any 2 other essences,</li>
+<li>use a power on a straightened component, or</li>
+<li>pass: exchange magic items and draw 1 card.</li>
+</ul>
+<p>Continue until all players have passed.</p>
+<p><strong>3 Check victory (10+ VPs).</strong></p>
+<span class="subsection-title">End of Round</span>
+<p>If no one has won:</p>
+<ul>
+<li>straighten all turned components, and</li>
+<li>begin the next round.</li>
+</ul>
+<p><em>(See <code># Victory</code> for full End of Game details, including flipping the First Player token and magic items).</em></p>
   </div>
 </details>
 <details class="section">
-  <summary><span>Powers & React</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <summary><span>Collect Step</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
   <div class="section-body">
-<span class="label-title">Power Syntax &amp; Turning</span>
-<p>Many components list 1 or 2 powers. Powers have a cost and an effect, separated by a triangle. To use a power, pay its cost (putting any essences spent in the supply) and apply its effect (taking any gained essences from the supply). A power's cost often consists of several parts separated by "+"s. You must pay all of its cost to use a power. A power may require turning its component sideways as part or all of its cost. Once a component is turned, you may not use its powers until it is straightened. A power whose cost does not involve turning its component can be used multiple times in a round, but each use is a separate action. Many effects direct you to put gained essences on the component instead of in your essence pool, to be collected on a future round or to become victory points on Places of Power.</p>
-<span class="label-title">React Powers</span>
-<p>A React power is used out of turn in response to its condition occurring. Using one is not an action. A React power can be used if its component is turned sideways, unless its cost involves turning the component, as then the cost cannot be paid.</p>
-<span class="label-title">Life Loss &amp; Ignoring</span>
-<p>Some effects inflict Life loss on rivals, except those who have passed. Each rival must lose the indicated number of Life essences from their pool. For each Life essence a rival does not have, they must instead, if possible, lose any 2 other essences in their pool including Gold. Many React powers enable a player to ignore a given Life loss effect. Many powers that inflict Life loss provide each rival with an immediate React power which, if its cost is paid, enables that rival to ignore the Life loss.</p>
-<span class="label-title">Drawing &amp; Reshuffling</span>
-<p>Some effects direct you to draw a card. If you have no cards in your deck and you need to draw, reshuffle your discards to form a new deck. Some effects direct you to draw 3 cards from a deck. If there are fewer than 3 cards in that deck after reshuffling if it is your artifact deck, draw them all, and then replace or discard that number of cards.</p>
-<span class="label-title">Straightening</span>
-<p>Some effects enable you to straighten a turned component, making its powers available again.</p>
-<span class="label-title">Essence Conversion &amp; Rival Effects</span>
-<p>Some powers have costs that include some number of essences that must be the same. Their effects convert them all to the same number of a different essence. Some effects direct your rivals to gain essences from the supply. Rivals who have passed do gain these essences. Some effects gain essences equal to the number of essences of a rival. You may choose any opponent including one who has passed for this effect. Count only the essences in that player's essence pool. Those essences are not removed. Some effects produce a mix of essences based on an artifact's placement cost. Total the number of essences in the cost, adjust this by any modifier, and then take this number of essences from the supply in any mix subject to any listed restrictions. The essences you take need not include any essences listed in that artifact's cost. Some effects provide a number of essences. Choose any mix of essences equal to that number, subject to any restrictions. Some powers involve discarding or destroying your artifacts. Discarding is from hand, whereas destroy is to discard from play. Put the card in your discard pile tucked sideways under your deck. If there are essences on the destroyed card, return them to the supply. A turned artifact can be destroyed by another component's power.</p>
+<p>Each player does their Collect abilities and/or takes essences from their components (in any order).</p>
+<span class="subsection-title">Collect Abilities</span>
+<blockquote>
+<p>A component is an artifact, mage, magic item, monument, or Place of Power. (See <code># Actions</code> -&gt; <code>## Use a Power</code>).</p>
+</blockquote>
+<p>For each <img alt="Collect" class="rule-icon" src="icons/page-005_icon_1_collect.png"/> Collect ability on your components, take from the supply the essences shown and add them to your essence pool:</p>
+<ul>
+<li>If an essence has a number, take that number of that essence from the supply; otherwise, take 1.</li>
+<li>If "+"s separate the essences, take all of them.</li>
+<li>If "/"s separate the essences, choose 1 of them.</li>
+<li>If a number of <img alt="Essences" class="rule-icon" src="icons/page-005_icon_2_essences.png"/> is listed, choose any mix of essences that equal that number, subject to any restrictions after this symbol, such as [gold or death with red x]: no Gold or Death.</li>
+</ul>
+<span class="subsection-title">Taking Essences from Components</span>
+<p>Players may also take any essences on their components during this step.</p>
+<p>You may take essences off some components and not others, but if you take any essences off a given component, you must take <em>all</em> of them.</p>
+<span class="subsection-title">Collect Fine Points</span>
+<p>Some components (e.g. Cursed Forge) list a Collect cost and an effect which occurs if this cost is not paid. These may be resolved after taking other essences.</p>
+<p>Two artifacts, the Vault and Windup Man, produce effects if you choose to leave all their essences on them. See <code># Component Clarifications</code> for details and examples.</p>
+<p>You may take all the essences from a Place of Power (but doing so will result in a loss of victory points).</p>
+<p>Players usually collect their essences simultaneously, but may request that this step be done in player order, clockwise, starting with the First Player.</p>
   </div>
 </details>
 <details class="section">
-  <summary><span>Scoring & Victory</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <summary><span>Actions</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
   <div class="section-body">
-<p>Victory points are calculated from claimed monuments, Places of Power, and any temporary scoring effects. The First Player token is worth 1 point when checking victory. Some React powers provide temporary points that last only until the end of the current victory check. The player with the highest score wins the game, provided they have reached the minimum of 10 points.</p>
+<span class="subsection-title">Action Flow</span>
+<p>Starting with the First Player and continuing clockwise, each player does 1 action until all players have passed. A player who passes cannot do an action later in this step.</p>
+<p>The five types of actions are detailed below.</p>
+<span class="subsection-title">Place an Artifact</span>
+<p>Place an artifact from your hand in front of you, paying its cost. (See <code>## Placement Costs</code>.)</p>
+<span class="subsection-title">Claim a Monument or Place of Power</span>
+<p>Claim a monument or Place of Power from the center, placing it in front of you and paying its cost.</p>
+<p>As all monuments cost 4 Gold, you may claim either one of the two monuments on display or the top card of the monument deck. If you claim a monument on display, replace it with the top card from the monument deck (if possible).</p>
+<p>Once claimed, a monument or Place of Power cannot be taken by another player. The supply of monuments and Places of Power is limited.</p>
+<span class="subsection-title">Discard an Artifact for Essences</span>
+<p>Discard an artifact from your hand to gain 1 Gold or any 2 other essences (either the same or different).</p>
+<p>Tuck a discarded artifact sideways, face up, under your artifact deck (to distinguish your discards from your turned artifacts). Your discards may be inspected by other players at any time.</p>
+<p><em>Tip: Do not try to place all of your artifacts. Instead, discard some of them to gain the essences needed to place the others.</em></p>
+<span class="subsection-title">Use a Power</span>
+<p>Use a power on one of your straightened components (see <code># Powers</code>). Powers on turned components cannot be used (except some React powers).</p>
+<p>A component is an artifact, mage, magic item, monument, or Place of Power.</p>
+<span class="subsection-title">Pass</span>
+<p>A player who cannot or does not wish to do an action must pass, ending their actions for this round.</p>
+<p>The pass procedure is as follows:</p>
+<p>a. If you are the first to pass in a round, take the First Player token – worth 1 point when checking victory – and flip it over to its Passed side.<br/>
+b. Swap your magic item for a different one in the supply, flipping the new magic item over to its Passed side.<br/>
+c. Draw 1 card (if possible). If you have no cards in your deck, reshuffle your discards to form a new deck.</p>
+<p>Once a player passes, that player cannot do more actions that round and ignores all Life loss, but can still gain essences from rivals' powers.</p>
+<span class="subsection-title">Placement Costs</span>
+<p>A component's placement cost is shown in its upper left corner. Pay the essences shown to the supply.</p>
+<p>If an essence has a number, pay that number of that essence to the supply; otherwise, pay 1.</p>
+<p>If the essence is <img alt="Essences" class="rule-icon" src="icons/page-005_icon_2_essences.png"/>, pay any essence. If it lists a number, pay any mix of essences equal to that number.</p>
+<p>Some artifacts are also Dragons (<img alt="Dragon" class="rule-icon" src="icons/page-003_icon_7_dragon.png"/>), Creatures (<img alt="Creature" class="rule-icon" src="icons/page-003_icon_6_creature.png"/>), or both (the Sea Serpent). Some discounts reduce the cost to place any artifacts, while others only reduce the cost to place Dragons.</p>
+<p>All placed or claimed components begin play straightened.</p>
+<span class="subsection-title">Action Fine Points</span>
+<p>Two artifacts (Magical Shard, Prism) have a cost of "0"; they may be placed for free (as an action).</p>
+<p><em>Tip: As artifacts can instead be discarded from hand for essences, there is still an implicit cost to place them.</em></p>
+<p>Discount abilities that reduce a placement cost (Artificer, Dragon Bridle, Dragon Lair) are cumulative with each other and possibly a power (Crypt, Dragon Egg, Sorcerer's Bestiary) being used to place a component. If a cost is reduced below 0, it becomes 0.</p>
   </div>
 </details>
 <details class="section">
-  <summary><span>Component Reference</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <summary><span>Powers</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
   <div class="section-body">
-<span class="label-title">Mages</span>
-<p><strong>Artificer:</strong> This discount applies only to artifacts, not Places of Power or Monuments.</p>
-<p><strong>Transmuter:</strong> Some of the non-gold essences you take can be the same as those you turn in. You must have at least 2 essences in your pool to use this power.</p>
-<span class="label-title">Artifacts</span>
-<p><strong>Athanor:</strong> This artifact has two powers. The first is used to build Elan on it, which may be taken during the Collect step if desired. The second requires turning in 6 Elan from this artifact to convert any number of some essence, all the same, into that number of Gold.</p>
-<p><strong>Corrupt Altar:</strong> Its second power may be used to destroy the Corrupt Altar itself.</p>
-<p><strong>Crypt:</strong> The artifact being placed by its second power must be in your discard pile. If the artifact's placement cost is Gold and 1 other essence, reduce its cost to the Gold.</p>
-<p><strong>Fiery Whip:</strong> Its second power cannot be used on itself.</p>
-<p><strong>Guard Dog:</strong> Its first power to straighten itself can be used when the Guard Dog is turned, unlike most powers.</p>
-<p><strong>Mermaid:</strong> Its power is to place 1 Calm, Life, or Gold essence from its owner's pool on one of their components.</p>
-<p><strong>Sacrificial Dagger:</strong> Its second power requires both destroying this artifact and discarding a card from hand.</p>
-<p><strong>Windup Man:</strong> Its Collect ability increases the number of essences on this artifact for a future round, provided its owner takes no essences from it during the Collect step.</p>
-<p><strong>Vault:</strong> Its Collect ability gains its owner any 2 non-Gold essences as interest if there is 1 or more Gold on the Vault that its owner does not take.</p>
-<span class="label-title">Magic Items</span>
-<p><strong>Transmutation:</strong> Some of the essences you take may be the same as those you turn in. You must have at least 3 essences in your essence pool to use this power.</p>
-<span class="label-title">Places of Power</span>
-<p><strong>Cursed Forge:</strong> During the Collect step, either pay 1 Death as the curse or turn this Place of Power.</p>
-<p><strong>Dragon's Lair:</strong> This power requires turning both this component and a Dragon.</p>
-<p><strong>Sacred Grove:</strong> This power requires turning both this component and a Creature.</p>
-<p><strong>Sorcerer's Bestiary:</strong> This Place of Power scores 3 points for the Sea Serpent, which is both a Dragon and Creature.</p>
+<span class="subsection-title">How Powers Work</span>
+<p>Many components list 1 or 2 powers. Powers have a cost and an effect, separated by a triangle.</p>
+<p>Turn this component + pay 1 Life &gt; Take 1 Elan + 1 Death</p>
+<p>To use a power, pay its cost (putting any essences spent in the supply) and apply its effect (taking any essences gained from the supply).</p>
+<p>A power's cost often consists of several parts, separated by "+"s. You must pay all of its cost to use a power.</p>
+<span class="subsection-title">Turning Components</span>
+<p><img alt="Turning" class="rule-icon" src="icons/page-003_icon_8_turning.png"/> A power may require turning its component sideways as part (or all) of its cost. Once a component is turned, unlike abilities, you may not use its powers (except some React powers) until it is straightened.</p>
+<p>A power whose cost does not involve turning its component can be used multiple times in a round, but each use of that power is a separate action.</p>
+<span class="subsection-title">Essences on Components</span>
+<p><img alt="On The Component" class="rule-icon" src="icons/page-007_icon_3_on_the_component.png"/> Many effects direct you to put the gained essences on the component, instead of in your essence pool, to be collected on a future round or to become victory points on Places of Power.</p>
+<span class="subsection-title">Life Loss</span>
+<p>Some effects inflict Life loss <img alt="Life Loss" class="rule-icon" src="icons/page-007_icon_2_life_loss.png"/> on rivals, except those who have passed. Each rival must lose the indicated number of Life essences from their pool. For each Life essence a rival does not have, they must instead, if possible, lose any 2 other essences in their pool (including Gold).</p>
+<p>Many React powers enable a player to ignore a given Life loss effect. Many powers that inflict Life loss (e.g. Dragons) provide each rival with an immediate React power which, if its cost is paid, enables that rival to ignore the Life loss. See <code>## React Powers</code>.</p>
+<span class="subsection-title">React Powers</span>
+<p>A <strong>React Power</strong> is a power that may be used out of turn if its condition occurs. A React on a turned component may be used if its cost does not involve turning that component.</p>
+<span class="subsection-title">Powers Fine Points</span>
+<p>Some effects provide a number of essences. Choose any mix of essences equal to that number, subject to any restrictions, such as (...); no Gold or Life.</p>
+<p>Some powers involve discarding or destroying your artifacts. Discarding is from hand, whereas destroy is to discard from play. Put the card in your discard pile (tucked sideways under your deck). If there are essences on the destroyed card, return them to the supply. A turned artifact can be destroyed (by another component's power).</p>
+<p>Some effects direct you to draw a card. If you have no cards in your deck and you need to draw, reshuffle your discards to form a new deck.</p>
+<p>Some effects (Divination, Hawk, Oracle) direct you to draw 3 cards from a deck. If there are fewer than 3 cards in that deck (after reshuffling, if it is your artifact deck), draw them all, and then replace/discard that number of cards.</p>
+<p><img alt="Straighten Any Component" class="rule-icon" src="icons/page-008_icon_2_straighten_any_component.png"/> <img alt="Straighten A Creature" class="rule-icon" src="icons/page-008_icon_1_straighten_a_creature.png"/> Some effects (e.g. Chalice of Fire, Reanimate, Witch) enable you to straighten a turned component, making its powers available again. The Druid can straighten only Creature artifacts.</p>
+<p>Some powers (e.g. Athanor, Philosopher's Stone, Prism) have costs that include some number of essences that must be the same. Their effects convert them all to the same number of a different essence, such as Gold.</p>
+<p>Some effects direct your rivals to gain essences from the supply. Rivals who have passed do gain these essences.</p>
+<p>Some effects (e.g. Hypnotic Basin, Treant) gain essences equal to the number of essences of a rival. You may choose any opponent – including one who has passed – for this effect. Count only the essences in that player's essence pool. Those essences are not removed.</p>
+<p>Some effects (e.g. Corrupt Altar, Fiery Whip, Sacrificial Dagger, Sacrificial Pit) produce a mix of essences based on an artifact's placement cost. Total the number of essences in the cost, adjust this by any modifier, and then take this number of essences from the supply, in any mix (subject to any listed restrictions). The essences you take need not include any essences listed in that artifact's cost.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Victory</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Checking Victory</span>
+<p>After all players have passed, check if any player has 10 or more points from their placed artifacts, monuments, Places of Power, and the First Player token.</p>
+<p>If at least one player has 10+ points, the game is over and the player with the most points wins!</p>
+<span class="subsection-title">Ties</span>
+<blockquote>
+<p>If several players are tied for most points above 10, then the player among them with the most essences <em>in their essence pool</em>, with Gold essences counting double, wins. If several of these players are still tied, they share their victory.</p>
+</blockquote>
+<span class="subsection-title">Victory Fine Points</span>
+<p>Count all Place of Power victory abilities and victory points on turned components when checking victory.</p>
+<p>The Places of Power Cursed Forge, Sacred Grove, and Sacrificial Pit each provide 1 or 2 points in addition to their points for the essences on them.</p>
+<p>The First Player token provides 1 point for the player who holds it when checking victory.</p>
+<p>A player who has claimed the Coral Castle or Sorcerer's Bestiary may use its power to check victory immediately in the middle of a round (to win once they have 10+ points and are ahead, before another player gains more points).</p>
+<p>The Golden Statue's React power (to spend 3 Gold for 3 temporary points) may always be used when checking victory, whether or not its owner has passed.</p>
+<span class="subsection-title">End of Game</span>
+<p>If no one has 10+ points, straighten all turned components, flip over the First Player token and magic items from their Passed sides, and begin the next round.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Draft Variants</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>After you become reasonably familiar with the artifacts, you may wish to try these variants.</p>
+<span class="subsection-title">Artifact Draft for 2-4 Players</span>
+<p>This variant replaces setup step 6.</p>
+<p>After players receive their 2 mages, deal 4 artifacts to each player. Each player keeps 1 artifact and passes the other cards to the left (clockwise). Repeat this keep-1-and-pass-the-rest until there are no more artifacts to pass.</p>
+<p>Then, deal 4 more artifacts to each player. Each player keeps 1 of these artifacts and passes the others to the <em>right</em> (counter-clockwise). Repeat this keep-1-and-pass-the-rest until there are no more artifacts to pass.</p>
+<p>Each player should have 8 artifacts. After examining them, shuffle them to form your initial deck, offer it to an opponent to cut, and draw your initial hand of 3 artifacts.</p>
+<p>Then, choose mages and magic items normally. Begin play.</p>
+<span class="subsection-title">Match Play for 2</span>
+<p>This adds a face up draft in the middle of a 3 game match.</p>
+<p>Play game 1 using the standard setup rules.</p>
+<p>After game 1, players retain their mages and place all 16 artifacts from game 1 face up between them. Do setup steps 1-4. The loser of game 1 chooses who will be First Player for game 2. The First Player chooses 1 from the face up artifacts. Players then alternate choosing 2 artifacts until only 1 artifact is left for the First Player, who takes it.</p>
+<p>Shuffle your deck for your opponent to cut. Draw your initial hand before choosing magic items. Begin game 2.</p>
+<p>After game 2, if you are tied with 1 win apiece, play game 3. Do setup steps 1-4 normally, with each player keeping their mage and the artifacts they drafted after game 1.</p>
+<p>The loser of game 2 chooses who is First Player for game 3. Shuffle your deck for your opponent to cut and draw your initial hand. Then, choose magic items and begin play.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Component Clarifications</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>See also <code># Powers</code> Fine Points.</p>
+<span class="subsection-title">Mages</span>
+<p><strong>Artificer:</strong> this discount applies only to artifacts, not Places of Power or Monuments.</p>
+<p><strong>Transmuter:</strong> some of the non-gold essences you take can be the same as those you turn in. If you have fewer than 2 essences in your pool, you may not use this power.</p>
+<span class="subsection-title">Artifacts</span>
+<p><strong>Athanor:</strong> this artifact has two powers. The first is used to build Elan on it (which may be taken during the Collect step if desired). The second requires turning in 6 Elan from this artifact to convert any number of some essence, all the same, into that number of Gold.</p>
+<p><strong>Corrupt Altar:</strong> its second power may be used to destroy the Corrupt Altar itself.</p>
+<p><strong>Crypt:</strong> the artifact being placed by its second power must be in your discard pile. If the artifact's placement cost is Gold and 1 other essence, reduce its cost to the Gold.</p>
+<p><strong>Fiery Whip:</strong> its second power can not be used on itself.</p>
+<p><strong>Guard Dog:</strong> its first power (to straighten itself) can be used when the Guard Dog is turned (unlike most powers).</p>
+<p><strong>Mermaid:</strong> its power is to place 1 Calm, Life, or Gold essence from its owner's pool on one of their components. (Typically, this is used to place an essence on a Place of Power that scores for it.)</p>
+<p><strong>Sacrificial Dagger:</strong> its second power requires both destroying this artifact and discarding a card from hand.</p>
+<p><strong>Windup Man:</strong> its Collect ability increases the number of essences on this artifact (for a future round), provided its owner takes no essences from it during the Collect step.</p>
+<blockquote>
+<p>Example. In round 1, its owner uses the Windup Man's power to put a Gold on it. During round 2, its owner leaves this Gold on it during Collect, adds 2 more Gold to it, and then uses its power to put an Elan on it. During round 3, its owner leaves the Elan and 3 Gold on it during Collect and adds 2 Gold and 2 Elan. In round 4, its owner takes 5 Gold and 3 Elan from this artifact in the Collect step.</p>
+</blockquote>
+<p><strong>Vault:</strong> its Collect ability gains its owner any 2 non-Gold essences ("interest"), if there is 1 or more Gold on the Vault that its owner does not take.</p>
+<blockquote>
+<p>Example. In round 1, its owner turns the Vault to put a Gold from the supply on it. In round 2, its owner leaves this Gold on it during Collect, takes 1 Calm and 1 Life from the supply, and uses its power to add a Gold to it. In round 3, its owner takes 2 Gold from it instead of 2 non-Gold essences from the supply.</p>
+</blockquote>
+<span class="subsection-title">Magic Items</span>
+<p><strong>Transmutation:</strong> some of the essences you take may be the same as those you turn in. You must have at least 3 essences in your essence pool to use this power.</p>
+<span class="subsection-title">Monuments</span>
+<p><strong>Golden Statue:</strong> the points provided by this React power are temporary, lasting until the end of this victory check.</p>
+<span class="subsection-title">Places of Power</span>
+<p><strong>Cursed Forge:</strong> during the Collect step, either pay 1 Death (the curse) or turn this Place of Power. (See <code># Collect Step</code>).</p>
+<p><strong>Dragon's Lair:</strong> this power requires turning both this component and a Dragon.</p>
+<p><strong>Sacred Grove:</strong> this power requires turning both this component and a Creature.</p>
+<p><strong>Sorcerer's Bestiary:</strong> this Place of Power scores 3 points for the Sea Serpent (which is both a Dragon and Creature).</p>
   </div>
 </details>
 <details class="section">
   <summary><span>Glossary</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
   <div class="section-body">
-<p><strong>Ability:</strong> A Collect effect, placement discount, or victory formula on a component that automatically applies whether or not that component is turned.</p>
-<p><strong>Component:</strong> An artifact, mage, magic item, monument, or Place of Power.</p>
-<p><strong>Creature:</strong> A type of artifact.</p>
-<p><strong>Destroy:</strong> To discard an artifact from play, not from hand. Destroyed artifacts are placed in your discard pile.</p>
-<p><strong>Discount:</strong> A reduction in the number of essences needed to place a given component. Placement discounts cannot reduce a cost below zero.</p>
-<p><strong>Dragon:</strong> A type of artifact.</p>
+<span class="subsection-title">Terms</span>
+<p><strong>Ability:</strong> a Collect effect, placement discount, or victory formula on a component that automatically applies (when appropriate) whether or not that component is turned.</p>
+<p><strong>Component:</strong> an artifact, mage, magic item, monument, or Place of Power.</p>
+<p><strong>Creature:</strong> a type of artifact.</p>
+<p><strong>Destroy:</strong> to discard an artifact from play, not from hand. Destroyed artifacts are placed in your discard pile.</p>
+<p><strong>Discount:</strong> a reduction in the number of essences needed to place a given component. Placement discounts cannot reduce a cost below zero.</p>
+<p><strong>Dragon:</strong> a type of artifact.</p>
 <p><strong>Essence:</strong> Calm, Death, Elan, Gold, or Life.</p>
-<p><strong>Essence Pool:</strong> Essences a player has, not on components, that they can spend to pay costs.</p>
-<p><strong>Life Loss:</strong> A rival's effect which requires you to either use a React power to ignore it or pay the indicated number of Life. For each Life you cannot pay, you must lose 2 other essences from your pool if possible. Players who have passed ignore Life loss.</p>
-<p><strong>Mage:</strong> A component that begins in play. A mage is not an artifact and cannot be destroyed.</p>
-<p><strong>Magic Item:</strong> A component type taken from the supply during setup and swapped when passing.</p>
-<p><strong>Monument:</strong> A component type claimed from the center. A monument is not an artifact and cannot be destroyed.</p>
-<p><strong>Passed:</strong> A player who has passed cannot do further actions that round and ignores all Life loss, but still gains any essences provided by rivals' powers.</p>
-<p><strong>Place of Power:</strong> A component type claimed from the center. A Place of Power is not an artifact and cannot be destroyed.</p>
-<p><strong>Placement Cost:</strong> The cost in essences to place an artifact or claim a monument or Place of Power.</p>
-<p><strong>Power:</strong> A cost and an effect on a component. Except for React powers, using a power requires its component be straightened, takes an action, and involves paying its cost and applying its effect.</p>
-<p><strong>React Power:</strong> A power that may be used out of turn if its condition occurs. A React on a turned component may be used if its cost does not involve turning that component.</p>
-<p><strong>Rivals:</strong> Your opponents (not you).</p>
-<p><strong>Straighten:</strong> To turn a sideways component straight, ready to be used again.</p>
-<p><strong>Turn:</strong> To turn a component sideways, usually as part of a power's cost.</p>
-  </div>
-</details>
-<details class="section">
-  <summary><span>Variants (Optional)</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
-  <div class="section-body">
-<span class="subsection-title">Draft Variant (2–4 Players)</span>
-<p>This variant replaces setup step 6. After players receive their 2 mages, deal 4 artifacts to each player. Each player keeps 1 artifact and passes the other cards to the left clockwise. Repeat this keep-1-and-pass-the-rest until there are no more artifacts to pass. Then, deal 4 more artifacts to each player. Each player keeps 1 of these artifacts and passes the others to the right counter-clockwise. Repeat this keep-1-and-pass-the-rest until there are no more artifacts to pass. Each player should have 8 artifacts. After examining them, shuffle them to form your initial deck, offer it to an opponent to cut, and draw your initial hand of 3 artifacts. Then, choose mages and magic items normally. Begin play.</p>
-<span class="subsection-title">Match Play (2 Players)</span>
-<p>This adds a face up draft in the middle of a 3 game match. Play game 1 using the standard setup rules. After game 1, players retain their mages and place all 16 artifacts from game 1 face up between them. Do setup steps 1-4. The loser of game 1 chooses who will be First Player for game 2. The First Player chooses 1 from the face up artifacts. Players then alternate choosing 2 artifacts until only 1 artifact is left for the First Player, who takes it. Shuffle your deck for your opponent to cut. Draw your initial hand before choosing magic items. Begin game 2. After game 2, if you are tied with 1 win apiece, play game 3. Do setup steps 1-4 normally, with each player keeping their mage and the artifacts they drafted after game 1. The loser of game 2 chooses who is First Player for game 3. Shuffle your deck for your opponent to cut and draw your initial hand. Then, choose magic items and begin play.</p>
-  </div>
-</details>
-<details class="section">
-  <summary><span>Res Arcana Rules — Icon Reference</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
-  <div class="section-body">
+<p><strong>Essence Pool:</strong> essences a player has, not on components, that they can spend to pay costs.</p>
+<p><strong>Life Loss:</strong> a rival's effect which requires you to either use a React power to ignore it or pay the indicated number of Life. For each Life you cannot pay, you must lose 2 other essences from your pool (if possible). Players who have passed ignore Life loss.</p>
+<p><strong>Mage:</strong> a component that begins in play. A mage is not an artifact and cannot be destroyed.</p>
+<p><strong>Magic item:</strong> a component type taken from the supply during setup and swapped when passing.</p>
+<p><strong>Monument:</strong> a component type claimed from the center. A monument is not an artifact and cannot be destroyed.</p>
+<p><strong>Passed:</strong> a player who has passed cannot do further actions that round and ignores all Life loss, but still gains any essences provided by rivals' powers.</p>
+<p><strong>Place of Power:</strong> a component type claimed from the center. A Place of Power is not an artifact and cannot be destroyed.</p>
+<p><strong>Placement Cost:</strong> the cost in essences to place an artifact or claim a monument or Place of Power.</p>
+<p><strong>Power:</strong> a cost and an effect on a component. Except for React powers, using a power requires its component be straightened (not yet turned sideways), takes an action, and involves paying its cost and applying its effect.</p>
+<p><strong>React Power:</strong> a power that may be used out of turn if its condition occurs. A React on a turned component may be used if its cost does not involve turning that component.</p>
+<p><strong>Rivals:</strong> your opponents (not you).</p>
+<p><strong>Straighten:</strong> to turn a sideways component straight, ready to be used again.</p>
+<p><strong>Turn:</strong> to turn a component sideways, usually as part of a power's cost.</p>
+<span class="subsection-title">Icon Reference</span>
 <div class="table-wrap"><table>
 <thead>
 <tr>
@@ -598,49 +714,134 @@ details.section.search-hidden { display: none; }
 </thead>
 <tbody>
 <tr>
+<td><img alt="Elan" src="icons/page-003_icon_1_elan.png"/></td>
+<td><strong>Elan</strong></td>
+<td>One of the five magical resources players collect, store, and spend to pay various game costs.</td>
+</tr>
+<tr>
+<td><img alt="Life" src="icons/page-003_icon_2_life.png"/></td>
+<td><strong>Life</strong></td>
+<td>A magical resource used to pay costs, which can also be lost when targeted by rivals' Life Loss effects.</td>
+</tr>
+<tr>
+<td><img alt="Calm" src="icons/page-003_icon_3_calm.png"/></td>
+<td><strong>Calm</strong></td>
+<td>One of the five magical resources players collect, store, and spend to pay various game costs.</td>
+</tr>
+<tr>
+<td><img alt="Death" src="icons/page-003_icon_4_death.png"/></td>
+<td><strong>Death</strong></td>
+<td>One of the five magical resources players collect, store, and spend to pay various game costs.</td>
+</tr>
+<tr>
+<td><img alt="Gold" src="icons/page-003_icon_5_gold.png"/></td>
+<td><strong>Gold</strong></td>
+<td>A versatile magical resource used to pay costs, claim monuments, and break victory tie-breakers.</td>
+</tr>
+<tr>
+<td><img alt="Creature" src="icons/page-003_icon_6_creature.png"/></td>
+<td><strong>Creature</strong></td>
+<td>A specific type of artifact that may uniquely interact with certain Places of Power or component effects.</td>
+</tr>
+<tr>
+<td><img alt="Dragon" src="icons/page-003_icon_7_dragon.png"/></td>
+<td><strong>Dragon</strong></td>
+<td>A specific type of artifact that may uniquely interact with certain Places of Power or inflict Life Loss.</td>
+</tr>
+<tr>
+<td><img alt="Turning" src="icons/page-003_icon_8_turning.png"/></td>
+<td><strong>Turning</strong></td>
+<td>The act of rotating a component sideways to pay a power's cost, which exhausts it until straightened.</td>
+</tr>
+<tr>
+<td><img alt="First Game Side" src="icons/page-004_icon_1_first-game-side.png"/></td>
+<td><strong>First Game Side</strong></td>
+<td>The recommended face-up side of Places of Power used to guide players through their initial learning game.</td>
+</tr>
+<tr>
+<td><img alt="Collect" src="icons/page-005_icon_1_collect.png"/></td>
+<td><strong>Collect</strong></td>
+<td>An ability that supplies players with specific essences from the supply at the start of every round.</td>
+</tr>
+<tr>
+<td><img alt="Essences" src="icons/page-005_icon_2_essences.png"/></td>
+<td><strong>Essences</strong></td>
+<td>The five magical resource types—Calm, Death, Elan, Gold, and Life—used to pay costs and score points.</td>
+</tr>
+<tr>
+<td><img alt="Pay 1 Life" src="icons/page-007_icon_1_pay_1_life.png"/></td>
+<td><strong>Pay 1 Life</strong></td>
+<td>A power cost requiring a player to return one Life essence from their pool to the supply.</td>
+</tr>
+<tr>
+<td><img alt="Life Loss" src="icons/page-007_icon_2_life_loss.png"/></td>
+<td><strong>Life Loss</strong></td>
+<td>A hostile rival effect forcing you to lose Life, substituting two other essences for any missing Life.</td>
+</tr>
+<tr>
+<td><img alt="On The Component" src="icons/page-007_icon_3_on_the_component.png"/></td>
+<td><strong>On The Component</strong></td>
+<td>An effect modifier indicating that gained essences must be placed directly onto the component rather than into your pool.</td>
+</tr>
+<tr>
+<td><img alt="Straighten A Creature" src="icons/page-008_icon_1_straighten_a_creature.png"/></td>
+<td><strong>Straighten A Creature</strong></td>
+<td>A power effect that returns a turned Creature artifact to its upright position, reactivating its powers.</td>
+</tr>
+<tr>
+<td><img alt="Straighten Any Component" src="icons/page-008_icon_2_straighten_any_component.png"/></td>
+<td><strong>Straighten Any Component</strong></td>
+<td>A power effect that returns any turned component to its upright position, making its powers usable again.</td>
+</tr>
+<tr>
+<td><img alt="Identical Essences" src="icons/page-008_icon_3_identical_essences.png"/></td>
+<td><strong>Identical Essences</strong></td>
+<td>A power requirement specifying that multiple essences spent or converted must all be of the exact same type.</td>
+</tr>
+<tr>
 <td><img alt="Any Mix Of Essence" src="icons/any-mix-of-essence.jpg"/></td>
 <td><strong>Any Mix Of Essence</strong></td>
-<td>This symbol allows players to choose any combination of essences to satisfy a cost or gain a specified number. This icon refers to one essence, if it has a number it is referring to that number of essences.</td>
+<td>A payment or collection option allowing a player to choose any combination of essence types up to the indicated number.</td>
 </tr>
 <tr>
 <td><img alt="Collect" src="icons/collect.jpg"/></td>
 <td><strong>Collect</strong></td>
-<td>This phase begins each round, allowing players to gather essences from their components and the central supply.</td>
+<td>An ability that supplies players with specific essences from the supply at the start of every round.</td>
 </tr>
 <tr>
 <td><img alt="Creature" src="icons/creature.jpg"/></td>
 <td><strong>Creature</strong></td>
-<td>This icon represents a specific type of artifact component that can be placed or claimed during gameplay.</td>
+<td>A specific type of artifact that may uniquely interact with certain Places of Power or component effects.</td>
 </tr>
 <tr>
 <td><img alt="Dragon" src="icons/dragon.jpg"/></td>
 <td><strong>Dragon</strong></td>
-<td>This icon represents a specific type of artifact component that often provides placement discounts or unique abilities.</td>
+<td>A specific type of artifact that may uniquely interact with certain Places of Power or inflict Life Loss.</td>
 </tr>
 <tr>
 <td><img alt="Identical Essences" src="icons/identical-essences.jpg"/></td>
 <td><strong>Identical Essences</strong></td>
-<td>This requirement forces players to spend multiple essences of the exact same type to activate a power.</td>
+<td>A power requirement specifying that multiple essences spent or converted must all be of the exact same type.</td>
 </tr>
 <tr>
 <td><img alt="Life Loss" src="icons/life-loss.jpg"/></td>
 <td><strong>Life Loss</strong></td>
-<td>Each targetted rival (except those who have passed) must lose the indicated number of Life essences from their pool. For each Life essence they don't have, they lose any 2 other essences.</td>
+<td>A hostile rival effect forcing you to lose Life, substituting two other essences for any missing Life.</td>
 </tr>
 <tr>
 <td><img alt="On The Component" src="icons/on-the-component.jpg"/></td>
 <td><strong>On The Component</strong></td>
-<td>This action places essences directly onto a component for future collection or scoring instead of adding them to your pool. If preceded by 'Destroy' it means destroy this artifact.</td>
+<td>An effect modifier indicating that gained essences must be placed directly onto the component rather than into your pool.</td>
 </tr>
 <tr>
 <td><img alt="Straighten Any Component" src="icons/straighten-any-component.jpg"/></td>
 <td><strong>Straighten Any Component</strong></td>
-<td>This effect resets a turned component to its upright position, restoring its usable powers for future actions.</td>
+<td>A power effect that returns any turned component to its upright position, making its powers usable again.</td>
 </tr>
 <tr>
 <td><img alt="Turning" src="icons/turning.jpg"/></td>
 <td><strong>Turning</strong></td>
-<td>This action rotates a component sideways as a cost, temporarily disabling its powers until it is straightened.</td>
+<td>The act of rotating a component sideways to pay a power's cost, which exhausts it until straightened.</td>
 </tr>
 </tbody>
 </table></div>
@@ -662,8 +863,6 @@ details.section.search-hidden { display: none; }
   var allMarks = [];
   var currentMark = -1;
 
-  // Snapshot each section body's original HTML so we can restore it
-  // before applying a new round of highlights.
   sections.forEach(function (s) {
     var body = s.querySelector('.section-body');
     if (body) body.dataset.original = body.innerHTML;
@@ -737,7 +936,6 @@ details.section.search-hidden { display: none; }
       var body    = section.querySelector('.section-body');
       var summary = section.querySelector('summary');
 
-      // Restore original HTML before each search pass
       if (body) body.innerHTML = body.dataset.original;
 
       if (!re) {

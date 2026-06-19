@@ -1,0 +1,166 @@
+[
+  {
+    "source_image": "page-003.png",
+    "image_dimensions": [
+      1364,
+      1364
+    ],
+    "annotations": [
+      {
+        "x1": 270,
+        "y1": 455,
+        "x2": 333,
+        "y2": 523,
+        "name": "elan"
+      },
+      {
+        "x1": 351,
+        "y1": 455,
+        "x2": 410,
+        "y2": 524,
+        "name": "life"
+      },
+      {
+        "x1": 424,
+        "y1": 454,
+        "x2": 484,
+        "y2": 523,
+        "name": "calm"
+      },
+      {
+        "x1": 502,
+        "y1": 453,
+        "x2": 563,
+        "y2": 522,
+        "name": "death"
+      },
+      {
+        "x1": 578,
+        "y1": 453,
+        "x2": 638,
+        "y2": 523,
+        "name": "gold"
+      },
+      {
+        "x1": 1219,
+        "y1": 576,
+        "x2": 1243,
+        "y2": 605,
+        "name": "creature"
+      },
+      {
+        "x1": 1219,
+        "y1": 736,
+        "x2": 1244,
+        "y2": 766,
+        "name": "dragon"
+      },
+      {
+        "x1": 605,
+        "y1": 965,
+        "x2": 663,
+        "y2": 1029,
+        "name": "turning"
+      }
+    ]
+  },
+  {
+    "source_image": "page-004.png",
+    "image_dimensions": [
+      1364,
+      1364
+    ],
+    "annotations": [
+      {
+        "x1": 341,
+        "y1": 275,
+        "x2": 382,
+        "y2": 308,
+        "name": "first-game-side"
+      }
+    ]
+  },
+  {
+    "source_image": "page-005.png",
+    "image_dimensions": [
+      1364,
+      1364
+    ],
+    "annotations": [
+      {
+        "x1": 319,
+        "y1": 253,
+        "x2": 365,
+        "y2": 295,
+        "name": "collect"
+      },
+      {
+        "x1": 870,
+        "y1": 523,
+        "x2": 911,
+        "y2": 561,
+        "name": "essences"
+      }
+    ]
+  },
+  {
+    "source_image": "page-007.png",
+    "image_dimensions": [
+      1364,
+      1364
+    ],
+    "annotations": [
+      {
+        "x1": 323,
+        "y1": 337,
+        "x2": 391,
+        "y2": 269,
+        "name": "pay 1 life"
+      },
+      {
+        "x1": 892,
+        "y1": 709,
+        "x2": 967,
+        "y2": 635,
+        "name": "life loss"
+      },
+      {
+        "x1": 603,
+        "y1": 816,
+        "x2": 654,
+        "y2": 745,
+        "name": "on the component"
+      }
+    ]
+  },
+  {
+    "source_image": "page-008.png",
+    "image_dimensions": [
+      1364,
+      1364
+    ],
+    "annotations": [
+      {
+        "x1": 215,
+        "y1": 372,
+        "x2": 285,
+        "y2": 456,
+        "name": "straighten a creature"
+      },
+      {
+        "x1": 126,
+        "y1": 449,
+        "x2": 197,
+        "y2": 372,
+        "name": "straighten any component"
+      },
+      {
+        "x1": 598,
+        "y1": 508,
+        "x2": 664,
+        "y2": 573,
+        "name": "identical essences"
+      }
+    ]
+  }
+]

@@ -1,0 +1,115 @@
+[
+  {
+    "source_image": "page-003.png",
+    "image_dimensions": [
+      1215,
+      1582
+    ],
+    "annotations": [
+      {
+        "x1": 909,
+        "y1": 599,
+        "x2": 986,
+        "y2": 686,
+        "name": "merry men revealed"
+      },
+      {
+        "x1": 906,
+        "y1": 728,
+        "x2": 986,
+        "y2": 818,
+        "name": "robin hood revealed"
+      },
+      {
+        "x1": 771,
+        "y1": 866,
+        "x2": 855,
+        "y2": 947,
+        "name": "camp in parish"
+      },
+      {
+        "x1": 905,
+        "y1": 866,
+        "x2": 990,
+        "y2": 947,
+        "name": "camp in forest"
+      },
+      {
+        "x1": 779,
+        "y1": 1011,
+        "x2": 843,
+        "y2": 1071,
+        "name": "henchmen"
+      }
+    ]
+  },
+  {
+    "source_image": "page-004.png",
+    "image_dimensions": [
+      1215,
+      1582
+    ],
+    "annotations": [
+      {
+        "x1": 179,
+        "y1": 1228,
+        "x2": 335,
+        "y2": 1384,
+        "name": "submit"
+      },
+      {
+        "x1": 338,
+        "y1": 1226,
+        "x2": 494,
+        "y2": 1383,
+        "name": "revolt"
+      }
+    ]
+  },
+  {
+    "source_image": "page-005.png",
+    "image_dimensions": [
+      1215,
+      1582
+    ],
+    "annotations": [
+      {
+        "x1": 84,
+        "y1": 105,
+        "x2": 184,
+        "y2": 206,
+        "name": "tallage carriage"
+      },
+      {
+        "x1": 85,
+        "y1": 389,
+        "x2": 184,
+        "y2": 486,
+        "name": "tribute carriage"
+      },
+      {
+        "x1": 85,
+        "y1": 530,
+        "x2": 185,
+        "y2": 631,
+        "name": "trap carriage"
+      }
+    ]
+  },
+  {
+    "source_image": "page-016.png",
+    "image_dimensions": [
+      1215,
+      1582
+    ],
+    "annotations": [
+      {
+        "x1": 79,
+        "y1": 102,
+        "x2": 1133,
+        "y2": 1460,
+        "name": "setup"
+      }
+    ]
+  }
+]

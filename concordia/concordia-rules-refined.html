@@ -1,0 +1,1038 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Concordia — Rules Reference</title>
+<style>
+:root {
+  --bg:            #f2ede6;
+  --text:          #1a1a1a;
+  --header-bg:     #926f4f;
+  --section-bg:    #926f4f;
+  --subsection-bg: #5c878a;
+  --rule:          #b0a898;
+  --accent:        #5c878a;
+  --table-head:    #926f4f;
+  --note-bg:       #e8e0d4;
+  --body-bg:       #ffffff;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 15px;
+  line-height: 1.55;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* ── STICKY HEADER ───────────────────────────────────────── */
+.sticky-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--header-bg);
+  padding: 10px 14px 12px;
+  padding-top: max(10px, env(safe-area-inset-top));
+  padding-left: max(14px, env(safe-area-inset-left));
+  padding-right: max(14px, env(safe-area-inset-right));
+  box-shadow: 0 2px 12px rgba(0,0,0,0.4);
+}
+
+.masthead-row {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 9px;
+}
+
+.masthead-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  line-height: 1.1;
+  flex-shrink: 0;
+}
+
+.masthead-subtitle {
+  font-size: 11px;
+  color: rgba(255,255,255,0.45);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.back-link {
+  margin-left: auto;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+  text-decoration: none;
+  flex-shrink: 0;
+  padding-left: 14px;
+  white-space: nowrap;
+}
+.back-link:hover {
+  color: rgba(255,255,255,0.85);
+}
+
+/* ── TOGGLE + BACK ROW ───────────────────────────────────── */
+.toggle-back-row {
+  display: flex;
+  align-items: center;
+  margin-top: 7px;
+}
+
+.search-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-icon {
+  position: absolute;
+  left: 10px;
+  width: 15px;
+  height: 15px;
+  color: rgba(255,255,255,0.4);
+  pointer-events: none;
+  flex-shrink: 0;
+}
+
+#search {
+  width: 100%;
+  padding: 8px 36px 8px 32px;
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 8px;
+  font-size: 15px;
+  background: rgba(255,255,255,0.12);
+  color: #fff;
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+#search::placeholder { color: rgba(255,255,255,0.38); }
+
+#search:focus {
+  background: rgba(255,255,255,0.2);
+  border-color: rgba(255,255,255,0.3);
+}
+
+.search-clear {
+  position: absolute;
+  right: 6px;
+  background: rgba(255,255,255,0.18);
+  border: none;
+  border-radius: 50%;
+  color: rgba(255,255,255,0.8);
+  font-size: 14px;
+  line-height: 1;
+  width: 22px;
+  height: 22px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  flex-shrink: 0;
+}
+
+.search-clear.visible { display: flex; }
+
+mark { background: #ffe066; color: #1a1a1a; border-radius: 2px; padding: 0 1px; }
+mark.active { background: #ff9500; color: #fff; }
+
+/* ── MATCH NAVIGATION ────────────────────────────────────── */
+.match-nav {
+  display: none;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 0 0;
+}
+.match-nav.visible { display: flex; }
+.match-count {
+  color: rgba(255,255,255,0.65);
+  font-size: 13px;
+  flex: 1;
+  text-align: center;
+}
+.match-btn {
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 6px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 15px;
+  line-height: 1;
+  padding: 6px 14px;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+.match-btn:active { background: rgba(255,255,255,0.25); }
+
+/* ── MAIN ────────────────────────────────────────────────── */
+main {
+  padding: 10px 12px 48px;
+  padding-left: max(12px, env(safe-area-inset-left));
+  padding-right: max(12px, env(safe-area-inset-right));
+  padding-bottom: max(48px, env(safe-area-inset-bottom));
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+/* ── NO RESULTS ──────────────────────────────────────────── */
+#no-results {
+  display: none;
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--text);
+  opacity: 0.5;
+  font-size: 14px;
+}
+
+/* ── COLLAPSIBLE SECTIONS ────────────────────────────────── */
+details.section {
+  margin-bottom: 6px;
+  border-radius: 6px;
+  overflow: hidden;
+  scroll-margin-top: 130px;
+}
+
+details.section > summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  min-height: 44px;
+  background: var(--section-bg);
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  list-style: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+details.section > summary::-webkit-details-marker { display: none; }
+
+.chevron {
+  width: 12px;
+  height: 12px;
+  opacity: 0.65;
+  flex-shrink: 0;
+  margin-left: 8px;
+  transition: transform 0.18s ease;
+}
+
+details.section[open] > summary .chevron {
+  transform: rotate(90deg);
+}
+
+.section-body {
+  background: var(--body-bg);
+  padding: 10px 12px 12px;
+  border: 1px solid var(--rule);
+  border-top: none;
+  border-radius: 0 0 6px 6px;
+}
+
+/* ── HEADINGS WITHIN SECTIONS ────────────────────────────── */
+.subsection-title {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: #fff;
+  background: var(--subsection-bg);
+  padding: 4px 12px;
+  margin: 10px -12px 7px;
+}
+
+.label-title {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--section-bg);
+  border-bottom: 1.5px solid var(--rule);
+  padding-bottom: 3px;
+  margin: 10px 0 5px;
+}
+
+.inline-title {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 8px 0 3px;
+}
+
+/* ── BODY TEXT ───────────────────────────────────────────── */
+p { margin-bottom: 7px; }
+b, strong { font-weight: 600; }
+em, i { font-style: italic; }
+
+/* ── LISTS ───────────────────────────────────────────────── */
+ul, ol { padding-left: 20px; margin-bottom: 6px; }
+ul { list-style-type: disc; }
+ol { list-style-type: decimal; }
+ul ul { list-style-type: circle; }
+li { margin-bottom: 3px; }
+li > ul, li > ol { margin-top: 2px; margin-bottom: 0; }
+
+/* ── TABLES ──────────────────────────────────────────────── */
+.table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin-bottom: 6px;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  min-width: 260px;
+}
+thead tr { background: var(--table-head); color: white; }
+thead th {
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  padding: 5px 8px;
+  text-align: left;
+  white-space: nowrap;
+}
+tbody tr:nth-child(even) { background: var(--note-bg); }
+tbody td { padding: 5px 8px; vertical-align: top; }
+
+/* ── ICON TABLE ──────────────────────────────────────────── */
+.table-wrap img {
+  height: 36px;
+  width: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+/* ── INLINE ICONS ────────────────────────────────────────── */
+p img, li img, blockquote img,
+h1 img, h2 img, h3 img, h4 img, h5 img {
+  height: 1.625em;
+  width: auto;
+  vertical-align: -0.2em;
+  margin: 0 4px;
+}
+/* Sizes chosen in the Resolve-icons stepper (override the default above). */
+img.rule-icon--double { height: 3.25em; }
+img.rule-icon--full {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 0.5em auto;
+  vertical-align: baseline;
+}
+/* ── BLOCKQUOTE ──────────────────────────────────────────── */
+blockquote {
+  background: var(--note-bg);
+  border-left: 3px solid var(--accent);
+  padding: 6px 10px;
+  margin: 5px 0 7px;
+  font-size: 14px;
+  border-radius: 0 4px 4px 0;
+}
+blockquote p { margin-bottom: 2px; }
+
+/* ── INLINE CODE ─────────────────────────────────────────── */
+code {
+  background: var(--note-bg);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  padding: 1px 4px;
+  font-size: 13px;
+  font-family: inherit;
+  font-weight: 600;
+}
+
+/* ── HR ──────────────────────────────────────────────────── */
+hr { border: none; border-top: 1px solid var(--rule); margin: 8px 0; }
+
+/* ── HIDDEN SECTIONS ─────────────────────────────────────── */
+details.section.search-hidden { display: none; }
+
+/* ── VERSION TOGGLE ──────────────────────────────────────── */
+.toggle-bar {
+  display: inline-flex;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.2);
+}
+.toggle-current,
+.toggle-other {
+  padding: 6px 14px;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  line-height: 1;
+  text-decoration: none;
+  white-space: nowrap;
+  -webkit-tap-highlight-color: transparent;
+}
+.toggle-current {
+  background: rgba(255,255,255,0.18);
+  color: #ffffff;
+  font-weight: 600;
+  cursor: default;
+}
+.toggle-other {
+  color: rgba(255,255,255,0.5);
+}
+.toggle-other:hover {
+  background: rgba(255,255,255,0.08);
+  color: rgba(255,255,255,0.8);
+}
+
+/* ── PRINT ───────────────────────────────────────────────── */
+@media print {
+  .sticky-header { position: static; }
+  details.section[open], details.section { display: block; }
+  .section-body { display: block !important; }
+  .search-wrap, .search-clear, .toggle-bar, .match-nav { display: none; }
+}
+</style>
+</head>
+<body>
+<header class="sticky-header">
+  <div class="masthead-row">
+    <span class="masthead-title">Concordia</span>
+    <span class="masthead-subtitle">Rules Reference</span>
+  </div>
+  <div class="toggle-back-row"><div class="toggle-bar"><span class="toggle-current">Full Rules</span><a class="toggle-other" href="concordia-rules-reference.html">Quick Reference</a></div><a class="back-link" href="../index.html">&#8592; All Games</a></div>
+  <div class="search-wrap">
+    <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+         stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+         aria-hidden="true">
+      <circle cx="11" cy="11" r="8"/>
+      <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+    </svg>
+    <input type="text" id="search" placeholder="Search rules…"
+           autocomplete="off" spellcheck="false" autocorrect="off">
+    <button class="search-clear" id="search-clear" aria-label="Clear search">&#x2715;</button>
+  </div>
+  <div class="match-nav" id="match-nav">
+    <button class="match-btn" id="match-prev" aria-label="Previous match">↑</button>
+    <span class="match-count" id="match-count"></span>
+    <button class="match-btn" id="match-next" aria-label="Next match">↓</button>
+  </div>
+</header>
+<main>
+<details class="section" open>
+  <summary><span>Game Setup</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">1. Distribute city tokens</span>
+<ol>
+<li>The 30 city tokens are shuffled well and displayed on the game board with their alphabetical characters face up. (the “D” city tokens are not used on the Italia board)  </li>
+<li>The city tokens are randomly assigned to the cities on the board according to their characters.  </li>
+<li>The tokens are flipped so that their type of goods becomes visible.  </li>
+</ol>
+<span class="subsection-title">2. Assign bonus markers</span>
+<p>For every province the most valuable type of goods is identified. The value of cloth is 7, of wine 6, of tools 5, of food 4, and of bricks 3. A bonus marker of that type is assigned to the respective province inside the bonus markers section on the top left corner of the game board. In this example the provinces of Asia and Syria already have face up city tokens. As the most valuable good in Asia is tools, and in Syria cloth, both provinces receive the appropriate bonus marker of those types on the game board. The other 10 provinces are treated in the same manner as well.  </p>
+<span class="subsection-title">3. Prepare the stack of cards</span>
+<ol>
+<li>The 30 cards for sale are arranged according to their Roman numeral on the back (I-V).  </li>
+<li>Cards with a numeral bigger than the number of players are taken out of the game (for instance, with 3 players take out cards with IV and V). The other cards are sorted by numeral and shuffled well. Finally the cards form one complete face down stack; beneath them the I cards on top, then the II cards, etc.  </li>
+<li>The top 7 cards from stack are displayed face up inside the display area on the top right corner of the game board. The remaining stack is put near the game board, along with the CONCORDIA card.  </li>
+</ol>
+<span class="subsection-title">4. Player Setup</span>
+<p>Each player (here: Yellow) places one land and one sea colonist into “Roma” and the scoring marker onto the scoring track at Zero. In addition all players place 2 land and 2 sea colonists each into their own storage spaces inside their storehouses as well as 6 units of goods: 2 food, 1 cloth, 1 wine, 1 brick, and 1 tool. Now 10 of the 12 storage spaces are occupied. They take the 15 wooden houses of their color into their supply and their 7 starting cards into their hand. The start player is determined randomly and receives 5 sesterii, the 2nd player 6 sesterii etc. as their starting money. The PRAEFECTUS MAGNUS is assigned to the last player in player order. (The player setup is also shown on the back of the storehouses)  </p>
+<hr/>
+<blockquote>
+<h3>Provinces</h3>
+<p>Lybia is one of 12 provinces. Each province has 2 or 3 cities. (ITALIA has only 11 provinces)  </p>
+<h3>Lines</h3>
+<p>Lines connect all cities: brown lines for land colonists, and blues lines for sea colonists. Each line can be occupied by only one colonist at a time. </p>
+</blockquote>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Expansion Setup (Concordia Salsa)</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>Players choose a scenario (<strong>Italia</strong>, <strong>Imperium</strong>, <strong>Hispania</strong>, or <strong>Byzantium</strong>). When playing with the expansion, set up the <strong>Forum tableau</strong>. Deal one <strong>Patriot (blue) card</strong> to each player. Note that the start cities for the new maps are different: the start city for <strong>Byzantium</strong> is Byzantium, and the start city for <strong>Hispania</strong> is Saguntum. These two start cities similarly replace <strong>Roma</strong> in the text of the personality cards Tribune and Colonist. The setup differences are described in detail on the back side of the <strong>Forum tableau</strong>.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>PERSONALITY CARDS</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">TRIBUNE</span>
+<span class="label-title">1. Recover cards</span>
+<p>The player recovers all of his previously played cards back into his hand. If the player takes back more than 3 cards (including the <strong>Tribune</strong> in the count), he receives 1 <strong>sestertius</strong> per card past the 3rd from the bank.</p>
+<span class="label-title">2. 1 new colonist</span>
+<p>In addition the player may optionally purchase 1 new <strong>colonist</strong> by paying 1 <strong>food</strong> and 1 <strong>tool</strong> to the bank and placing either a new land or sea colonist from his <strong>storehouse</strong> into the <strong>Start City</strong> (Base game: <strong>Roma</strong>).</p>
+<span class="label-title">3. Acquire a Forum Card (Expansion)</span>
+<p>When a player plays the Tribune, they can take exactly one of the 4 displayed <strong>Forum cards</strong> for free. But they need a minimum number of already played <strong>personality cards</strong> (including the <strong>Tribune</strong>). The necessary number of played personality cards is shown on the forum directly under the card. With 10 or more played personality cards the player has the choice between all four cards. With 8 or 9 personality cards they can choose between the first three forum cards and with 6 or 7 between the first two forum cards. With 4 or 5 personality cards they can only take the first card. Afterwards the remaining forum moves to the left; the free place on the right is filled from the stock. If the stock is empty, the discarded forum cards are shuffled again.</p>
+<span class="label-title">Example</span>
+<blockquote>
+<p>A player who until now has played 4 cards now plays his <strong>TRIBUNE card</strong>. Therefore he takes a total of 5 cards back into his hand and receives 2 <strong>sestertii</strong> from the bank. In addition he decides to build a new <strong>colonist</strong>. He pays 1 <strong>food</strong> and 1 <strong>tool</strong> to the bank and places the new colonist inside <strong>ROMA</strong> on the game board. The colonist discovers one new storage spot for goods inside his <strong>storehouse</strong>.</p>
+</blockquote>
+<p><em>Expansion Example:</em> The player plays the <strong>Tribune</strong>. Including the Tribune they have 7 <strong>personality cards</strong> played in front of them. They can therefore choose one of the first two <strong>Forum cards</strong> (QUINTUS or APPIUS ARCADIUS). Afterwards they conduct their Tribune actions.</p>
+<p><em>Expansion Example:</em> A player plays the <strong>Tribune</strong>. They own 1 <strong>food</strong> and 1 <strong>salt</strong>, but no <strong>tool</strong>. The player exchanges the <strong>salt</strong> for 1 <strong>tool</strong>, hands the 2 goods over and places a new colonist on the game board.</p>
+<span class="label-title">Note</span>
+<p><em>We apologize for a misprint on the Diplomat card in deck IV. The cost is tools, as depicted by the symbol.</em></p>
+<span class="subsection-title">ARCHITECT</span>
+<span class="label-title">1. Move colonists</span>
+<p>The number of <strong>colonists</strong> a player has on the board determines the number of possible movement steps that a player can freely allocate to his own colonists. Land colonists are moved only along the brown lines and sea colonists only along the blue lines. A colonist’s first movement step is out of his starting city onto an adjacent line. Any further steps will move the colonist through a city and onto the next adjacent line to that city. At the end of his movement, a colonist cannot be placed on a line that is already occupied by another colonist. However, a colonist is allowed to move through occupied lines, adding the occupied sections passed through into his movement count.</p>
+<span class="label-title">2. Build houses (after all movements)</span>
+<p>The player may build <strong>houses</strong> in cities adjacent to any of his own <strong>colonists</strong>. Each new house built in a city is paid with goods and coins to the bank. The cost in goods is 1 <strong>food</strong> in a brick city, or 1 <strong>brick</strong> plus the good of that city type in every other city. The cost in coins is 1 <strong>sestertius</strong> in a brick city, 2 <strong>sestertii</strong> in a food city, 3 in a tool city, 4 in a wine city, and 5 in a cloth city.</p>
+<p>If a new <strong>house</strong> is built in a city where there are already other houses, the cost in coins is multiplied by the number of houses that will be in the city after this build (i.e., to build the fourth house in a city the cost in coins is multiplied by 4). The cost in goods remains the same. Players may not build more than 1 own <strong>house</strong> in a single city and never in the <strong>Start City</strong> (Base game: <strong>Roma</strong>).</p>
+<p><em>Expansion Rule (Salt Cities):</em> A <strong>Salt city</strong> costs 1 <strong>tool</strong> + 1 <strong>wine</strong> + 5 <strong>sestertii</strong> (+ 5 additional <strong>sestertii</strong> for every house which is already in the city).</p>
+<p><em>Expansion Rule (Forum Cards):</em> <strong>Forum cards</strong> may be played before the building action, but the building action of the Architect cannot be interrupted by the play of a Forum card. That means: "Moving - Forum card - Building" is allowed; but "Building - Forum card - Building" is forbidden.</p>
+<span class="label-title">Example</span>
+<blockquote>
+<p>Red has 3 <strong>colonists</strong>, 1 land colonist is located between "Colonia A." and "Novaria", and the other 2 are still in "Roma". Therefore he has 3 movement steps available. The black arrows show how he allocates his movements to his colonists. The sea colonist from "Roma" moves onto the sea line to "Massilia" (1 step), and the land colonist makes 2 steps onto the line between "Aquileia" and "Vindobona".</p>
+<p>After moving his colonists he may build <strong>houses</strong>. All in all there are 5 cities adjacent to his colonists. But as he already owns a house in "Colonia A." only 4 remain where he could build. He has enough goods and cash to build 3 new houses. He builds a house in "Massilia" (5 <strong>sestertii</strong>, 1 <strong>cloth</strong>, and 1 <strong>brick</strong>), in "Novaria" (4 <strong>sestertii</strong>, 1 <strong>wine</strong>, and 1 <strong>brick</strong>) and in "Aquileia" (6 <strong>sestertii</strong>, 1 <strong>food</strong>, and 1 <strong>brick</strong>). A house in a food city basically costs only 1 <strong>brick</strong>, 1 <strong>food</strong>, and 2 <strong>sestertii</strong>, but as "Aquileia" already has 2 houses the cash price is tripled. He pays the goods and <strong>sestertii</strong> to the bank and puts 3 new houses into the cities.</p>
+</blockquote>
+<p><em>Expansion Example:</em> Red plays the <strong>Architect</strong>. They already moved their colonists and want to build now. In their <strong>storehouse</strong> red possesses 1 <strong>brick</strong> and 2 units of <strong>food</strong>. Furthermore they own the 3 pictured <strong>Forum cards</strong> on the right. First red exchanges with AUGUSTUS 1 <strong>brick</strong> and 1 <strong>food</strong> with 2 <strong>salt</strong>. Then they play MAMILIUS and do no longer need any bricks in the following building action. Finally red uses ANNAEUS ARCADIUS, so that they can build in the wine city, too. Altogether red builds in the 3 pictured cities and pays 2 <strong>salt</strong> (as a wildcard for 1 <strong>cloth</strong> and 1 <strong>wine</strong>), 1 <strong>food</strong> and 15 <strong>sestertii</strong>. The two citizens (AUGUSTUS and MAMILIUS) have to be discarded.</p>
+<span class="subsection-title">PREFECT</span>
+<p>The player chooses between two alternatives:</p>
+<p>a) The player chooses a province where the houses produce <strong>goods</strong>. He can only choose an active province whose <strong>bonus marker</strong> (province tile) still shows the goods symbol. It is not necessary that the player (or any other player) owns a house in the chosen province. He flips the <strong>bonus marker</strong> of the province to its coin side and receives 1 unit of the goods type depicted on the <strong>bonus marker</strong> out of the bank. In addition all <strong>houses</strong> inside the province, regardless of their owner, each produce one unit of the goods produced in that city.</p>
+<p>or</p>
+<p>b) Instead of producing the player may choose to collect the cash bonus. For every visible coin on the <strong>bonus markers</strong> he receives 1 <strong>sestertius</strong> from the bank. Afterwards all <strong>bonus markers</strong> are flipped back to the side showing their good’s symbol.</p>
+<p><em>Expansion Note:</em> Some <strong>Forum cards</strong> modify or trigger off the Prefect action.</p>
+<span class="label-title">Example</span>
+<blockquote>
+<p>Syria is able to produce because its <strong>bonus marker</strong> still shows the good's symbol. Red plays the <strong>Prefect card</strong>, chooses Syria, and receives a bonus of 1 <strong>cloth</strong> as shown on the <strong>bonus marker</strong>. The Syrian <strong>bonus marker</strong> is now flipped over to its coin side and all <strong>houses</strong> in Syria produce: Red and Blue receive 1 <strong>food</strong> each, and Yellow receives 1 <strong>cloth</strong>.</p>
+<p>In the situation depicted down to left the player who chooses the cash bonus would get 6 <strong>sestertii</strong> out of the bank, because there are 6 coins visible on the <strong>bonus markers</strong> (given that no other bonus markers show coins) and the <strong>bonus markers</strong> with coins would be turned over to show their units of goods again.</p>
+</blockquote>
+<span class="subsection-title">COLONIST</span>
+<p>The player chooses between two alternatives:</p>
+<p>a) The player may place new <strong>colonists</strong> on the game board each to be paid for with 1 <strong>food</strong> and 1 <strong>tool</strong>. New colonists can be placed inside the <strong>Start City</strong> (Base game: <strong>Roma</strong>) or inside any other city where the player owns a <strong>house</strong>.</p>
+<p>or</p>
+<p>b) The player receives 5 <strong>sestertii</strong> plus 1 <strong>sestertius</strong> for each of their own <strong>colonists</strong> on the game board.</p>
+<span class="label-title">Example</span>
+<blockquote>
+<p>Red has 2 <strong>food</strong> and 3 <strong>tools</strong> in his <strong>storehouse</strong> and plays the <strong>COLONIST card</strong>. Paying 2 <strong>food</strong> and 2 <strong>tools</strong> he places 2 <strong>colonists</strong>. He decides to place a new sea colonist in "Roma" and a new land colonist in "Massilia". He could also have chosen to place one colonist in "Aquileia" instead, but not in "Novaria" because he has no <strong>house</strong> there (obviously, only a land colonist would be reasonable in "Novaria"). Or he could even place 2 colonists in the same city.</p>
+</blockquote>
+<span class="subsection-title">MERCATOR</span>
+<p>This turn is executed in 2 steps:</p>
+<ol>
+<li>The player receives 3 <strong>sestertii</strong> out of the bank (or 5 <strong>sestertii</strong> with a purchased Mercator).</li>
+<li>He may then trade in two types of <strong>goods</strong> with the bank. This means he may sell two buy two types, or sell one type and buy another. The number of units he may sell and/or buy is only limited by the free single unit space inside his <strong>storehouse</strong>, where every single unit occupies one storage space. The trade is done at fixed prices, which are shown on the roof of the <strong>storehouses</strong>.</li>
+</ol>
+<p><em>Expansion Note:</em> While <strong>Salt</strong> is a good, it <em>cannot</em> be bought or sold for <strong>sestertii</strong> during a Mercator action.</p>
+<span class="label-title">Example</span>
+<blockquote>
+<p>Green has 2 <strong>sestertii</strong> cash and her <strong>storehouse</strong> is as depicted. She plays the <strong>Mercator card</strong> and receives 3 <strong>sestertii</strong> (It’s not a purchased Mercator). She sells 3 units of <strong>wine</strong> for 3 x 6 = 18 <strong>sestertii</strong> to the bank, so that the total cash now is 23 <strong>sestertii</strong>. For her second type of goods she wants to buy bricks. She would be able to pay for up to 7 bricks, but there are only 5 storage spaces available in the <strong>storehouse</strong> so that she cannot buy more than 5 units. She decides to buy 4 units of bricks paying 4x3=12 <strong>sestertii</strong>. She would have loved to buy a unit of food, but that is not allowed as she has already traded in two different types of goods.</p>
+</blockquote>
+<span class="subsection-title">DIPLOMAT</span>
+<p>The player executes an action from a <strong>personality card</strong> that is on top of another player’s discard pile and thus is displayed face up in front of them. The action is executed the same as if the player had played that card himself. Actions of players who recently used a <strong>Diplomat card</strong> or took back their cards into their hand with their <strong>Tribune</strong> cannot be copied.</p>
+<span class="label-title">Example</span>
+<blockquote>
+<p>The picture shows the <strong>personality cards</strong> recently played by the other 4 players. The 5th player plays a <strong>Diplomat card</strong>. He now may either execute the action of a Senator, an Architect, or a Prefect.</p>
+</blockquote>
+<span class="subsection-title">SENATOR</span>
+<p>The player may purchase up to two <strong>personality cards</strong> from the display on the game board and take them into his hand. The price of a card is the sum of the <strong>goods</strong> depicted inside the red field of the card plus the <strong>goods</strong> depicted beneath the card’s position on the game board, where a question mark stands for a good of the player’s choice.</p>
+<p>After the purchase(s), all remaining <strong>personality cards</strong> inside the display move to the left if their left position is empty, and the display is replenished to the new total of 7 cards (as long as there are fresh cards inside the stack).</p>
+<span class="label-title">Example</span>
+<blockquote>
+<p>The picture shows the cheapest 4 <strong>personality cards</strong> on sale. The player wants to purchase the Mercator and the Architect card. It costs 1 unit of <strong>wine</strong> for the Mercator card, and 1 <strong>tool</strong> and 1 <strong>brick</strong> for the Architect card to the bank. Instead of a <strong>brick</strong> he could have paid with any other type of <strong>goods</strong> as the question mark allows a free choice of payment. He takes the Mercator and the Architect card into his hand. Now the Prefect card moves by 1 and all other remaining cards by 2 positions to the left. Finally the 2 free spots on the display are replenished with 2 new cards from the stack. (The Farmer would have cost 1 <strong>brick</strong>, 1 <strong>food</strong>, and 1 <strong>cloth</strong>).</p>
+</blockquote>
+<span class="subsection-title">CONSUL</span>
+<p>The player may purchase one <strong>personality card</strong> from the display on the game board and take it into his hand. The price consists only of the <strong>goods</strong> depicted inside the red field of the personality card. Any goods depicted beneath the card’s position on the game board are ignored. As with a <strong>Senator</strong>, the remaining <strong>personality cards</strong> inside the display move to the left if their left position is empty, and the display is replenished from the stack (as long as the stack exists).</p>
+<span class="label-title">Example</span>
+<blockquote>
+<p>The player wants to purchase the Colonist card, which is located in 6th position inside the card’s display. He pays only 1 unit of <strong>food</strong> because the goods depicted on the game board are ignored (1 unit of free choice plus 1 <strong>cloth</strong>). But he cannot purchase more than 1 card. He takes the Colonist into his hand and the Prefect card moves one position to his left. The former position of the Prefect is replenished with a new card from stack.</p>
+</blockquote>
+<span class="subsection-title">SPECIALISTS</span>
+<p>(Mason, Farmer, Smith, Vintner, Weaver)</p>
+<p>All the player’s <strong>houses</strong> of the related type of <strong>goods</strong> produce one unit each.</p>
+<p><em>Expansion Note:</em> <strong>Salt cities</strong> interact with specialist cards during production and scoring. When scoring Specialist cards, a <strong>Salt city</strong> counts as exactly one type of good of the player's choice.</p>
+<span class="label-title">Example</span>
+<blockquote>
+<p>The player has a total of 4 <strong>houses</strong> inside wine cities and plays the Vintner. She receives 4 units of <strong>wine</strong> and puts them on 4 empty storage spaces inside her <strong>storehouse</strong>. The other players do not receive any goods.</p>
+</blockquote>
+  </div>
+</details>
+<details class="section">
+  <summary><span>FORUM CARDS (Expansion)</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Summary of Patriots vs. Citizens</span>
+<p>The 27 <strong>Forum cards</strong> divide into 13 <strong>Patriots (blue)</strong> and 14 <strong>Citizens (green)</strong>. The blue <strong>Patriots</strong> are permanent cards, which means they stay the whole game at the owner’s side. Conversely, the green <strong>Citizens</strong> offer a one-time advantage. After their use you must discard them.</p>
+<p>The players start the game with one <strong>Patriot</strong> (see game setup on the back of the <strong>Forum tableau</strong>).</p>
+<span class="subsection-title">Use of Forum Cards</span>
+<p>Fundamentally a player can use and combine as many <strong>Forum cards</strong> in their move as they like. However the following points have to be respected:</p>
+<ol>
+<li>Many forum cards can only be used in combination with the appropriate personality card. Example: CLAUDIUS POMPEIUS can only be used with the Prefect.</li>
+<li><strong>Patriots (blue)</strong> remain with the players, <strong>Citizens (green)</strong> have to be discarded after use.</li>
+<li>If you get <strong>goods</strong> by playing a forum card, you have to store these goods in your <strong>storehouse</strong>. After that you can immediately use the new goods.</li>
+<li>The building action of the Architect cannot be interrupted by the play of a <strong>Forum card</strong>. That means: "Moving - Forum card - Building" is allowed; but "Building - Forum card - Building" is forbidden.</li>
+<li>Newly obtained <strong>Forum cards</strong> may be used in the same move.</li>
+</ol>
+<span class="subsection-title">Expert Rule</span>
+<p>To make the best out of the different <strong>Forum cards</strong> and starting with a forum card that you do not particularly like is one of the many challenges in Concordia Salsa. If you prefer a more balanced start, you can distribute the forum cards with the following auction variant: Display “number of players +1” blue <strong>Forum cards</strong>. The starting player bids at least 0 victory points for one of the cards. All players can then in order bid higher or pass, until everyone has passed. The winner of the auction gets the forum card and spends the victory points that were bid by going backwards on the victory point track. Players who already own a forum card cannot participate in further auctions. The auctions continue until everybody has a forum card. (If the starting player is not present, the second player starts the bidding and so on.) The last player without a forum card takes one of the last two cards for 0 victory points and discards the other.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>FURTHER RULES</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">PRAEFECTUS MAGNUS</span>
+<p>If a player who currently owns the <strong>PRAEFECTUS M.</strong> plays a <strong>Prefect card</strong> (or uses one with the Diplomat) in order to let a province produce, he receives a double bonus (2 units instead of 1). Production inside the cities is not affected. After his turn he hands the <strong>PRAEFECTUS M.</strong> to the player sitting to his right. A player must use the <strong>PRAEFECTUS M.</strong> when able and may not choose to forego its benefit to keep it for later. But if a player plays a <strong>PREFECT card</strong> in order to receive the cash bonus, the <strong>PRAEFECTUS M.</strong> is not activated and remains with the player: it is not allowed to double the cash bonus.</p>
+<span class="subsection-title">STOREHOUSE</span>
+<p>Each player has a <strong>storehouse</strong> with 12 storage spaces. Each space may house either one <strong>colonist</strong> or one unit of <strong>goods</strong>. At the beginning of the game, 4 storage spaces are occupied by colonists and therefore are not available for housing goods. However, if a player places new colonists on the game board, additional storage spaces become available. If all spaces are occupied in one way or another, no more units of goods can be taken in. It is not allowed to discard goods in order to make room for other ones instead. If a player receives plenty of goods without having enough empty storage spaces, it is allowed to choose which specific units of goods he wants to take, but not to leave any storage spaces empty.</p>
+<p><strong>Salt (Expansion)</strong><br/>
+<strong>Salt</strong> is, like any other good, stored in the <strong>storehouse</strong>. <strong>Salt</strong> is a wildcard, which means you can exchange salt with any other <strong>good</strong> at any time. But you can never buy or sell salt for <strong>sestertii</strong>. You get salt when your <strong>Salt cities</strong> produce or through some of the <strong>Forum cards</strong>.</p>
+<span class="subsection-title">TRADE AND STOCKPILE</span>
+<p>Players are not allowed to trade goods with each other. <strong>Goods</strong> and coins are considered to be unlimited. The number of <strong>colonists</strong> is restricted to 6 per player.</p>
+<p><em>Expansion Note:</em> The game also includes 27 <strong>Forum cards</strong>.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>INTERMEDIATE SCORING</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>If a player plays his <strong>Tribune card</strong> for the first time in the game in order to take his cards back into his hand, he immediately performs a personal intermediate scoring. He scores all his cards as described below for the final scoring, and tallies his VP on the VP-track.</p>
+<p>After all players have played their <strong>Tribune card</strong> for the first time and have received the intermediate scoring, these scores are compared and player with the highest score receives 2 <strong>sestertii</strong>. Second place receives 1 <strong>sestertius</strong>. If players share the same position, they all receive the same amount (all in 1st place receive 2 <strong>sestertii</strong> and all in 2nd place receive 1 <strong>sestertius</strong>). After that, all scoring markers move back to the zero position on the VP-track.</p>
+<span class="label-title">Note</span>
+<p>We do not recommend performing intermediate scoring if all players know the game well.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>GAME END</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>If a player purchases the last <strong>personality card</strong> and such empties the display on the game board, or if he builds his 15th <strong>house</strong>, he receives the <strong>Concordia card</strong>, which is worth 7 additional VP. Every other player now executes his last turn before the final scoring is done as described below.</p>
+<p>The player with the most VP wins the game. A tie is won by the player owning <strong>PRAEFECTUS MAGNUS</strong>, or by the tied player who would receive him next in the course of the game.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>FINAL SCORING</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<p>Each <strong>personality card</strong> is related to an ancient god who rewards its owner with victory points. First players gather all their cards, including the ones from their discard pile, and arrange them according to the different ancient gods. The back of the player aid shows a summary of the gods and in which order they are scored. The victory points assigned to each card that is marked with the respective god are described in the following text. All victory points (VP) are tallied with the player’s score marker on the VP-track. It is recommended to first score <strong>VESTA</strong> for all players, then Jupiter etc.</p>
+<span class="subsection-title">VESTA</span>
+<p>The value of all <strong>goods</strong> in the <strong>storehouse</strong> (usual price as depicted) is added to the cash money. Then the player receives 1 VP per full 10 <strong>sestertii</strong>, any fractions are ignored.</p>
+<span class="subsection-title">JUPITER</span>
+<p>For each <strong>house</strong> inside a non-brick city the player receives 1 VP. (max. 15 VP)</p>
+<p><em>Expansion Note:</em> <strong>Salt cities</strong> count as non-brick cities and score 1 VP normally.</p>
+<span class="subsection-title">SATURNUS</span>
+<p>For each province with at least one of their <strong>houses</strong> the player receives 1 VP. (Imperium max. 12 VP, Italia max. 11 VP)</p>
+<p><em>Expansion Note:</em> <strong>Salt cities</strong> count for their respective provinces normally.</p>
+<span class="subsection-title">MERCURIUS</span>
+<p>For each type of <strong>goods</strong> that the player produces with their <strong>houses</strong>, he receives 2 VP. (max. 10 VP)</p>
+<p><em>Expansion Note (Attention):</em> <strong>Salt cities</strong> do <strong>not</strong> count as a type of good for Mercurius scoring.</p>
+<span class="subsection-title">MARS</span>
+<p>For each of his <strong>colonists</strong> on the game board the player receives 2 VP. (max. 12 VP)</p>
+<span class="subsection-title">MINERVA</span>
+<p>For each city of the related city type the player receives a certain number of VP as depicted on the specialist’s card.</p>
+<p><em>Expansion Note:</em> For Minerva (specialists) every <strong>Salt city</strong> counts for exactly one type of good of the player's choice when scoring Specialist cards.</p>
+<span class="label-title">Example</span>
+<blockquote>
+<p>The player owns a total of 12 <strong>houses</strong> on the board of which 3 produce bricks, 4 produce food, 3 produce tools, and 2 produce cloth. They are distributed over 7 provinces. Furthermore the player owns 5 <strong>colonists</strong> on the game board, has a total of 13 <strong>sestertii</strong>, and owns the <strong>Concordia card</strong> because he purchased the last card from the display area on the game board. The <strong>storehouse</strong> contains 1 <strong>cloth</strong>, 3 <strong>tools</strong>, and 1 <strong>brick</strong>. After arranging the cards as shown to the right, the final scoring gives the following result:</p>
+<p>VESTA: His goods are worth 7 (1 cloth) + 15 (3 tools) + 3 (1 brick) <strong>sestertii</strong>. Added to his cash on hand (13 <strong>sestertii</strong>) he has 38 <strong>sestertii</strong> which are worth 3 VP.</p>
+<p>JUPITER: As 3 of his 12 <strong>houses</strong> are inside brick cities, he has 9 houses that count for this god. With 2 cards assigned to Jupiter he receives 2 x 9 = 18 VP.</p>
+<p>SATURNUS: As the player has houses in 7 provinces and owns 4 cards assigned to Saturnus, he receives 4 x 7 = 28 VP.</p>
+<p>MERCURIUS: Unfortunately the player has not built inside a wine city, but he does produce the other 4 types of <strong>goods</strong>. For his 2 cards assigned to Mercurius he receives 2 x 8 = 16 VP.</p>
+<p>MARS: For his 5 <strong>colonists</strong> on the game board he receives 10 VP per card assigned to Mars, hence 3 x 10 = 30 VP.</p>
+<p>MINERVA: The player owns a farmer who rewards him with 3 VP for each <strong>house</strong> inside a food city. With 4 such houses this results in 12 VP.</p>
+<p>Together with 7 points from the <strong>Concordia Card</strong> the player therefore achieves 114 victory points.</p>
+</blockquote>
+<p><em>Expansion Example:</em> At the end of the game a player possesses 2 <strong>MINERVA cards</strong>, Vintner and Mason, and the following cities: 3 Salt cities and 2 brick cities. The Vintner yields 4 victory points for every wine city. The player therefore counts their <strong>Salt cities</strong> as wine cities. They get 3x4 = 12 victory points for the Vintner and 2x3 = 6 victory points for the Mason.</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>APPENDIX A: MAPS (Expansion)</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Byzantium &amp; Hispania Start Cities</span>
+<p>Start city for <strong>BYZANTIUM</strong> is Byzantium.<br/>
+Start city for <strong>HISPANIA</strong> is Saguntum.<br/>
+These two start cities similarly replace <strong>Roma</strong> in the text of the personality cards Tribune and Colonist.</p>
+<span class="subsection-title">List of Cities</span>
+<span class="label-title">BYZANTIUM</span>
+<p>ALEXANDRIA Alexandria<br/>
+AMASTRIS Amasra<br/>
+ANCYRA Ankara<br/>
+ANTIOCHIA Antakya<br/>
+APOLOONIA Sozopol<br/>
+APPIA Pinarik/Kithyara<br/>
+ATHENAE Athens<br/>
+ATTALIA Antalya<br/>
+BYZANTIUM Istanbul<br/>
+CAESAREA Kayseri<br/>
+CHERSONESUS Cherson<br/>
+CYRENE Sharhat<br/>
+DELPHI Delphi<br/>
+GAZA Gaza<br/>
+GORTYN Agii Deka<br/>
+ILlUM Hisarlik<br/>
+MILETUS Milet<br/>
+PANTICAPION Kerch<br/>
+PETRA Petra<br/>
+PHILIPPOPOLIS Plovdiv<br/>
+SALAMIS Famagusta<br/>
+SELEUCIA Silifke<br/>
+SINOP Sinaop<br/>
+SPARTA Sparta<br/>
+STOBI Stobi<br/>
+THESSALONICA Thessaloniki<br/>
+TOMIS Constanta<br/>
+TYRUS Tyle<br/>
+YZGRIS Marsa Baquash</p>
+<span class="label-title">HISPANIA</span>
+<p>ALERIA Aleria<br/>
+BRACARA Braga<br/>
+BRIGANTIUM A Coruna<br/>
+CAESAREA Cherchell<br/>
+CAESENA Cesena<br/>
+CARALES Cagliari<br/>
+CARTHAGO Carthago<br/>
+CORDUBA Cordoba<br/>
+GENUA Genoa<br/>
+MASSILIA Marseille<br/>
+NARBO MARTIUS Narbonne<br/>
+NOVA CARTHAGO Cartagena<br/>
+OLISIPo Lissabon<br/>
+OSTIA Ostia Antica<br/>
+OSSONOMAS Faro<br/>
+PANORMUS Palermo<br/>
+POMPEIO Pamplona<br/>
+SALAMANTICA Salamanca<br/>
+SAGUNTUM Sagunto<br/>
+TARRACO Tarragona<br/>
+THAMUGADI Tingad<br/>
+TINGIS Tangier<br/>
+TOLETUM Toledo<br/>
+TOLOSA Toulouse</p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>APPENDIX B: FORUM TABLEAU REFERENCE (Expansion)</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Icon Reference / Card List</span>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Icon</th>
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img alt="Donatus Pompeius" src="icons/page-002_icon_10_donatus_pompeius.png"/></td>
+<td><strong>Donatus Pompeius</strong></td>
+<td>The player gets 1 <strong>sestertius</strong> if they produce in a cloth province, otherwise 2 <strong>sestertii</strong>.</td>
+</tr>
+<tr>
+<td><img alt="Sextus Pompeius" src="icons/page-002_icon_11_sextus_pompeius.png"/></td>
+<td><strong>Sextus Pompeius</strong></td>
+<td>The player uses the <strong>Prefect</strong> to copy a face-up <strong>personality card</strong> of another player.</td>
+</tr>
+<tr>
+<td><img alt="Cornelius Scipio" src="icons/page-002_icon_12_cornelius_scipio.png"/></td>
+<td><strong>Cornelius Scipio</strong></td>
+<td>The player may buy a <strong>Consul</strong> by paying goods, such as 1 <strong>cloth</strong> and 2 <strong>bricks</strong>.</td>
+</tr>
+<tr>
+<td><img alt="Titus Valerius" src="icons/page-002_icon_13_titus_valerius.png"/></td>
+<td><strong>Titus Valerius</strong></td>
+<td>The player exchanges 1 <strong>good</strong> with 1 <strong>salt</strong>.</td>
+</tr>
+<tr>
+<td><img alt="Augustus" src="icons/page-002_icon_14_augustus.png"/></td>
+<td><strong>Augustus</strong></td>
+<td>The player exchanges 2 <strong>goods</strong> with 2 <strong>salt</strong>.</td>
+</tr>
+<tr>
+<td><img alt="Commodus" src="icons/page-002_icon_15_commodus.png"/></td>
+<td><strong>Commodus</strong></td>
+<td>The player exchanges 1 <strong>brick</strong> and 1 <strong>tool</strong> for 2 <strong>salt</strong>.</td>
+</tr>
+<tr>
+<td><img alt="Julius" src="icons/page-002_icon_16_julius.png"/></td>
+<td><strong>Julius</strong></td>
+<td>The player moves their own <strong>colonists</strong>.</td>
+</tr>
+<tr>
+<td><img alt="Mamercus" src="icons/page-002_icon_17_mamercus.png"/></td>
+<td><strong>Mamercus</strong></td>
+<td>The player builds <strong>houses</strong> without paying <strong>sestertii</strong>.</td>
+</tr>
+<tr>
+<td><img alt="Laurentius" src="icons/page-002_icon_18_laurentius.png"/></td>
+<td><strong>Laurentius</strong></td>
+<td>The player moves their <strong>colonists</strong> with as many movement steps as during an <strong>Architect</strong> action.</td>
+</tr>
+<tr>
+<td><img alt="Mamilius" src="icons/page-002_icon_19_mamilius.png"/></td>
+<td><strong>Mamilius</strong></td>
+<td>The player does not pay <strong>bricks</strong> for any <strong>houses</strong> built in this move.</td>
+</tr>
+<tr>
+<td><img alt="Claudia Agrippina" src="icons/page-002_icon_1_claudia_agrippina.png"/></td>
+<td><strong>Claudia Agrippina</strong></td>
+<td>The player gets 4 extra storage spaces and 1 <strong>brick</strong> immediately.</td>
+</tr>
+<tr>
+<td><img alt="Marcus" src="icons/page-002_icon_20_marcus.png"/></td>
+<td><strong>Marcus</strong></td>
+<td>The player builds 1 <strong>house</strong> in a <strong>Salt city</strong> for just 1 <strong>tool</strong>, saving <strong>wine</strong> and <strong>sestertii</strong>.</td>
+</tr>
+<tr>
+<td><img alt="Novius" src="icons/page-002_icon_21_novius.png"/></td>
+<td><strong>Novius</strong></td>
+<td>The player places a free <strong>house</strong> without needing an adjacent <strong>colonist</strong> or playing the <strong>Architect</strong>.</td>
+</tr>
+<tr>
+<td><img alt="Numerius" src="icons/page-002_icon_22_numerius.png"/></td>
+<td><strong>Numerius</strong></td>
+<td>The player gets 2 <strong>sestertii</strong> per province where they own <strong>houses</strong>.</td>
+</tr>
+<tr>
+<td><img alt="Publius" src="icons/page-002_icon_23_publius.png"/></td>
+<td><strong>Publius</strong></td>
+<td>The player exchanges 1 <strong>good</strong> with 1 <strong>salt</strong>.</td>
+</tr>
+<tr>
+<td><img alt="Quintus" src="icons/page-002_icon_24_quintus.png"/></td>
+<td><strong>Quintus</strong></td>
+<td>The player may take 1 <strong>good</strong> of their choice from any province type that has not yet produced.</td>
+</tr>
+<tr>
+<td><img alt="Spurius" src="icons/page-002_icon_25_spurius.png"/></td>
+<td><strong>Spurius</strong></td>
+<td>The player gets 1 <strong>salt</strong>.</td>
+</tr>
+<tr>
+<td><img alt="Tiberius" src="icons/page-002_icon_26_tiberius.png"/></td>
+<td><strong>Tiberius</strong></td>
+<td>The player places a <strong>colonist</strong> in the <strong>Start City</strong> or in a city with one of their <strong>houses</strong>.</td>
+</tr>
+<tr>
+<td><img alt="Victoria" src="icons/page-002_icon_27_victoria.png"/></td>
+<td><strong>Victoria</strong></td>
+<td>The player gets 5 victory points at the end of the game.</td>
+</tr>
+<tr>
+<td><img alt="Annaeus Arcadius" src="icons/page-002_icon_2_annaeus_arcadius.png"/></td>
+<td><strong>Annaeus Arcadius</strong></td>
+<td>The player may build one <strong>house</strong> per move using a foreign <strong>colonist</strong>.</td>
+</tr>
+<tr>
+<td><img alt="Appius Arcadius" src="icons/page-002_icon_3_appius_arcadius.png"/></td>
+<td><strong>Appius Arcadius</strong></td>
+<td>The player gets one additional movement step when moving <strong>colonists</strong>.</td>
+</tr>
+<tr>
+<td><img alt="Aulus Arcadius" src="icons/page-002_icon_4_aulus_arcadius.png"/></td>
+<td><strong>Aulus Arcadius</strong></td>
+<td>The player saves 1 <strong>sestertius</strong> when building, regardless of how many <strong>houses</strong> are already in the city.</td>
+</tr>
+<tr>
+<td><img alt="Lucius Flavius" src="icons/page-002_icon_5_lucius_flavius.png"/></td>
+<td><strong>Lucius Flavius</strong></td>
+<td>If two <strong>Consuls</strong> are on sale, the player can copy one and buy the other.</td>
+</tr>
+<tr>
+<td><img alt="Faustus Marcellus" src="icons/page-002_icon_6_faustus_marcellus.png"/></td>
+<td><strong>Faustus Marcellus</strong></td>
+<td>The player may buy 1 <strong>brick</strong> for free, but it counts as one of their two trade actions.</td>
+</tr>
+<tr>
+<td><img alt="Gaius Marcellus" src="icons/page-002_icon_7_gaius_marcellus.png"/></td>
+<td><strong>Gaius Marcellus</strong></td>
+<td>The player gets 1 extra <strong>sestertius</strong> per <strong>good</strong> sold when trading.</td>
+</tr>
+<tr>
+<td><img alt="Servius Marcellus" src="icons/page-002_icon_8_servius_marcellus.png"/></td>
+<td><strong>Servius Marcellus</strong></td>
+<td>The player may trade 3 types of <strong>goods</strong> instead of the normal 2.</td>
+</tr>
+<tr>
+<td><img alt="Claudius Pompeius" src="icons/page-002_icon_9_claudius_pompeius.png"/></td>
+<td><strong>Claudius Pompeius</strong></td>
+<td>When using the <strong>Prefect</strong>, the player produces additional <strong>goods</strong>, such as 2 of a good instead of 1.</td>
+</tr>
+</tbody>
+</table></div>
+  </div>
+</details>
+<details class="section">
+  <summary><span>APPENDIX C: VARIANTS (Expansion)</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Playing Byzantium / Hispania without Salt</span>
+<p>The two scenarios are also playable without <strong>Salt cities</strong>. At first the game setup remains the same (with salt city tokens). The <strong>Salt cities</strong> are then exchanged with city tokens from the unused letter group:</p>
+<ol>
+<li><strong>Salt city</strong> A becomes a <strong>tool city</strong>.</li>
+<li><strong>Salt city</strong> B becomes a <strong>wine city</strong>.</li>
+<li><strong>Salt city</strong> C becomes a <strong>cloth city</strong>.</li>
+<li><strong>Salt city</strong> D becomes a <strong>brick city</strong>.</li>
+</ol>
+<span class="subsection-title">Playing with Forum Cards without Salt</span>
+<p>Some <strong>Forum cards</strong> bring <strong>Salt</strong> into play. Nevertheless it is possible to play with the <strong>Forum cards</strong>, but without the <strong>Salt</strong> expansion. Therefore the word “salt” changes to “any good” and “salt city” to “any city”.</p>
+<p>Example 1: “TITUS VALERIUS” Exchange 1 <strong>good</strong> with any (other) <strong>good</strong>.</p>
+<p>Example 2: “MARCUS” Build 1 <strong>house</strong> in any city for only 1 <strong>tool</strong>.</p>
+<span class="subsection-title">Icon Reference</span>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Icon</th>
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img alt="Setup" src="icons/setup.png"/></td>
+<td><strong>Setup</strong></td>
+<td>Setup represents the initial game preparation, including placing city tokens and bonus markers, preparing the card stack, and organizing player starting components.</td>
+</tr>
+</tbody>
+</table></div>
+  </div>
+</details>
+  <p id="no-results">No sections match your search.</p>
+</main>
+<script>
+(function () {
+  var searchEl  = document.getElementById('search');
+  var clearBtn  = document.getElementById('search-clear');
+  var noResults = document.getElementById('no-results');
+  var sections  = Array.from(document.querySelectorAll('details.section'));
+  var matchNav   = document.getElementById('match-nav');
+  var matchCount = document.getElementById('match-count');
+  var matchPrev  = document.getElementById('match-prev');
+  var matchNext  = document.getElementById('match-next');
+
+  var allMarks = [];
+  var currentMark = -1;
+
+  sections.forEach(function (s) {
+    var body = s.querySelector('.section-body');
+    if (body) body.dataset.original = body.innerHTML;
+  });
+
+  var timer;
+
+  searchEl.addEventListener('input', function () {
+    var term = this.value.trim();
+    clearBtn.classList.toggle('visible', term.length > 0);
+    clearTimeout(timer);
+    timer = setTimeout(function () { applySearch(term); }, 180);
+  });
+
+  clearBtn.addEventListener('click', function () {
+    searchEl.value = '';
+    clearBtn.classList.remove('visible');
+    applySearch('');
+    searchEl.focus();
+  });
+
+  matchPrev.addEventListener('click', function () {
+    if (allMarks.length === 0) return;
+    navigateTo((currentMark - 1 + allMarks.length) % allMarks.length);
+  });
+
+  matchNext.addEventListener('click', function () {
+    if (allMarks.length === 0) return;
+    navigateTo((currentMark + 1) % allMarks.length);
+  });
+
+  function navigateTo(index) {
+    if (allMarks[currentMark]) allMarks[currentMark].classList.remove('active');
+    currentMark = index;
+    var mark = allMarks[currentMark];
+    mark.classList.add('active');
+    mark.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    matchCount.textContent = (currentMark + 1) + ' of ' + allMarks.length;
+  }
+
+  function escapeRe(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlightTextNodes(container, re) {
+    var walker = document.createTreeWalker(
+      container, NodeFilter.SHOW_TEXT, null, false
+    );
+    var nodes = [];
+    var n;
+    while ((n = walker.nextNode())) {
+      if (n.nodeValue.trim()) nodes.push(n);
+    }
+    nodes.forEach(function (textNode) {
+      re.lastIndex = 0;
+      if (!re.test(textNode.nodeValue)) return;
+      re.lastIndex = 0;
+      var span = document.createElement('span');
+      span.innerHTML = textNode.nodeValue.replace(
+        re, function (m) { return '<mark>' + m + '</mark>'; }
+      );
+      textNode.parentNode.replaceChild(span, textNode);
+    });
+  }
+
+  function applySearch(term) {
+    var re = term ? new RegExp(escapeRe(term), 'gi') : null;
+    var visibleCount = 0;
+
+    sections.forEach(function (section) {
+      var body    = section.querySelector('.section-body');
+      var summary = section.querySelector('summary');
+
+      if (body) body.innerHTML = body.dataset.original;
+
+      if (!re) {
+        section.classList.remove('search-hidden');
+        section.open = false;
+        return;
+      }
+
+      var titleText = summary ? summary.textContent : '';
+      var bodyText  = body    ? body.textContent    : '';
+
+      re.lastIndex = 0;
+      var inTitle = re.test(titleText);
+      re.lastIndex = 0;
+      var inBody  = re.test(bodyText);
+      re.lastIndex = 0;
+
+      if (inTitle || inBody) {
+        section.classList.remove('search-hidden');
+        section.open = true;
+        if (body) highlightTextNodes(body, new RegExp(escapeRe(term), 'gi'));
+        visibleCount++;
+      } else {
+        section.classList.add('search-hidden');
+      }
+    });
+
+    noResults.style.display = (re && visibleCount === 0) ? 'block' : 'none';
+
+    allMarks = Array.from(document.querySelectorAll('mark'));
+    currentMark = -1;
+
+    if (allMarks.length > 0) {
+      matchNav.classList.add('visible');
+      navigateTo(0);
+    } else {
+      matchNav.classList.remove('visible');
+      matchCount.textContent = '';
+    }
+  }
+})();
+</script>
+</body>
+</html>

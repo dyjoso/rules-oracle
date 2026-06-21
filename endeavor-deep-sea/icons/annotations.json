@@ -1,0 +1,247 @@
+[
+  {
+    "source_image": "page-001.png",
+    "image_dimensions": [
+      1191,
+      1588
+    ],
+    "annotations": [
+      {
+        "x1": 72,
+        "y1": 764,
+        "x2": 143,
+        "y2": 835,
+        "name": "reputation"
+      },
+      {
+        "x1": 71,
+        "y1": 853,
+        "x2": 142,
+        "y2": 921,
+        "name": "inspiration"
+      },
+      {
+        "x1": 72,
+        "y1": 938,
+        "x2": 142,
+        "y2": 1008,
+        "name": "coordination"
+      },
+      {
+        "x1": 71,
+        "y1": 1025,
+        "x2": 142,
+        "y2": 1094,
+        "name": "ingenuity"
+      },
+      {
+        "x1": 74,
+        "y1": 1112,
+        "x2": 141,
+        "y2": 1183,
+        "name": "impact"
+      },
+      {
+        "x1": 70,
+        "y1": 1208,
+        "x2": 143,
+        "y2": 1257,
+        "name": "points"
+      }
+    ]
+  },
+  {
+    "source_image": "page-002.png",
+    "image_dimensions": [
+      1191,
+      1588
+    ],
+    "annotations": [
+      {
+        "x1": 371,
+        "y1": 159,
+        "x2": 395,
+        "y2": 183,
+        "name": "depth"
+      }
+    ]
+  },
+  {
+    "source_image": "page-004.png",
+    "image_dimensions": [
+      1191,
+      1588
+    ],
+    "annotations": [
+      {
+        "x1": 180,
+        "y1": 417,
+        "x2": 205,
+        "y2": 441,
+        "name": "sunburst"
+      }
+    ]
+  },
+  {
+    "source_image": "page-006.png",
+    "image_dimensions": [
+      1191,
+      1588
+    ],
+    "annotations": [
+      {
+        "x1": 47,
+        "y1": 861,
+        "x2": 86,
+        "y2": 897,
+        "name": "wild attribute"
+      },
+      {
+        "x1": 48,
+        "y1": 902,
+        "x2": 85,
+        "y2": 938,
+        "name": "lowest attribute"
+      },
+      {
+        "x1": 49,
+        "y1": 943,
+        "x2": 83,
+        "y2": 980,
+        "name": "research"
+      },
+      {
+        "x1": 46,
+        "y1": 1028,
+        "x2": 86,
+        "y2": 1062,
+        "name": "disc"
+      },
+      {
+        "x1": 50,
+        "y1": 1070,
+        "x2": 85,
+        "y2": 1103,
+        "name": "specialist"
+      },
+      {
+        "x1": 48,
+        "y1": 1117,
+        "x2": 90,
+        "y2": 1159,
+        "name": "sonar"
+      },
+      {
+        "x1": 49,
+        "y1": 1168,
+        "x2": 92,
+        "y2": 1223,
+        "name": "sonar this zone"
+      },
+      {
+        "x1": 47,
+        "y1": 1233,
+        "x2": 92,
+        "y2": 1276,
+        "name": "discard a disc"
+      },
+      {
+        "x1": 49,
+        "y1": 1286,
+        "x2": 94,
+        "y2": 1323,
+        "name": "spend 2 research"
+      }
+    ]
+  },
+  {
+    "source_image": "page-007.png",
+    "image_dimensions": [
+      1191,
+      1588
+    ],
+    "annotations": [
+      {
+        "x1": 127,
+        "y1": 166,
+        "x2": 153,
+        "y2": 191,
+        "name": "white cross"
+      },
+      {
+        "x1": 127,
+        "y1": 1138,
+        "x2": 170,
+        "y2": 1162,
+        "name": "reassignment"
+      }
+    ]
+  },
+  {
+    "source_image": "page-008.png",
+    "image_dimensions": [
+      1191,
+      1588
+    ],
+    "annotations": [
+      {
+        "x1": 48,
+        "y1": 1039,
+        "x2": 130,
+        "y2": 1114,
+        "name": "to travel"
+      },
+      {
+        "x1": 287,
+        "y1": 1034,
+        "x2": 360,
+        "y2": 1117,
+        "name": "to dive"
+      },
+      {
+        "x1": 398,
+        "y1": 1031,
+        "x2": 488,
+        "y2": 1115,
+        "name": "to conserve"
+      },
+      {
+        "x1": 522,
+        "y1": 1034,
+        "x2": 602,
+        "y2": 1115,
+        "name": "to journal"
+      },
+      {
+        "x1": 168,
+        "y1": 1040,
+        "x2": 241,
+        "y2": 1112,
+        "name": "to sonar"
+      }
+    ]
+  },
+  {
+    "source_image": "page-012.png",
+    "image_dimensions": [
+      1191,
+      1588
+    ],
+    "annotations": [
+      {
+        "x1": 59,
+        "y1": 744,
+        "x2": 126,
+        "y2": 808,
+        "name": "you"
+      },
+      {
+        "x1": 61,
+        "y1": 847,
+        "x2": 125,
+        "y2": 912,
+        "name": "others"
+      }
+    ]
+  }
+]

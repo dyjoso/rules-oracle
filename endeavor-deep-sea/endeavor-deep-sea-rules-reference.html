@@ -11,12 +11,12 @@
 :root {
   --bg:            #f2ede6;
   --text:          #1a1a1a;
-  --header-bg:     #08374f;
-  --section-bg:    #08374f;
-  --subsection-bg: #906e41;
+  --header-bg:     #006886;
+  --section-bg:    #006886;
+  --subsection-bg: #000abf;
   --rule:          #b0a898;
-  --accent:        #906e41;
-  --table-head:    #08374f;
+  --accent:        #000abf;
+  --table-head:    #006886;
   --note-bg:       #e8e0d4;
   --body-bg:       #ffffff;
 }
@@ -153,6 +153,7 @@ body {
 mark { background: #ffe066; color: #1a1a1a; border-radius: 2px; padding: 0 1px; }
 mark.active { background: #ff9500; color: #fff; }
 
+/* ── MATCH NAVIGATION ────────────────────────────────────── */
 .match-nav {
   display: none;
   align-items: center;
@@ -323,6 +324,31 @@ thead th {
 tbody tr:nth-child(even) { background: var(--note-bg); }
 tbody td { padding: 5px 8px; vertical-align: top; }
 
+/* ── ICON TABLE ──────────────────────────────────────────── */
+.table-wrap img {
+  height: 36px;
+  width: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+/* ── INLINE ICONS ────────────────────────────────────────── */
+p img, li img, blockquote img,
+h1 img, h2 img, h3 img, h4 img, h5 img {
+  height: 1.625em;
+  width: auto;
+  vertical-align: -0.2em;
+  margin: 0 4px;
+}
+/* Sizes chosen in the Resolve-icons stepper (override the default above). */
+img.rule-icon--double { height: 3.25em; }
+img.rule-icon--full {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 0.5em auto;
+  vertical-align: baseline;
+}
 /* ── BLOCKQUOTE ──────────────────────────────────────────── */
 blockquote {
   background: var(--note-bg);
@@ -347,14 +373,6 @@ code {
 
 /* ── HR ──────────────────────────────────────────────────── */
 hr { border: none; border-top: 1px solid var(--rule); margin: 8px 0; }
-
-/* ── SEARCH HIGHLIGHT ────────────────────────────────────── */
-mark {
-  background: #ffe566;
-  color: inherit;
-  border-radius: 2px;
-  padding: 0 1px;
-}
 
 /* ── HIDDEN SECTIONS ─────────────────────────────────────── */
 details.section.search-hidden { display: none; }
@@ -428,262 +446,345 @@ details.section.search-hidden { display: none; }
 <details class="section" open>
   <summary><span>Setup</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
   <div class="section-body">
-<span class="subsection-title">Scenario &amp; Board Grid</span>
-<p>Select a <strong>Scenario Sheet</strong> and place it on the table. It contains setup, scoring information, and special rules. Find the <strong>Ocean Boards</strong> indicated by the scenario and arrange them as shown in the diagram. Leave enough room around them for the grid to develop. The diagram shows the maximum width; the maximum depth is five unless otherwise indicated. Once an <strong>Ocean Board</strong> is in play, it is referred to as a <strong>Zone</strong>. Discard any boards not instructed by the scenario setup.</p>
-<span class="subsection-title">Ocean Stacks &amp; Dive Tokens</span>
-<p>Shuffle all remaining boards into five separate face-down stacks based on their depth. Shuffle the <strong>Dive Tokens</strong> into a face-down supply. Draw tokens to make a face-down stack of the indicated amount on every <strong>Zone</strong> that has a <strong>Dive Site</strong>.</p>
-<span class="subsection-title">Journals</span>
-<p>Shuffle the <strong>Anchor Journal</strong> and <strong>Journal</strong> decks separately. Lay out four random <strong>Anchor Journals</strong> face-up in a display; return the rest to the box. Keep the shuffled <strong>Journal</strong> deck face down near the display.</p>
-<span class="subsection-title">Specialist Tray</span>
-<p>Flip all Tier 1-4 <strong>Specialists</strong> Junior (blue) side up, and separate them into stacks by title. Place the three Tier-1 stacks in the first column's pockets, the Tier-2 stacks in the second column's pockets, and so on. Shuffle the Tier-5 <strong>Specialists</strong>, Junior-side up, and stack three random tiles in each pocket of the rightmost column. Once prepared, the tray remains organized for future games; only re-randomize the Tier-5s for each new game.</p>
-<span class="subsection-title">Player Materials &amp; Start Player</span>
-<p>Randomly choose a start player and give them the <strong>Wave</strong> start marker. Choose your player color and take a <strong>Player Mat</strong>, a <strong>Team Leader</strong> tile, and your color set: 30 <strong>Discs</strong>, 5 track cubes, 20 <strong>Impact Markers</strong>, and 3 <strong>Vessels</strong>. Place your five track cubes on the 0 spaces of your <strong>Attribute</strong> and <strong>Research</strong> tracks. Place your <strong>Team Leader</strong> near your mat, and one <strong>Disc</strong> on its activation circle. Keep the remainder of your <strong>Discs</strong> in a supply pile separate from your <strong>Staging Area</strong>. <strong>Discs</strong> in your supply are not available until they enter play. Keep your <strong>Impact Markers</strong> near the <strong>Impact Board</strong>. Deploy your starting <strong>Vessel</strong> to the launch zone as described by the scenario, and gain its <strong>Arrival Bonus</strong>. Keep your other <strong>Vessels</strong> near your <strong>Player Mat</strong>.</p>
+<span class="subsection-title">A Note on Juniors and Seniors</span>
+<p>All of the Specialists (whether Junior or Senior) represent highly skilled and highly educated scientists, technicians, and experts in other fields.</p>
+<p>Junior/Senior status is not descriptive of the profession itself; it refers to that Specialist's experience participating as a member of your team.</p>
+<span class="subsection-title">Standard Setup</span>
+<ol>
+<li>
+<p><strong>Scenario Sheet:</strong> Select a Scenario sheet and place it on the table. It has setup, scoring information and (sometimes) special rules that everyone should be aware of. First game? Use Mission 1: The Call of the Ocean.</p>
+</li>
+<li>
+<p><strong>Ocean Boards:</strong> Your Scenario tells you which boards to put into play, and the diagram shows their configuration. Find the boards and arrange them as shown. Leave enough room around them for this mission’s grid of boards to develop. The diagram on the sheet shows you how wide the grid may go; the maximum depth is five unless otherwise indicated. Once an Ocean board is in play, it is referred to as a zone. Boards with <img alt="Sunburst" class="rule-icon" src="icons/page-004_icon_1_sunburst.png"/> near their name are part of specific missions; find and discard every <img alt="Sunburst" class="rule-icon" src="icons/page-004_icon_1_sunburst.png"/> board that your Scenario setup doesn’t instruct you to include.</p>
+</li>
+<li>
+<p><strong>Ocean Stacks:</strong> Shuffle all of the remaining boards into five separate face down stacks based on their depth.</p>
+</li>
+<li>
+<p><strong>Dive tokens:</strong> Shuffle the Dive tokens into a face-down supply. Draw tokens to make a face-down stack of the indicated amount on every zone that has a Dive site.</p>
+</li>
+<li>
+<p><strong>Journals:</strong> Shuffle the Anchor Journal and Journal decks separately. Lay out four random Anchor Journals face-up in a display; return the rest to the box. Keep the shuffled Journal deck face down near the display.</p>
+</li>
+<li>
+<p><strong>Specialists:</strong> Place the prepared Specialist tray nearby. Tiers 1-4 should remain properly organized from your last play. For Tier 5s, place three random tiles (blue Junior-side up) in each pocket of the Tier-5 column.</p>
+</li>
+<li>
+<p><strong>The Wave:</strong> Randomly choose a start player, and give them the Wave start marker.</p>
+</li>
+<li>
+<p><strong>Player Materials:</strong> Choose your player color. Take a Player mat, a Team Leader tile, and the component set in your color: 30 discs, 5 track cubes, 20 Impact markers, and 3 Vessels.<br/>
+   - A) Place your five track cubes on the 0 spaces of your Attribute and Research tracks.<br/>
+   - B) Place your Team Leader near your mat, and one of your discs on its activation circle.<br/>
+   - C) Keep the remainder of your discs in a supply pile not near your Staging area. Discs in your supply are not available to you; they must enter play before you can use them, so it’s wise to keep them notably distant.<br/>
+   - D) Keep your Impact markers near the Impact board.<br/>
+   - E) Deploy your starting Vessel to the launch zone as described by the scenario, and gain its Arrival bonus (see Arrival Bonus); keep your other Vessels near your player mat.</p>
+</li>
+</ol>
+<span class="subsection-title">Preparing the Specialist Tray</span>
+<p><strong>Tier 1-4 Specialists:</strong> Flip them all Junior (blue) side up, and separate them into stacks by title. Place the three tier-1 stacks in the first (leftmost) column’s pockets, the tier-2 stacks in the second column’s pockets, and so on.</p>
+<p><strong>Tier-5 Specialists:</strong> Shuffle them, Junior-side up. Stack three random tiles in each of the pockets in the rightmost column.</p>
+<p>Once you’ve prepared the tray once, it will stay pretty much prepared for all future games; when you clean up, just put the Specialists back in their proper pockets. The only thing you need to do for each new game is re-randomize your Tier-5s!</p>
+<p>Short on table space for your stacks? Try this stacking method: Criss-cross the stacks with shallowest on top and deepest on the bottom.</p>
+<span class="subsection-title">Cooperative &amp; Solo Setup</span>
+<p>Every Scenario can be played in Cooperative (Co-op) mode. Solo mode has no special rules and is effectively one-player Co-op. The only difference is that in Solo mode you play seven rounds instead of six. </p>
+<p>To set up a Cooperative or Solo game, complete the standard setup steps above, and then perform these additional steps:</p>
+<ol>
+<li>
+<p>Shuffle the Setback cards, and make a stack of three random Setbacks face down (four if playing solo). Then shuffle the Bonus Goal cards, and stack three of those face down on top of the Setbacks. Return the unused Bonus Goals and Setbacks to the box without looking at them.</p>
+</li>
+<li>
+<p>Choose your difficulty. There will be seven potential goals that your group can achieve (the Scenario determines four of them, plus three random Bonus goals). Decide how many you will aim for. </p>
+</li>
+</ol>
   </div>
 </details>
 <details class="section">
-  <summary><span>Round Structure</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <summary><span>Game Overview & Symbols</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
   <div class="section-body">
-<p>The game is played over six rounds. Each round consists of two phases. The player with the <strong>Wave</strong> goes first in each phase, with other players following in clockwise order. Play continues until all players have passed. Once all players have passed, the round ends. If that was the sixth round, the game ends immediately and proceeds to final scoring. You can identify the sixth round because each player will have seven <strong>Specialists</strong> in their tableau, including their <strong>Team Leader</strong>. If the game has not ended, pass the <strong>Wave</strong> clockwise to establish a new start player, and begin a new round.</p>
+<span class="subsection-title">Gameplay Structure</span>
+<p>The game is played over six rounds. Each round consists of two phases. The player with the Wave goes first in each phase, with the other players following in a clockwise order.</p>
+<p>Your player mat includes a "flow of play" diagram to remind you of the phase order. Faint lines indicate the attribute track that affects each phase.</p>
+<p><strong>Phase 1: Preparation</strong><br/>
+Each player conducts the following three steps: Recruitment, Effort, and Reassignment.</p>
+<p><strong>Phase 2: Activation</strong><br/>
+Players take turns activating Specialists to perform actions, continuing clockwise until everyone has passed.</p>
+<span class="subsection-title">Reward Symbols</span>
+<p>Often during the game you will gain rewards in various ways; methods include recruitment or promotion of Specialists, various aspects of the Ocean zones, the Impact Board, Journals, and more. Here are some of the common rewards and other symbols:</p>
+<ul>
+<li><img alt="Reputation" class="rule-icon" src="icons/page-001_icon_1_reputation.png"/> Advance your Reputation track marker one step</li>
+<li><img alt="Inspiration" class="rule-icon" src="icons/page-001_icon_2_inspiration.png"/> Advance your Inspiration track marker one step</li>
+<li><img alt="Coordination" class="rule-icon" src="icons/page-001_icon_3_coordination.png"/> Advance your Coordination track marker one step</li>
+<li><img alt="Ingenuity" class="rule-icon" src="icons/page-001_icon_4_ingenuity.png"/> Advance your Ingenuity track marker one step</li>
+<li><img alt="Wild Attribute" class="rule-icon" src="icons/page-006_icon_1_wild_attribute.png"/> Advance an attribute marker of your choice one step</li>
+<li><img alt="Lowest Attribute" class="rule-icon" src="icons/page-006_icon_2_lowest_attribute.png"/> Advance your lowest attribute marker one step (your choice if tied)</li>
+<li><img alt="Research" class="rule-icon" src="icons/page-006_icon_3_research.png"/> Advance your Research track marker one step (to a maximum of 12; excess is lost)</li>
+<li><img alt="Impact" class="rule-icon" src="icons/page-001_icon_5_impact.png"/> Place one marker on the Impact Board (see The Impact Board)</li>
+<li><img alt="Disc" class="rule-icon" src="icons/page-006_icon_4_disc.png"/> Gain one disc from your supply to your Staging Area</li>
+<li><img alt="Specialist" class="rule-icon" src="icons/page-006_icon_5_specialist.png"/> Promote a Specialist (see Promotions)</li>
+<li><img alt="Sonar" class="rule-icon" src="icons/page-006_icon_6_sonar.png"/> Perform a Sonar action</li>
+<li><img alt="Sonar This Zone" class="rule-icon" src="icons/page-006_icon_7_sonar_this_zone.png"/> Perform a Sonar action in this zone</li>
+<li><img alt="Discard A Disc" class="rule-icon" src="icons/page-006_icon_8_discard_a_disc.png"/> Discard a disc from your Staging Area to your supply</li>
+<li><img alt="Spend 2 Research" class="rule-icon" src="icons/page-006_icon_9_spend_2_research.png"/> Spend 2 Research</li>
+</ul>
   </div>
 </details>
 <details class="section">
   <summary><span>Phase 1: Preparation</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
   <div class="section-body">
-<p>Each player conducts the following three steps:</p>
-<span class="subsection-title">Recruitment</span>
-<p>Recruit one <strong>Specialist</strong>.</p>
-<span class="subsection-title">Effort</span>
-<p>Gain <strong>Discs</strong> from your supply to your <strong>Staging Area</strong>.</p>
-<span class="subsection-title">Reassignment</span>
-<p>Reclaim <strong>Discs</strong> from your <strong>Specialists</strong> to your <strong>Staging Area</strong>.</p>
+<span class="subsection-title">1a: Recruitment</span>
+<p>On your turn, choose one Specialist from the tray and add it to your own tableau. Your <img alt="Reputation" class="rule-icon" src="icons/page-001_icon_1_reputation.png"/> Reputation track determines the highest tier from which you can recruit; your Recruitment level on the lower row of the track is displayed in <img alt="White Cross" class="rule-icon" src="icons/page-007_icon_1_white_cross.png"/> symbols.</p>
+<p>Each Junior Specialist displays a number of <img alt="White Cross" class="rule-icon" src="icons/page-007_icon_1_white_cross.png"/> symbols in the top corner indicating its tier; to recruit a particular Specialist, your Recruitment level must match (or exceed) the tier.</p>
+<ul>
+<li>Your recruited Specialist always enters play on its Junior side.</li>
+<li>You may recruit duplicates of Specialists you already have.</li>
+<li>If your new Specialist displays any immediate gains, resolve them before proceeding to the next step.</li>
+<li>Any <img alt="Inspiration" class="rule-icon" src="icons/page-001_icon_2_inspiration.png"/> or <img alt="Coordination" class="rule-icon" src="icons/page-001_icon_3_coordination.png"/> that you gain during this step does affect the following two steps; this may factor into your recruitment decision!</li>
+<li>If you recruit a tier-5 Specialist and this leaves its tray pocket empty, move the top tile from a different pocket to the empty pocket, so that three tier-5s are always available for selection.</li>
+</ul>
+<span class="subsection-title">1b: Effort</span>
+<p>Gain new discs from your supply to the Staging Area of your Player mat. Your <img alt="Inspiration" class="rule-icon" src="icons/page-001_icon_2_inspiration.png"/> Inspiration track determines the number of discs you gain; your Effort level on the lower row of the track is displayed in <img alt="Disc" class="rule-icon" src="icons/page-006_icon_4_disc.png"/> symbols. Gain one disc per symbol.</p>
+<ul>
+<li>If your supply runs out of discs, use discs of an unused player color or some other marker as a substitute.</li>
+</ul>
+<span class="subsection-title">1c: Reassignment</span>
+<p>On your turn, 'reassign your Specialists' by reclaiming discs from your Specialists to your Staging Area; this frees up both the disc and the Specialist for future use. Your <img alt="Coordination" class="rule-icon" src="icons/page-001_icon_3_coordination.png"/> Coordination track determines the number of discs you may reclaim; your Reassignment level on the lower row of the track is displayed in <img alt="Reassignment" class="rule-icon" src="icons/page-007_icon_2_reassignment.png"/> symbols. Reclaim one disc per symbol.</p>
+<ul>
+<li>If you don’t have enough Coordination to reassign all of your Specialists, choose which ones to reassign and leave the excess discs in place.</li>
+</ul>
+<p>In the first round, you will have a single disc on your Team Leader, and the capability to reassign one Specialist… so you will be able to reclaim that disc back to your Staging Area.</p>
   </div>
 </details>
 <details class="section">
   <summary><span>Phase 2: Activation</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
   <div class="section-body">
-<span class="subsection-title">Turn Structure &amp; Disc Usage</span>
-<p>Take turns beginning with the player holding the <strong>Wave</strong>, proceeding clockwise. On your turn, you must either take a turn or pass. Once you pass, you may take no further turns in this round, and turn order continues clockwise, skipping you. Play proceeds with still-active players continuing in turn order until all players have passed.</p>
-<p>You take a turn by activating a <strong>Specialist</strong>. To activate a <strong>Specialist</strong>, place a <strong>Disc</strong> from your <strong>Staging Area</strong> on a <strong>Specialist</strong> in your tableau that has an empty activation circle. The <strong>Disc</strong> you place simply permits you to take its actions. Some action types will then require you to use an additional <strong>Disc</strong> from your <strong>Staging Area</strong> to actually carry out the action.</p>
-<p>Some <strong>Specialists</strong> display multiple action symbols with a “/” symbol between them; in this case, you must choose one of the actions to perform. Some <strong>Specialists</strong> display multiple action symbols without a “/” symbol between them. You may perform any or all of the actions, in any order you choose. Performing multiple actions from one <strong>Specialist</strong> still counts as one turn. The actions may be performed in different zones. Resolve each action fully before beginning the next. You may activate a <strong>Specialist</strong> and then not perform its action(s).</p>
-<span class="subsection-title">General Activation Rules</span>
-<p>You may always decline to collect any reward or perform any action that you are entitled to. To perform an action in a <strong>Zone</strong>, you must have a <strong>Vessel</strong> in that <strong>Zone</strong>. The places in each <strong>Zone</strong> where you can perform the different actions are clearly signposted with an outlined version of the relevant action symbol.</p>
-  </div>
-</details>
-<details class="section">
-  <summary><span>Actions & Zone Mechanics</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
-  <div class="section-body">
-<span class="subsection-title">Movement &amp; Arrival</span>
-<span class="label-title">Travel</span>
-<p>Move a <strong>Vessel</strong> to a different <strong>Zone</strong> to gain its <strong>Arrival Bonus</strong> and enable other actions there. Move one of your <strong>Vessels</strong> from its current <strong>Zone</strong> to a different one. Your <strong>Vessel</strong> movement capabilities are limited by your <strong>Ingenuity</strong> track's advancement; your <strong>Technology</strong> level on the lower row of the track is displayed in symbols. The maximum depth you may move your <strong>Vessel</strong> to is equal to your <strong>Technology</strong> level. The maximum distance, measured in zones, that your <strong>Vessel</strong> may move from its current <strong>Zone</strong> is also equal to your <strong>Technology</strong> level. A <strong>Vessel</strong> moves horizontally or vertically from zone to zone, one zone at a time. You may not travel through empty spaces that do not have a <strong>Zone</strong> in them. Keep your <strong>Vessels</strong> in the Travel box of their current <strong>Zone</strong>.</p>
-<span class="label-title">Arrival Bonus</span>
-<p>After moving a <strong>Vessel</strong> to a <strong>Zone</strong>, immediately gain the <strong>Arrival Bonus</strong> for that <strong>Zone</strong> (only the final destination <strong>Zone</strong>, not the zones passed through along the way). The <strong>Arrival Bonus</strong> is displayed below the Travel symbol in each <strong>Zone</strong>. You gain the <strong>Arrival Bonus</strong> when you place a newly-gained <strong>Vessel</strong> in its launch <strong>Zone</strong>, including your starting <strong>Vessel</strong> at game start. Your <strong>Scenario Sheet</strong>'s Setup describes the launch zone(s) for this Mission.</p>
-<span class="subsection-title">Sonar &amp; Discovery</span>
-<span class="label-title">Sonar</span>
-<p>Requires a second <strong>Disc</strong>. Add a <strong>Disc</strong> to a <strong>Sonar Track</strong> to gain rewards and discover new ocean zones. Place a <strong>Disc</strong> from your <strong>Staging Area</strong> on the leftmost empty space of a <strong>Sonar Track</strong> in a <strong>Zone</strong> where you have a <strong>Vessel</strong>. If the <strong>Zone</strong> features multiple tracks, you may choose which track to place upon. Placing the <strong>Disc</strong> may complete a <strong>Link</strong>. Some <strong>Sonar Track</strong> spaces display common rewards; claim them as usual. Most <strong>Sonar Track</strong> spaces indicate that you may <strong>Discover</strong> a new <strong>Zone</strong> to add to the ocean.</p>
-<span class="label-title">Discover</span>
+<span class="subsection-title">Taking Turns &amp; Activating Specialists</span>
+<p>Take turns beginning with whoever has the Wave, and proceed clockwise. On your turn you must either take a turn or pass. Once you pass, you may take no further turns in this round, and the turn order continues clockwise, skipping you. Play proceeds in this manner, with still-active players continuing in turn order until all players have passed.</p>
+<p>You (usually<em>) take a turn by </em><em>activating a Specialist</em>*. To activate a Specialist, place a disc from your Staging Area on a Specialist in your tableau that has an empty activation circle. Then you may perform the Specialist’s action(s). The disc you place on the Specialist simply permits you to take its actions. Some action types will then require you to use an additional disc from your Staging area (not your supply) to actually carry out the action.</p>
 <ul>
-<li>Draw two <strong>Ocean Boards</strong>. Each <strong>Discover</strong> symbol indicates the depths of the stacks you could draw from. You may draw and place boards that are too deep for you to currently travel to. Your <strong>Scenario Sheet</strong> shows the limits of your Mission's play area, indicating where new depth-1 zones may be placed to create columns. With the exception of depth-1, there must be a <strong>Zone</strong> of the shallower depth to place it below. If your <strong>Discovery</strong> is impossible to resolve, you must draw from the shallowest possible depth with a legal placement spot, and continue as normal. If the entire play area is full, gain instead of drawing any boards, and skip the remaining steps. If a drawn board has a symbol by its name, and that board isn't mentioned in your <strong>Scenario</strong> setup, discard it and draw a replacement.</li>
-<li>Look at both boards, and choose one to place (return the other to the bottom of its stack). Place your chosen board in any legal spot you wish at the correct depth. Now that the board is in play, it is referred to as a <strong>Zone</strong>. If the <strong>Zone</strong> has a <strong>Dive Site</strong> in it, place the indicated number of <strong>Dive Tokens</strong> face down in the <strong>Dive Site</strong>.</li>
-<li>Claim the new <strong>Zone</strong>'s <strong>Discovery Bonus</strong>. <strong>Discovery Bonuses</strong> are one-time rewards displayed faintly on the top left corner. <strong>Zones</strong> with <strong>Dive Sites</strong> have a reminder in their <strong>Discovery Bonus</strong> section to place <strong>Dive Tokens</strong>.</li>
+<li>Some Specialists display multiple action symbols with a “p” symbol between them; in this case you must choose one of the actions to perform.</li>
+<li>Some Specialists display multiple action symbols without a “p” symbol between them. You may perform any or all of the actions, in any order you choose. Performing multiple actions from one Specialist still counts as one turn. The actions may be performed in different zones. Resolve each action fully before beginning the next.</li>
+<li>You may activate a Specialist and then not perform its action(s).</li>
 </ul>
-<span class="subsection-title">Dive, Conserve &amp; Journal</span>
-<span class="label-title">Dive</span>
-<p>Choose a <strong>Zone</strong> where you have a <strong>Vessel</strong> that has a <strong>Dive Site</strong> with one or more <strong>Dive Tokens</strong> remaining. Draw the top token from the <strong>Dive Site</strong>, and reveal it.</p>
-<span class="label-title">Conserve</span>
-<p>Requires a second <strong>Disc</strong>. Spend <strong>Research</strong> and place a <strong>Disc</strong> in a Conservation site to gain rewards. Choose an available Conservation site in a <strong>Zone</strong> where you have a <strong>Vessel</strong>. Pay the displayed <strong>Research</strong> cost of the site, and gain any indicated rewards. Place a <strong>Disc</strong> from your <strong>Staging Area</strong> in the site. This may complete a <strong>Link</strong>.</p>
-<span class="label-title">Paying Research Costs</span>
-<p>Actions with a <strong>Research</strong> cost show the relevant symbol with a number indicating the cost. Spend that amount of <strong>Research</strong> from the <strong>Research Track</strong> on your <strong>Player Mat</strong> (reflect the change by moving your cube). You may also spend <strong>Dive Tokens</strong> for their displayed <strong>Research</strong> value at any time.</p>
-<span class="label-title">Journal</span>
-<p>Requires a second <strong>Disc</strong>. Spend <strong>Research</strong> to publish a <strong>Journal</strong>, which grants <strong>Promotions</strong> and other benefits. In a <strong>Zone</strong> where you have a <strong>Vessel</strong>, choose an unoccupied <strong>Journal</strong> site with a Field Symbol that is also featured on a <strong>Journal</strong> in the display that you wish to publish. If no <strong>Journals</strong> in the display feature the site's Field symbol, you may not currently <strong>Journal</strong> at that site. Spend the <strong>Research</strong> Cost indicated on the <strong>Journal</strong>, and place a <strong>Disc</strong> from your <strong>Staging Area</strong> in the site. This may complete a <strong>Link</strong>. Claim your published <strong>Journal</strong>, and keep it face up near your mat; its effects are now active. Immediately draw a new <strong>Journal</strong> from the deck to re-fill the display. It does not matter which Field symbol you used to publish the <strong>Journal</strong>; all effects on the card resolve as described.</p>
-<span class="inline-title">Journal Effects</span>
-<p><strong>Points:</strong> At the end of the game, you will earn the displayed amount of points.</p>
-<p><strong>You:</strong> These benefits are immediately gained by you. One common benefit of this type is <strong>Promotion</strong>.</p>
-<p><strong>Others:</strong> These benefits are immediately gained by all other players, but not you. Make sure the other players are aware of their gain.</p>
-<p><strong>Actions:</strong> For your turn in place of activating a <strong>Specialist</strong>, you can place a <strong>Disc</strong> from your <strong>Staging Area</strong> into an empty Activation circle on your published <strong>Journal</strong>, and perform the action it describes. <strong>Discs</strong> on <strong>Journals</strong> remain there for the rest of the game; they may not be removed during Reassignment.</p>
-<span class="inline-title">Action Substitutions</span>
-<p><strong>Dive:</strong> Claim an additional <strong>Dive Token</strong> from that <strong>Dive Site</strong> if any remain.</p>
-<p><strong>Travel:</strong> Treat your <strong>Technology</strong> level as if it were one higher, meaning your <strong>Vessel</strong> can go one zone further and one depth deeper than usual.</p>
-<p><strong>Conserve:</strong> At a Conservation site where you have at least one <strong>Vessel</strong> at the same depth, even if you do not have a <strong>Vessel</strong> in the specific <strong>Zone</strong>.</p>
-<span class="subsection-title">Promotion &amp; Link Completion</span>
-<span class="label-title">Promotion</span>
-<p>Choose a Junior <strong>Specialist</strong> of yours, and flip it to its Senior side. Gain any displayed attribute, <strong>Research</strong>, or <strong>Impact</strong>. You do not lose any attribute symbols that were on the Junior side. If there was a <strong>Disc</strong> on the Junior's activation circle when you promoted it, discard the <strong>Disc</strong> to your supply.</p>
-<span class="label-title">Completing Links</span>
-<p>Some zone features connect via lines called <strong>Links</strong>. When both ends of a <strong>Link</strong> are occupied by a <strong>Disc</strong>, the <strong>Link</strong> is completed. At the moment of completion, both players with <strong>Discs</strong> at either end of the <strong>Link</strong> immediately gain the reward displayed on the <strong>Link</strong> itself. If your own <strong>Disc</strong> occupies both ends of the <strong>Link</strong>, you do not get the reward twice. It is possible for multiple <strong>Links</strong> to be completed at once. The active player gains their rewards first, then any other players in clockwise order.</p>
+<p>* Certain activities (explained later), can be done in place of activating a Specialist. In those cases, apply all rules that reference your activated Specialist (or its actions) to the substituted activity instead.</p>
+<span class="subsection-title">General Rules of the Activation Phase</span>
+<ul>
+<li>You may always decline to collect any reward or perform any action that you are entitled to.</li>
+<li>To perform an action in a zone, you must have a Vessel in that zone. The places in each zone where you can perform the different actions are clearly signposted with an outlined version of the relevant action symbol.</li>
+<li>If you ever reach the <img alt="Impact" class="rule-icon" src="icons/page-001_icon_5_impact.png"/> Impact symbol near the end of any attribute track, gain one Impact. If you ever advance beyond the end of a track, retreat the cube back to the Impact symbol and gain it again, as indicated by the arrow.</li>
+<li>The <img alt="Ingenuity" class="rule-icon" src="icons/page-001_icon_4_ingenuity.png"/> Ingenuity track unlocks additional Vessels for you. The first time your marker reaches each of the two spots with a “Gain Vessel” icon, place the new Vessel at the Mission’s Launch zone (indicated on the Scenario sheet) and gain its Arrival bonus.</li>
+</ul>
+<span class="subsection-title">Action Icons</span>
+<p><strong>TO TRAVEL...</strong><br/>
+<img alt="To Travel" class="rule-icon rule-icon--double" src="icons/page-008_icon_1_to_travel.png"/><br/>
+<strong>...LOOK FOR</strong></p>
+<p><strong>TO SONAR...</strong><br/>
+<img alt="To Sonar" class="rule-icon rule-icon--double" src="icons/page-008_icon_5_to_sonar.png"/><br/>
+<strong>...LOOK FOR</strong></p>
+<p><strong>TO DIVE...</strong><br/>
+<img alt="To Dive" class="rule-icon rule-icon--double" src="icons/page-008_icon_2_to_dive.png"/><br/>
+<strong>...LOOK FOR</strong></p>
+<p><strong>TO CONSERVE...</strong><br/>
+<img alt="To Conserve" class="rule-icon rule-icon--double" src="icons/page-008_icon_3_to_conserve.png"/><br/>
+<strong>...LOOK FOR</strong></p>
+<p><strong>TO JOURNAL...</strong><br/>
+<img alt="To Journal" class="rule-icon rule-icon--double" src="icons/page-008_icon_4_to_journal.png"/><br/>
+<strong>...LOOK FOR</strong></p>
+  </div>
+</details>
+<details class="section">
+  <summary><span>Actions</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <div class="section-body">
+<span class="subsection-title">Travel &amp; Arrival Bonus</span>
+<p>Move a Vessel to a different zone, to gain its arrival bonus and enable you to take other actions there.</p>
+<p>Move one of your Vessels from its current zone to a different one. Your Vessel movement capabilities are limited by your <img alt="Ingenuity" class="rule-icon" src="icons/page-001_icon_4_ingenuity.png"/>Ingenuity track's advancement; your Technology level on the lower row of the track is displayed in <img alt="Depth" class="rule-icon" src="icons/page-002_icon_1_depth.png"/> symbols.</p>
+<ul>
+<li>The maximum depth you may move your Vessel to is equal to your Technology level.</li>
+<li>The maximum distance (measured in zones) that your Vessel may move from its current zone is also equal to your Technology level. A Vessel moves horizontally or vertically from zone to zone, one zone at a time.</li>
+<li>You may not travel through “empty spaces” that don’t have a zone in them.</li>
+<li>Keep your Vessels in the Travel box of their current zone.</li>
+</ul>
+<p>After moving a Vessel to a zone, immediately gain the <strong>Arrival bonus</strong> for that zone (only the final destination zone, not the zones passed through along the way). The Arrival bonus is displayed below the Travel symbol in each zone.</p>
+<ul>
+<li>You do get the Arrival bonus when you place a newly-gained Vessel in its launch zone, including your starting Vessel at game start. Your Scenario sheet’s Setup describes the launch zone(s) for this Mission.</li>
+</ul>
+<span class="subsection-title">Sonar &amp; Discover</span>
+<p><em>(Requires a second disc)</em></p>
+<p>Add a disc to a Sonar track, to gain rewards and discover new ocean zones.</p>
+<p>Place a disc from your Staging Area on the leftmost empty space of a Sonar track in a zone where you have a Vessel.</p>
+<ul>
+<li>If the zone features multiple tracks, you may choose which track to place upon.</li>
+<li>Placing the disc may complete a link (see Completing Links).</li>
+</ul>
+<p>Some Sonar track spaces display common rewards; claim them as usual. Most Sonar track spaces indicate that you may <strong>Discover</strong> a new zone to add to the ocean.</p>
+<span class="label-title">Step 1: Choose Your Board</span>
+<p>Draw two Ocean boards. Each Discover symbol indicates the depths of the stacks you could draw from. For example if it says "1-2", you could draw two boards from depth-1, or two from depth-2, or one from each.</p>
+<ul>
+<li>You may draw and place boards that are too deep for you to currently travel to.</li>
+<li>Your Scenario sheet shows the limits of your Mission’s play area, indicating where new depth-1 zones may be placed to create columns.</li>
+<li>With the exception of depth-1, there must be a zone of the shallower depth to place it below. (For example, you may not place a depth-4 board unless there is a depth-3 zone with an empty space below it.)</li>
+<li>If your Discovery is impossible to resolve (for example if the icon says "1-2" and both of those depths are already full), you must draw from the shallowest possible depth with a legal placement spot, and continue as normal.</li>
+<li>If the entire play area is full, gain <img alt="Impact" class="rule-icon" src="icons/page-001_icon_5_impact.png"/> instead of drawing any boards, and skip the remaining steps.</li>
+<li>If a drawn board has a <img alt="Sunburst" class="rule-icon" src="icons/page-004_icon_1_sunburst.png"/> symbol by its name, and that board isn’t mentioned in your Scenario setup, discard it and draw a replacement.</li>
+</ul>
+<p>The Discover symbol shows two boards (to remind you that you always draw two to choose from), and it has a number or a number range in it to indicate which depths you may draw from.</p>
+<p>2-4: Draw from depths 2-4<br/>
+4+: Draw from depth 4 or deeper<br/>
+3: Draw from depth 3 only</p>
+<span class="label-title">Step 2: Place the New Zone</span>
+<p>Look at both boards, and choose one to place (return the other to the bottom of its stack). Place your chosen board in any legal spot you wish at the correct depth; now that the board is in play, it is referred to as a zone.</p>
+<ul>
+<li>If the zone has a Dive site in it, place the indicated number of Dive tokens face down in the Dive site.</li>
+</ul>
+<span class="label-title">Step 3: Discovery Bonus</span>
+<p>Claim the new zone’s Discovery bonus. Discovery bonuses are one-time rewards displayed faintly on the top left corner.</p>
+<p>Zones with Dive sites have a reminder in their Discovery Bonus section to place Dive tokens.</p>
+<span class="subsection-title">Dive &amp; Dive Tokens</span>
+<p>Draw the top token from a Dive site; tokens have varied uses and are an important source of valuable Research.</p>
+<p>Choose a zone (where you have a Vessel) that has a Dive site with one or more Dive tokens remaining. Draw the top token from the Dive site, and reveal it.</p>
+<p>Dive tokens display some amount of <img alt="Research" class="rule-icon" src="icons/page-006_icon_3_research.png"/> (which you’ll need for Conserve and Journal actions). Most tokens also display an effect.</p>
+<p>During your turn, you may spend any number of Dive tokens (into a discard pile). When you spend a token, you either gain its Research value (reflect the gain on your Research track), or take advantage of its effect. Spending Dive tokens is in addition to activating your Specialist as normal.</p>
+<ul>
+<li>You may spend a Dive token in place of activating a Specialist.</li>
+<li>You may spend tokens before and/or after activating your Specialist, or even between its actions if it is a multiple-action Specialist.</li>
+<li>You may spend tokens on the same turn you get them.</li>
+<li>If the token supply ever runs out when placing tokens at a site, shuffle the pile into the supply. If both the supply and discard run out, place as many as you can.</li>
+<li>Your Research track can store a maximum of twelve Research. Any Research gained beyond twelve (from any source) is lost.</li>
+</ul>
+<p>At the end of your turn, you may store a maximum of one Dive token (there is a spot on your player mat for it); you must spend excess tokens before ending your turn.</p>
+<p>Common Dive token effects include:</p>
+<ul>
+<li>Conserve, but treat the Research cost as if it was one lower than displayed. Minimum cost of zero.</li>
+<li>Discard a disc from your Staging Area to gain five Research.</li>
+</ul>
+<span class="subsection-title">Paying Research Costs</span>
+<p>Actions with a Research cost show this symbol, with a number indicating the cost. Spend that amount of Research from the Research track on your player mat (reflect the change by moving your cube). Remember that you may also spend Dive tokens for their displayed Research value at any time.</p>
+<span class="subsection-title">Conserve</span>
+<p><em>(Requires a second disc)</em></p>
+<p>Spend Research and place a disc in a Conservation site to gain rewards (often Impact).</p>
+<p>Choose an available Conservation site in a zone where you have a Vessel. Pay the displayed Research cost of the site, and gain any indicated rewards. Place a disc from your Staging Area in the site; this may complete a link (see Completing Links).</p>
+<span class="subsection-title">Journals &amp; Journal Effects</span>
+<p><em>(Requires a second disc)</em></p>
+<p>Spend Research to publish a Journal, which grants Promotions and other benefits.</p>
+<p>In a zone where you have a Vessel, choose an unoccupied Journal site with a Field Symbol that is also featured on a Journal (in the display) that you wish to publish (it is okay if there are also other Field symbols on that Journal).</p>
+<ul>
+<li>If no Journals in the display feature the site's Field symbol, you may not currently Journal at that site.</li>
+</ul>
+<p>Spend the Research Cost indicated on the Journal, and place a disc from your Staging Area in the site. This may complete a link (see Completing Links).</p>
+<p>Claim your published Journal, and keep it face up near your mat; its effects are now active. Immediately draw a new Journal from the deck to re-fill the display.</p>
+<ul>
+<li>It doesn’t matter which Field card you used to publish the Journal; all effects on the card resolve as described below.</li>
+</ul>
+<p>There are four categories of Journal effects (as always, any gained benefit may be declined by the entitled player):</p>
+<ul>
+<li><strong>Points:</strong> At the end of the game, you will earn the displayed amount of points.</li>
+<li><strong>You:</strong> These benefits are immediately gained by you. One common benefit of this type is Promotion.</li>
+<li><strong>Others:</strong> These benefits are immediately gained by all other players (but not you). Make sure the other players are aware of their gain.</li>
+<li><strong>Actions:</strong> For your turn in place of activating a Specialist, you can place a disc from your Staging Area into an empty Activation circle on your published Journal, and perform the action it describes. Discs on Journals remain there for the rest of the game; they may not be removed during Reassignment.</li>
+</ul>
+<p>Clarifications of unusual actions on Journal cards:</p>
+<ul>
+<li>Dive, and claim an additional Dive token from that Dive site (if any remain).</li>
+<li>Travel, but treat your Technology level as if it were one higher (meaning your Vessel can go one zone further and one depth deeper than usual).</li>
+<li>Conserve, at a Conservation site where you have at least one Vessel at the same depth, even if you don't have Vessel in the specific zone.</li>
+</ul>
+<span class="subsection-title">Completing Links</span>
+<p>Some zone features connect via lines called links. When <strong>both</strong> ends of a link are occupied by a disc, the link is completed. At the moment of completion, <strong>both players</strong> with discs at either end of the link immediately gain the reward displayed on the link itself.</p>
+<ul>
+<li>If your own disc occupies <strong>both</strong> ends of the link, you do not get the reward twice.</li>
+<li>It is possible for multiple links to be completed at once.</li>
+<li>The active player gains their rewards first, then any other players in clockwise order.</li>
+</ul>
 <span class="subsection-title">Special Zone Features</span>
-<p>Some <strong>Zones</strong> have special features in addition to the usual action-type features. There are three basic types. See the Ocean Zones Special Rules sheet for clarifications of every <strong>Zone</strong>'s special features.</p>
-<span class="label-title">General Effects</span>
-<p>The yellow warning triangle indicates an effect that isn't connected to a particular feature of the <strong>Zone</strong>.</p>
-<span class="label-title">Action Effects</span>
-<p>A yellow line leading away from a feature means that something special happens right after you perform that feature's action.</p>
-<span class="label-title">Marked Spaces</span>
-<p>A yellow ring around a feature means that once you have a <strong>Disc</strong> in that spot, the indicated special rule applies to you.</p>
+<p>Some zones have special features in addition to the usual action-type features. There are three basic types, described below. See the <em>Ocean Zones Special Rules</em> sheet for clarifications of every zone's special features.</p>
+<p><strong>General Effects</strong><br/>
+The yellow warning triangle indicates an effect that isn't connected to a particular feature of the zone. </p>
+<blockquote>
+<p>For example, when you Travel away from this zone, you may act as if your Technology level is one higher than it actually is.</p>
+</blockquote>
+<p><strong>Action Effects</strong><br/>
+A yellow line leading away from a feature means that something special happens right after you perform that feature's action. </p>
+<blockquote>
+<p>For example, when you Dive here, also gain one Impact.</p>
+</blockquote>
+<p><strong>Marked Spaces</strong><br/>
+A yellow ring around a feature means that once you have a disc in that spot, the indicated special rule applies to you. </p>
+<blockquote>
+<p>For example, if you occupy this marked spot, when you Conserve in this zone you may immediately Conserve again in this zone.</p>
+</blockquote>
+<span class="subsection-title">Promotions</span>
+<p>Choose a <strong>Junior</strong> Specialist of yours, and flip it to its <strong>Senior</strong> side. Gain any displayed attribute, Research, or Impact.</p>
+<p>Remember that the Promotion bar on the bottom of each Junior Specialist shows what is on the Senior side.</p>
+<ul>
+<li>You do not lose any attribute symbols that were on the Junior side.</li>
+<li>If there was a disc on the Junior's activation circle when you promoted it, discard the disc to your supply.</li>
+</ul>
   </div>
 </details>
 <details class="section">
-  <summary><span>Reference: Symbols, Tracks & Boards</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <summary><span>The Impact Board</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
   <div class="section-body">
-<span class="subsection-title">Reward Symbols &amp; Icon Meanings</span>
-<div class="table-wrap"><table>
-<thead>
-<tr>
-<th>Symbol</th>
-<th>Meaning</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Reputation Icon</td>
-<td>Advance your Reputation track marker one step</td>
-</tr>
-<tr>
-<td>Inspiration Icon</td>
-<td>Advance your Inspiration track marker one step</td>
-</tr>
-<tr>
-<td>Coordination Icon</td>
-<td>Advance your Coordination track marker one step</td>
-</tr>
-<tr>
-<td>Ingenuity Icon</td>
-<td>Advance your Ingenuity track marker one step</td>
-</tr>
-<tr>
-<td>Choice Attribute Icon</td>
-<td>Advance an attribute marker of your choice one step</td>
-</tr>
-<tr>
-<td>Lowest Attribute Icon</td>
-<td>Advance your lowest attribute marker one step (your choice if tied)</td>
-</tr>
-<tr>
-<td>Research Icon</td>
-<td>Advance your Research track marker one step (to a maximum of 12; excess is lost)</td>
-</tr>
-<tr>
-<td>Impact Icon</td>
-<td>Place one marker on the Impact Board</td>
-</tr>
-<tr>
-<td>Disc Icon</td>
-<td>Gain one disc from your supply to your Staging Area</td>
-</tr>
-<tr>
-<td>Promotion Icon</td>
-<td>Promote a Specialist</td>
-</tr>
-<tr>
-<td>Sonar Icon</td>
-<td>Perform a Sonar action</td>
-</tr>
-<tr>
-<td>Sonar Zone Icon</td>
-<td>Perform a Sonar action in this zone</td>
-</tr>
-<tr>
-<td>Discard Disc Icon</td>
-<td>Discard a disc from your Staging Area to your supply</td>
-</tr>
-<tr>
-<td>Spend Research Icon</td>
-<td>Spend 2 Research</td>
-</tr>
-</tbody>
-</table></div>
-<span class="subsection-title">Track Limits &amp; Resource Caps</span>
-<p>Your <strong>Research Track</strong> can store a maximum of twelve <strong>Research</strong>. Any <strong>Research</strong> gained beyond twelve from any source is lost. At the end of your turn, you may store a maximum of one <strong>Dive Token</strong> in the designated spot on your <strong>Player Mat</strong>. You must spend excess tokens before ending your turn. <strong>Discs</strong> in your supply are not available to you; they must enter play before you can use them. Keep your supply pile notably distant from your <strong>Staging Area</strong>.</p>
-<span class="label-title">Dive Token Spending Rules</span>
-<div class="table-wrap"><table>
-<thead>
-<tr>
-<th>Rule</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Spending</td>
-<td>During your turn, you may spend any number of Dive tokens into a discard pile. When you spend a token, you either gain its Research value or take advantage of its effect.</td>
-</tr>
-<tr>
-<td>Timing</td>
-<td>Spending Dive tokens is in addition to activating your Specialist as normal. You may spend tokens before and/or after activating your Specialist, or even between its actions if it is a multiple-action Specialist. You may spend tokens on the same turn you get them.</td>
-</tr>
-<tr>
-<td>Substitution</td>
-<td>You may spend a Dive token in place of activating a Specialist.</td>
-</tr>
-<tr>
-<td>Supply Management</td>
-<td>If the token supply ever runs out when placing tokens at a site, shuffle the discard pile into a new supply. If both the supply and discard run out, place as many as you can.</td>
-</tr>
-</tbody>
-</table></div>
-<span class="subsection-title">Impact Board Placement Rules</span>
-<p>The <strong>Impact Board</strong> on each <strong>Scenario Sheet</strong> represents the positive impact your efforts are making. When you gain <strong>Impact</strong> during the game by any means, place a marker from your supply in an empty hex, and gain any reward printed there. You may only place in a hex with an entry arrow pointing to it, or in a hex that touches any other occupied hex. Occupying hexes of certain colors, indicated in the scoring legend, will score points at the end of the game. A hex with a ∞ symbol in it can hold any number of markers; stack them or place them in the attached larger area if you need room. Once the ∞ hex is filled, any number of markers can go in the attached area and earn the same score as the ∞ hex. If you run out of markers, use markers of an unused player color or some other substitute. Many <strong>Scenarios</strong> introduce unique rules for interacting with the <strong>Impact Board</strong>. Always consider the rulebook's rules to be in effect, except in the ways that the <strong>Scenario</strong> specifically deviates.</p>
+<span class="subsection-title">Gaining and Placing Impact</span>
+<p>The Impact Board on each Scenario sheet represents the positive impact that your efforts in the ocean are making on the world in general.</p>
+<p>Impact boards in earlier Missions are fairly simple, but as you proceed through scenarios you will discover the wide variety of effects and opportunities that this aspect of the game introduces.</p>
+<p>The board is a grid of hexes displaying various rewards and other benefits. When you gain Impact <img alt="Impact" class="rule-icon" src="icons/page-001_icon_5_impact.png"/> during the game by any means, place a marker from your supply in an empty hex, and gain any reward printed there.</p>
+<p>You may only place in a hex with an entry arrow pointing to it, or in a hex that touches any other occupied hex.</p>
+<ul>
+<li>Occupying hexes of certain colors (indicated in the scoring legend) will score points at the end of the game.</li>
+<li>A hex with a [infinity] symbol in it can hold any number of markers (stack them or place them in the attached larger area if you need room).</li>
+<li>If you run out of markers, use markers of an unused player color or some other substitute.</li>
+</ul>
+<p>Once the [infinity] hex is filled, any number of markers can go in the attached area and earn the same score as the [infinity] hex. Remember that markers in certain hexes will score points at the end of the game!</p>
+<span class="subsection-title">Scenario-Specific Rules</span>
+<p>Many Scenarios introduce unique rules for interacting with the Impact board. Always consider the rulebook’s rules to be in effect, except in the ways that the Scenario specifically deviates.</p>
   </div>
 </details>
 <details class="section">
-  <summary><span>End Game & Scoring</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <summary><span>End of Game & Scoring</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
   <div class="section-body">
-<span class="subsection-title">Scoring Sequence</span>
+<span class="subsection-title">End of the Round</span>
+<p>Once all players have passed, the round ends.</p>
+<p>If that was the sixth round, the game ends immediately; proceed to final scoring. You can tell if that was the sixth round, because each player will have seven Specialists in their tableau (including their Team Leader).</p>
+<p>If the game hasn’t ended, the Wave is passed clockwise to establish a new start player, and a new round begins.</p>
+<span class="subsection-title">Final Scoring (Competitive)</span>
 <p>Tally your scores in the following order. Use the provided Score pad to keep track.</p>
-<ol>
-<li>
-<p><strong>Attribute Tracks:</strong> Scoring brackets run across the top of your <strong>Player Mat</strong> and apply to all four tracks. Each track marker scores the value of the scoring bracket it has reached.</p>
-</li>
-<li>
-<p><strong>Impact Board:</strong> Earn points for your markers in scoring hexes, as indicated by the Scoring Legend.</p>
-</li>
-<li>
-<p><strong>Journals &amp; Tier-5 Senior Specialists:</strong> Some <strong>Journals</strong> display scoring values. Each Tier-5 Senior <strong>Specialist</strong> describes unique scoring for satisfying its criteria; ignore remainders when calculating score values.</p>
-</li>
-<li>
-<p><strong>Mission Goals:</strong> Each Mission has several goals, and each goal describes how it awards points. Many goals offer leader bonuses for having the most of something. Award those bonuses as described. If more than one player ties for 1st place, they all earn the 1st-place bonus and no 2nd place is awarded. If a single player earns 1st and there is a tie for 2nd place, all tied players earn the 2nd-place bonus. If you do not satisfy a goal's criteria at all, you do not qualify for its leader bonus.</p>
-</li>
-<li>
-<p><strong>Leftover Research &amp; Discs:</strong> Add together your leftover <strong>Research</strong> (including <strong>Research</strong> on a leftover <strong>Dive Token</strong> if you have one) and <strong>Discs</strong> in your <strong>Staging Area</strong>. Divide the total by three, and earn that many points; ignore remainders.</p>
-</li>
-</ol>
-<span class="subsection-title">Tie-Breaker &amp; Victory</span>
-<p>The player with the highest final score wins. In the event of a tie, the tied players share the victory.</p>
+<span class="label-title">1. Attribute Tracks</span>
+<p>Scoring brackets run across the top of your player mat and apply to all four tracks. Each track marker scores the value of the scoring bracket it has reached.</p>
+<span class="label-title">2. Impact Board</span>
+<p>Earn points for your markers in scoring hexes, as indicated by the Scoring Legend.</p>
+<span class="label-title">3. Journals &amp; Tier-5 Senior Specialists</span>
+<p>Some Journals display scoring values. Each tier-5 Senior Specialist describes unique scoring for satisfying its criteria; ignore remainders when calculating score values.</p>
+<span class="label-title">4. Mission Goals</span>
+<p>Each Mission has several goals, and each goal describes how it awards points.</p>
+<p>Many goals offer leader bonuses for having the most of something. Award those bonuses as described.</p>
+<ul>
+<li>If more than one player ties for 1st place, they all earn the 1st-place bonus and no 2nd place is awarded. If a single player earns 1st and there is a tie for 2nd place, all tied players earn the 2nd-place bonus.</li>
+<li>If you do not satisfy a goal's criteria at all, you do not qualify for its leader bonus. For example, with a goal that awards Vessels in depth-5, if you have zero Vessels at that depth you cannot score a "most" bonus.</li>
+</ul>
+<span class="label-title">5. Leftover Research &amp; Discs</span>
+<p>Add together your leftover Research (Research on a leftover Dive token if you have one does count) and discs in your Staging Area. Divide the total by three, and earn that many points (ignore remainders).</p>
+<p>The player with the highest final score wins! In the event of a tie, the tied players share the victory.</p>
   </div>
 </details>
 <details class="section">
-  <summary><span>Variant: Cooperative & Solo Mode</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
+  <summary><span>Solo and Cooperative Modes</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></summary>
   <div class="section-body">
-<p>Every <strong>Scenario</strong> can be played in Cooperative mode, where players work together rather than competing. Solo mode has no special rules and is effectively one-player Cooperative mode. The only difference is that in Solo mode you play seven rounds instead of six.</p>
-<span class="subsection-title">Co-op Setup &amp; Card Stack</span>
-<p>Shuffle the Setback cards, and make a stack of three random Setbacks face down (four if playing solo). Then shuffle the Bonus Goal cards, and stack three of those face down on top of the Setbacks. Return the unused Bonus Goals and Setbacks to the box without looking at them. It is recommended to keep the Bonus/Setback stack under the <strong>Wave</strong> marker so that when the <strong>Wave</strong> is passed to begin a round, you are reminded to flip a card.</p>
-<span class="subsection-title">Goal Tracking &amp; Difficulty</span>
-<p>At the start of each round of play, including the first, draw the top card from the stack. In rounds 1-3, this will reveal a Bonus Goal to strive for; place it face up near the <strong>Scenario Sheet</strong>. In the remaining rounds, this will introduce a disruptive Setback that takes effect immediately; follow its instructions, then discard it. There will be seven potential goals in your game: the <strong>Scenario</strong> determines four of them, plus three random Bonus goals. Many Cooperative Goals require you to reach a minimum amount of a particular criteria, determined by your player count. This does not mean that each player must individually meet that goal; the team's combined success as a whole must reach or exceed it. The <strong>Impact Board</strong> has a Cooperative Goal sign that describes how many points your team must earn from the <strong>Impact Board</strong>, <strong>Journals</strong>, and <strong>Specialists</strong> combined. All three Mission Goals have a Cooperative banner describing the threshold your team must meet regarding that particular Mission goal. Each Bonus Goal card describes the threshold your team must meet regarding its topic.</p>
-<span class="subsection-title">Win Conditions</span>
-<p>Play the game following all of the normal rules of play. Instead of competing, you will be attempting as a group to meet certain thresholds for a set of goals. At the end of the sixth round, or seventh in Solo mode, assess your Goals to see how many you achieved. If you achieved a number of Goals equal to or greater than your chosen difficulty level, your team is victorious.</p>
-<div class="table-wrap"><table>
-<thead>
-<tr>
-<th>Difficulty</th>
-<th>Goals to Achieve</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Beginner</td>
-<td>Any four goals</td>
-</tr>
-<tr>
-<td>Intermediate</td>
-<td>Any five goals</td>
-</tr>
-<tr>
-<td>Expert</td>
-<td>Any six goals</td>
-</tr>
-<tr>
-<td>Legendary</td>
-<td>All seven goals</td>
-</tr>
-</tbody>
-</table></div>
+<span class="subsection-title">Overview &amp; Difficulty</span>
+<p>Every Scenario can be played in Cooperative (Co-op) mode, where players are working together rather than competing. Solo mode has no special rules and is effectively one-player Co-op. The only difference is that in Solo mode you play seven rounds instead of six.</p>
+<p>There will be seven potential goals that your group can achieve (the Scenario determines four of them, plus three random Bonus goals). </p>
+<span class="subsection-title">Bonus Goals &amp; Setbacks</span>
+<p>At the start of each round of play (including the first), draw the top card from the stack. In rounds 1-3, this will reveal a Bonus Goal to strive for (place it face up near the Scenario sheet). In the remaining rounds, this will introduce a disruptive Setback that takes effect immediately (follow its instructions, then discard it).</p>
+<span class="subsection-title">How to Win</span>
+<p>Play the game following all of the normal rules of play. Instead of competing, you will be attempting (as a group) to meet certain thresholds for a set of goals. There will (eventually) be seven goals in your game:</p>
+<p>Many Co-op Goals require you to reach a minimum amount of a particular criteria, determined by your player count; this does not mean that each player must individually meet that goal; the team’s combined success as a whole must reach or exceed it.</p>
+<p>At the end of the sixth round (seventh in Solo), assess your Goals to see how many you achieved. If you achieved a number of Goals equal to or greater than your chosen difficulty level, your team is victorious!</p>
+<span class="label-title">A. The Impact Board Goal</span>
+<p>The Impact board has a Co-op Goal sign that describes how many points your team must earn (from the Impact board, Journals, and Specialists combined). For example in a 3-player game of this scenario, you must collectively earn 45 points or more from those sources.</p>
+<span class="label-title">B. Mission Goals</span>
+<p>Leader bonuses on Goals are not part of Co-op play; ignore them.</p>
+<p>All three Mission Goals have a Co-op banner at the bottom describing the threshold your team must meet regarding that particular Mission goal. For example in a 3-player game, this goal says that you must collectively have at least 11 Journal discs in the ocean.</p>
+<span class="label-title">C. Bonus Goals</span>
+<p>Each Bonus Goal card describes the threshold your team must meet regarding its topic. For example in a 3-player game, this card says that you must collectively have at least 13 Junior Specialists.</p>
   </div>
 </details>
   <p id="no-results">No sections match your search.</p>
@@ -702,8 +803,6 @@ details.section.search-hidden { display: none; }
   var allMarks = [];
   var currentMark = -1;
 
-  // Snapshot each section body's original HTML so we can restore it
-  // before applying a new round of highlights.
   sections.forEach(function (s) {
     var body = s.querySelector('.section-body');
     if (body) body.dataset.original = body.innerHTML;
@@ -777,7 +876,6 @@ details.section.search-hidden { display: none; }
       var body    = section.querySelector('.section-body');
       var summary = section.querySelector('summary');
 
-      // Restore original HTML before each search pass
       if (body) body.innerHTML = body.dataset.original;
 
       if (!re) {
